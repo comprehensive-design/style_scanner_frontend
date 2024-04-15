@@ -1,0 +1,50 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+
+body {
+    font-family: 'Pretendard';
+    background-color: white;
+}
+
+header {
+    width: 100%;
+    height: 150px;
+    background-color: gray;
+}
+
+.sideBar {
+
+    width: 330px;
+    height: 100%;
+    position: absolute;
+    background-color: gray;
+}
+
+.content {
+    left: 330px;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: white;
+}
+
+.profileBox{
+    width: 80%;
+    height: 20%;
+    background-color: red;
+    margin-bottom: 60px;
+}
+
+.followingBox{
+    width: 80%;
+    height: 20%;
+    background-color: red;
+    margin-bottom: 60px;
+}
+
+.likeBox{
+    width: 80%;
+    height: 30%;
+    background-color: red;
+    margin-bottom: 60px;
+}
