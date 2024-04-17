@@ -1,34 +1,26 @@
-import Box from '@mui/material/Box'
-import Button from '@material-ui/core/Button'
-import {Toolbar, IconButton} from '@mui/material'
-import { Search } from '@mui/icons-material'
 import React, {Component} from 'react';
-import TextField from "@mui/material/TextField"
+import './SearchBar.css';
 
 
 
-class SearchBar extends Component{
-    render(){
-        return(
-            <Box
-                component = "form"
-                sx ={{
-                    '& .MuiTextField-root': { m: 1, width: '40ch' },
-                }}
-                noValidate
-                autoComplete = "off"
-            >
-                <div>
-                    <TextField
-                        id="standard-search"
-                        type="search"
-                        variant = "standard"
-                    />
-                </div>
+function SearchBar({onChange}){
+    const search = {
+        width : 600
+    };
 
-            </Box>
+          return(
+            <form className="search">
+                <input
+                type = "search"
+                placeholder='  @ 셀럽을 검색해보세요'
+                className = "search_bar"
+                name = "searchText"
+                onChange={onChange}
+            />
+            </form>
         )
-    }
+    
 }
+
 
 export default SearchBar;

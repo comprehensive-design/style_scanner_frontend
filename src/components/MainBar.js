@@ -1,36 +1,63 @@
 // import * as React from 'react'
 import React, {Component} from 'react';
-import {NavLink} from "react-router-dom";
+import { Link, NavLink} from "react-router-dom";
 import SearchBar from './SearchBar'
+// import styles from './MainBar.css'
+import './MainBar.css';
 
 
-class MainBar extends Component{
-    render(){
-        return(
-            <div classname = "Mainbar">
-                <div classname = "Mainbar-column">
-                    {/* <NavLink to={}>
+function MainBar(){
+    const activeStyle = {
+        color : 'black'
+    };
 
-                    </NavLink> */}
-                    {/* 누르면 홈 이동 */}
-                    <img
+    return(
+        <header className = "header">
+            <div style={{display:'flex'}} >
+                <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = '' >
+                <img
+                    
                     src={`img/logo.png`}
                     width = '130'
                     height = '48.75'
                     alt = "Logo"
-                
-                    /> 
-                </div>
-                <div className="status-bar__column"> <SearchBar></SearchBar></div>
+                    />
+                </NavLink>
+                <SearchBar></SearchBar>
 
-                <div className="status-bar__column"></div>
-                <div className="status-bar__column"></div>
-                <div className="status-bar__column"></div>
+                <nav className="navigation" style={{display:'flex'}}>
+                    <p>
+                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
+                        홈
+                        </NavLink >
+                    </p>
+                    <p>
+                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
+                        랭킹
+                        </NavLink >
+                    </p>
+                    <p>
+                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
+                        추천
+                        </NavLink >
+                    </p>
+                    <p>
+                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
+                        커뮤니티
+                        </NavLink >
+                    </p>
+                    <p>
+                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
+                        마이페이지
+                        </NavLink >
+                    </p>
+                </nav>
 
             </div>
-        )
-    }
+        </header>
+    );
 }
+
 
 
 export default MainBar;
