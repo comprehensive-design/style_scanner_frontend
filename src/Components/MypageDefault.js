@@ -16,12 +16,12 @@ export default function MypageDefault() {
                 <div className='content'>
                     <div className='profileBox'>
                         <img className='profileImg' src="http://via.placeholder.com/100X100"></img>
-                        <div className='left'>
+                        <div>
                             <p id='userName'>username</p>
-                            <small id='userId'>userid</small>
+                            <small id='userId'>@userid</small>
                         </div>
-                        <div className='right' id='followNum'>
-                            <p>followNum</p>
+                        <div>
+                            <p id='followNum'>256</p>
                             <small>팔로잉</small>
                         </div>
                     </div>
@@ -31,56 +31,59 @@ export default function MypageDefault() {
                         <p>더보기</p>
                     </div>
 
-                    <div className='followingBox'>
-                        <div className='box'>
-                            <img className='followingImg' src="http://via.placeholder.com/100X100"></img>
-                            <p className='folowingID'>@celebID</p>
+                    <div className='following'>
+                        <div>
+                            <img id='celebImg1' src="http://via.placeholder.com/100X100"></img>
+                            <p id='celebID1'>@celebID</p>
                         </div>
-                        <div className='box'>
-                            <img className='followingImg' src="http://via.placeholder.com/100X100"></img>
-                            <p className='folowingID'>@celebID</p>
+                        <div>
+                            <img id='celebImg2' src="http://via.placeholder.com/100X100"></img>
+                            <p id='celebID2'>@celebID</p>
                         </div>
-                        <div className='box'>
-                            <img className='followingImg' src="http://via.placeholder.com/100X100"></img>
-                            <p className='folowingID'>@celebID</p>
+                        <div>
+                            <img id='celebImg3' src="http://via.placeholder.com/100X100"></img>
+                            <p id='celebID3'>@celebID</p>
                         </div>
-                        <div className='box'>
-                            <img className='followingImg' src="http://via.placeholder.com/100X100"></img>
-                            <p className='folowingID'>@celebID</p>
+                        <div>
+                            <img id='celebImg4' src="http://via.placeholder.com/100X100"></img>
+                            <p id='celebID4'>@celebID</p>
                         </div>
                     </div>
+
 
                     <div className='textBox'>
                         <p>좋아요</p>
                         <p>더보기</p>
                     </div>
 
-                    <div className='likeBox'>
-                        <div className='boxes'>
-                            <img className='boxComponent' id='itemImg' src="http://via.placeholder.com/100X100"></img>
 
-                            <p className='boxComponent' id='brandName'>브랜드이름</p>
-                            <div className='itemBox'>
+                    <div className='like'>
+                        <div>
+                            <img className='likeComponent' id='itemImg' src="http://via.placeholder.com/100X100"></img>
+
+                            <p className='likeComponent' id='brandName'>브랜드이름</p>
+                            <div className='item'>
                                 <p id='itemName'>아이템이름</p> -
                                 <p id='itemOption'>옵션명</p>
                             </div>
-                            <p className='boxComponent' id='price'>가격</p>
+                            <p className='likeComponent' id='itemPrice'>가격</p>
                             <div className='heartBox'>
-                                <img id='heartImg' src="img/fullHeart.png"></img>
+                                <img src="img/fullHeart.png"></img>
                                 <p id='likeCount'>좋아요수</p>
                             </div>
                         </div>
-                        <div className='boxes'>
-                            <img className='boxComponent' id='itemImg' src="http://via.placeholder.com/100X100"></img>
 
-                            <p className='boxComponent' id='brandName'>브랜드이름</p>
-                            <div className='itemBox'>
+                        <div>
+                            <img className='likeComponent' id='itemImg' src="http://via.placeholder.com/100X100"></img>
+
+                            <p className='likeComponent' id='brandName'>브랜드이름</p>
+                            <div className='item'>
                                 <p id='itemName'>아이템이름</p> -
                                 <p id='itemOption'>옵션명</p>
                             </div>
-                            <p className='boxComponent' id='price'>가격</p>
+                            <p className='likeComponent' id='itemPrice'>가격</p>
                             <div className='heartBox'>
-                                <img id='heartImg' src="img/fullHeart.png"></img>
+                                <img src="img/fullHeart.png"></img>
                                 <p id='likeCount'>좋아요수</p>
                             </div>
                         </div>

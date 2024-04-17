@@ -27,7 +27,7 @@ header {
 
 .sideBar {
     position: relative;
-    width: 270px;
+    width: 20%;
     background-color: red;
 }
 
@@ -51,8 +51,11 @@ header {
     margin: 0 30px 50px 0;
     font-size: 14px;
 }
+.profileBox p{
+    font-weight: bold;
+}
 
-.profileImg {
+.profileBox img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -61,14 +64,18 @@ header {
     top: 25px;
 }
 
-.left {
+.profileBox div:nth-child(1){
+    background-color: red;
+    color: red;
+}
+.profileBox div:nth-child(2){
     text-align: left;
     position: absolute;
     left: 225px;
     top: 55px;
 }
 
-.right {
+.profileBox div:nth-child(3) {
     position: absolute;
     right: 100px;
     top: 55px;
@@ -92,32 +99,33 @@ header {
     font-size: 14px;
 }
 
-.followingBox{
+.following{
     display: flex;
     margin-left: 50px;
     margin-bottom: 50px;
 }
 
-.box{
+.following div{
     width: 160px;
     border-radius: 10px;
     border: 1px solid gray;
     padding: 20px 10px;
     margin: 0px 20px;
     box-sizing: border-box;
+    font-size: 14px;
 }
 
-.followingImg{
+.following div img{
     border-radius: 50%;
     margin-bottom: 20px;
 }
 
-.likeBox{
+.like{
     display: flex;
     margin-right: 30px;
 }
 
-.boxes {
+.like > div {
     width: 50%;
     height: 140px;
     margin-bottom: 60px;
@@ -126,15 +134,15 @@ header {
     border-radius: 5px;
 } 
 
-.boxes:nth-child(1){
+.like > div:nth-child(1){
     margin-right: 30px;
 }
-.boxComponent{
+.likeComponent{
     display: inline;
     position: absolute;
 }
 
-#itemImg{
+.like > div > img{
     left: 20px;
     top:20px;
 }
@@ -144,7 +152,7 @@ header {
     font-weight: bold;
     font-size: 14px;
 }
-.itemBox{
+.item{
     position: absolute;
     left:140px;
     top: 40px;
@@ -158,7 +166,7 @@ header {
 #itemOption{
     margin-left: 5px;
 }
-#price{
+#itemPrice{
     left:140px;
     top: 80px;
     color: gray;
@@ -173,7 +181,7 @@ header {
     top: 100px;
     font-size: 14px;
 }
-#heartImg{
+.heartBox img{
     width: 14px;
     height: 14px;
     margin: auto 0;
