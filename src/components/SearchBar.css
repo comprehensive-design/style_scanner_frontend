@@ -2,7 +2,10 @@
     /* margin: 2%; */
     display: flex;
     position: relative;
-    width: 60%;
+    width: 50%;
+    margin : 0 auto;
+    justify-content: center;
+    align-items: center;
 }
 
 .search_bar {
@@ -14,4 +17,7 @@
     font-size: 1.1rem;
     padding: 5px;
     background : #e9ecef;
+    display : flex;
+    justify-content: center;
+    align-items: center;
 }

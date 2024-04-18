@@ -1,8 +1,6 @@
-// import * as React from 'react'
 import React, {Component} from 'react';
 import { Link, NavLink} from "react-router-dom";
 import SearchBar from './SearchBar'
-// import styles from './MainBar.css'
 import './MainBar.css';
 
 
@@ -13,7 +11,7 @@ function MainBar(){
 
     return(
         <header className = "header">
-            <div style={{display:'flex'}} >
+            <div style={{display:'flex'}} className ="parent">
                 <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = '' >
                 <img
                     
@@ -25,7 +23,7 @@ function MainBar(){
                 </NavLink>
                 <SearchBar></SearchBar>
 
-                <nav className="navigation" style={{display:'flex'}}>
+                <nav className="navigation">
                     <p>
                         <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
                         홈
