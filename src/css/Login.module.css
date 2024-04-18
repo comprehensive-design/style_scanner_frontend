@@ -43,7 +43,9 @@ form {
     border-left: none;
     border-right: none;
     border-bottom: 1px solid gray;
+    margin-Bottom: '30px'
 }
+
 
 #submitBox {
     width: 100%;
