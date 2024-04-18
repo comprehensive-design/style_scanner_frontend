@@ -13,15 +13,23 @@ export default function MypageDefault() {
 
                 <div className={styles.sideBar}>사이드바입니다</div>
 
-                <div className={styles.content}>
-                    <h3>프로필관리</h3>
+                <div className={styles.title}>
+                    <h3>계정 관리</h3>
                     <hr></hr>
+                </div>
+
+                <div className={styles.content}>
                     <div className={styles.profileBox}>
-                        <img src="http://via.placeholder.com/100X100"></img>
-                        <p>userName</p>
-                        <img src="/img/fix.png"></img>
-                        <p>어쩌고저쩌고요를레히호어쩌고저쩌고</p>
-                        <img src="/img/fix.png"></img>
+                        <img src="http://via.placeholder.com/100X100" id={styles.profileImg}></img>
+                        <div>
+                            <div>
+                                <p>userName</p>
+                                <img src="/img/fix.png"></img></div>
+                            <div>
+                                <p>어쩌고저쩌고요를레히호어쩌고저쩌고</p>
+                                <img src="/img/fix.png"></img>
+                            </div>
+                        </div>
                     </div>
                     <hr></hr>
                     <div className={styles.managingBox}>

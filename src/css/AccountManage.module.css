@@ -31,16 +31,66 @@ header {
     background-color: red;
 }
 
+.title {
+    text-align: left;
+    margin-left: 270px;
+    padding-left: 100px;
+    margin-top: 50px;
+}
+
+.title>hr {
+    height: 2px;
+    width: 100%;
+    border: none;
+    background-color: black;
+}
+
 .content {
     width: calc(100% - 400px);
     margin-top: 50px;
     position: absolute;
     left: 270px;
-    top: 0;
-    background-color: red;
+    top: 50px;
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
-    /* background-color: blue; */
 }
 
+.profileBox {
+    display: flex;
+    padding: 50px;
+}
+
+#profileImg {
+    border-radius: 50%;
+    margin-right: 50px;
+}
+
+.profileBox div {
+    position: relative;
+    width: 100%;
+}
+
+.profileBox div div{
+    display: flex;
+}
+
+.profileBox div div:nth-child(1) {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    font-size: 16px;
+}
+
+.profileBox div div:nth-child(2) {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    font-size: 14px;
+}
+
+.profileBox div div img{
+    width: 10px;
+    height: 10px;
+    margin: auto 0 auto 5px;
+}

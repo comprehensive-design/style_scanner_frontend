@@ -1,28 +1,37 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
-    text-align: center;
 }
 
-.menubar {
+header {
+    min-width: 1000px;
     height: 100px;
+    position: relative;
     background-color: gray;
+    padding-bottom: 7px;
 }
 
-.LoginPage {
+
+.content {
     margin: 0 auto;
     margin-top: 100px;
     width: 30%;
 }
 
-#title {
+.content > h1 {
     font-size: 32px;
     margin-bottom: 10px;
 }
 
-#subTitle {
+.content > p {
     color: gray;
     font-size: 13px;
     margin-bottom: 60px;
@@ -35,7 +44,7 @@ form {
     font-size: 16px;
 }
 
-.inputBox {
+form > input{
     width: 100%;
     margin-top: 10px;
     font-size: 16px;
@@ -43,11 +52,11 @@ form {
     border-left: none;
     border-right: none;
     border-bottom: 1px solid gray;
-    margin-Bottom: '30px'
+    margin-bottom: 50px;
 }
 
 
-#submitBox {
+.submitButton {
     width: 100%;
     height: 55px;
     border: 1px;
@@ -55,23 +64,20 @@ form {
     font-size: 16px;
     background-color: #d9d9d9;
     color: white;
+    margin-bottom: 10px;
 }
 
-table {
-    margin: 0 auto;
-    width: 70%;
+.submitButton:hover{
+    background-color: black;
 }
 
-#etcBox {
-    margin-top: 10px;
-    font-size: 13px;
-}
 
 a {
     text-decoration-line: none;
     color: gray;
+    margin-right: 10px;
 }
 
-a:hover {
+ a:hover {
     color: black;
 }
