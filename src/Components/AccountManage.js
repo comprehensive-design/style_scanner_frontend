@@ -33,27 +33,27 @@ export default function MypageDefault() {
                     </div>
                     <hr></hr>
                     <div className={styles.managingBox}>
-                        <div>
+                        <div className={styles.emailBox}>
                             <p>이메일 주소</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.email}>user@gmail.com</p></div>
                             <hr></hr>
                         </div>
-                        <div >
+                        <div className={styles.birthBox}>
                             <p>생년월일</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.birth}>2000/01/01</p>
                                 <img id={styles.changeBirth} src="/img/fix.png"></img></div>
                             <hr></hr>
                         </div>
-                        <div >
+                        <div className={styles.pwdBox}>
                             <p>비밀번호</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.password}>*****</p>
                                 <img id={styles.changePassword} src="/img/fix.png"></img></div>
                             <hr></hr>
                         </div>
-                        <div >
+                        <div className={styles.genderBox}>
                             <p>성별</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.gender}>여성</p>

@@ -94,6 +94,61 @@ header {
     height: 10px;
     margin: auto 0 auto 5px;
 }
+.managingBox{
+    position: relative;
+    height: 250px;
+    margin-top: 30px;
+}
+.emailBox{
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 45%;
+    height: 30%;
+}
+
+.birthBox{
+    left: 55%;
+    top: 0;
+    position: absolute;
+    width: 45%;
+    height: 30%;
+}
+
+.pwdBox{
+    height: 30%;
+    width: 45%;
+    position: absolute;
+    left: 0;
+    top: 45%;
+    
+}
+.genderBox{
+    height: 30%;
+    width: 45%;
+    position: absolute;
+    left: 55%;
+    top: 45%;
+    
+}
+
+.managingBox > div > p{
+    font-size: 16px;
+}
+
+.changeBox{
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+
+.managingBox img{
+    position: absolute;
+    right: 0;
+}
 
 
 .buttonBox{
