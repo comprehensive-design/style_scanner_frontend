@@ -33,31 +33,42 @@ export default function MypageDefault() {
                     </div>
                     <hr></hr>
                     <div className={styles.managingBox}>
-                        <p>이메일 주소</p>
-                        <p>user@gmail.com</p>
-                        <hr></hr>
+                        <div>
+                            <p>이메일 주소</p>
+                            <div className={styles.changeBox}>
+                                <p id={styles.email}>user@gmail.com</p></div>
+                            <hr></hr>
+                        </div>
+                        <div >
+                            <p>생년월일</p>
+                            <div className={styles.changeBox}>
+                                <p id={styles.birth}>2000/01/01</p>
+                                <img id={styles.changeBirth} src="/img/fix.png"></img></div>
+                            <hr></hr>
+                        </div>
+                        <div >
+                            <p>비밀번호</p>
+                            <div className={styles.changeBox}>
+                                <p id={styles.password}>*****</p>
+                                <img id={styles.changePassword} src="/img/fix.png"></img></div>
+                            <hr></hr>
+                        </div>
+                        <div >
+                            <p>성별</p>
+                            <div className={styles.changeBox}>
+                                <p id={styles.gender}>여성</p>
+                                <img id={styles.changeGender} src="/img/fix.png"></img>
+                            </div>
+                            <hr></hr>
+                        </div>
                     </div>
-                    <div className={styles.managingBox}>
-                        <p>생년월일</p>
-                        <p>user@gmail.com</p>
-                        <img src="/img/fix.png"></img>
-                        <hr></hr>
-                    </div>
-                    <div className={styles.managingBox}>
-                        <p>비밀번호</p>
-                        <p>user@gmail.com</p>
-                        <img src="/img/fix.png"></img>
-                        <hr></hr>
-                    </div>
-                    <div className={styles.managingBox}>
-                        <p>성별</p>
-                        <p>user@gmail.com</p>
-                        <img src="/img/fix.png"></img>
-                        <hr></hr>
-                    </div>
+
+
+                    <div className={styles.buttonBox}>
 
                     <button>로그아웃</button>
                     <button>회원탈퇴</button>
+                    </div>
                 </div>
 
             </div>

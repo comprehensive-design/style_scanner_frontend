@@ -94,3 +94,24 @@ header {
     height: 10px;
     margin: auto 0 auto 5px;
 }
+
+
+.buttonBox{
+    text-align: center;
+}
+button{
+    width: 50px;
+    height: 25px;
+    border: 1px;
+    border-radius: 5px;
+    font-size: 12px;
+    background-color: black;
+    color: white;
+    padding: 0 5px;
+    margin: 0 10px;
+    box-sizing: content-box;
+}
+
+button:hover{
+    background-color: gray;
+}
