@@ -61,14 +61,30 @@ header {
     padding: 50px;
 }
 
+.profileBox1{
+    background-color: red;
+    position: relative;
+    height: 100px;
+}
 #profileImg {
     border-radius: 50%;
     margin-right: 50px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+}
+#changeImg {
+    position: absolute;
+    left: 90px;
+    top: 80px;
 }
 
-.profileBox div {
+.profileBox2{
     position: relative;
     width: 100%;
+    left: 150px;
 }
 
 .profileBox div div{
