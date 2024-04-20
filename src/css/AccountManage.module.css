@@ -87,29 +87,30 @@ header {
     left: 150px;
 }
 
-.profileBox div div{
+.profileBox2 div{
     display: flex;
 }
 
-.profileBox div div:nth-child(1) {
+.profileBox2 div:nth-child(1) {
     position: absolute;
     top: 20px;
     left: 0;
     font-size: 16px;
 }
 
-.profileBox div div:nth-child(2) {
+.profileBox2 div:nth-child(2) {
     position: absolute;
     top: 50px;
     left: 0;
     font-size: 14px;
 }
 
-.profileBox div div img{
+.profileBox2 img{
     width: 10px;
     height: 10px;
     margin: auto 0 auto 5px;
 }
+
 .managingBox{
     position: relative;
     height: 250px;
@@ -179,7 +180,7 @@ button{
     background-color: black;
     color: white;
     padding: 0 5px;
-    margin: 0 10px;
+    margin: 0 30px;
     box-sizing: content-box;
 }
 

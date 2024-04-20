@@ -21,16 +21,16 @@ export default function MypageDefault() {
                 <div className={styles.content}>
                     <div className={styles.profileBox}>
                         <div className={styles.profileBox1}>
-                            <img src="http://via.placeholder.com/100X100" id={styles.profileImg}></img>
+                            <img id={styles.profileImg} src="http://via.placeholder.com/100X100" ></img>
                             <img id={styles.changeImg} src="/img/fix.png" ></img>
                         </div>
                         <div className={styles.profileBox2}>
                             <div>
                                 <p>userName</p>
-                                <img src="/img/fix.png" id={styles.changeName}></img></div>
+                                <img id={styles.changeName} src="/img/fix.png"></img></div>
                             <div>
                                 <p >어쩌고저쩌고요를레히호어쩌고저쩌고</p>
-                                <img src="/img/fix.png" id={styles.changePMsg}></img>
+                                <img id={styles.changeMsg} src="/img/fix.png"></img>
                             </div>
                         </div>
                     </div>
@@ -68,9 +68,8 @@ export default function MypageDefault() {
 
 
                     <div className={styles.buttonBox}>
-
-                        <button>로그아웃</button>
-                        <button>회원탈퇴</button>
+                        <button id={styles.logoutBtn}>로그아웃</button>
+                        <button id={styles.leaveBtn}>회원탈퇴</button>
                     </div>
                 </div>
 
