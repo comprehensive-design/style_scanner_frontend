@@ -1,0 +1,56 @@
+#like{
+    margin-left : 30px;
+    font-size : 20px;
+    font-weight : bold;
+}
+
+
+.Frame{
+    width : 68%;
+    margin-left : 25px;
+}
+
+/* .first-like{
+    background-color: lightblue;
+} */
+
+.second-like{
+    margin-left : 13px;
+}
+
+.third-like{
+    margin-left : 13px;
+}
+
+.fourth-like{
+    margin-left : 13px;
+}
+
+.fifth-like{
+    margin-left : 13px;
+}
+
+p{
+    margin:5px;
+}
+
+.brandName{
+    font-weight: bold;
+}
+
+.price{
+    font-size : 80%
+}
+
+.itemProfile{
+    /* margin-left : 30px; */
+}
+
+.heartCount{
+    font-size : 15px;
+}
+
+.link{
+    margin: 5px;
+    /* align: right; */
+}
