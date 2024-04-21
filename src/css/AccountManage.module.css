@@ -56,13 +56,18 @@ header {
     text-align: left;
 }
 
+input[type=image]{
+    width: 12px;
+    height: 12px;
+    margin: auto 0 auto 5px;
+}
+
 .profileBox {
     display: flex;
     padding: 50px;
 }
 
 .profileBox1{
-    background-color: red;
     position: relative;
     height: 100px;
 }
@@ -75,6 +80,7 @@ header {
     width: 100px;
     height: 100px;
 }
+
 #changeImg {
     position: absolute;
     left: 90px;
@@ -105,11 +111,6 @@ header {
     font-size: 14px;
 }
 
-.profileBox2 img{
-    width: 10px;
-    height: 10px;
-    margin: auto 0 auto 5px;
-}
 
 .managingBox{
     position: relative;
@@ -162,7 +163,7 @@ header {
 }
 
 
-.managingBox img{
+.managingBox input{
     position: absolute;
     right: 0;
 }

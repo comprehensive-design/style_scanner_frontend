@@ -22,15 +22,15 @@ export default function MypageDefault() {
                     <div className={styles.profileBox}>
                         <div className={styles.profileBox1}>
                             <img id={styles.profileImg} src="http://via.placeholder.com/100X100" ></img>
-                            <img id={styles.changeImg} src="/img/fix.png" ></img>
+                            <input type="image" id={styles.changeImg} src="/img/fix.png" ></input>
                         </div>
                         <div className={styles.profileBox2}>
                             <div>
                                 <p>userName</p>
-                                <img id={styles.changeName} src="/img/fix.png"></img></div>
+                                <input type="image" id={styles.changeName} src="/img/fix.png"></input></div>
                             <div>
                                 <p >어쩌고저쩌고요를레히호어쩌고저쩌고</p>
-                                <img id={styles.changeMsg} src="/img/fix.png"></img>
+                                <input type="image" id={styles.changeMsg} src="/img/fix.png"></input>
                             </div>
                         </div>
                     </div>
@@ -46,21 +46,21 @@ export default function MypageDefault() {
                             <p>생년월일</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.birth}>2000/01/01</p>
-                                <img id={styles.changeBirth} src="/img/fix.png"></img></div>
+                                <input type="image" id={styles.changeBirth} src="/img/fix.png"></input></div>
                             <hr></hr>
                         </div>
                         <div className={styles.pwdBox}>
                             <p>비밀번호</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.password}>*****</p>
-                                <img id={styles.changePassword} src="/img/fix.png"></img></div>
+                                <input type="image" id={styles.changePassword} src="/img/fix.png"></input></div>
                             <hr></hr>
                         </div>
                         <div className={styles.genderBox}>
                             <p>성별</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.gender}>여성</p>
-                                <img id={styles.changeGender} src="/img/fix.png"></img>
+                                <input type="image" id={styles.changeGender} src="/img/fix.png"></input>
                             </div>
                             <hr></hr>
                         </div>
