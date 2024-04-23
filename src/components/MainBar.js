@@ -24,31 +24,37 @@ function MainBar(){
                 <SearchBar></SearchBar>
 
                 <nav className="navigation">
-                    <p>
+                    <ul>
+                        <li>
                         <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
                         홈
                         </NavLink >
-                    </p>
-                    <p>
+                        </li>
+
+                        <li>
                         <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
                         랭킹
                         </NavLink >
-                    </p>
-                    <p>
+                        </li>
+
+                        <li>
                         <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
                         추천
                         </NavLink >
-                    </p>
-                    <p>
+                        </li>
+
+                        <li>
                         <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
                         커뮤니티
                         </NavLink >
-                    </p>
-                    <p>
+                        </li>
+
+                        <li>
                         <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
                         마이페이지
                         </NavLink >
-                    </p>
+                        </li>
+                    </ul>
                 </nav>
 
             </div>
