@@ -1,10 +1,15 @@
 
 import styles from '../css/AccountManage.module.css';
-
+import React, { useState } from "react";
+import Popup from './Popup';
 
 export default function MypageDefault() {
+
+    const [popup, setPopup] = useState(false);
     return (
+
         <body>
+
             <header>
                 <div className={styles.menuBar}>메뉴바입니다</div>
             </header>
@@ -19,6 +24,7 @@ export default function MypageDefault() {
                 </div>
 
                 <div className={styles.content}>
+                    {popup ? <Popup onClose={setPopup} /> : null}
                     <div className={styles.profileBox}>
                         <div className={styles.profileBox1}>
                             <img id={styles.profileImg} src="http://via.placeholder.com/100X100" ></img>
@@ -27,7 +33,10 @@ export default function MypageDefault() {
                         <div className={styles.profileBox2}>
                             <div>
                                 <p>userName</p>
-                                <input type="image" id={styles.changeName} src="/img/fix.png"></input></div>
+                                <input type="image" value='false' onClick={setPopup} id={styles.changeName} src="/img/fix.png"></input>
+
+                            </div>
+
                             <div>
                                 <p >어쩌고저쩌고요를레히호어쩌고저쩌고</p>
                                 <input type="image" id={styles.changeMsg} src="/img/fix.png"></input>
