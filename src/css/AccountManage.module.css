@@ -5,10 +5,21 @@
     padding: 0;
 }
 
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+}
+
 body {
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
+    position: relative;
 }
 
 header {
@@ -54,12 +65,14 @@ header {
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
+    z-index: 10;
 }
 
-input[type=image]{
+input[type=image] {
     width: 12px;
     height: 12px;
     margin: auto 0 auto 5px;
+    z-index: 10;
 }
 
 .profileBox {
@@ -67,10 +80,11 @@ input[type=image]{
     padding: 50px;
 }
 
-.profileBox1{
+.profileBox1 {
     position: relative;
     height: 100px;
 }
+
 #profileImg {
     border-radius: 50%;
     margin-right: 50px;
@@ -87,13 +101,13 @@ input[type=image]{
     top: 80px;
 }
 
-.profileBox2{
+.profileBox2 {
     position: relative;
     width: 100%;
     left: 150px;
 }
 
-.profileBox2 div{
+.profileBox2 div {
     display: flex;
 }
 
@@ -112,12 +126,13 @@ input[type=image]{
 }
 
 
-.managingBox{
+.managingBox {
     position: relative;
     height: 250px;
     margin-top: 30px;
 }
-.emailBox{
+
+.emailBox {
     left: 0;
     top: 0;
     position: absolute;
@@ -125,7 +140,7 @@ input[type=image]{
     height: 30%;
 }
 
-.birthBox{
+.birthBox {
     left: 55%;
     top: 0;
     position: absolute;
@@ -133,28 +148,29 @@ input[type=image]{
     height: 30%;
 }
 
-.pwdBox{
+.pwdBox {
     height: 30%;
     width: 45%;
     position: absolute;
     left: 0;
     top: 45%;
-    
+
 }
-.genderBox{
+
+.genderBox {
     height: 30%;
     width: 45%;
     position: absolute;
     left: 55%;
     top: 45%;
-    
+
 }
 
-.managingBox > div > p{
+.managingBox>div>p {
     font-size: 16px;
 }
 
-.changeBox{
+.changeBox {
     display: flex;
     width: 100%;
     margin-top: 15px;
@@ -163,16 +179,17 @@ input[type=image]{
 }
 
 
-.managingBox input{
+.managingBox input {
     position: absolute;
     right: 0;
 }
 
 
-.buttonBox{
+.buttonBox {
     text-align: center;
 }
-button{
+
+button {
     width: 50px;
     height: 25px;
     border: 1px;
@@ -185,6 +202,6 @@ button{
     box-sizing: content-box;
 }
 
-button:hover{
+button:hover {
     background-color: gray;
 }

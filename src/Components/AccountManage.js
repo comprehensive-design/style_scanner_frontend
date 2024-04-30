@@ -1,15 +1,38 @@
-
 import styles from '../css/AccountManage.module.css';
 import React, { useState } from "react";
 import Popup from './Popup';
 
 export default function MypageDefault() {
 
-    const [popup, setPopup] = useState(false);
+    const [showImagePopup, setShowImagePopup] = useState(false);
+    const [showNamePopup, setShowNamePopup] = useState(false);
+    const [showMsgPopup, setShowMsgPopup] = useState(false);
+    const [showBirthPopup, setShowBirthPopup] = useState(false);
+    const [showPwdPopup, setShowPwdPopup] = useState(false);
+    const [showGenderPopup, setShowGenderPopup] = useState(false);
+
+    const openImagePopup = () => {
+        setShowImagePopup(true);
+    };
+
+    const openNamePopup = () => {
+        setShowNamePopup(true);
+    };
+
+    const openMsgPopup = () => {
+        setShowMsgPopup(true);
+    };
+    const openBirthPopup = () => {
+        setShowBirthPopup(true);
+    };
+    const openPwdPopup = () => {
+        setShowPwdPopup(true);
+    };
+    const openGenderPopup = () => {
+        setShowGenderPopup(true);
+    };
     return (
-
         <body>
-
             <header>
                 <div className={styles.menuBar}>메뉴바입니다</div>
             </header>
@@ -24,22 +47,21 @@ export default function MypageDefault() {
                 </div>
 
                 <div className={styles.content}>
-                    {popup ? <Popup onClose={setPopup} /> : null}
                     <div className={styles.profileBox}>
                         <div className={styles.profileBox1}>
                             <img id={styles.profileImg} src="http://via.placeholder.com/100X100" ></img>
-                            <input type="image" id={styles.changeImg} src="/img/fix.png" ></input>
+                            <input type="image" id={styles.changeImg} onClick={openImagePopup} src="/img/fix.png" ></input>
                         </div>
                         <div className={styles.profileBox2}>
                             <div>
                                 <p>userName</p>
-                                <input type="image" value='false' onClick={setPopup} id={styles.changeName} src="/img/fix.png"></input>
+                                <input type="image" value='false' id={styles.changeName} onClick={openNamePopup} src="/img/fix.png"></input>
 
                             </div>
 
                             <div>
                                 <p >어쩌고저쩌고요를레히호어쩌고저쩌고</p>
-                                <input type="image" id={styles.changeMsg} src="/img/fix.png"></input>
+                                <input type="image" id={styles.changeMsg} onClick={openMsgPopup} src="/img/fix.png"></input>
                             </div>
                         </div>
                     </div>
@@ -55,21 +77,21 @@ export default function MypageDefault() {
                             <p>생년월일</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.birth}>2000/01/01</p>
-                                <input type="image" id={styles.changeBirth} src="/img/fix.png"></input></div>
+                                <input type="image" id={styles.changeBirth} onClick={openBirthPopup} src="/img/fix.png"></input></div>
                             <hr></hr>
                         </div>
                         <div className={styles.pwdBox}>
                             <p>비밀번호</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.password}>*****</p>
-                                <input type="image" id={styles.changePassword} src="/img/fix.png"></input></div>
+                                <input type="image" id={styles.changePassword} onClick={openPwdPopup} src="/img/fix.png"></input></div>
                             <hr></hr>
                         </div>
                         <div className={styles.genderBox}>
                             <p>성별</p>
                             <div className={styles.changeBox}>
                                 <p id={styles.gender}>여성</p>
-                                <input type="image" id={styles.changeGender} src="/img/fix.png"></input>
+                                <input type="image" id={styles.changeGender} onClick={openGenderPopup} src="/img/fix.png"></input>
                             </div>
                             <hr></hr>
                         </div>
@@ -83,6 +105,46 @@ export default function MypageDefault() {
                 </div>
 
             </div>
+
+            {/* 팝업 창들 */}
+            {showImagePopup && (
+                <>
+                    <div className={styles.mask}></div> 
+                    <Popup title="이미지 수정" onClose={() => setShowImagePopup(false)} />
+                </>
+            )}
+
+            {showNamePopup && (
+                <>
+                <div className={styles.mask}></div>
+                <Popup title="이름 수정" onClose={() => setShowNamePopup(false)} />
+                </>
+            )}
+
+            {showMsgPopup && (
+                <>
+                <div className={styles.mask}></div>
+                <Popup title="소개 수정" onClose={() => setShowMsgPopup(false)} />
+                </>
+            )}
+            {showBirthPopup && (
+                <>
+                <div className={styles.mask}></div>
+                <Popup title="생년월일 수정" onClose={() => setShowBirthPopup(false)} />
+                </>
+            )}
+            {showPwdPopup && (
+                <>
+                <div className={styles.mask}></div>
+                <Popup title="비밀번호 수정" onClose={() => setShowPwdPopup(false)} />
+                </>
+            )}
+            {showGenderPopup && (
+                <>
+                <div className={styles.mask}></div>
+                <Popup title="성별 수정" onClose={() => setShowGenderPopup(false)} />
+                </>
+            )}
         </body>
     );
 }
