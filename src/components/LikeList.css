@@ -10,10 +10,6 @@
     margin-left : 25px;
 }
 
-/* .first-like{
-    background-color: lightblue;
-} */
-
 .second-like{
     margin-left : 13px;
 }
@@ -42,9 +38,6 @@ p{
     font-size : 80%
 }
 
-.itemProfile{
-    /* margin-left : 30px; */
-}
 
 .heartCount{
     font-size : 15px;

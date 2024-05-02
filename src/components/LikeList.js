@@ -11,10 +11,10 @@ function LikeList(){
                 <div class = "fist-lane" style={{display:'flex'}}>
                     <div class = "first-like">
                         <img
-                            src={`img/logo.png`}
+                            src="https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"
+                            alt="Grey Image"
                             width = '200'
                             height = '200'
-                            alt = "Logo"
                         />
 
                         <p className ="brandName">brandName</p>
@@ -44,7 +44,7 @@ function LikeList(){
 
                     <div class = "second-like">
                     <img
-                            src={`img/logo.png`}
+                            src="https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"
                             width = '200'
                             height = '200'
                             alt = "Logo"
@@ -77,7 +77,7 @@ function LikeList(){
                     </div>
                     <div class = "third-like">
                         <img
-                            src={`img/logo.png`}
+                            src="https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"
                             width = '200'
                             height = '200'
                             alt = "Logo"
@@ -109,7 +109,7 @@ function LikeList(){
                     </div>
                     <div class = "fourth-like">
                         <img
-                            src={`img/logo.png`}
+                            src="https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"
                             width = '200'
                             height = '200'
                             alt = "Logo"
@@ -141,7 +141,7 @@ function LikeList(){
                     </div>
                     <div class = "fifth-like">
                         <img
-                            src={`img/logo.png`}
+                            src="https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"
                             width = '200'
                             height = '200'
                             alt = "Logo"
@@ -172,6 +172,11 @@ function LikeList(){
 
                     </div>
                 </div>
+                <div class = "second-lane" style={{display:'flex'}}>
+                
+                
+                </div>
+
             </div>
         </div>
     );
