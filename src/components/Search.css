@@ -1,0 +1,28 @@
+#total{
+    font-size: 15dp;
+}
+
+.parent{
+    display : flex;
+}
+
+.child{
+    margin : auto auto;
+}
+
+p{
+    margin-left : 50dp;
+}
+
+.box1{
+    width : 80%;
+    border-style : solid;
+    border-color  : #e9ecef;
+    border-radius : 10px;
+}
+
+.profile{
+    border-radius : 70%;
+    padding-left : 50;
+    object-fit: cover;
+}
