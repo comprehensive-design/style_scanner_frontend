@@ -1,0 +1,27 @@
+.box{
+    height:48px; width:48px;
+    background-color: #D9D9D9;
+    border-radius: 50px;
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+    img {
+        width: 50%;
+        height:50%;
+        object-fit: cover; 
+      }
+}
+.profile{
+    display: inline-block;
+    position:relative;
+    border: 1px solid black;
+    height: 50px;
+    width:500px;
+}
+.child{
+    float: left;
+    margin: 10px;
+    text-align: center;
+    line-height:50px;
+}
