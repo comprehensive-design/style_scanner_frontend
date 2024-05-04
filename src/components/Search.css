@@ -10,9 +10,10 @@
     margin : auto auto;
 }
 
-p{
-    margin-left : 50dp;
+#profileBox{
+    width : 80%;
 }
+
 
 .box1{
     width : 80%;
@@ -21,8 +22,30 @@ p{
     border-radius : 10px;
 }
 
-.profile{
+#paddingBox{
+    color: black;
+    height : 150px;
+    width : 30px;
+}
+
+.profileId{
+    margin-left:30px;
+    margin-top:30px;
+}
+
+.profileImg{
+    margin-top:20px;
+    margin-bottom: 20px;
     border-radius : 70%;
     padding-left : 50;
     object-fit: cover;
+}
+
+#userid{
+    font-weight:bold;
+}
+
+.button{
+    width : 80px;
+    height:25px;
 }
