@@ -1,0 +1,18 @@
+.feedList{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    overflow: scroll;
+    margin:30px;
+    padding-top: 100px;
+  }
+  body > header {
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+.wrap-vertical::-webkit-scrollbar{
+    display: none; 
+}
