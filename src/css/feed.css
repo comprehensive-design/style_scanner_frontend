@@ -1,9 +1,11 @@
 .completeFeed{
     height: fit-content;
     width: fit-content;
+    /* 홈피드에서  */
     /* border:1px solid black; */
 }
-.box{
+/* 이름 수정 */
+.ImageBox{
     height:45px; width:45px;
     background-color: #D9D9D9;
     border-radius: 50px;

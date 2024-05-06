@@ -4,7 +4,7 @@ function Feed(){
     return(
         <div className="completeFeed">
             <div className="profile">
-                <div className="box">
+                <div className="ImageBox">
                     <img id='profileImage' src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
                 </div>
                 <p className="child" id='name'>hi_sseulgi</p>
