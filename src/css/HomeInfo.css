@@ -28,11 +28,22 @@
     object-fit: cover; 
 }
 .totalItem{
+    position: relative;
     display: flex;
     border: 2px solid #D9D9D9;
     height: 400px;
     width:fit-content;
     padding: 10px;
-    margin: 10px 0 0 50px;
+    margin: 35px 0 0 50px;
     border: 1px solid black;
+    z-index: 1;
+}
+.decoBox{
+    position: absolute;
+    width: 643px;
+    height: 500px;
+    border: 1px solid black;
+    margin-top:35px;
+    left: 660px;
+    z-index: 0;
 }

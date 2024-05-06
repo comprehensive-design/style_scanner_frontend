@@ -11,7 +11,7 @@ export default function HomeInfo(){
 
             <div className="contents">
                 <Feed></Feed>
-                <div className="totalItem decoBox">
+                <div className="totalItem">
                     {/* item 정보  */}
                     <div className='infoBox'>
                         <img id='item' src="http://via.placeholder.com/120X120"></img>
@@ -25,6 +25,7 @@ export default function HomeInfo(){
                         <img id="itemHeart" src={process.env.PUBLIC_URL + 'img/heart.png'}></img>
                     </div>
                 </div>
+                <div className="decoBox"></div>
                
             </div>
         </body>
