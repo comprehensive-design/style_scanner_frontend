@@ -34,3 +34,14 @@
     left: 660px;
     z-index: 0;
 }
+
+.writeButton{
+    margin-top: 465px;
+    margin-left: 600px;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+}

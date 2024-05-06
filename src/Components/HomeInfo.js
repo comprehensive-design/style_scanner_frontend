@@ -2,12 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import Feed from './feed.js';
 import ItemInfo from './ItemInfo.js';
 import '../css/HomeInfo.css';
+import { useNavigate } from "react-router-dom";
 
 export default function HomeInfo(){
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const itemListRef = useRef(); 
-   
+    const navigate = useNavigate();
+    const navigateToCommunity = () => {
+        navigate("/xxx");
+      };
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -32,6 +36,7 @@ export default function HomeInfo(){
         const newItems = [];
         for (let i = 0; i < 3; i++) {
             newItems.push({
+                //이런걸 백엔드가 하는건가..?? 어디까지 해야하지
                 id: items.length + i,
                 image: ' '
             });
@@ -40,6 +45,7 @@ export default function HomeInfo(){
         setLoading(false); 
     };
 
+   
     return(
         <body>
             <header>
@@ -48,6 +54,7 @@ export default function HomeInfo(){
 
             <div className="contents">
                 <Feed></Feed>
+                
                 <div className="totalItem" ref={itemListRef}>
                     {/* item 정보  */}
                     {items.map(feed => (
@@ -55,9 +62,14 @@ export default function HomeInfo(){
                     ))}
                     <div style={{height: '10px'}} />
                 </div>
-                <div className="decoBox"></div>
-               
+                <div className="decoBox">
+                    {/* 커뮤니티로 이동 */}
+                    <input type="button" className='writeButton' value="+" onClick={navigateToCommunity}></input>
+                </div>
+                
             </div>
+            
         </body>
+        
     )
 }

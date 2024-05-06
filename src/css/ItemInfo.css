@@ -16,5 +16,6 @@
     margin-left: 270px;
     width: 30px;
     height: 30px;
-    object-fit: cover; 
+    border: none;
+    cursor: pointer;
 }
