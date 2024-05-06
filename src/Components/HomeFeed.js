@@ -1,31 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Feed from './feed'; // Feed 컴포넌트를 import 합니다.
+import Feed from './feed'; 
 import "../css/HomeFeed.css";
 
 function FeedList() {
     const [feeds, setFeeds] = useState([]);
-    const observer = useRef();
-
+    const [loading, setLoading] = useState(false);
+    const feedListRef = useRef(); 
+   
     useEffect(() => {
-        observer.current = new IntersectionObserver(handleObserver, {
-            root: null, // viewport를 기준으로 intersection을 계산합니다.
-            rootMargin: '0px', // 뷰포트에 0px만큼만 올라와 있어도 intersection됩니다.
-            threshold: 0.1 // target 요소가 10%만큼 보여도 intersection됩니다.
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                if (loading) return;
+                
+                loadFeeds();
+            });
         });
+        observer.observe(feedListRef.current);
 
-        observer.current.observe(feedListRef.current); // feedList를 감시합니다.
-
-        loadFeeds();
-
-        // Observer를 해제합니다.
         return () => {
-            observer.current.disconnect();
+            observer.disconnect();
         };
-    }, []);
-
-    const feedListRef = useRef(); // feedList 요소를 참조하기 위한 useRef
-
+    }, [loading]); 
     const loadFeeds = () => {
+        setLoading(true); 
         const newFeeds = [];
         for (let i = 0; i < 5; i++) {
             newFeeds.push({
@@ -34,21 +34,9 @@ function FeedList() {
             });
         }
         setFeeds([...feeds, ...newFeeds]);
+        setLoading(false); 
     };
-
-    const handleObserver = (entries) => {
-        // 감시 대상 요소의 상태가 변경되었을 때 호출되는 콜백 함수입니다.
-        const target = entries[0];
-        if (target.isIntersecting) {
-            loadFeeds();
-        }
-    };
-    const handleTouchMove = (e) => {
-        const { scrollLeft, clientWidth, scrollWidth } = feedListRef.current;
-        if (scrollLeft + clientWidth >= scrollWidth) {
-            loadFeeds();
-        }
-    };
+    
     return (
         <body>
             <header>
@@ -58,7 +46,6 @@ function FeedList() {
                 {feeds.map(feed => (
                     <Feed key={feed.id} image={feed.image} />
                 ))}
-                {/* Intersection Observer의 대상이 되는 요소 */}
                 <div style={{height: '10px'}} />
             </div>
         </body>
