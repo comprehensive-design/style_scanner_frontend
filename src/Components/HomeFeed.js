@@ -38,7 +38,7 @@ function FeedList() {
     };
     
     return (
-        <body>
+        <body className='feedScroll'>
             <header>
                 <div className='menuBar'>메뉴바입니다</div>
             </header>

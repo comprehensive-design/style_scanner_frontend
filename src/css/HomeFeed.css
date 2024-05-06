@@ -13,6 +13,9 @@
     width: 100%;
     z-index: 100;
 }
-.wrap-vertical::-webkit-scrollbar{
-    display: none; 
-}
+.feedScroll{
+  -ms-overflow-style: none;
+  }
+ ::-webkit-scrollbar {
+   display: none;
+ }
