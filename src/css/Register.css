@@ -1,0 +1,84 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+body {
+    font-family: 'Pretendard';
+    background-color: #ffffff;
+    text-align: center;
+}
+.menubar{
+    height: 100px;
+    background-color: gray;
+}
+
+.RegisterPage {
+    margin: 0 auto;
+    width: 40%;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 60px;
+}
+
+form {
+    margin: 0 auto;
+    text-align: left;
+    width: 70%;
+    font-size: 16px;
+}
+
+
+.inputBox {
+    width: 100%;
+    font-size: 16px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid gray;
+    margin-top: 10px;
+}
+
+#birthBox{
+display: flex;
+width: 100%;
+}
+
+#aa{
+    width: 20%;
+}
+
+.box{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: white;
+    box-shadow: none;
+    font-size: 13px;
+    padding: 4px;
+    width: 25%;
+}
+
+#genderBox {
+    margin-top: 30px;
+    display: flex;
+    width: 100%;
+
+}
+
+#gg{
+    width: 30%;
+}
+
+.gbox{
+    margin: auto 0px;
+    margin-right: 50px;
+    font-size: 16px;
+}
+
+
+#submitBox{
+    margin-top: 60px;
+}
+
+#submitBox:hover{
+    background-color: black;
+}
