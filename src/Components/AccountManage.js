@@ -2,7 +2,7 @@ import styles from '../css/AccountManage.module.css';
 import React, { useState } from "react";
 import Popup from './Popup';
 
-export default function MypageDefault() {
+export default function AccountManage() {
 
     const [showImagePopup, setShowImagePopup] = useState(false);
     const [showNamePopup, setShowNamePopup] = useState(false);
@@ -39,6 +39,16 @@ export default function MypageDefault() {
     const openDeletePopup = () => {
         setShowDeletePopup(true);
     };
+
+    const [userID, setUserID] = useState('@ userID');
+
+    // 저장 버튼을 눌렀을 때 호출되는 함수
+    const handleSave = (newValue) => {
+        newValue=newValue;
+        setUserID(newValue); // 값을 업데이트
+        setShowNamePopup(false); // 팝업 닫기
+    };
+
     return (
         <body>
             <header>
@@ -62,7 +72,7 @@ export default function MypageDefault() {
                         </div>
                         <div className={styles.profileBox2}>
                             <div>
-                                <p>@ userName</p>
+                                <p id="userID">{userID}</p>
                                 <input type="image" id={styles.changeName} onClick={openNamePopup} src="/img/fix.png"></input>
 
                             </div>
@@ -117,17 +127,18 @@ export default function MypageDefault() {
             {/* 팝업 창들 */}
             {showImagePopup && (
                 <>
-                <div className={styles.mask}></div>
-                <Popup title="프로필 사진 변경" onClose={() => setShowImagePopup(false)} visible={false} type="file">
-                </Popup>
-            </>
+                    <div className={styles.mask}></div>
+                    <Popup title="프로필 사진 변경" onClose={() => setShowImagePopup(false)} visible={false} type="file">
+                    </Popup>
+                </>
             )}
 
             {showNamePopup && (
-                <>
-                    <div className={styles.mask}></div>
-                    <Popup title="이름 수정" onClose={() => setShowNamePopup(false)} />
-                </>
+                <Popup
+                    title="이름 수정"
+                    onClose={() => setShowNamePopup(false)}
+                    onSave={handleSave} // 저장 버튼 이벤트 처리 함수 전달
+                />
             )}
 
             {showMsgPopup && (
@@ -151,7 +162,7 @@ export default function MypageDefault() {
             {showGenderPopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="성별 수정" onClose={() => setShowGenderPopup(false)}  />
+                    <Popup title="성별 수정" onClose={() => setShowGenderPopup(false)} />
                 </>
             )}
             {ShowLogoutPopup && (
@@ -164,7 +175,12 @@ export default function MypageDefault() {
             {ShowDeletePopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="탈퇴 하시겠습니까?" onClose={() => setShowDeletePopup(false)} visible={false} rightBtn="탈퇴">
+                    <Popup
+                        title="탈퇴 하시겠습니까?"
+                        onClose={() => setShowDeletePopup(false)}
+                        visible={false}
+                        rightBtn="탈퇴"
+                    >
                     </Popup>
                 </>
             )}
