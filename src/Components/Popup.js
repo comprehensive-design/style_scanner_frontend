@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import styles from '../css/Popup.module.css';
 
-export default function Popup({ title, onClose }) {
+export default function Popup({ title, onClose, visible=true, leftBtn="취소", rightBtn="저장" }) {
     return (
         <div className={styles.popupBox} >
-            <h2>
+            <h3>
                 {title}
-            </h2>
-            <input type='text' className={styles.inputBox}></input>
+            </h3>
+            {visible && <input type='text' className={styles.inputBox} />}
             <div className={styles.buttonBox}>
-                <div className={styles.button}>
-                    저장
+                <div className={styles.button}  onClick={onClose}>
+                    {leftBtn}
                 </div>
-                <div className={styles.button} onClick={onClose}>
-                    취소
+                <div className={styles.button}>
+                    {rightBtn}
                 </div>
             </div>
         </div >

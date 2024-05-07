@@ -10,6 +10,8 @@ export default function MypageDefault() {
     const [showBirthPopup, setShowBirthPopup] = useState(false);
     const [showPwdPopup, setShowPwdPopup] = useState(false);
     const [showGenderPopup, setShowGenderPopup] = useState(false);
+    const [ShowLogoutPopup, setShowLogoutPopup] = useState(false);
+    const [ShowDeletePopup, setShowDeletePopup] = useState(false);
 
     const openImagePopup = () => {
         setShowImagePopup(true);
@@ -30,6 +32,12 @@ export default function MypageDefault() {
     };
     const openGenderPopup = () => {
         setShowGenderPopup(true);
+    };
+    const openLogoutPopup = () => {
+        setShowLogoutPopup(true);
+    };
+    const openDeletePopup = () => {
+        setShowDeletePopup(true);
     };
     return (
         <body>
@@ -54,7 +62,7 @@ export default function MypageDefault() {
                         </div>
                         <div className={styles.profileBox2}>
                             <div>
-                                <p>userName</p>
+                                <p>@ userName</p>
                                 <input type="image" value='false' id={styles.changeName} onClick={openNamePopup} src="/img/fix.png"></input>
 
                             </div>
@@ -99,8 +107,8 @@ export default function MypageDefault() {
 
 
                     <div className={styles.buttonBox}>
-                        <button id={styles.logoutBtn}>로그아웃</button>
-                        <button id={styles.leaveBtn}>회원탈퇴</button>
+                        <button id={styles.logoutBtn} onClick={openLogoutPopup} >로그아웃</button>
+                        <button id={styles.leaveBtn} onClick={openDeletePopup}>회원탈퇴</button>
                     </div>
                 </div>
 
@@ -109,40 +117,54 @@ export default function MypageDefault() {
             {/* 팝업 창들 */}
             {showImagePopup && (
                 <>
-                    <div className={styles.mask}></div> 
+                    <div className={styles.mask}></div>
                     <Popup title="이미지 수정" onClose={() => setShowImagePopup(false)} />
                 </>
             )}
 
             {showNamePopup && (
                 <>
-                <div className={styles.mask}></div>
-                <Popup title="이름 수정" onClose={() => setShowNamePopup(false)} />
+                    <div className={styles.mask}></div>
+                    <Popup title="이름 수정" onClose={() => setShowNamePopup(false)} />
                 </>
             )}
 
             {showMsgPopup && (
                 <>
-                <div className={styles.mask}></div>
-                <Popup title="소개 수정" onClose={() => setShowMsgPopup(false)} />
+                    <div className={styles.mask}></div>
+                    <Popup title="소개 수정" onClose={() => setShowMsgPopup(false)} />
                 </>
             )}
             {showBirthPopup && (
                 <>
-                <div className={styles.mask}></div>
-                <Popup title="생년월일 수정" onClose={() => setShowBirthPopup(false)} />
+                    <div className={styles.mask}></div>
+                    <Popup title="생년월일 수정" onClose={() => setShowBirthPopup(false)} />
                 </>
             )}
             {showPwdPopup && (
                 <>
-                <div className={styles.mask}></div>
-                <Popup title="비밀번호 수정" onClose={() => setShowPwdPopup(false)} />
+                    <div className={styles.mask}></div>
+                    <Popup title="비밀번호 수정" onClose={() => setShowPwdPopup(false)} />
                 </>
             )}
             {showGenderPopup && (
                 <>
-                <div className={styles.mask}></div>
-                <Popup title="성별 수정" onClose={() => setShowGenderPopup(false)} />
+                    <div className={styles.mask}></div>
+                    <Popup title="성별 수정" onClose={() => setShowGenderPopup(false)}  />
+                </>
+            )}
+            {ShowLogoutPopup && (
+                <>
+                    <div className={styles.mask}></div>
+                    <Popup title="로그아웃 하시겠습니까?" onClose={() => setShowLogoutPopup(false)} visible={false} rightBtn="로그아웃">
+                    </Popup>
+                </>
+            )}
+            {ShowDeletePopup && (
+                <>
+                    <div className={styles.mask}></div>
+                    <Popup title="탈퇴 하시겠습니까?" onClose={() => setShowDeletePopup(false)} visible={false} rightBtn="탈퇴">
+                    </Popup>
                 </>
             )}
         </body>
