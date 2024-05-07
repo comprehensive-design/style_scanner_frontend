@@ -1,0 +1,16 @@
+#categoryDiv{
+    width : 220px;
+}
+
+#categoryNa{
+    text-align: left;
+}
+
+ul{
+    flex-direction: column;
+    text-align: left;
+}
+
+.gen{
+    font-weight: bold;
+}

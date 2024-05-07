@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import '../css/SearchBar.css';
 
-
-
 function SearchBar({onChange}){
     const search = {
         width : 600
