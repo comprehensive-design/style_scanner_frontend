@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './SearchBar.css';
+import '../css/SearchBar.css';
 
 
 

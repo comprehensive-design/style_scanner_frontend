@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link, NavLink} from "react-router-dom";
 import SearchBar from './SearchBar'
-import './MainBar.css';
+import '../css/MainBar.css';
 
 
 function MainBar(){
