@@ -63,7 +63,7 @@ export default function MypageDefault() {
                         <div className={styles.profileBox2}>
                             <div>
                                 <p>@ userName</p>
-                                <input type="image" value='false' id={styles.changeName} onClick={openNamePopup} src="/img/fix.png"></input>
+                                <input type="image" id={styles.changeName} onClick={openNamePopup} src="/img/fix.png"></input>
 
                             </div>
 
@@ -117,9 +117,10 @@ export default function MypageDefault() {
             {/* 팝업 창들 */}
             {showImagePopup && (
                 <>
-                    <div className={styles.mask}></div>
-                    <Popup title="이미지 수정" onClose={() => setShowImagePopup(false)} />
-                </>
+                <div className={styles.mask}></div>
+                <Popup title="프로필 사진 변경" onClose={() => setShowImagePopup(false)} visible={false} type="file">
+                </Popup>
+            </>
             )}
 
             {showNamePopup && (
@@ -156,7 +157,7 @@ export default function MypageDefault() {
             {ShowLogoutPopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="로그아웃 하시겠습니까?" onClose={() => setShowLogoutPopup(false)} visible={false} rightBtn="로그아웃">
+                    <Popup title="로그아웃 하시겠습니까?" onClose={() => setShowLogoutPopup(false)} visible={false} rihghtBtn="로그아웃">
                     </Popup>
                 </>
             )}
