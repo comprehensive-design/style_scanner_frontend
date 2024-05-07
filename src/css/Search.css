@@ -15,6 +15,14 @@
     width : 30px;
 }
 
+#padding{
+    height : 60px;
+}
+
+#sidePadding{
+    width: 20px;
+}
+
 .profileId{
     margin-left:30px;
     display : flex;

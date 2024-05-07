@@ -1,17 +1,16 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
-import MainBar from './components/MainBar';
 import {Route, Routes} from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Search from './components/Search';
-import Channel from './components/channel';
+import Channel from './Components/Channel';
+import Search from './Components/Search';
+import MainBar from './Components/MainBar';
 
 function App() {
   return (
     <div classNamme="App">
-      {/* <MainBar/> */}
+      <MainBar/>
       <Routes>
-        <Route path="/" element={<Channel />}/>
+        <Route path="/" element={<Search />}/>
       </Routes>
 
     </div>

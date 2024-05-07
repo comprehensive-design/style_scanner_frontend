@@ -1,4 +1,4 @@
-import "./channel.css";
+import "../css/Channel.css";
 
 function Channel(){
     return(
@@ -6,7 +6,7 @@ function Channel(){
             <div>
                 <img 
                     id = "channelImg"
-                    src = "https://via.placeholder.com/180x240/808080/FFFFFF/?text=Grey+Image"
+                    src = "https://via.placeholder.com/210x280/808080/FFFFFF/?text=Grey+Image"
                 />
             </div>
 

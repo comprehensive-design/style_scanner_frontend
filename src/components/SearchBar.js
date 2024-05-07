@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import './SearchBar.css';
-
-
+import '../css/SearchBar.css';
 
 function SearchBar({onChange}){
     const search = {
@@ -15,6 +13,7 @@ function SearchBar({onChange}){
                 placeholder='  @ 셀럽을 검색해보세요'
                 className = "search_bar"
                 name = "searchText"
+                id = "input"
                 onChange={onChange}
             />
             </form>

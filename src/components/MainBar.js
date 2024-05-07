@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { Link, NavLink} from "react-router-dom";
-import SearchBar from './SearchBar'
-import './MainBar.css';
-
+import {Link, NavLink} from "react-router-dom";
+import SearchBar from '../Components/SearchBar'
+import '../css/MainBar.css';
 
 function MainBar(){
     const activeStyle = {
@@ -61,7 +60,5 @@ function MainBar(){
         </header>
     );
 }
-
-
 
 export default MainBar;

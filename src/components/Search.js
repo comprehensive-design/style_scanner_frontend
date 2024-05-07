@@ -1,44 +1,21 @@
 import HorizonLine  from '../utils/HorizontalLine';
 import Box from '@material-ui/core/Box';
-import './Search.css';
-import Channel from './channel';
+import '../css/Search.css';
+import Channel from '../Components/Channel'
 import React, {useState, useEffect, useRef} from 'react';
 
 function Search(){
-    const [loading, setLoading] = useState(false);
     const [channels, setChannels] = useState([]);
-    const channelRef = useRef();
+
 
     useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting){
-                    return;
-                }
-                if(loading) return;
-
-                loadChannel();
-            });
-        });
-        observer.observe(channelRef.current);
-
-        return() => {
-            observer.disconnect();
-        };
-    }, [loading]);
-    const loadChannel = () => {
-        setLoading(true);
-        const newChannels = [];
-        for (let i=0; i<4; i++){
-            newChannels.push({
-                id:channels + i,
-                image : `img/channel${(channels.length + i) % 4 + 1}.png`
-            });
+        const searchUser = setSearchUser(() => {
+            setStatus((pre) => {
+                // 유사도 계산
+                // return channelRec.
+            }
         }
-        setChannels([...channels, ...newChannels]);
-        setLoading(false);
-    };
-
+    }, );
 
     return(
         <div style={{display:'flex'}} id = "hi">
@@ -70,6 +47,15 @@ function Search(){
                     </div>
                     
                 </Box>
+
+                <Box id = "padding"> </Box>
+
+                <div>
+                    <Channel channels = {channels}/>
+                    {channels.map(channel => (
+                            <Channel key={channel.id} image={channel.image} />
+                        ))}
+                </div>
             </div>
         </div>
     )
