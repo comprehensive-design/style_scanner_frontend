@@ -24,22 +24,7 @@ export default function MypageDefault(){
             <div className="writeContents">
                 <Feed></Feed>
                 <div className="comDecoBox">
-                </div>
-                <div className="comWriter">
-                    <div className="writerProfile">
-                        <img id='writerImage' src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
-                    </div>
-                    <p  id='writerId'><b>nwbd_we</b></p>
-                </div>
-                <textarea ref={textarea} onInput={handleResizeHeight} rows={1} className="questionBox" placeholder='질문을 작성해주세요...(100자 이내)'></textarea>
-                <div className="comButtonBox">
-                 <input type="button" className='comWriteButton' value="작성" onClick={navigateToCommunity}></input>
-                </div>
-            </div>
-            {/* <div className="writeContents">
-                <Feed></Feed>
-                <div className="comDecoBox">
-                    <div className="comWriter">
+                    <div className="comWriterBox">
                         <div className="writerProfile">
                             <img id='writerImage' src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
                         </div>
@@ -51,7 +36,7 @@ export default function MypageDefault(){
                     </div>
                 </div>
                 
-            </div> */}
+            </div>
             
         </body>
         
