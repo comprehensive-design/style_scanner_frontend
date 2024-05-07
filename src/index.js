@@ -9,4 +9,8 @@ ReactDOM.render(
     <App />
   </BrowserRouter>,
   document.getElementById('root')
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> 342e3ef0fff4399519f032e62a2496c3b64229ce
