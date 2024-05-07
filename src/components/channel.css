@@ -1,0 +1,47 @@
+.channelDiv{
+    width : 180px;
+    height: fit-content;
+}
+
+#channelImg{
+    border-radius : 10%
+}
+
+
+.channelDiv .channelProfile{
+    width : 100%;
+    height : 50px;
+    line-height: 50px;
+}
+
+.channelProfile > .channelProfileWord{
+    margin-left : 5px;
+    height:fit-content;
+    line-height: normal;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+#channelProfileImg{
+    margin-left : 5px;
+    border-radius : 50%
+}
+
+
+#channelId{
+    margin : 0;
+    padding : 0;
+    font-size : small;
+    font-weight: bold;
+}
+
+.channelFoll{
+    padding : 0;
+    margin : 0;
+    margin-right : 5px;
+    font-size : small;
+    color : gray;
+    display: inline;
+    
+}
