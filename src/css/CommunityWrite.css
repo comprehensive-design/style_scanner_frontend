@@ -1,0 +1,106 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+.writeContents{
+    padding-left: 240px;
+    height: fit-content;
+    width:fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+
+.comDecoBox{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    margin-top:35px;
+    left: 660px;
+    z-index: 0;
+}
+
+.comWriter{
+    position: relative;
+    align-self: flex-start;
+    border: 1px solid black;
+    height: 60px;
+    width: 500px;
+
+    display: flex;
+    float:left;
+    justify-content: left;
+    align-items: center;
+
+    top:80px;
+    margin: 0 0 0 50px;
+    border: 1px solid black;
+    z-index: 1;
+}
+.writerProfile{
+    
+    height:45px; width:45px;
+    background-color: #D9D9D9;
+    border-radius: 50px;
+
+    display: flex;
+    line-height: 50px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    z-index: 3;
+    
+    img {
+        width: 50%;
+        height:50%;
+        object-fit: cover; 
+      }
+      
+}
+.questionBox{
+    position: absolute;
+    width: 460px;
+    height: 300px;
+    left: 680px;
+    top:300px;
+    font-size: 16px;
+    
+    font-family: 'Pretendard';
+    border: none;
+    resize: none;
+    z-index: 5;
+    outline: none;
+   
+}
+.questionBox::placeholder {
+    color: black;
+}
+#writerId{
+    margin-left: 20px;
+}
+.comButtonBox{
+    position: absolute;
+    display: flex;
+    width: 500px;
+    height: 50px;
+    top: 592.7px;
+    left:660px;
+
+    align-items: center;
+    justify-content: right;
+
+    border: 1px solid black;
+    z-index: 10;
+}
+
+.comButtonBox >.comWriteButton{
+    font-size: 10px;
+    color:black;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    margin:30px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
