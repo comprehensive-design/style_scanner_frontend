@@ -6,13 +6,11 @@ import Main from './Components/Main';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
-import Category from './Components/Category';
 import Ranking from './Components/Ranking';
 
 const App = () => {
   return (
     <div>
-      {/* <Category/> */}
       <MainBar/>
       <Routes>
       <Route path="/" element={<Main />} />
