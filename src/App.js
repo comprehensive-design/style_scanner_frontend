@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
-import MainBar from './Components/MainBar';
+import MainBar from './components/MainBar';
 import { Route, Routes } from 'react-router-dom';
 import Main from './Components/Main';
 import Register from './Components/Register';
