@@ -1,0 +1,22 @@
+.ComFeedList{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    overflow-x: scroll;
+    margin:30px;
+    
+    padding-top:80px;
+  }
+  body > header {
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+.ComFeedScroll{
+  -ms-overflow-style: none;
+  }
+ ::-webkit-scrollbar {
+   display: none;
+ }

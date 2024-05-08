@@ -1,0 +1,20 @@
+.comCompleteFeed{
+    position: relative;
+    width:fit-content;
+    height: fit-content;
+    padding: 0 30px 0 30px;
+}
+.writeBox{
+    display: inline-block;
+    width: 370px;
+    margin-top: 10px;
+}
+.writeBox .writeId{
+    float:left;
+}
+.writeBox .writeTotal{
+    float: right;
+}
+.tag{
+    color: #0078BB;
+}
