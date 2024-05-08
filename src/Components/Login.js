@@ -5,7 +5,7 @@ import '../css/Login.css';
 export default function Register() {
     return (
         <div className="App">
-        <div className='menubar'>메뉴바</div>
+        {/* <div>메뉴바</div> */}
             <div className="LoginPage">
                 <h1 id='title'>Style Scanner</h1>
                 <p id='subTitle'> 당신의 취향을 만들어 드릴게요! </p>

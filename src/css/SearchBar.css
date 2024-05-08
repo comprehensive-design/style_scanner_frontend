@@ -1,5 +1,4 @@
 .search{
-    /* margin: 2%; */
     display: flex;
     position: relative;
     width: 50%;
@@ -9,7 +8,7 @@
 }
 
 .search_bar {
-    width: 100%;
+    width: 80%;
     height: 50px;
     border: none;
     border-radius: 13px;
@@ -20,8 +19,4 @@
     display : flex;
     justify-content: center;
     align-items: center;
-}
-
-#input{
-    
 }
