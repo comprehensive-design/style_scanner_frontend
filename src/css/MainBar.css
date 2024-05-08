@@ -1,6 +1,7 @@
 .header{
     display : 'flex';
     margin: 30px;
+    overflow: hidden;
 }
 
 .navigation{
@@ -13,7 +14,6 @@
     display:flex;
 }
 
-
 p{
     margin-left : 10px;
 }
@@ -23,14 +23,14 @@ a{
 }
 
 ul {
-    display: flex;
+    /* display: flex; */
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
     list-style: none;
-  }
-  
-  li {
-    padding: 10px;
-    margin: 0;
-  }
+}
+
+li {
+    padding: 5px;
+    float:left;
+}

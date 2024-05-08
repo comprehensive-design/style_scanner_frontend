@@ -4,10 +4,11 @@
 
 li{
   list-style-type: none;
-  color: "grey";
+  color: "gray";
   line-height: 200%;
   
 }
+
 .logo{
   width: 130px;
   margin:30px auto;
