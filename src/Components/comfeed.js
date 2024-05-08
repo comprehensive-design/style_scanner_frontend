@@ -1,11 +1,29 @@
 import styles from "../css/comfeed.module.css";
-import Feed from './feed'
+import { useNavigate } from "react-router-dom";
 
-function comFeed(){
-    
+function ComFeed(){
+    const navigate = useNavigate();
+    const navigateToCommunityComment = () => {
+        navigate("/Community");
+        console.log("버튼!!");
+      };
     return(
+       
         <div className={styles.comCompleteFeed}>
-            <Feed></Feed>
+            <div className={styles.comCompleteFeed}>
+                <div className={styles.comProfile}>
+                    <div className={styles.comProfileBox}>
+                        <img id='comProfileImage' src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
+                    </div>
+                    <p className={styles.comProfileName} id='comProfileName'>hi_sseulgi</p>
+                    <input type="button" className={styles.comGoButton} value="→" onClick={navigateToCommunityComment}></input>
+                </div>
+                <div className={styles.comFeedMain}>
+                    <img id='comFeedImage' src={process.env.PUBLIC_URL + 'img/feed1.png'}></img>
+                </div>
+            </div>
+            {/* <Feed></Feed> */}
+            
             <div className={styles.writeBox}>
                 <span className={styles.writeId} id="writerId"><b>useruser2</b></span>
                 <div className={styles.writeTotal}>
@@ -15,6 +33,7 @@ function comFeed(){
                 </div>
             </div>
         </div>
+       
     );
 }
-export default comFeed;
+export default ComFeed;

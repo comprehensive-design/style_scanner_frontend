@@ -39,7 +39,7 @@ export default function CommunityFeed() {
         setLoading(false); 
     };
     return(
-        <body className={styles.ComFeedScroll}>
+        <div className={styles.ComFeedScroll}>
             <header>
                 <div className='menuBar'>메뉴바입니다</div>
             </header>
@@ -50,6 +50,6 @@ export default function CommunityFeed() {
                 ))}
                 <div style={{height: '10px'}} />
             </div>
-        </body>
+        </div>
     );
 }

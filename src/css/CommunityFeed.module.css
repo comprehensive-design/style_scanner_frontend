@@ -5,10 +5,9 @@
     float: left;
     overflow-x: scroll;
     margin:30px;
-    
     padding-top:80px;
   }
-  body > header {
+header {
     position: fixed; 
     top: 0;
     width: 100%;
