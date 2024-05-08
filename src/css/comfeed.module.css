@@ -8,9 +8,11 @@
     display: inline-block;
     width: 370px;
     margin-top: 10px;
+    overflow: hidden;
 }
 .writeBox .writeId{
     float:left;
+    margin-right: 1px;
 }
 .writeBox .writeTotal{
     float: right;
