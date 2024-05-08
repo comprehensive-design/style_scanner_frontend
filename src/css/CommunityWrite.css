@@ -3,8 +3,9 @@
 .writeContents{
     position: relative;
     height: fit-content;
-    width:fit-content;
-    padding-left: 240px;
+    width:960px;
+    /* padding-left: 240px; */
+    margin: 0 auto;
     
     display: flex;
     justify-content: center;
