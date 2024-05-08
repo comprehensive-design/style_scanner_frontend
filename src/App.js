@@ -6,17 +6,19 @@ import Main from './Components/Main';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
+import Category from './Components/Category';
 
 const App = () => {
   return (
     <div>
-      <MainBar/>
-    <Routes>
-    <Route path="/" element={<Main />} />
-      <Route path="/Register" element={<Register />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/MypageDefault" element={<MypageDefault />} />
-    </Routes>
+      <Category/>
+      {/* <MainBar/>
+      <Routes>
+      <Route path="/" element={<Main />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/MypageDefault" element={<MypageDefault />} />
+      </Routes> */}
     </div>
   );
 }
