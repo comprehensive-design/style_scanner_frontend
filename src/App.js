@@ -12,7 +12,6 @@ const App = () => {
   return (
     <div>
       <MainBar/>
-      <Category/>
       <Routes>
       <Route path="/" element={<Main />} />
         <Route path="/Register" element={<Register />} />

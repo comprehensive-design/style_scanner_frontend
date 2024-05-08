@@ -12,48 +12,24 @@ function MainBar(){
     return(
         <header className = "header">
             <div style={{display:'flex'}} className ="parent">
-                <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = '' >
-                <img
+                <Link to="">
+                    <img
                     
                     src={`img/logo.png`}
                     width = '130'
                     height = '48.75'
                     alt = "Logo"
                     />
-                </NavLink>
+                </Link>
                 <SearchBar></SearchBar>
 
                 <nav className="navigation">
                     <ul>
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        홈
-                        </NavLink >
-                        </li>
-
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        랭킹
-                        </NavLink >
-                        </li>
-
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        추천
-                        </NavLink >
-                        </li>
-
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        커뮤니티
-                        </NavLink >
-                        </li>
-
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        마이페이지
-                        </NavLink >
-                        </li>
+                        <li><Link to="/">홈</Link></li>
+                        <li><Link to="/Ranking">랭킹</Link></li>
+                        <li><Link to="">추천</Link></li>
+                        <li><Link to="">커뮤니티</Link></li>
+                        <li><Link to="">마이페이지</Link></li>
                     </ul>
                 </nav>
 

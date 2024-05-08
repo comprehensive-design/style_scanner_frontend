@@ -3,7 +3,7 @@ import '../css/SearchBar.css';
 
 function SearchBar({onChange}){
     const search = {
-        width : 600
+        width : 400
     };
 
           return(

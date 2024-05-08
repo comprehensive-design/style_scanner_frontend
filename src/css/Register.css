@@ -5,10 +5,6 @@ body {
     background-color: #ffffff;
     text-align: center;
 }
-.menubar{
-    height: 100px;
-    background-color: gray;
-}
 
 .RegisterPage {
     margin: 0 auto;
