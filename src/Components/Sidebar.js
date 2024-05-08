@@ -2,20 +2,16 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import "../css/Sidebar.css";
-// 로고 320*120
-// https://velog.io/@dazzlynn/React-%EB%A7%9B%EC%A7%91%EC%A0%84%EA%B3%B5-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%82%AC%EC%9D%B4%EB%93%9C%EB%B0%94-%EA%B5%AC%ED%98%8
-// https://hello-yeond.tistory.com/154
+
 
 const Side = styled.div`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #e0e0e0;
+  // border-right: 1px solid #e0e0e0;
   align-items: left;
   justify-content: center;
   padding: 30px;
   width:20%
-  
-  z-index: 0;
 `
 function Sidebar() {
     const activeStyle={
@@ -31,14 +27,27 @@ function Sidebar() {
       margin: "0 auto",
       fontSize:"25px"
   }
-   
+  const HorizonLine = () => {
+    return (
+      <div
+        style={{
+          width: "80%",
+          borderBottom: "2px solid #aaa",
+          lineHeight: "0.1em",
+          margin: "10px 0 20px",
+        }}
+      >
+      </div>
+    );
+  };
     return(
         <Side>
           <div>
             <ul className="sideUl">
               <li className="sideList">
                 <p style={pStyle}>마이페이지</p>
-                <br></br>
+                <HorizonLine></HorizonLine>
+                {/* <br></br> */}
               </li>
              
               <li className="sideList">
