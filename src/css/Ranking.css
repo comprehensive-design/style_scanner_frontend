@@ -1,0 +1,47 @@
+.RankingContent{
+    height: 100%;
+    padding: 30px;
+}
+
+.RankingWord{
+    width: 100%;
+    margin : 0 auto;
+}
+
+.ContantWrap{
+    display: flex;
+}
+
+#rankingPopular{
+    justify-content: center;
+    align-items: center;
+}
+
+#rankingBest{
+    height : fit-content;
+    padding: 0;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.totalWrap{
+    /* background-color: beige; */
+}
+
+.RankingBest{
+    padding: 0;
+    margin:0;
+}
+
+.RankingUl{
+    flex-wrap: wrap;
+    list-style: none;
+    align-items: right;
+    float : right;
+}
+
+.RankingLists{
+    margin-left: 10px;    
+    float:left;
+}

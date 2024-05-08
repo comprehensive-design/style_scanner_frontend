@@ -7,18 +7,19 @@ import Register from './Components/Register';
 import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
 import Category from './Components/Category';
+import Ranking from './Components/Ranking';
 
 const App = () => {
   return (
     <div>
       {/* <Category/> */}
       <MainBar/>
-      <Category></Category>
       <Routes>
       <Route path="/" element={<Main />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/MypageDefault" element={<MypageDefault />} />
+        <Route path="/Ranking" element={<Ranking/>}/>
       </Routes>
     </div>
   );

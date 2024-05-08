@@ -1,6 +1,12 @@
 #categoryDiv{
     width : 20%;
     margin : 30px;
+    /* display:flex; */
+}
+
+#RankingNameBox{
+    background-color:silver;
+    width: 100%;
 }
 
 #categoryNa{
