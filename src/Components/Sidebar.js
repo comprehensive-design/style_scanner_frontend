@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import "./Sidebar.css";
+import "../css/Sidebar.css";
 // 로고 320*120
 // https://velog.io/@dazzlynn/React-%EB%A7%9B%EC%A7%91%EC%A0%84%EA%B3%B5-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%82%AC%EC%9D%B4%EB%93%9C%EB%B0%94-%EA%B5%AC%ED%98%8
 // https://hello-yeond.tistory.com/154
@@ -9,10 +9,12 @@ import "./Sidebar.css";
 const Side = styled.div`
   display: flex;
   flex-direction: column;
-  // border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
   align-items: left;
   justify-content: center;
+  margin: 0 0 0 10px;
   width:20%
+  z-index: 0;
 `
 function Sidebar() {
     const activeStyle={
@@ -25,17 +27,18 @@ function Sidebar() {
       color: "grey"
     };
     const pStyle = {
-      // textAlign: "center",
-      marginLeft:"38px",
+      margin: "0 auto",
       fontSize:"25px"
   }
    
     return(
         <Side>
           <div>
-            <img className='logo' src={process.env.PUBLIC_URL + 'img/logo.png'} ></img>
-            <p style={pStyle}>마이페이지</p>
             <ul>
+              <li>
+                <p style={pStyle}>마이페이지</p>
+              </li>
+             
               <li>
                 <b>관심목록</b>
               </li>

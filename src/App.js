@@ -11,14 +11,14 @@ import Category from './Components/Category';
 const App = () => {
   return (
     <div>
-      <Category/>
-      {/* <MainBar/>
+      {/* <Category/> */}
+      {/* <MainBar/>*/}
       <Routes>
       <Route path="/" element={<Main />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/MypageDefault" element={<MypageDefault />} />
-      </Routes> */}
+      </Routes> 
     </div>
   );
 }
