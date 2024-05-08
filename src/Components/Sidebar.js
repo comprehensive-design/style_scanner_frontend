@@ -12,8 +12,9 @@ const Side = styled.div`
   border-right: 1px solid #e0e0e0;
   align-items: left;
   justify-content: center;
-  margin: 0 0 0 10px;
+  padding: 30px;
   width:20%
+  
   z-index: 0;
 `
 function Sidebar() {
@@ -34,20 +35,21 @@ function Sidebar() {
     return(
         <Side>
           <div>
-            <ul>
-              <li>
+            <ul className="sideUl">
+              <li className="sideList">
                 <p style={pStyle}>마이페이지</p>
+                <br></br>
               </li>
              
-              <li>
+              <li className="sideList">
                 <b>관심목록</b>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   팔로잉
                 </NavLink>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   좋아요
                 </NavLink>
@@ -56,20 +58,20 @@ function Sidebar() {
               <br></br>
               <br></br>
 
-              <li >
+              <li className="sideList">
                 <b>커뮤니티</b>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   내가 작성한 글
                 </NavLink>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   내가 작성한 댓글
                 </NavLink>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   커뮤니티 알림
                 </NavLink>
@@ -78,25 +80,25 @@ function Sidebar() {
               <br></br>
               <br></br>
 
-              <li >
+              <li className="sideList">
                 <b>나의 계정</b>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   로그인 정보
                 </NavLink>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   SNS 연결
                 </NavLink>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   프로필 관리
                 </NavLink>
               </li>
-              <li>
+              <li className="sideList">
                 <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   로그아웃
                 </NavLink>

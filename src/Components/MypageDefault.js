@@ -5,9 +5,9 @@ import Sidebar from './Sidebar';
 export default function MypageDefault() {
     return (
         <body>
-            <header>
+            {/* <header>
                 <div className='menuBar'>메뉴바입니다</div>
-            </header>
+            </header> */}
 
             <div className='wrap'>
                 

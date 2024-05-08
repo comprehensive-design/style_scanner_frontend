@@ -11,8 +11,7 @@ import Category from './Components/Category';
 const App = () => {
   return (
     <div>
-      {/* <Category/> */}
-      {/* <MainBar/>*/}
+      <MainBar/>
       <Routes>
       <Route path="/" element={<Main />} />
         <Route path="/Register" element={<Register />} />
