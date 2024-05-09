@@ -8,6 +8,7 @@ import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
 import Category from './Components/Category';
 import AccountManage from './Components/AccountManage';
+import CommunityNoti from './Components/CommunityNoti';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/MypageDefault" element={<MypageDefault />} />
         <Route path="/AccountManage" element={<AccountManage />} />
+        <Route path="/CommunityNoti" element={<CommunityNoti />} />
       </Routes> 
     </div>
   );
