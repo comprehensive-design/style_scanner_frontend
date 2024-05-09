@@ -1,7 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
 .box {
-    width: calc(50% - 50px);
+    width: calc(50% - 25px);
     margin-bottom: 50px;
 }
 
@@ -12,6 +12,8 @@
 
 .profileImg {
     border-radius: 50%;
+    width: 50px;
+    height: 50px;
 }
 
 .mPart {
@@ -32,7 +34,7 @@
 
 .button {
     border-radius: 15%;
-    padding: 5px;
+    padding: 2px;
     font-size: 12px;
     margin: auto 0px auto auto;
 }
@@ -44,8 +46,8 @@
 }
 
 .fimage {
-    width: 200px;
-    height: 250px;
+    width: 140px;
+    height: 180px;
 }
 
 .iBox :nth-child(1) {

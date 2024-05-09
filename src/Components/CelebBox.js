@@ -10,7 +10,7 @@ function CelebBox() {
                 <img className={styles.profileImg} src="http://via.placeholder.com/60X60" ></img>
                 <div className={styles.mPart}>
                     <div className={styles.uText}>userName</div>
-                    <div className={styles.fText}>follower 343</div>
+                    <div className={styles.fText}>343 follower</div>
                 </div>
                 <button className={styles.button}>팔로우</button>
             </div>

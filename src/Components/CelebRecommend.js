@@ -10,7 +10,7 @@ export default function CelebRecommend() {
 
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h3>추천 셀럽</h3>
+                    <h2>추천 셀럽</h2>
                     <hr></hr>
                 </div>
 
