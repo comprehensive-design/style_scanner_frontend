@@ -1,6 +1,7 @@
 import styles from '../css/AccountManage.module.css';
 import React, { useState } from "react";
 import Popup from './Popup';
+import Sidebar from './Sidebar';
 
 export default function AccountManage() {
 
@@ -51,13 +52,10 @@ export default function AccountManage() {
 
     return (
         <body>
-            <header>
-                <div className={styles.menuBar}>메뉴바입니다</div>
-            </header>
 
             <div className={styles.wrap}>
 
-                <div className={styles.sideBar}>사이드바입니다</div>
+            <Sidebar></Sidebar>
 
                 <div className={styles.title}>
                     <h3>계정 관리</h3>

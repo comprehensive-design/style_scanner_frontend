@@ -5,13 +5,9 @@ import Sidebar from './Sidebar';
 export default function MypageDefault() {
     return (
         <body>
-            {/* <header>
-                <div className='menuBar'>메뉴바입니다</div>
-            </header> */}
 
             <div className={styles.wrap}>
                 
-                {/* <div className='sideBar'>사이드바입니다</div> */}
                 <Sidebar></Sidebar>
 
                 <div className={styles.content}>

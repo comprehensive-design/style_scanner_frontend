@@ -4,10 +4,6 @@ import styles from '../css/Login.module.css';
 export default function Register() {
     return (
         <body>
-            <header>
-                메뉴바
-            </header>
-
             <div className={styles.content}>
                 <h1>Style Scanner</h1>
                 <p> 당신의 취향을 만들어 드릴게요! </p>
