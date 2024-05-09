@@ -1,17 +1,18 @@
 
 import styles from "../css/MypageDefault.module.css";
-
+import Sidebar from './Sidebar';
 
 export default function MypageDefault() {
     return (
         <body>
-            <header>
-                <div className={styles.menuBar}>메뉴바입니다</div>
-            </header>
+            {/* <header>
+                <div className='menuBar'>메뉴바입니다</div>
+            </header> */}
 
             <div className={styles.wrap}>
                 
-                <div className={styles.sideBar}>사이드바입니다</div>
+                {/* <div className='sideBar'>사이드바입니다</div> */}
+                <Sidebar></Sidebar>
 
                 <div className={styles.content}>
                     <div className={styles.profileBox}>
