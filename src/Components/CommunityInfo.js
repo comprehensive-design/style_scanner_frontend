@@ -1,0 +1,67 @@
+import React, { useState, useEffect, useRef } from 'react';
+import ComFeed from './comfeed.js';
+import CommentInfo from './CommentInfo.js';
+import styles from '../css/CommunityInfo.module.css';
+
+export default function CommunityInfo(){
+    const [comments, setItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const commentListRef = useRef(); 
+    
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                if (loading) return;
+                
+                commentLoadItems();
+            });
+        });
+        observer.observe(commentListRef.current);
+
+        return () => {
+            observer.disconnect();
+        };
+
+    }, [loading]); 
+
+    const commentLoadItems = () => {
+        setLoading(true); 
+        const newComments = [];
+        for (let i = 0; i < 3; i++) {
+            newComments.push({
+                id: comments.length + i,
+                image: ' '
+            });
+        }
+        setItems([...comments, ...newComments]);
+        setLoading(false); 
+    };
+
+   
+    return(
+        <div>
+            <header>
+                <div className='menuBar'>메뉴바입니다</div>
+            </header>
+
+            <div className={styles.contents}>
+                
+                <ComFeed></ComFeed>
+                <div className={styles.commentDecoBox}>
+                    <div className={styles.totalItem} ref={commentListRef}>
+                        {comments.map(comment=> (
+                        <CommentInfo key={comment.id} image={comment.image} />
+                        ))}
+                        <div style={{height: '10px'}} />
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    )
+}

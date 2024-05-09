@@ -8,7 +8,7 @@ const Main = () => {
       <Link to="/Register">가입</Link>
       <Link to="/Login">로그인</Link>
       <Link to="/MypageDefault">마이페이지기본</Link>
-      <Link to="/CommunityFeed">커뮤니티</Link>
+      <Link to="/CommunityInfo">커뮤니티</Link>
     </div>
   );
 };

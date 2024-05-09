@@ -1,0 +1,76 @@
+.commentBox{
+    display: inline-block;
+    border: 2px solid #D9D9D9;
+    height: 70px;
+    width:500px;
+    position: relative;
+    align-items: center;
+
+    img {
+        width: 50%;
+        height:50%;
+        object-fit: cover; 
+      }
+      z-index: 0;
+}
+.commentWriterprofile{
+    line-height: 70px;
+    align-items: center;
+    height: 50px;
+    width:350px;
+
+}
+.fakeBox{
+    position: absolute;
+    height:70px;
+    width:30px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+.fakeBox .commentProfileBox{
+    height:30px; width:30px;
+    background-color: #D9D9D9;
+    border-radius: 50px;
+    
+    float:left;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+} 
+.fakeBox3{
+    position: absolute;
+    left: 30px;
+}
+.fakeBox3 .commentWriterId{
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    margin-left: 30px;
+}
+.fakeBox3 .commentContents{
+    display: inline-block;
+    text-align: center;
+    margin-left: 30px;
+    width: 200px;
+}
+
+.heartBox{
+    position: absolute;
+    right: 20px;
+
+    display: flex;
+    height: 70px;
+    align-items: center;
+   z-index: 100;
+}
+.heartBox  #commentHeart{
+    
+    line-height: 70px;
+    width: 15px;
+    height:15px;
+    border: none;
+    cursor: pointer;
+}
