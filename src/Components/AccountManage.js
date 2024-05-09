@@ -56,10 +56,10 @@ export default function AccountManage() {
             <Sidebar></Sidebar>
 
             <div className={styles.content}>
-            <div className={styles.title}>
-                <h3>계정 관리</h3>
-                <hr></hr>
-            </div>
+                <div className={styles.title}>
+                    <h3>계정 관리</h3>
+                    <hr></hr>
+                </div>
 
                 <div className={styles.profileBox}>
                     <div className={styles.profileBox1}>
@@ -130,12 +130,12 @@ export default function AccountManage() {
 
             {showNamePopup && (
                 <>
-                <div className={styles.mask}></div>
-                <Popup
-                    title="이름 수정"
-                    onClose={() => setShowNamePopup(false)}
-                    onSave={handleSave} // 저장 버튼 이벤트 처리 함수 전달
-                />
+                    <div className={styles.mask}></div>
+                    <Popup
+                        title="이름 수정"
+                        onClose={() => setShowNamePopup(false)}
+                        onSave={handleSave} // 저장 버튼 이벤트 처리 함수 전달
+                    />
                 </>
             )}
 
@@ -148,25 +148,29 @@ export default function AccountManage() {
             {showBirthPopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="생년월일 수정" onClose={() => setShowBirthPopup(false)} />
+                    <Popup title="생년월일 수정" onClose={() => setShowBirthPopup(false)} visible={false} type="birth" />
                 </>
             )}
             {showPwdPopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="비밀번호 수정" onClose={() => setShowPwdPopup(false)} />
+                    <Popup title="비밀번호 수정" 
+                    onClose={() => setShowPwdPopup(false)} 
+                    visible={false}
+                     type="password"/>
                 </>
             )}
             {showGenderPopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="성별 수정" onClose={() => setShowGenderPopup(false)} />
+                    <Popup title="성별 변경" onClose={() => setShowGenderPopup(false)} visible={false} type="radio"/>
+                 
                 </>
             )}
             {ShowLogoutPopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="로그아웃 하시겠습니까?" onClose={() => setShowLogoutPopup(false)} visible={false} 
+                    <Popup title="로그아웃 하시겠습니까?" onClose={() => setShowLogoutPopup(false)} visible={false}
                         rightBtn="로그아웃">
                     </Popup>
                 </>
