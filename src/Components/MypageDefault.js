@@ -1,13 +1,16 @@
 
 import '../css/MypageDefault.css';
+import Main from './Main';
+import MainBar from './MainBar';
 
 
 export default function MypageDefault() {
     return (
         <body>
-            {/* <header>
+            <header>
+                <MainBar/>
                 <div className='menuBar'>메뉴바입니다</div>
-            </header> */}
+            </header>
 
             <div className='wrap'>
                 
