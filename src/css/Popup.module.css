@@ -1,0 +1,43 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+.popupBox {
+    position: absolute;
+    left: 40%;
+    z-index: 1000;
+    width: 400px;
+    padding: 50px 80px;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.inputBox{
+    margin-top: 30px;
+    font-size: 14px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.buttonBox {
+    margin-top: 40px;
+}
+
+.button {
+    width: 70px;
+    margin: 0px 15px;
+    padding: 7px;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 12px;
+    background-color: #d9d9d9;
+    color: black;
+}
+
+.button:hover{
+    background-color: black;
+    color:white;
+}
