@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import "../css/Sidebar.css";
 
-
 const Side = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,14 +46,13 @@ function Sidebar() {
               <li className="sideList">
                 <p style={pStyle}>마이페이지</p>
                 <HorizonLine></HorizonLine>
-                {/* <br></br> */}
               </li>
              
               <li className="sideList">
                 <b>관심목록</b>
               </li>
               <li className="sideList">
-                <NavLink exact to='/' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
+                <NavLink exact to='/FollowingList' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   팔로잉
                 </NavLink>
               </li>
