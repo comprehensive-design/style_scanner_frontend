@@ -1,0 +1,57 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+.box {
+    width: calc(50% - 50px);
+    margin-bottom: 50px;
+}
+
+.pBox {
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.profileImg {
+    border-radius: 50%;
+}
+
+.mPart {
+    margin-left: 10px;
+    margin: auto 0 auto 10px;
+
+}
+
+.uText {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.fText {
+    font-size: 12px;
+    color: gray;
+}
+
+.button {
+    border-radius: 15%;
+    padding: 5px;
+    font-size: 12px;
+    margin: auto 0px auto auto;
+}
+
+.iBox {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.fimage {
+    width: 200px;
+    height: 250px;
+}
+
+.iBox :nth-child(1) {
+    margin-right: 10px;
+}
+
+.iBox :nth-child(2) {
+    margin-right: 10px;
+}
