@@ -6,8 +6,8 @@ import Main from './Components/Main';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
-import Category from './Components/Category';
 import AccountManage from './Components/AccountManage';
+import FollowingList from './Components/FollowingList';
 
 const App = () => {
   return (
@@ -19,6 +19,7 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/MypageDefault" element={<MypageDefault />} />
         <Route path="/AccountManage" element={<AccountManage />} />
+        <Route path="/FollowingList" element={<FollowingList />} />
       </Routes> 
     </div>
   );
