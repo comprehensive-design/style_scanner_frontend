@@ -13,9 +13,9 @@ export default function MypageDefault() {
                 <div className={styles.content}>
                     <div className={styles.profileBox}>
                         <img className={styles.profileImg} src="http://via.placeholder.com/100X100"></img>
-                        <div>
-                            <p id='userName'>username</p>
-                            <small id='userId'>@userid</small>
+                        <div className={styles.nameBox}>
+                            <p id='userName'>@ username</p>
+                            <small id='userId'>소개소개소개한줄소개라리루레로</small>
                         </div>
                         <div>
                             <p id='followNum'>256</p>
@@ -45,12 +45,16 @@ export default function MypageDefault() {
                             <img id='celebImg4' src="http://via.placeholder.com/100X100"></img>
                             <p id='celebID4'>@celebID</p>
                         </div>
+                        <div>
+                            <img id='celebImg4' src="http://via.placeholder.com/100X100"></img>
+                            <p id='celebID4'>@celebID</p>
+                        </div>
                     </div>
 
 
                     <div className={styles.textBox}>
                         <p>좋아요</p>
-                        <p>더보기</p>
+                        <p>더보기</p> 
                     </div>
 
 

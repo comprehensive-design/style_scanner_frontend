@@ -10,7 +10,7 @@ const Side = styled.div`
   // border-right: 1px solid #e0e0e0;
   align-items: left;
   justify-content: center;
-  padding: 30px;
+  padding: 0 30px;
   width:20%
 `
 function Sidebar() {
