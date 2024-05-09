@@ -1,6 +1,7 @@
 .RankingContent{
     height: 100%;
-    padding: 30px;
+    /* padding: 30px; */
+    margin : 0;
 }
 
 .RankingWord{
@@ -35,13 +36,39 @@
 }
 
 .RankingUl{
-    flex-wrap: wrap;
     list-style: none;
-    align-items: right;
-    float : right;
+    margin : 0;
+}
+
+.RankingType{
+    width:100%;
 }
 
 .RankingLists{
-    margin-left: 10px;    
+    margin-right: 10px;    
+    margin-top : 50px;
     float:left;
+}
+
+.RankingRow_1{
+    width: 100%;
+    display:flex;
+    padding-top: 30px;
+}
+
+.RankingRow_2{
+    width: 100%;
+    display:flex;
+    padding-top: 30px;
+}
+
+.RankingRow_3{
+    width: 100%;
+    display:flex;
+    padding-top: 30px;
+}
+
+
+.RankingPadding{
+    width:30px;
 }
