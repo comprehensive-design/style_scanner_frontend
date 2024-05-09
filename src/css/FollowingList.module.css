@@ -1,0 +1,14 @@
+.wrap{
+    width: calc(100% - 450px);
+}
+
+.Following{
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.word{
+    display: flex;
+    padding-bottom: 20px;
+}

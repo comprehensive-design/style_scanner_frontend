@@ -1,0 +1,26 @@
+#FollowingUserImg{
+    width : 150px;
+    height : 150px;
+    border-radius: 50%;
+}
+
+.userInfo{
+    display: flex;
+}
+
+.userInfoWord{
+    margin:0;
+    padding:0;
+    margin-left: 30px;
+}
+
+.userFollowerInfo{
+    margin-left: 0;
+    padding: 0;
+    font-size: small;
+}
+
+#FollowerWord{
+    margin: 0;
+    padding: 0;
+}
