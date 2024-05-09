@@ -6,7 +6,7 @@ function Channel(){
             <div>
                 <img 
                     id = "channelImg"
-                    src = "https://via.placeholder.com/210x280/808080/FFFFFF/?text=Grey+Image"
+                    src = "https://via.placeholder.com/240x320/808080/FFFFFF/?text=Grey+Image"
                 />
             </div>
 

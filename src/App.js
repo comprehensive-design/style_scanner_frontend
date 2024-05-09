@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import {Route, Routes} from 'react-router-dom';
-import Channel from './Components/Channel';
+import Channel from './Components/channel';
 import Search from './Components/Search';
 import MainBar from './Components/MainBar';
 

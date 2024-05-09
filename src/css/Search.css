@@ -2,58 +2,62 @@
     width : 75%;
 }
 
-
-.box1{
+.SearchUserRes{
+    display:flex;
     border-style : solid;
     border-color  : #e9ecef;
     border-radius : 10px;
+    height: auto;
 }
 
-#paddingBox{
-    color: black;
-    height : 150px;
-    width : 30px;
-}
-
-#padding{
-    height : 60px;
-}
-
-#sidePadding{
-    width: 20px;
-}
-
-.profileId{
+.SearchUserProfile{
     margin-left:30px;
     display : flex;
+    width: 100%;
+    text-align: left;
     align-items: center;
-    justify-content: center;
-
 }
-#total{
+
+#Searchtotal{
     font-weight : bold;
-    /* display : inline; */
 }
 
-.profileImg{
+.SearchprofileImg{
     margin-top:20px;
     margin-bottom: 20px;
     border-radius : 70%;
     padding-left : 50;
     object-fit: cover;
+    margin-left: 50px;
 }
 
-#userid{
+#SearchUserid{
     font-weight:bold;
+}
+
+.SearchFollow{
+    display: flex;
+    margin-left: 0 auto;
+    align-items: center;
+    justify-content: center;
+    margin-right: 50px;
 }
 
 #followButton{
     background-color:#0a0a23;
-    position : absolute;
-    width :70px;
+    width :90px;
     height:30px;
     color: #fff;
     border-radius:20px;
-    align-items: center;
-    justify-content: center;
+}
+
+.SearchRelRes{
+    margin: 0;
+    padding: 0;
+    margin-top: 60px;
+    font-weight: bold;
+}
+
+.SearchRelChannel{
+    display: flex;
 }
