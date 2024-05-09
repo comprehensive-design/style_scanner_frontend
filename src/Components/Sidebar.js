@@ -81,7 +81,7 @@ function Sidebar() {
                 </NavLink>
               </li>
               <li className="sideList">
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
+                <NavLink exact to='/CommunityNoti' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   커뮤니티 알림
                 </NavLink>
               </li>
