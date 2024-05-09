@@ -94,7 +94,7 @@ function Sidebar() {
               </li>
               <li className="sideList">
                 <NavLink exact to='/AccountManage' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  프로필 관리
+                  계정 관리
                 </NavLink>
               </li>
             </ul>

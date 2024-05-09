@@ -3,6 +3,7 @@
 .popupBox {
     position: absolute;
     left: 40%;
+    top: 0px;
     z-index: 1000;
     width: 400px;
     padding: 50px 80px;

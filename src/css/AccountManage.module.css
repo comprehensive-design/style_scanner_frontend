@@ -22,45 +22,31 @@ body {
     position: relative;
 }
 
-
-.wrap {
-    min-width: 1000px;
-    clear: both;
-    position: relative;
-}
-
-.sideBar {
-    position: relative;
-    width: 20%;
-    background-color: red;
-}
-
-.title {
-    text-align: left;
-    margin-left: 270px;
-    padding-left: 100px;
-    margin-top: 50px;
-}
-
-.title>hr {
-    height: 2px;
-    width: 100%;
-    border: none;
-    background-color: black;
-}
-
 .content {
     width: calc(100% - 400px);
-    margin-top: 50px;
     position: absolute;
-    left: 270px;
-    top: 50px;
+    left: 300px;
+    top: 20px;
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
     z-index: 10;
 }
 
+
+.title {
+    text-align: left;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+.title>hr {
+    height: 2px;
+    width: 100%;
+    border: none;
+    background-color: #aaa;
+    margin: 10px 0 20px;
+}
 input[type=image] {
     width: 12px;
     height: 12px;
