@@ -93,23 +93,8 @@ function Sidebar() {
                 <b>나의 계정</b>
               </li>
               <li className="sideList">
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  로그인 정보
-                </NavLink>
-              </li>
-              <li className="sideList">
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  SNS 연결
-                </NavLink>
-              </li>
-              <li className="sideList">
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
+                <NavLink exact to='/AccountManage' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
                   프로필 관리
-                </NavLink>
-              </li>
-              <li className="sideList">
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  로그아웃
                 </NavLink>
               </li>
             </ul>
