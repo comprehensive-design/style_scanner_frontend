@@ -4,8 +4,8 @@ import styles from '../css/NotiBox.module.css';
 function NotiBox() {
 
     return (
-        <div className={styles.box}>
-            <div className={styles.content}>
+        <div>
+            <div className={styles.box}>
                 <div className={styles.NBox}>
                     <div>
                         <p className={styles.Q}>Q. </p>
