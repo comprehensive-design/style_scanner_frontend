@@ -2,6 +2,7 @@ import styles from '../css/AccountManage.module.css';
 import React, { useState } from "react";
 import Popup from './Popup';
 import Sidebar from './Sidebar';
+import Button from './Button';
 
 export default function AccountManage() {
 
@@ -52,12 +53,10 @@ export default function AccountManage() {
 
     return (
         <body>
-
             <Sidebar></Sidebar>
-
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h3>계정 관리</h3>
+                    <h2>계정 관리</h2>
                     <hr className={styles.hori}></hr>
                 </div>
 
@@ -113,8 +112,8 @@ export default function AccountManage() {
 
 
                 <div className={styles.buttonBox}>
-                    <button id={styles.logoutBtn} onClick={openLogoutPopup} >로그아웃</button>
-                    <button id={styles.leaveBtn} onClick={openDeletePopup}>회원탈퇴</button>
+                    <Button onClick={openLogoutPopup}>로그아웃</Button>
+                    <Button onClick={openDeletePopup}>탈퇴</Button>
                 </div>
             </div>
 
@@ -154,17 +153,17 @@ export default function AccountManage() {
             {showPwdPopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="비밀번호 수정" 
-                    onClose={() => setShowPwdPopup(false)} 
-                    visible={false}
-                     type="password"/>
+                    <Popup title="비밀번호 수정"
+                        onClose={() => setShowPwdPopup(false)}
+                        visible={false}
+                        type="password" />
                 </>
             )}
             {showGenderPopup && (
                 <>
                     <div className={styles.mask}></div>
-                    <Popup title="성별 변경" onClose={() => setShowGenderPopup(false)} visible={false} type="radio"/>
-                 
+                    <Popup title="성별 변경" onClose={() => setShowGenderPopup(false)} visible={false} type="radio" />
+
                 </>
             )}
             {ShowLogoutPopup && (

@@ -40,7 +40,7 @@ body {
     min-width: 1000px;
     text-align: left;
     margin-left: 0px;
-    margin-top: 0px;
+    margin-top: -5px;
 }
 
 hr{
@@ -51,7 +51,7 @@ hr{
 
 .hori {
     min-width: 1000px;
-    margin: 10px 0 20px;
+    margin: 5px 0 20px;
 }
 
 input[type=image] {
@@ -167,31 +167,16 @@ input[type=image] {
     position: relative;
 }
 
-
 .managingBox input {
     position: absolute;
     right: 0;
 }
-
 
 .buttonBox {
     min-width: 1000px;
     text-align: center;
 }
 
-button {
-    width: 50px;
-    height: 25px;
-    border: 1px;
-    border-radius: 5px;
-    font-size: 12px;
-    background-color: black;
-    color: white;
-    padding: 0 5px;
-    margin: 0 30px;
-    box-sizing: content-box;
-}
-
-button:hover {
-    background-color: gray;
-}
+.buttonBox > :first-child {
+    margin-right: 100px;
+  }

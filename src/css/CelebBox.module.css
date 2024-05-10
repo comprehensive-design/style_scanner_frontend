@@ -32,10 +32,8 @@
     color: gray;
 }
 
-.button {
-    border-radius: 15%;
-    padding: 2px;
-    font-size: 12px;
+.btn {
+    text-align: center;
     margin: auto 0px auto auto;
 }
 
