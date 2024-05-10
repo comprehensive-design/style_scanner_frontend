@@ -10,7 +10,6 @@ const StyledButton = styled.p`
   border-radius: 10px;
   padding: 10px 15px;
   font-size: 12px;
-  margin: 0 100px;
 
   &:hover {
     background-color: ${props => props.hovColor};
