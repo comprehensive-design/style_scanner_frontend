@@ -15,7 +15,7 @@ body {
 }
 
 .content {
-    width: calc(100% - 400px);
+    min-width: calc(100% - 400px);
     position: absolute;
     left: 300px;
     top: 20px;
