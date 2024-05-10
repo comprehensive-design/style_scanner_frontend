@@ -29,6 +29,7 @@ export default function CommentInfo(){
                 <div className={styles.heartBox} >
                     <img id={styles.commentHeart} src={imageSrc} onClick={handleClick}></img>
                 </div>
+                
               
             </div>
             
