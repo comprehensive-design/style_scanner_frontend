@@ -28,10 +28,16 @@ body {
 
 .title {
     text-align: left;
-    margin-left: 0px;
-    margin-top: 0px;
 }
 
+.title h2{
+    margin: -5px 0 5px 0;
+}
+
+.title hr{
+    height: 2px;
+    border: none;
+}
 
 .wrap{
     flex-wrap: wrap; 
