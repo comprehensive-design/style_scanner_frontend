@@ -10,17 +10,22 @@ export default function CommunityNoti() {
 
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h3>알림</h3>
+                    <h2>알림</h2>
                     <hr></hr>
                 </div>
-                <NotiBox></NotiBox>
-                <hr></hr>
-                <NotiBox></NotiBox>
-                <hr></hr>
-                <NotiBox></NotiBox>
-                <hr></hr>
-                <NotiBox></NotiBox>
-                <hr></hr>
+                <div className={styles.wrap}>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                    <NotiBox></NotiBox>
+                </div>
             </div>
         </body>
     );

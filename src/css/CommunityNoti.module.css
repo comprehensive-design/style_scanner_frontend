@@ -6,6 +6,8 @@
 }
 
 body {
+    
+    min-width: 1000px;
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
@@ -30,10 +32,10 @@ body {
     margin-top: 0px;
 }
 
-.title>hr {
-    height: 2px;
-    width: 100%;
-    border: none;
-    background-color: #aaa;
-    margin: 10px 0 0px;
+
+.wrap{
+    flex-wrap: wrap; 
+    overflow-y: auto; 
+    max-height: 600px;  
+    scrollbar-width: none; 
 }

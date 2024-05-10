@@ -1,9 +1,8 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
-.box {
+.content {
     display: flex;
     padding: 30px;
-    box-sizing: border-box;
 }
 
 .NBox {
@@ -42,4 +41,11 @@
     text-align: right;
     margin: auto auto;
     color: gray;
+}
+
+hr {
+    height: 2px;
+    width: 100%;
+    border: none;
+    background-color: #aaa;
 }
