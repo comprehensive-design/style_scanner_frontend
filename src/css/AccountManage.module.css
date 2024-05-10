@@ -16,6 +16,7 @@
 }
 
 body {
+    min-width: 1000px;
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
@@ -23,6 +24,7 @@ body {
 }
 
 .content {
+    min-width: 1000px;
     width: calc(100% - 400px);
     position: absolute;
     left: 300px;
@@ -35,18 +37,23 @@ body {
 
 
 .title {
+    min-width: 1000px;
     text-align: left;
     margin-left: 0px;
     margin-top: 0px;
 }
 
-.title>hr {
+hr{
     height: 2px;
-    width: 100%;
     border: none;
     background-color: #aaa;
+}
+
+.hori {
+    min-width: 1000px;
     margin: 10px 0 20px;
 }
+
 input[type=image] {
     width: 12px;
     height: 12px;
@@ -55,6 +62,7 @@ input[type=image] {
 }
 
 .profileBox {
+    min-width: 1000px;
     display: flex;
     padding: 50px;
 }
@@ -81,6 +89,7 @@ input[type=image] {
 }
 
 .profileBox2 {
+    min-width: 1000px;
     position: relative;
     width: 100%;
     left: 150px;
@@ -106,6 +115,7 @@ input[type=image] {
 
 
 .managingBox {
+    min-width: 1000px;
     position: relative;
     height: 250px;
     margin-top: 30px;
@@ -165,6 +175,7 @@ input[type=image] {
 
 
 .buttonBox {
+    min-width: 1000px;
     text-align: center;
 }
 

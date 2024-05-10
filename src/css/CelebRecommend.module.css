@@ -6,6 +6,7 @@
 }
 
 body {
+    min-width: 1000px;
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
@@ -13,7 +14,7 @@ body {
 }
 
 .content {
-    width: calc(100% - 400px);
+    min-width: calc(100% - 400px);
     position: absolute;
     left: 300px;
     top: 20px;
@@ -39,12 +40,11 @@ body {
 }
 
 .wrap{
-
+    min-width: 1000px;
     display: flex;
     flex-wrap: wrap; 
     justify-content: space-between;
     overflow-y: auto; 
     max-height: 600px;  
-    
     scrollbar-width: none; 
 }
