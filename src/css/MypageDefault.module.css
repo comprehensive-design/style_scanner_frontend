@@ -6,12 +6,14 @@
 }
 
 body {
+    min-width: 1000px;
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
 }
 
 .content {
+    min-width: 1000px;
     width: calc(100% - 400px);
     position: absolute;
     left: 270px;
@@ -21,6 +23,7 @@ body {
 }
 
 .profileBox {
+    min-width: 1000px;
     height: 150px;
     box-sizing: border-box;
     border: 1px solid black;
@@ -63,6 +66,7 @@ body {
 }
 
 .textBox{
+    min-width: 1000px;
     position: relative;
     height: 30px;
     margin-top: 60px;
@@ -82,6 +86,7 @@ body {
 }
 
 .following{
+    min-width: 1000px;
     display: flex;
     padding: 0 auto;
     justify-content: center;
@@ -103,6 +108,7 @@ body {
 }
 
 .like{
+    min-width: 1000px;
     display: flex;
     justify-content: center;
     margin-right: 30px;

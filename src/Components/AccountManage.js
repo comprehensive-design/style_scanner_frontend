@@ -58,7 +58,7 @@ export default function AccountManage() {
             <div className={styles.content}>
                 <div className={styles.title}>
                     <h3>계정 관리</h3>
-                    <hr></hr>
+                    <hr className={styles.hori}></hr>
                 </div>
 
                 <div className={styles.profileBox}>
@@ -79,7 +79,7 @@ export default function AccountManage() {
                         </div>
                     </div>
                 </div>
-                <hr></hr>
+                <hr className={styles.hori}></hr>
                 <div className={styles.managingBox}>
                     <div className={styles.emailBox}>
                         <p>이메일 주소</p>

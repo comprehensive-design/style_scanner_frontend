@@ -2,11 +2,11 @@
 
 .box {
     width: calc(50% - 25px);
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .pBox {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     display: flex;
 }
 
@@ -40,13 +40,12 @@
 }
 
 .iBox {
-    margin-top: 10px;
     display: flex;
     justify-content: center;
 }
 
 .fimage {
-    width: 140px;
+    width: 145px;
     height: 180px;
 }
 
