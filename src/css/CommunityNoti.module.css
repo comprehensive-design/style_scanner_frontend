@@ -6,7 +6,6 @@
 }
 
 body {
-    min-width: 1000px;
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
@@ -14,7 +13,7 @@ body {
 }
 
 .content {
-    width: calc(100% - 400px);
+    min-width: calc(100% - 400px);
     position: absolute;
     left: 300px;
     top: 20px;
@@ -33,7 +32,6 @@ body {
 
 .title>hr {
     height: 2px;
-    width: 100%;
     border: none;
     background-color: #aaa;
     margin: 10px 0 0px;
