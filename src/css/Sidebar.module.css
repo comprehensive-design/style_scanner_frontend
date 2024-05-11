@@ -2,14 +2,8 @@
   text-decoration: none;
 }
 
-li{
+.sideUl .sideList{
   list-style-type: none;
-  color: "grey";
+  color: "gray";
   line-height: 200%;
-  
-}
-.logo{
-  width: 200px;
-  margin:30px;
-  margin-top:50px;
 }

@@ -1,27 +1,21 @@
 
-import '../css/MypageDefault.css';
-import Main from './Main';
-import MainBar from './MainBar';
-
+import styles from "../css/MypageDefault.module.css";
+import Sidebar from './Sidebar';
 
 export default function MypageDefault() {
     return (
         <body>
-            <header>
-                <MainBar/>
-                <div className='menuBar'>메뉴바입니다</div>
-            </header>
 
-            <div className='wrap'>
+            <div className={styles.wrap}>
                 
-                {/* <div className='sideBar'>사이드바입니다</div> */}
+                <Sidebar></Sidebar>
 
-                <div className='content'>
-                    <div className='profileBox'>
-                        <img className='profileImg' src="http://via.placeholder.com/100X100"></img>
-                        <div>
-                            <p id='userName'>username</p>
-                            <small id='userId'>@userid</small>
+                <div className={styles.content}>
+                    <div className={styles.profileBox}>
+                        <img className={styles.profileImg} src="http://via.placeholder.com/100X100"></img>
+                        <div className={styles.nameBox}>
+                            <p id='userName'>@ username</p>
+                            <small id='userId'>소개소개소개한줄소개라리루레로</small>
                         </div>
                         <div>
                             <p id='followNum'>256</p>
@@ -29,12 +23,12 @@ export default function MypageDefault() {
                         </div>
                     </div>
 
-                    <div className='textBox'>
+                    <div className={styles.textBox}>
                         <p>팔로잉</p>
                         <p>더보기</p>
                     </div>
 
-                    <div className='following'>
+                    <div className={styles.following}>
                         <div>
                             <img id='celebImg1' src="http://via.placeholder.com/100X100"></img>
                             <p id='celebID1'>@celebID</p>
@@ -51,41 +45,45 @@ export default function MypageDefault() {
                             <img id='celebImg4' src="http://via.placeholder.com/100X100"></img>
                             <p id='celebID4'>@celebID</p>
                         </div>
-                    </div>
-
-
-                    <div className='textBox'>
-                        <p>좋아요</p>
-                        <p>더보기</p>
-                    </div>
-
-
-                    <div className='like'>
                         <div>
-                            <img className='likeComponent' id='itemImg' src="http://via.placeholder.com/100X100"></img>
+                            <img id='celebImg4' src="http://via.placeholder.com/100X100"></img>
+                            <p id='celebID4'>@celebID</p>
+                        </div>
+                    </div>
 
-                            <p className='likeComponent' id='brandName'>브랜드이름</p>
-                            <div className='item'>
-                                <p id='itemName'>아이템이름</p> -
-                                <p id='itemOption'>옵션명</p>
+
+                    <div className={styles.textBox}>
+                        <p>좋아요</p>
+                        <p>더보기</p> 
+                    </div>
+
+
+                    <div className={styles.like}>
+                        <div>
+                            <img className={styles.likeComponent} id='itemImg' src="http://via.placeholder.com/100X100"></img>
+
+                            <p className={styles.likeComponent} id={styles.brandName}>브랜드이름</p>
+                            <div className={styles.item}>
+                                <p id={styles.itemName}>아이템이름</p> -
+                                <p id={styles.itemOption}>옵션명</p>
                             </div>
-                            <p className='likeComponent' id='itemPrice'>가격</p>
-                            <div className='heartBox'>
+                            <p className={styles.likeComponent} id={styles.itemPrice}>가격</p>
+                            <div className={styles.heartBox}>
                                 <img src="img/fullHeart.png"></img>
                                 <p id='likeCount'>좋아요수</p>
                             </div>
                         </div>
 
                         <div>
-                            <img className='likeComponent' id='itemImg' src="http://via.placeholder.com/100X100"></img>
+                            <img className={styles.likeComponent} id='itemImg' src="http://via.placeholder.com/100X100"></img>
 
-                            <p className='likeComponent' id='brandName'>브랜드이름</p>
-                            <div className='item'>
-                                <p id='itemName'>아이템이름</p> -
-                                <p id='itemOption'>옵션명</p>
+                            <p className={styles.likeComponent} id={styles.brandName}>브랜드이름</p>
+                            <div className={styles.item}>
+                                <p id={styles.itemName}>아이템이름</p> -
+                                <p id={styles.itemOption}>옵션명</p>
                             </div>
-                            <p className='likeComponent' id='itemPrice'>가격</p>
-                            <div className='heartBox'>
+                            <p className={styles.likeComponent} id={styles.itemPrice}>가격</p>
+                            <div className={styles.heartBox}>
                                 <img src="img/fullHeart.png"></img>
                                 <p id='likeCount'>좋아요수</p>
                             </div>

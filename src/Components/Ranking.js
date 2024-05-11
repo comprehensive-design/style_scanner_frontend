@@ -1,5 +1,5 @@
 import Category from "./Category"
-import '../css/Ranking.css';
+import styles from '../css/Ranking.module.css';
 import { Link } from "react-router-dom";
 import RankingFeed from "./RankingFeed";
 import React, {useState} from 'react';
@@ -20,51 +20,51 @@ export default function Ranking(){
 
     return(
         
-        <div className="totalWrap">
-            <div className="RankingWord">
-                <h1 id="rankingBest">&nbsp;BEST</h1>
-                <p id="rankingPopular">인기 있는 피드</p>
+        <div className={styles.totalWrap}>
+            <div className={styles.RankingWord}>
+                <h1 id={styles.rankingBest}>&nbsp;BEST</h1>
+                <p id={styles.rankingPopular}>인기 있는 피드</p>
             </div>
 
-            <div className="ContentWrap" style={{display:'flex'}}>
+            <div className={styles.ContentWrap} style={{display:'flex'}}>
                 <Category></Category>
-                <div className="RankingContent">
-                    <div className="RankingType">
-                        <ul className="RankingUl">
-                            <li className="RankingLists"><Link>실시간</Link></li>
-                            <li className="RankingLists"><Link>일간</Link></li>
-                            <li className="RankingLists"><Link>월간</Link></li>
+                <div className={styles.RankingContent}>
+                    <div className={styles.RankingType}>
+                        <ul className={styles.RankingUl}>
+                            <li className={styles.RankingLists}><Link>실시간</Link></li>
+                            <li className={styles.RankingLists}><Link>일간</Link></li>
+                            <li className={styles.RankingLists}><Link>월간</Link></li>
                         </ul>
                     </div>
 
-                    <div className="RankingRow_1">
+                    <div className={styles.RankingRow_1}>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
                         
                     </div>
 
-                    <div className="RankingRow_2">
+                    <div className={styles.RankingRow_2}>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
                     </div>
 
-                    <div className="RankingRow_3">
+                    <div className={styles.RankingRow_3}>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
-                        <div className="RankingPadding"></div>
+                        <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
                     </div>
                 </div>

@@ -1,26 +1,26 @@
-import "../css/RankingFeed.css";
+import styles from "../css/RankingFeed.module.css";
 
 export default function RankingFeed(){
     return(
-        <div className="RankingFeed">
+        <div className={styles.RankingFeed}>
             <div>
                 <img 
-                    id='bestFeed' src={process.env.PUBLIC_URL + 'img/best.png'}
+                    id={styles.bestFeed} src={process.env.PUBLIC_URL + 'img/best.png'}
                     width = "210px"
                     height = "280px"
                 >
                 </img>
 
-                <div className="RankingUserInfo">
-                    <p className="rankingId">hi_sseulgi</p>
+                <div className={styles.RankingUserInfo}>
+                    <p className={styles.rankingId}>hi_sseulgi</p>
 
-                    <div style={{display:'flex'}} className="RankingUserHeart">
+                    <div style={{display:'flex'}} className={styles.RankingUserHeart}>
                         <img
-                            id="rankingHeart"
+                            id={styles.rankingHeart}
                             src={`img/heart.png`}
                         >
                         </img>
-                        <p className="rankingHeartCount">165</p>
+                        <p className={styles.rankingHeartCount}>165</p>
                     </div>
                 </div>
 

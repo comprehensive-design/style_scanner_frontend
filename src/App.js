@@ -6,7 +6,10 @@ import Main from './Components/Main';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
+import AccountManage from './Components/AccountManage';
+import CommunityNoti from './Components/CommunityNoti';
 import Ranking from './Components/Ranking';
+import CelebRecommend from './Components/CelebRecommend';
 
 const App = () => {
   return (
@@ -17,8 +20,11 @@ const App = () => {
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/MypageDefault" element={<MypageDefault />} />
+        <Route path="/AccountManage" element={<AccountManage />} />
+        <Route path="/CommunityNoti" element={<CommunityNoti />} />
+        <Route path="/CelebRecommend" element={<CelebRecommend />} />
         <Route path="/Ranking" element={<Ranking/>}/>
-      </Routes>
+      </Routes> 
     </div>
   );
 }
