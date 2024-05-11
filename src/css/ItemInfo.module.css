@@ -1,0 +1,21 @@
+.infoBox{
+    display: flex;
+    border: 2px solid #D9D9D9;
+    height: 140px;
+    width:600px;
+    justify-content: left;
+    align-items: center;
+    padding: 10px;
+}
+.infoText{
+    text-align: left;
+    margin: 20px;
+    
+}
+#itemHeart{
+    margin-left: 270px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+}

@@ -1,0 +1,47 @@
+.contents{
+    padding-left: 240px;
+    height: fit-content;
+    width:fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+
+.totalItem{
+    position: relative;
+    display: block;
+    border: 2px solid #D9D9D9;
+    height: 400px;
+    width:fit-content;
+
+    overflow-y: Scroll;
+    /* 스크롤바 없애기 */
+    scrollbar-width: none;
+   
+    padding: 10px;
+    margin: 35px 0 0 50px;
+    border: 1px solid black;
+    z-index: 1;
+    
+}
+.decoBox{
+    position: absolute;
+    width: 643px;
+    height: 500px;
+    border: 1px solid black;
+    margin-top:35px;
+    left: 720px;
+    z-index: 0;
+}
+
+.writeButton{
+    margin-top: 465px;
+    margin-left: 600px;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+}

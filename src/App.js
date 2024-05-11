@@ -16,6 +16,7 @@ import Search from './Components/Search';
 import MyPageWritings from './Components/MyPageWritings';
 import MyPageComments from './Components/MyPageComments';
 import HomeFeed from './Components/HomeFeed';
+import HomeInfo from './Components/HomeInfo';
 import CommunityFeed from './Components/CommunityFeed';
 import CommunityWrite from './Components/CommunityWrite';
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/MyPageWritings" element={<MyPageWritings />} />
         <Route path="/MyPageComments" element={<MyPageComments />} />
         <Route path="/HomeFeed" element={<HomeFeed />} />
+        <Route path="/HomeInfo" element={<HomeInfo />} />
         <Route path="/CommunityFeed" element={<CommunityFeed />} />
         <Route path="/CommunityWrite" element={<CommunityWrite />} />
       </Routes> 
