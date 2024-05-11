@@ -12,21 +12,23 @@ import CommunityNoti from './Components/CommunityNoti';
 import Ranking from './Components/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
 import ManageBox from './Components/ManageBox';
+import Search from './Components/Search';
 
 const App = () => {
   return (
     <div>
       <MainBar/>
       <Routes>
-      <Route path="/" element={<Main />} />
-        <Route path="/Register" element={<Register />} />
+      <Route path="/" element={<Search />} />
+        {/* <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/MypageDefault" element={<MypageDefault />} />
         <Route path="/AccountManage" element={<AccountManage />} />
         <Route path="/CommunityNoti" element={<CommunityNoti />} />
         <Route path="/CelebRecommend" element={<CelebRecommend />} />
         <Route path="/Ranking" element={<Ranking/>}/>
-        <Route path="/FollowingList" element={<FollowingList/>}/>
+        <Route path="/Search" elemnt={<Search/>}/>
+        <Route path="/FollowingList" element={<FollowingList/>}/> */}
       </Routes> 
     </div>
   );
