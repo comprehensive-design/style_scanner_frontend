@@ -17,6 +17,7 @@ import MyPageWritings from './Components/MyPageWritings';
 import MyPageComments from './Components/MyPageComments';
 import HomeFeed from './Components/HomeFeed';
 import CommunityFeed from './Components/CommunityFeed';
+import CommunityWrite from './Components/CommunityWrite';
 const App = () => {
   return (
     <div>
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/MyPageComments" element={<MyPageComments />} />
         <Route path="/HomeFeed" element={<HomeFeed />} />
         <Route path="/CommunityFeed" element={<CommunityFeed />} />
+        <Route path="/CommunityWrite" element={<CommunityWrite />} />
       </Routes> 
     </div>
   );
