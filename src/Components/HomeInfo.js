@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Feed from './feed.js';
 import ItemInfo from './ItemInfo.js';
-import '../css/HomeInfo.css';
+import styles from '../css/HomeInfo.module.css';
 import { useNavigate } from "react-router-dom";
 
 export default function HomeInfo(){
@@ -10,7 +10,7 @@ export default function HomeInfo(){
     const itemListRef = useRef(); 
     const navigate = useNavigate();
     const navigateToCommunity = () => {
-        navigate("/xxx");
+        navigate("/CommunityWrite");
       };
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -47,29 +47,20 @@ export default function HomeInfo(){
 
    
     return(
-        <body>
-            <header>
-                <div className='menuBar'>메뉴바입니다</div>
-            </header>
-
-            <div className="contents">
-                <Feed></Feed>
+        <div className={styles.contents}>
+            <Feed></Feed>
                 
-                <div className="totalItem" ref={itemListRef}>
-                    {/* item 정보  */}
-                    {items.map(feed => (
-                    <ItemInfo key={feed.id} image={feed.image} />
-                    ))}
-                    <div style={{height: '10px'}} />
-                </div>
-                <div className="decoBox">
-                    {/* 커뮤니티로 이동 */}
-                    <input type="button" className='writeButton' value="+" onClick={navigateToCommunity}></input>
-                </div>
-                
+            <div className={styles.totalItem} ref={itemListRef}>
+                {items.map(feed => (
+                <ItemInfo key={feed.id} image={feed.image} />
+                ))}
+                <div style={{height: '10px'}} />
             </div>
-            
-        </body>
+            <div className={style.decoBox}>
+                <input type="button" className={styles.writeButton} value="+" onClick={navigateToCommunity}></input>
+            </div>
+                
+        </div>
         
     )
 }
