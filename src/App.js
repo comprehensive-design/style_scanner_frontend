@@ -9,6 +9,7 @@ import MypageDefault from './Components/MypageDefault';
 import Category from './Components/Category';
 import AccountManage from './Components/AccountManage';
 import CommunityNoti from './Components/CommunityNoti';
+import MyPageWritings from './Components/MyPageWritings.js';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/MypageDefault" element={<MypageDefault />} />
         <Route path="/AccountManage" element={<AccountManage />} />
         <Route path="/CommunityNoti" element={<CommunityNoti />} />
+        <Route path="/MyPageWritings" element={<MyPageWritings />} />
       </Routes> 
     </div>
   );

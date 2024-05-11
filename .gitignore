@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+/src/Components/Button.js
+/src/Components/Sidebar.js
+/src/css/Sidebar.css
 # dependencies
 /node_modules
 /.pnp
