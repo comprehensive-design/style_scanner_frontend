@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Link, NavLink} from "react-router-dom";
-import SearchBar from '../Components/SearchBar'
-import '../css/MainBar.css';
+import { Link } from "react-router-dom";
+import SearchBar from './SearchBar'
+import styles from '../css/MainBar.module.css';
+
 
 function MainBar(){
     const activeStyle = {
@@ -9,50 +10,26 @@ function MainBar(){
     };
 
     return(
-        <header className = "header">
-            <div style={{display:'flex'}} className ="parent">
-                <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = '' >
-                <img
+        <header className = {styles.header}>
+            <div style={{display:'flex'}} className ={styles.parent}>
+                <Link to="">
+                    <img
                     
                     src={`img/logo.png`}
                     width = '130'
                     height = '48.75'
                     alt = "Logo"
                     />
-                </NavLink>
+                </Link>
                 <SearchBar></SearchBar>
 
-                <nav className="navigation">
-                    <ul>
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        홈
-                        </NavLink >
-                        </li>
-
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        랭킹
-                        </NavLink >
-                        </li>
-
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        추천
-                        </NavLink >
-                        </li>
-
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        커뮤니티
-                        </NavLink >
-                        </li>
-
-                        <li>
-                        <NavLink style={({isActive}) => (isActive? activeStyle : {})} to = ''>
-                        마이페이지
-                        </NavLink >
-                        </li>
+                <nav className={styles.navigation}>
+                    <ul className={styles.mainUl}>
+                        <li className={styles.mainLists}><Link to="/Main">홈</Link></li>
+                        <li className={styles.mainLists}><Link to="/Ranking">랭킹</Link></li>
+                        <li className={styles.mainLists}><Link to="/CelebRecommend">추천</Link></li>
+                        <li className={styles.mainLists}><Link to="">커뮤니티</Link></li>
+                        <li className={styles.mainLists}><Link to="/MypageDefault">마이페이지</Link></li>
                     </ul>
                 </nav>
 

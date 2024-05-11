@@ -1,11 +1,11 @@
 .header{
     display : 'flex';
     margin: 30px;
+    overflow: hidden;
 }
 
 .navigation{
     display: flex;
-    text-decoration: none;
     float : right;
 }
 
@@ -14,23 +14,20 @@
 }
 
 
-p{
-    margin-left : 10px;
-}
-
 a{
     text-decoration : none;
 }
 
-ul {
-    display: flex;
+.mainUl {
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
     list-style: none;
-  }
+}
   
-  li {
-    padding: 10px;
+.mainLists{
+    padding:0;
     margin: 0;
-  }
+    margin-top: 20px;
+    float: left;
+}
