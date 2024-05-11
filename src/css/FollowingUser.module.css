@@ -1,0 +1,38 @@
+#profileImage{
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+.userInfo{
+    display: flex;
+    align-items: center;
+}
+
+.userInfoWord{
+    margin:0;
+    padding:0;
+    margin-left: 30px;
+}
+
+.FollowigId{
+    font-size: 20px;
+}
+
+.userFollowerInfo{
+    margin-left: 0;
+    padding: 0;
+    font-size: 14px;
+    color:gray;
+    margin: 0;
+}
+
+#FollowerWord{
+    margin: 0;
+    padding: 0;
+}
+
+.FollowingDelete{
+    display: flex;
+    margin-left: 600px;
+}

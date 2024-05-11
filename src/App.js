@@ -7,6 +7,7 @@ import Register from './Components/Register';
 import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
 import AccountManage from './Components/AccountManage';
+import FollowingList from './Components/FollowingList';
 import CommunityNoti from './Components/CommunityNoti';
 import Ranking from './Components/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
