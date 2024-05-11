@@ -1,4 +1,4 @@
-import '../css/CommunityWrite.css';
+import styles from '../css/CommunityWrite.module.css';
 import {  useRef } from "react";
 import Feed from './feed.js';
 import { useNavigate } from "react-router-dom";
@@ -16,29 +16,22 @@ export default function MypageDefault(){
         console.log("버튼 누름");
       };
     return(
-        <body>
-            <header>
-                <div className='menuBar'>메뉴바입니다</div>
-            </header>
-
-            <div className="writeContents">
+        <div className={styles.writeContents}>
                 <Feed></Feed>
-                <div className="comDecoBox">
-                    <div className="comWriterBox">
-                        <div className="writerProfile">
-                            <img id='writerImage' src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
+                <div className={styles.comDecoBox}>
+                    <div className={styles.comWriterBox}>
+                        <div className={styles.writerProfile}>
+                            <img id={styles.writerImage} src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
                         </div>
-                        <p  id='writerId'><b>nwbd_we</b></p>
+                        <p  id={styles.writerId}><b>nwbd_we</b></p>
                     </div>
-                    <textarea ref={textarea} onInput={handleResizeHeight} rows={1} className="questionBox" placeholder='질문을 작성해주세요...(100자 이내)'></textarea>
-                    <div className="comButtonBox">
-                    <input type="button" className='comWriteButton' value="작성" onClick={navigateToCommunity}></input>
+                    <textarea ref={textarea} onInput={handleResizeHeight} rows={1} className={styles.questionBox} placeholder='질문을 작성해주세요...(100자 이내)'></textarea>
+                    <div className={styles.comButtonBox}>
+                    <input type="button" className={styles.comWriteButton} value="작성" onClick={navigateToCommunity}></input>
                     </div>
                 </div>
                 
             </div>
-            
-        </body>
         
     )
     

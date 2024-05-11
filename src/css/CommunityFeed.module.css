@@ -1,0 +1,15 @@
+.ComFeedList{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    overflow-x: scroll;
+    margin:0 auto;
+  }
+
+.ComFeedScroll{
+  -ms-overflow-style: none;
+  }
+ ::-webkit-scrollbar {
+   display: none;
+ }

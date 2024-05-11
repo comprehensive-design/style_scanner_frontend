@@ -1,0 +1,29 @@
+#categoryDiv{
+    width : 20%;
+    margin : 30px;
+}
+
+#categoryNa{
+    font-size: 25px;
+    text-align: left;
+}
+
+.categoryUl{
+    flex-direction: column;
+    text-align: left;
+    list-style: none;
+}
+
+.lists{
+    line-height: 25px;
+    color:black;
+}
+
+.lastlists{
+    margin-bottom : 20px;
+}
+
+.gen{
+    font-weight: bold;
+    font-size : 18px;
+}

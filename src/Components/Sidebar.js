@@ -1,107 +1,95 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
-import "../css/Sidebar.css";
-// 로고 320*120
-// https://velog.io/@dazzlynn/React-%EB%A7%9B%EC%A7%91%EC%A0%84%EA%B3%B5-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%82%AC%EC%9D%B4%EB%93%9C%EB%B0%94-%EA%B5%AC%ED%98%8
-// https://hello-yeond.tistory.com/154
+import styles from "../css/Sidebar.module.css";
 
-const Side = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: center;
-  width:20%
-`
 function Sidebar() {
-    const activeStyle={
-      textDecoration:"none",
-      color: "black"
-    };
+  const activeStyle = {
+    textDecoration: "none",
+    color: "black"
+  };
 
-    const unactiveStyle={
-      textDecoration:"none",
-      color: "grey"
-    };
-    const pStyle = {
-      
-      fontSize:"25px"
+  const unactiveStyle = {
+    textDecoration: "none",
+    color: "grey"
+  };
+  const pStyle = {
+    margin: "0 auto",
+    fontSize: "25px"
   }
-   
-    return(
-        <Side>
-          <div >
-            <img className='logo' src={process.env.PUBLIC_URL + 'img/logo.png'} ></img>
-            <p style={pStyle}>마이페이지</p>
-            <br></br>
-            <ul className="sideitem">
-              <li>
-                <b>관심목록</b>
-              </li>
-              <li>
-                <NavLink exact to='/' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  팔로잉
-                </NavLink>
-              </li>
-              <li>
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  좋아요
-                </NavLink>
-              </li>
-              
-              <br></br>
-              <br></br>
-
-              <li >
-                <b>커뮤니티</b>
-              </li>
-              <li>
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  내가 작성한 글
-                </NavLink>
-              </li>
-              <li>
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  내가 작성한 댓글
-                </NavLink>
-              </li>
-              <li>
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  커뮤니티 알림
-                </NavLink>
-              </li>
-
-              <br></br>
-              <br></br>
-
-              <li >
-                <b>나의 계정</b>
-              </li>
-              <li>
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  로그인 정보
-                </NavLink>
-              </li>
-              <li>
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  SNS 연결
-                </NavLink>
-              </li>
-              <li>
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  프로필 관리
-                </NavLink>
-              </li>
-              <li>
-                <NavLink exact to='/xxx' style={({isActive}) => (isActive? activeStyle : unactiveStyle)}>
-                  로그아웃
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </Side>
+  const HorizonLine = () => {
+    return (
+      <div
+        style={{
+          width: "80%",
+          borderBottom: "2px solid #aaa",
+          lineHeight: "0.1em",
+          margin: "10px 0 20px",
+        }}
+      >
+      </div>
     );
-   
-  }
-  
-  export default Sidebar;
+  };
+  return (
+    <>
+      <div className={styles.content}>
+        <ul className={styles.sideUl}>
+          <li className={styles.sideList}>
+            <p style={pStyle}>마이페이지</p>
+            <HorizonLine></HorizonLine>
+          </li>
+
+          <li className={styles.sideList}>
+            <b>관심목록</b>
+          </li>
+          <li className={styles.sideList}>
+            <NavLink exact to='/FollowingList' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+              팔로잉
+            </NavLink>
+          </li>
+          <li className={styles.sideList}>
+            <NavLink exact to='/xxx' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+              좋아요
+            </NavLink>
+          </li>
+
+          <br></br>
+          <br></br>
+
+          <li className={styles.sideList}>
+            <b>커뮤니티</b>
+          </li>
+          <li className={styles.sideList}>
+            <NavLink exact to='/MyPageWritings' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+              내가 작성한 글
+            </NavLink>
+          </li>
+          <li className={styles.sideList}>
+            <NavLink exact to='/MyPageComments' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+              내가 작성한 댓글
+            </NavLink>
+          </li>
+          <li className={styles.sideList}>
+            <NavLink exact to='/CommunityNoti' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+              커뮤니티 알림
+            </NavLink>
+          </li>
+
+          <br></br>
+          <br></br>
+
+          <li className={styles.sideList}>
+            <b>나의 계정</b>
+          </li>
+          <li className={styles.sideList}>
+            <NavLink exact to='/AccountManage' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+              계정 관리
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+
+}
+
+export default Sidebar;

@@ -6,54 +6,32 @@
 }
 
 body {
+    min-width: 1000px;
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
 }
 
-header {
-    min-width: 1000px;
-    height: 100px;
-    position: relative;
-    background-color: gray;
-    padding-bottom: 7px;
-}
-
-.wrap {
-    min-width: 1000px;
-    clear: both;
-    position: relative;
-}
-
-.sideBar {
-    position: relative;
-    width: 20%;
-    background-color: red;
-}
-
 .content {
+    min-width: 1000px;
     width: calc(100% - 400px);
-    margin-top: 50px;
     position: absolute;
     left: 270px;
     top: 0;
-    padding: 0px 100px;
+    padding: 0px 150px;
     box-sizing: border-box;
-    /* background-color: blue; */
 }
 
 .profileBox {
+    min-width: 1000px;
     height: 150px;
     box-sizing: border-box;
     border: 1px solid black;
     border-radius: 10px;
     position: relative;
     margin: 0 30px 50px 0;
-    font-size: 14px;
 }
-.profileBox p{
-    font-weight: bold;
-}
+
 
 .profileBox img {
     width: 100px;
@@ -64,10 +42,6 @@ header {
     top: 25px;
 }
 
-.profileBox div:nth-child(1){
-    background-color: red;
-    color: red;
-}
 .profileBox div:nth-child(2){
     text-align: left;
     position: absolute;
@@ -81,9 +55,16 @@ header {
     top: 55px;
 }
 
+.bigFont{
+    font-weight: 600;
+    font-size: 16px;
+}
+
 .textBox{
+    min-width: 1000px;
     position: relative;
     height: 30px;
+    margin-top: 60px;
     font-size: 16px;
 }
 .textBox p:nth-child(1){
@@ -100,9 +81,10 @@ header {
 }
 
 .following{
+    min-width: 1000px;
     display: flex;
-    margin-left: 50px;
-    margin-bottom: 50px;
+    padding: 0 auto;
+    justify-content: center;
 }
 
 .following div{
@@ -121,25 +103,25 @@ header {
 }
 
 .like{
+    min-width: 1000px;
     display: flex;
+    justify-content: center;
     margin-right: 30px;
 }
 
 .like > div {
     width: 50%;
     height: 140px;
-    margin-bottom: 60px;
+    margin: 0px 20px 60px 20px;
     border: 1px solid gray;
     position: relative;
     border-radius: 5px;
 } 
 
-.like > div:nth-child(1){
-    margin-right: 30px;
-}
 .likeComponent{
     display: inline;
     position: absolute;
+    margin-left: 0px;
 }
 
 .like > div > img{
@@ -147,27 +129,21 @@ header {
     top:20px;
 }
 #brandName{
-    left:140px;
+    left:130px;
     top: 20px;
     font-weight: bold;
     font-size: 14px;
 }
 .item{
     position: absolute;
-    left:140px;
+    left:130px;
     top: 40px;
     width: 100%;
     display: flex;
     font-size: 14px;
 }
-#itemName{
-    margin-right: 5px;
-}
-#itemOption{
-    margin-left: 5px;
-}
 #itemPrice{
-    left:140px;
+    left:130px;
     top: 80px;
     color: gray;
     font-size: 12px;
@@ -176,8 +152,7 @@ header {
 .heartBox{
     position: absolute;
     display: flex;
-    width: 100%;
-    left:140px;
+    left:130px;
     top: 100px;
     font-size: 14px;
 }
@@ -185,5 +160,4 @@ header {
     width: 14px;
     height: 14px;
     margin: auto 0;
-    margin-right: 3px;
 }

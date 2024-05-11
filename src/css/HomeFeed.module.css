@@ -1,0 +1,15 @@
+.feedList{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    overflow-x: scroll;
+  }
+  
+.feedScroll{
+  -ms-overflow-style: none;
+  }
+
+ ::-webkit-scrollbar {
+   display: none;
+ }
