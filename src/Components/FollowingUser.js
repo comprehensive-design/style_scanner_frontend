@@ -9,9 +9,9 @@ function FollowingUser(){
                 <img
                     id={styles.profileImage}
                     // src={process.env.PUBLIC_URL + 'img/profile.png'}
-                    src=" http://via.placeholder.com/200x200"
-                    width={200}
-                    height={200}
+                    src=" http://via.placeholder.com/180x180"
+                    width={180}
+                    height={180}
                 >
                 </img>
 
