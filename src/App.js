@@ -16,6 +16,7 @@ import Search from './Components/Search';
 import MyPageWritings from './Components/MyPageWritings';
 import MyPageComments from './Components/MyPageComments';
 import HomeFeed from './Components/HomeFeed';
+import CommunityFeed from './Components/CommunityFeed';
 const App = () => {
   return (
     <div>
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/MyPageWritings" element={<MyPageWritings />} />
         <Route path="/MyPageComments" element={<MyPageComments />} />
         <Route path="/HomeFeed" element={<HomeFeed />} />
+        <Route path="/CommunityFeed" element={<CommunityFeed />} />
       </Routes> 
     </div>
   );

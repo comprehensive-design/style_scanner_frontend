@@ -28,7 +28,7 @@ function MainBar(){
                         <li className={styles.mainLists}><Link to="/HomeFeed">홈</Link></li>
                         <li className={styles.mainLists}><Link to="/Ranking">랭킹</Link></li>
                         <li className={styles.mainLists}><Link to="/CelebRecommend">추천</Link></li>
-                        <li className={styles.mainLists}><Link to="">커뮤니티</Link></li>
+                        <li className={styles.mainLists}><Link to="/CommunityFeed">커뮤니티</Link></li>
                         <li className={styles.mainLists}><Link to="/MypageDefault">마이페이지</Link></li>
                     </ul>
                 </nav>
