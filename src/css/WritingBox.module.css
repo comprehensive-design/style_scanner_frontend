@@ -8,11 +8,12 @@
 }
 .feedDiv > .feedId{
     padding : 0 0 20px 0;
+    text-align: center;
 }
 .textDiv{
     height:fit-content;
     text-align: left;
-    margin: 30px 30px 30px 10px;
+    margin: 30px 30px 30px 20px;
 }
 .title{
     font-weight: 600;
@@ -27,11 +28,13 @@
     top: 180px;
     display: flex;
     float: left;
-    
 }
 .commentImage{
     width: 20px;
     height:20px;
+}
+#commentCnt{
+    margin-left: 10px;
 }
 .dateDiv {
     position: absolute;
@@ -45,9 +48,7 @@
 .buttonDiv{
     position: absolute;
     right:0;
-    padding:10px;
     top: 150px;
     display: flex;
     float: left;
-    
 }
