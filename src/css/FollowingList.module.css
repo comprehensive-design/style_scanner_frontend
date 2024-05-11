@@ -12,3 +12,9 @@
     display: flex;
     padding-bottom: 20px;
 }
+
+.paddingBox{
+    height: 50px;
+    width: 100%;
+    background-color: blue;
+}
