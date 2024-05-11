@@ -6,9 +6,9 @@ import Main from './Components/Main';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
-import Category from './Components/Category';
 import AccountManage from './Components/AccountManage';
 import CommunityNoti from './Components/CommunityNoti';
+import Ranking from './Components/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
 
 const App = () => {
@@ -23,6 +23,7 @@ const App = () => {
         <Route path="/AccountManage" element={<AccountManage />} />
         <Route path="/CommunityNoti" element={<CommunityNoti />} />
         <Route path="/CelebRecommend" element={<CelebRecommend />} />
+        <Route path="/Ranking" element={<Ranking/>}/>
       </Routes> 
     </div>
   );

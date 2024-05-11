@@ -4,18 +4,19 @@
 }
 
 #categoryNa{
+    font-size: 25px;
     text-align: left;
 }
 
-ul{
+.categoryUl{
     flex-direction: column;
     text-align: left;
-    margin-top : 10px;
+    list-style: none;
 }
 
-
 .lists{
-    margin-bottom: 7px;
+    line-height: 25px;
+    color:black;
 }
 
 .lastlists{
