@@ -10,6 +10,7 @@ import AccountManage from './Components/AccountManage';
 import CommunityNoti from './Components/CommunityNoti';
 import Ranking from './Components/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
+import ManageBox from './Components/ManageBox';
 
 const App = () => {
   return (

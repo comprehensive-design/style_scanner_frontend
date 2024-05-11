@@ -28,7 +28,7 @@ body {
     width: calc(100% - 400px);
     position: absolute;
     left: 300px;
-    top: 20px;
+    top: 0px;
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
@@ -40,13 +40,18 @@ body {
     min-width: 1000px;
     text-align: left;
     margin-left: 0px;
-    margin-top: -5px;
 }
 
 hr{
     height: 2px;
     border: none;
     background-color: #aaa;
+}
+.horizon {
+    min-width: 1000px;
+    border-Bottom: 2px solid #aaa;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
 }
 
 .hori {
@@ -113,7 +118,6 @@ input[type=image] {
     font-size: 14px;
 }
 
-
 .managingBox {
     min-width: 1000px;
     position: relative;
@@ -121,50 +125,8 @@ input[type=image] {
     margin-top: 30px;
 }
 
-.emailBox {
-    left: 0;
-    top: 0;
-    position: absolute;
-    width: 45%;
-    height: 30%;
-}
-
-.birthBox {
-    left: 55%;
-    top: 0;
-    position: absolute;
-    width: 45%;
-    height: 30%;
-}
-
-.pwdBox {
-    height: 30%;
-    width: 45%;
-    position: absolute;
-    left: 0;
-    top: 45%;
-
-}
-
-.genderBox {
-    height: 30%;
-    width: 45%;
-    position: absolute;
-    left: 55%;
-    top: 45%;
-
-}
-
 .managingBox>div>p {
     font-size: 16px;
-}
-
-.changeBox {
-    display: flex;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    position: relative;
 }
 
 .managingBox input {
