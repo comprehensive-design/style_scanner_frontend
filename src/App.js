@@ -15,7 +15,7 @@ import ManageBox from './Components/ManageBox';
 import Search from './Components/Search';
 import MyPageWritings from './Components/MyPageWritings';
 import MyPageComments from './Components/MyPageComments';
-
+import Feed from './Components/feed.js';
 const App = () => {
   return (
     <div>
