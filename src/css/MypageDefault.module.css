@@ -33,16 +33,6 @@ body {
 }
 
 
-.profileBox p{
-    font-weight: bold;
-    margin-left: 0px;
-    font-size: 14px;
-}
-
-.profileBox small{
-    margin-left: 0px;
-    font-size: 12px;
-}
 .profileBox img {
     width: 100px;
     height: 100px;
@@ -63,6 +53,11 @@ body {
     position: absolute;
     right: 100px;
     top: 55px;
+}
+
+.bigFont{
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .textBox{
@@ -134,7 +129,7 @@ body {
     top:20px;
 }
 #brandName{
-    left:140px;
+    left:130px;
     top: 20px;
     font-weight: bold;
     font-size: 14px;
@@ -147,14 +142,8 @@ body {
     display: flex;
     font-size: 14px;
 }
-#itemName{
-    margin-right: 5px;
-}
-#itemOption{
-    margin-left: 5px;
-}
 #itemPrice{
-    left:140px;
+    left:130px;
     top: 80px;
     color: gray;
     font-size: 12px;
@@ -163,7 +152,7 @@ body {
 .heartBox{
     position: absolute;
     display: flex;
-    left:140px;
+    left:130px;
     top: 100px;
     font-size: 14px;
 }

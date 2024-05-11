@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import styles from '../css/AccountManage.module.css';
 
 const StyledDiv = styled.div`
     top: ${props => props.top};
