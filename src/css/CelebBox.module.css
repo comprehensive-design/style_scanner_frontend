@@ -23,11 +23,13 @@
 }
 
 .uText {
+    display: flex;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .fText {
+    display: flex;
     font-size: 12px;
     color: gray;
 }
