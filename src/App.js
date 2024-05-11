@@ -15,7 +15,7 @@ import ManageBox from './Components/ManageBox';
 import Search from './Components/Search';
 import MyPageWritings from './Components/MyPageWritings';
 import MyPageComments from './Components/MyPageComments';
-import Feed from './Components/feed.js';
+import HomeFeed from './Components/HomeFeed';
 const App = () => {
   return (
     <div>
@@ -33,6 +33,7 @@ const App = () => {
         <Route path="/FollowingList" element={<FollowingList/>}/>
         <Route path="/MyPageWritings" element={<MyPageWritings />} />
         <Route path="/MyPageComments" element={<MyPageComments />} />
+        <Route path="/HomeFeed" element={<HomeFeed />} />
       </Routes> 
     </div>
   );
