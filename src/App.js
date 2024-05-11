@@ -19,8 +19,8 @@ const App = () => {
     <div>
       <MainBar/>
       <Routes>
-      <Route path="/" element={<Search />} />
-        {/* <Route path="/Register" element={<Register />} />
+      <Route path="/" element={<Main />} />
+        <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/MypageDefault" element={<MypageDefault />} />
         <Route path="/AccountManage" element={<AccountManage />} />
@@ -28,7 +28,7 @@ const App = () => {
         <Route path="/CelebRecommend" element={<CelebRecommend />} />
         <Route path="/Ranking" element={<Ranking/>}/>
         <Route path="/Search" elemnt={<Search/>}/>
-        <Route path="/FollowingList" element={<FollowingList/>}/> */}
+        <Route path="/FollowingList" element={<FollowingList/>}/>
       </Routes> 
     </div>
   );

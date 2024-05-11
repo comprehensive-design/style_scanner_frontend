@@ -1,8 +1,7 @@
 import styles from'../css/Search.module.css';
-import Channel from '../Components/Channel'
+import Channel from '../Components/channel'
 import React, {useState, useEffect, useRef} from 'react';
 import Button from './Button';
-import { Widgets } from '@mui/icons-material';
 
 function Search(){
 
