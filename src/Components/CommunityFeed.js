@@ -40,7 +40,7 @@ export default function CommunityFeed() {
     };
     return(
         <div className={styles.ComFeedScroll}>
-           
+            
             <div className={styles.ComFeedList} ref={comfeedListRef}>
                 {comfeeds.map(comfeed => (
                     <ComFeed key={comfeed.id} image={comfeed.image} />
