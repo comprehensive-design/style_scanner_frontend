@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Link, NavLink} from "react-router-dom";
+import { Link } from "react-router-dom";
 import SearchBar from './SearchBar'
-import '../css/MainBar.css';
+import styles from '../css/MainBar.module.css';
+
 
 
 function MainBar(){
@@ -10,8 +11,8 @@ function MainBar(){
     };
 
     return(
-        <header className = "header">
-            <div style={{display:'flex'}} className ="parent">
+        <header className = {styles.header}>
+            <div style={{display:'flex'}} className ={styles.parent}>
                 <Link to="">
                     <img
                     
@@ -23,13 +24,13 @@ function MainBar(){
                 </Link>
                 <SearchBar></SearchBar>
 
-                <nav className="navigation">
-                    <ul className="mainUl">
-                        <li className='mainLists'><Link to="/">홈</Link></li>
-                        <li className='mainLists'><Link to="/Ranking">랭킹</Link></li>
-                        <li className='mainLists'><Link to="">추천</Link></li>
-                        <li className='mainLists'><Link to="">커뮤니티</Link></li>
-                        <li className='mainLists'><Link to="/MypageDefault">마이페이지</Link></li>
+                <nav className={styles.navigation}>
+                    <ul className={styles.mainUl}>
+                        <li className={styles.mainLists}><Link to="/">홈</Link></li>
+                        <li className={styles.mainLists}><Link to="/Ranking">랭킹</Link></li>
+                        <li className={styles.mainLists}><Link to="/CelebRecommend">추천</Link></li>
+                        <li className={styles.mainLists}><Link to="">커뮤니티</Link></li>
+                        <li className={styles.mainLists}><Link to="/MypageDefault">마이페이지</Link></li>
                     </ul>
                 </nav>
 
@@ -37,7 +38,5 @@ function MainBar(){
         </header>
     );
 }
-
-
 
 export default MainBar;

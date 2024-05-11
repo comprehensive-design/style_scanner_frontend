@@ -8,6 +8,10 @@ import Login from './Components/Login';
 import MypageDefault from './Components/MypageDefault';
 import AccountManage from './Components/AccountManage';
 import FollowingList from './Components/FollowingList';
+import CommunityNoti from './Components/CommunityNoti';
+import Ranking from './Components/Ranking';
+import CelebRecommend from './Components/CelebRecommend';
+import ManageBox from './Components/ManageBox';
 
 const App = () => {
   return (
@@ -19,7 +23,9 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/MypageDefault" element={<MypageDefault />} />
         <Route path="/AccountManage" element={<AccountManage />} />
-        <Route path="/FollowingList" element={<FollowingList />} />
+        <Route path="/CommunityNoti" element={<CommunityNoti />} />
+        <Route path="/CelebRecommend" element={<CelebRecommend />} />
+        <Route path="/Ranking" element={<Ranking/>}/>
       </Routes> 
     </div>
   );

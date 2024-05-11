@@ -16,6 +16,7 @@
 }
 
 body {
+    min-width: 1000px;
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
@@ -23,10 +24,11 @@ body {
 }
 
 .content {
+    min-width: 1000px;
     width: calc(100% - 400px);
     position: absolute;
     left: 300px;
-    top: 20px;
+    top: 0px;
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
@@ -35,18 +37,28 @@ body {
 
 
 .title {
+    min-width: 1000px;
     text-align: left;
     margin-left: 0px;
-    margin-top: 0px;
 }
 
-.title>hr {
+hr{
     height: 2px;
-    width: 100%;
     border: none;
     background-color: #aaa;
+}
+.horizon {
+    min-width: 1000px;
+    border-Bottom: 2px solid #aaa;
+    line-height: 0.1em;
     margin: 10px 0 20px;
 }
+
+.hori {
+    min-width: 1000px;
+    margin: 5px 0 20px;
+}
+
 input[type=image] {
     width: 12px;
     height: 12px;
@@ -55,6 +67,7 @@ input[type=image] {
 }
 
 .profileBox {
+    min-width: 1000px;
     display: flex;
     padding: 50px;
 }
@@ -81,6 +94,7 @@ input[type=image] {
 }
 
 .profileBox2 {
+    min-width: 1000px;
     position: relative;
     width: 100%;
     left: 150px;
@@ -104,83 +118,27 @@ input[type=image] {
     font-size: 14px;
 }
 
-
 .managingBox {
+    min-width: 1000px;
     position: relative;
     height: 250px;
     margin-top: 30px;
-}
-
-.emailBox {
-    left: 0;
-    top: 0;
-    position: absolute;
-    width: 45%;
-    height: 30%;
-}
-
-.birthBox {
-    left: 55%;
-    top: 0;
-    position: absolute;
-    width: 45%;
-    height: 30%;
-}
-
-.pwdBox {
-    height: 30%;
-    width: 45%;
-    position: absolute;
-    left: 0;
-    top: 45%;
-
-}
-
-.genderBox {
-    height: 30%;
-    width: 45%;
-    position: absolute;
-    left: 55%;
-    top: 45%;
-
 }
 
 .managingBox>div>p {
     font-size: 16px;
 }
 
-.changeBox {
-    display: flex;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    position: relative;
-}
-
-
 .managingBox input {
     position: absolute;
     right: 0;
 }
 
-
 .buttonBox {
+    min-width: 1000px;
     text-align: center;
 }
 
-button {
-    width: 50px;
-    height: 25px;
-    border: 1px;
-    border-radius: 5px;
-    font-size: 12px;
-    background-color: black;
-    color: white;
-    padding: 0 5px;
-    margin: 0 30px;
-    box-sizing: content-box;
-}
-
-button:hover {
-    background-color: gray;
-}
+.buttonBox > :first-child {
+    margin-right: 100px;
+  }
