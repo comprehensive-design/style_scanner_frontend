@@ -1,8 +1,16 @@
-.active{
+.content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 0 0 0 30px;
+  width: 20%
+}
+
+.active {
   text-decoration: none;
 }
 
-.sideUl .sideList{
+.sideUl .sideList {
   list-style-type: none;
   color: "gray";
   line-height: 200%;
