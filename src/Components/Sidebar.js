@@ -42,7 +42,7 @@ function Sidebar() {
             <b>관심목록</b>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact to='/FollowingList' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               팔로잉
             </NavLink>
           </li>

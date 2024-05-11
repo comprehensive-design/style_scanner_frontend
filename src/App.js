@@ -26,6 +26,7 @@ const App = () => {
         <Route path="/CommunityNoti" element={<CommunityNoti />} />
         <Route path="/CelebRecommend" element={<CelebRecommend />} />
         <Route path="/Ranking" element={<Ranking/>}/>
+        <Route path="/FollowingList" element={<FollowingList/>}/>
       </Routes> 
     </div>
   );
