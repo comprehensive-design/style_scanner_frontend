@@ -6,11 +6,9 @@
 }
 
 body {
-    
     min-width: 1000px;
     margin: 0 auto;
     font-family: 'Pretendard';
-    background-color: white;
     position: relative;
 }
 
@@ -18,7 +16,7 @@ body {
     min-width: calc(100% - 400px);
     position: absolute;
     left: 300px;
-    top: 20px;
+    top: 0px;
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
@@ -28,19 +26,22 @@ body {
 
 .title {
     text-align: left;
+    margin-left: 0px;
+    margin-top: 0px;
 }
 
-.title h2{
-    margin: -5px 0 5px 0;
-}
-
-.title hr{
-    height: 2px;
-    border: none;
+.horizon {
+    width: 100%;
+    border-Bottom: 2px solid #aaa;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
 }
 
 .wrap{
+    min-width: 1000px;
+    display: flex;
     flex-wrap: wrap; 
+    justify-content: space-between;
     overflow-y: auto; 
     max-height: 600px;  
     scrollbar-width: none; 

@@ -3,7 +3,6 @@
 .box {
     display: flex;
     padding: 30px;
-    box-sizing: border-box;
 }
 
 .NBox {
@@ -42,4 +41,11 @@
     text-align: right;
     margin: auto auto;
     color: gray;
+}
+
+hr {
+    height: 2px;
+    width: 100%;
+    border: none;
+    background-color: #aaa;
 }

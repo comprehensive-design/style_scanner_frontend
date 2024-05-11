@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../css/Popup.module.css';
-import AccountManage from './AccountManage'
+import Button from './Button';
 
 export default function Popup({ title, onClose, onSave, visible = true, rightBtn = "저장", type = "text" }) {
     const [value, setValue] = useState('');
@@ -40,12 +40,12 @@ export default function Popup({ title, onClose, onSave, visible = true, rightBtn
             
             {type=="birth" && <input type='text' className={styles.inputBox} value={value} onChange={handleChange} placeholder='YYYY/MM/DD' />}
             <div className={styles.buttonBox}>
-                <div className={styles.button} onClick={onClose}>
+                <Button onClick={onClose} BackColor="#d9d9d9" txtColor='black' border='1px solid black' hovColor='black' hovTxtColor='white'>
                     취소
-                </div>
-                <div className={styles.button} onClick={handleSave} >
-                    {rightBtn}
-                </div>
+                </Button>
+                <Button onClick={handleSave} BackColor="#d9d9d9" txtColor='black' border='1px solid black' hovColor='black' hovTxtColor='white'>
+                {rightBtn}
+                </Button>
             </div>
         </div >
     )
