@@ -13,7 +13,8 @@ import Ranking from './Components/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
 import ManageBox from './Components/ManageBox';
 import Search from './Components/Search';
-import MyPageWritings from './Components/MyPageWritings.js';
+import MyPageWritings from './Components/MyPageWritings';
+import MyPageComments from './Components/MyPageComments';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/Search" elemnt={<Search/>}/>
         <Route path="/FollowingList" element={<FollowingList/>}/>
         <Route path="/MyPageWritings" element={<MyPageWritings />} />
+        <Route path="/MyPageComments" element={<MyPageComments />} />
       </Routes> 
     </div>
   );

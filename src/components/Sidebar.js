@@ -64,7 +64,7 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/xxx' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact to='/MyPageComments' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               내가 작성한 댓글
             </NavLink>
           </li>
