@@ -57,6 +57,14 @@ export default function CommunityInfo(){
                         ))}
                         <div style={{height: '10px'}} />
                     </div>
+                    <div className={styles.comInputBox}>
+                        <div className={styles.comProfileBox}>
+                            <img id='comProfileImage' src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
+                        </div>
+                        <div className={styles.inputBox}>
+                            <input className={styles.comInput} type="text" placeholder="댓글을 입력하세요"></input>
+                        </div>
+                    </div>
                 </div>
                 
             </div>
