@@ -67,12 +67,12 @@ body {
     margin-top: 60px;
     font-size: 16px;
 }
-.textBox p:nth-child(1){
+.textBox :nth-child(1){
     position: absolute;
     left: 0;
     top: 0;
 }
-.textBox p:nth-child(2){
+.textBox :nth-child(2){
     position: absolute;
     right: 0;
     top: 0;
