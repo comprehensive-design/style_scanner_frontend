@@ -31,8 +31,9 @@ export default function Pagination({
     }
 
     return(
+        // 페이지 이동 버튼
         <div className={styles.pageButton} >
-            <button
+            <button 
                 onClick={goToPrevPage} disabled = {currentPage === 1}
                 className={styles.buttonshape}
             >&lt;</button>

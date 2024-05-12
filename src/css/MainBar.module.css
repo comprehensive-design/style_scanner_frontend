@@ -4,7 +4,6 @@
     display : 'flex';
     margin: 30px;
     overflow: hidden;
-    /* position : fixed; */
     z-index: 1;
     height:60px;
 }

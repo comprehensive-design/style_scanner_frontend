@@ -8,7 +8,8 @@ import Pagination from './Pagination';
 export default function LikeList() {
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(30);
+    const [itemsPerPage, setItemsPerPage] = useState(30); 
+    // 30개로 설정
 
     useEffect(() => {
         fetch("https://jsonplaceholder.typicode.com/posts")
