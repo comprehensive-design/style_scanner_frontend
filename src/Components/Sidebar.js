@@ -47,7 +47,7 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/xxx' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact to='/LikeList' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               좋아요
             </NavLink>
           </li>
