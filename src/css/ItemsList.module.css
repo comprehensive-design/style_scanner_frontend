@@ -1,0 +1,16 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+*{
+    font-family: 'Pretendard';
+}
+
+.ItemDiv{
+    width: 160px;
+    overflow: hidden;
+    justify-content : center;
+
+}
+
+#LikeItemImg{
+    margin-left: 5px;
+}
