@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/Register.module.css';
 import axios from 'axios';
 import RegisterForm from './RegisterForm';
+import { NavLink } from "react-router-dom";
 
 export default function Register() {
     const [email, setEmail] = useState('');
@@ -25,6 +26,9 @@ export default function Register() {
                 birthdate,
                 gender
             }); console.log(response.data);
+            <NavLink exact to='/Login'></NavLink>
+            alert('가입되었습니다!')
+
         } catch (error) {
             console.error('회원가입 오류:', error);
         }
