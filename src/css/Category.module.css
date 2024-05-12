@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 #categoryDiv{
     width : 20%;
     margin : 30px;
@@ -15,8 +17,8 @@
 }
 
 .lists{
-    line-height: 25px;
-    color:black;
+    line-height: 200%;
+    color:gray;
 }
 
 .lastlists{
@@ -25,5 +27,5 @@
 
 .gen{
     font-weight: bold;
-    font-size : 18px;
+    /* font-size : 18px; */
 }

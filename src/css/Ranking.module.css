@@ -28,6 +28,7 @@
 
 .totalWrap{
     /* background-color: beige; */
+    font-family: 'Pretendard';
 }
 
 .RankingBest{
@@ -45,24 +46,11 @@
 }
 
 .RankingLists{
-    margin-right: 10px;    
     margin-top : 50px;
     float:left;
 }
 
-.RankingRow_1{
-    width: 100%;
-    display:flex;
-    padding-top: 30px;
-}
-
-.RankingRow_2{
-    width: 100%;
-    display:flex;
-    padding-top: 30px;
-}
-
-.RankingRow_3{
+.RankingRow{
     width: 100%;
     display:flex;
     padding-top: 30px;
