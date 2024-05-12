@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 function ComFeed(){
     const navigate = useNavigate();
     const navigateToCommunityComment = () => {
-        navigate("/CommunityWrite");
-        console.log("버튼!!");
+        navigate("/CommunityInfo");
       };
     return(
        
