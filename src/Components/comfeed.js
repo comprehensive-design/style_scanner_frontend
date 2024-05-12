@@ -6,6 +6,9 @@ function ComFeed(){
     const navigateToCommunityComment = () => {
         navigate("/CommunityInfo");
       };
+      const navigateToHomeInfo= () => {
+        navigate("/HomeInfo");
+      };
     return(
        
         <div className={styles.comCompleteFeed}>
@@ -18,7 +21,7 @@ function ComFeed(){
                     <input type="button" className={styles.comGoButton} value="→" onClick={navigateToCommunityComment}></input>
                 </div>
                 <div className={styles.comFeedMain}>
-                    <img id='comFeedImage' src={process.env.PUBLIC_URL + 'img/feed1.png'}></img>
+                    <img id='comFeedImage' src={process.env.PUBLIC_URL + 'img/feed1.png'} onClick={navigateToHomeInfo}></img>
                 </div>
             </div>
             {/* <Feed></Feed> */}

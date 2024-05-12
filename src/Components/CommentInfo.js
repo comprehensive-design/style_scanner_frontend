@@ -7,7 +7,7 @@ export default function CommentInfo(){
 
     const handleClick = () => {
         if (isClicked) {
-          setImageSrc(`img/fullheart.png`);
+            setImageSrc(`img/fullHeart.png`);
             setIsClicked(false); // 초기 상태 false 일 땐 초기 상태 이미지 src
           } else {
             setImageSrc(`img/heart.png`);

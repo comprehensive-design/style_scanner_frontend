@@ -1,9 +1,19 @@
+import React, { useState} from 'react';
 import styles from '../css/ItemInfo.module.css'
+
 export default function HomeInfo(){
-    // 수정 요망..
+    const [imageSrc, setImageSrc] = useState(`img/heart.png`); // 초기 상태는 선택이 되지 않은 상태를 나타내기 위함
+    const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
+
     const handleClick = () => {
-        alert('하트 눌렀다!');
-    };
+        if (isClicked) {
+            setImageSrc(`img/fullHeart.png`);
+            setIsClicked(false); // 초기 상태 false 일 땐 초기 상태 이미지 src
+          } else {
+            setImageSrc(`img/heart.png`);
+            setIsClicked(true); // true일 땐 변경될 이미지 src
+          }
+      };
     return(
         <div className={styles.infoBox}>
             <img id={styles.item} src="http://via.placeholder.com/120X120"></img>
@@ -15,8 +25,8 @@ export default function HomeInfo(){
                     <p id={styles.itemPrice}>320,000원</p>
                 </div>
             {/* 하트 버튼 누르기 */}
-            <div onClick={handleClick}>
-                <img id={styles.itemHeart} src={process.env.PUBLIC_URL + 'img/heart.png'}></img>
+            <div >
+                <img id={styles.itemHeart} src={imageSrc} onClick={handleClick}></img>
             </div>
         </div>
     )
