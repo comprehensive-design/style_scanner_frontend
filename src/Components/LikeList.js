@@ -21,6 +21,7 @@ export default function LikeList() {
     const lastItemIndex = firstItemIndex + itemsPerPage;
     const currentItems = items.slice(firstItemIndex, lastItemIndex);
 
+    // jsondata 쉽게 받아오려고 이렇게 해놨습니다 일부러 그랬습니다.. 
     return (
         <body className={styles.wrap}>
             <Sidebar></Sidebar>

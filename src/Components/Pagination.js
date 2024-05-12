@@ -1,4 +1,3 @@
-import Button from "./Button";
 import styles from "../css/Pagination.module.css";
 
 export default function Pagination({
