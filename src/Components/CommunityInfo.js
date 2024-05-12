@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import ComFeed from './comfeed.js';
 import CommentInfo from './CommentInfo.js';
 import styles from '../css/CommunityInfo.module.css';
+// import Button from './Button';
 
 export default function CommunityInfo(){
     const [comments, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const commentListRef = useRef(); 
-    
+    const sendClick = () => {
+        alert("작성버튼 누름")
+     };
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -61,6 +64,9 @@ export default function CommunityInfo(){
                         <div className={styles.inputBox}>
                             <input className={styles.comInput} type="text" placeholder="댓글을 입력하세요"></input>
                         </div>
+                         <div >
+                            <img  className={styles.writeBtn} src={`img/send.png`} onClick={sendClick}></img>
+                         </div>
                     </div>
                 </div>
                 
