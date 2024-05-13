@@ -1,8 +1,14 @@
-// 회원가입 UI 구현
 import React from 'react';
 import styles from '../css/Register.module.css';
 
-export default function RegisterForm({ email1, email2, password, password2, displayName, year, month, day, gender, setEmail1, setEmail2, setPassword, setPassword2, setDisplayName, setYear, setMonth, setDay, setGender, handleSubmit, years, months, days }) {
+export default function RegisterForm({ email1, email2, password, password2, displayName, year, month, day, gender, setEmail1, setEmail2, setPassword, setPassword2, setDisplayName, setYear, setMonth, setDay, setGender, handleSubmit, handleCheckDuplicate, years, months, days }) {
+    
+    const handleDuplicateCheck = (e) => {
+        e.preventDefault();
+        // 이메일 중복 확인 함수 호출
+        handleCheckDuplicate(email1, email2);
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="email">이메일 주소</label>
@@ -12,7 +18,7 @@ export default function RegisterForm({ email1, email2, password, password2, disp
                 <p>@</p>
                 <input className={styles.inputBox} style={{margin:'auto 0'}}  type="text"
                     value={email2} onChange={(e) => setEmail2(e.target.value)} />
-                <p>중복확인</p>
+                <p onClick={handleDuplicateCheck}>중복확인</p> {/* 중복 확인 버튼 */}
             </div>
             <label htmlFor="password">비밀번호</label>
             <input className={styles.inputBox} type="password" value={password}

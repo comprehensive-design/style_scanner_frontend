@@ -16,30 +16,46 @@ export default function Register() {
     const [day, setDay] = useState('');
     const [gender, setGender] = useState('1');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const birthdate = year + '-' + month + '-' + day;
-            const email = email1 + '@' + email2;
-            if(password==password2){
-                alert(`email: ${email}\npassword: ${password}\ndisplayName: ${displayName}\nbirthdate: ${birthdate}\ngender: ${gender}`);
-                const response = await axios.post('http://localhost:8080/signup', {
-                    email,
-                    password,
-                    displayName,
-                    birthdate,
-                    gender
-                }); console.log(response.data);
-                <NavLink exact to='/Login'></NavLink>
-                alert('가입되었습니다!')}
-            else{
-                alert('비밀번호를 다시 확인해 주세요')
-            }
 
+    const handleCheckDuplicate = async (email1, email2) => {
+        try {
+            const email = email1 + '@' + email2;
+            const response = await axios.post('http://localhost:8080/checkEmail', { email });
+            if (response.data.exists) {
+                alert('이미 사용 중인 이메일입니다.');
+            } else {
+                alert('사용 가능한 이메일입니다.');
+            }
         } catch (error) {
-            console.error('회원가입 오류:', error);
+            alert('이메일 중복 확인 오류:', error);
         }
+    };
+
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const birthdate = year + '-' + month + '-' + day;
+        const email = email1 + '@' + email2;
+
+        if (password === password2) {
+            // 비밀번호 일치 시 회원가입 진행
+            const response = await axios.post('http://localhost:8080/signup', {
+                email,
+                password,
+                displayName,
+                birthdate,
+                gender
+            });
+            console.log(response.data);
+            alert('가입되었습니다!');
+        } else {
+            alert('비밀번호를 다시 확인해 주세요');
+        }
+    } catch (error) {
+        console.error('회원가입 오류:', error);
     }
+};
+
 
     const [years, setYears] = useState([]);
     const [months, setMonths] = useState([]);
@@ -80,6 +96,7 @@ export default function Register() {
                     day={day} setDay={setDay}
                     gender={gender} setGender={setGender}
                     handleSubmit={handleSubmit}
+                    handleCheckDuplicate={handleCheckDuplicate} 
                     years={years} months={months} days={days}
                 />
             </div>
