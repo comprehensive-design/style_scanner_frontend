@@ -1,7 +1,7 @@
 import styles from '../css/CommentBox.module.css';
 import Button from './Button';
 
-export default function CommentBox({feedId, title, contents, date }){
+export default function CommentBox({feedId, feedImg, title, contents, date }){
     
     const editClick = () => {
        alert("edit버튼 누름")

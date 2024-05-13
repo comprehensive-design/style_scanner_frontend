@@ -52,7 +52,7 @@ export default function MyPageComments() {
             // />
 
             //json 데이터 못생겨서 이걸로 함..제대로 되는겁니다.
-            <CommentBox key={index} feedId= "@roses_are_rosie" title="로제 반지 어디 건가요?" contents="까르띠에입니다!!!!! " date="2024.05.13"/>
+            <CommentBox key={index} feedId= "@roses_are_rosie" feedImg='' title="로제 반지 어디 건가요?" contents="까르띠에입니다!!!!! " date="2024.05.13"/>
           ))}
         </div>
         <footer className={styles.footer}>
