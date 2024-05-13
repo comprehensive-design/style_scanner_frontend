@@ -4,6 +4,7 @@ import Sidebar from '../Components/Sidebar';
 import { useEffect, useState } from "react";
 import ItemsList from "./ItemsList";
 import Pagination from './Pagination';
+import axios from "axios";
 
 export default function LikeList() {
     const [items, setItems] = useState([]);
@@ -12,9 +13,14 @@ export default function LikeList() {
     // 30개로 설정
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/posts")
-            .then((res) => res.json())
-            .then((data) => setItems(data));
+        axios.get("https://jsonplaceholder.typicode.com/posts")
+            .then((response) => {
+                setItems(response.data);
+            })
+            .catch((error) => {
+                // 에러 처리
+                console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);
+            });
     }, []);
 
     const firstItemIndex = (currentPage - 1) * itemsPerPage;
