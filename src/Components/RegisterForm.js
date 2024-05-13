@@ -2,17 +2,26 @@
 import React from 'react';
 import styles from '../css/Register.module.css';
 
-export default function RegisterForm({ email, password, displayName, year, month, day, gender, setEmail, setPassword, setDisplayName, setYear, setMonth, setDay, setGender, handleSubmit, years, months, days }) {
+export default function RegisterForm({ email1, email2, password, password2, displayName, year, month, day, gender, setEmail1, setEmail2, setPassword, setPassword2, setDisplayName, setYear, setMonth, setDay, setGender, handleSubmit, years, months, days }) {
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="email">이메일 주소</label>
-            <input className={styles.inputBox} type="text"
-                value={email} onChange={(e) => setEmail(e.target.value)} />
+            <div className={styles.mailBox}>
+                <input className={styles.inputBox} style={{margin:'auto 0'}} type="text"
+                    value={email1} onChange={(e) => setEmail1(e.target.value)} />
+                <p>@</p>
+                <input className={styles.inputBox} style={{margin:'auto 0'}}  type="text"
+                    value={email2} onChange={(e) => setEmail2(e.target.value)} />
+                <p>중복확인</p>
+            </div>
             <label htmlFor="password">비밀번호</label>
             <input className={styles.inputBox} type="password" value={password}
                 onChange={(e) => setPassword(e.target.value)} />
+            <label htmlFor="password2">비밀번호 확인</label>
+            <input className={styles.inputBox} type="password" value={password2}
+                onChange={(e) => setPassword2(e.target.value)} />
             <label htmlFor="id">아이디</label>
-            <input className={styles.inputBox} type="text" value={displayName}
+            <input className={styles.inputBox} type="text" placeholder='영어만 사용' value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)} />
             <div className={styles.birthBox}>
                 <p>생년월일</p>

@@ -6,8 +6,10 @@ import RegisterForm from './RegisterForm';
 import { NavLink } from "react-router-dom";
 
 export default function Register() {
-    const [email, setEmail] = useState('');
+    const [email1, setEmail1] = useState('');
+    const [email2, setEmail2] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [year, setYear] = useState('');
     const [month, setMonth] = useState('');
@@ -18,16 +20,21 @@ export default function Register() {
         e.preventDefault();
         try {
             const birthdate = year + '-' + month + '-' + day;
-            alert(`email: ${email}\npassword: ${password}\ndisplayName: ${displayName}\nbirthdate: ${birthdate}\ngender: ${gender}`);
-            const response = await axios.post('http://localhost:8080/signup', {
-                email,
-                password,
-                displayName,
-                birthdate,
-                gender
-            }); console.log(response.data);
-            <NavLink exact to='/Login'></NavLink>
-            alert('가입되었습니다!')
+            const email = email1 + '@' + email2;
+            if(password==password2){
+                alert(`email: ${email}\npassword: ${password}\ndisplayName: ${displayName}\nbirthdate: ${birthdate}\ngender: ${gender}`);
+                const response = await axios.post('http://localhost:8080/signup', {
+                    email,
+                    password,
+                    displayName,
+                    birthdate,
+                    gender
+                }); console.log(response.data);
+                <NavLink exact to='/Login'></NavLink>
+                alert('가입되었습니다!')}
+            else{
+                alert('비밀번호를 다시 확인해 주세요')
+            }
 
         } catch (error) {
             console.error('회원가입 오류:', error);
@@ -63,8 +70,10 @@ export default function Register() {
             <div className={styles.content}>
                 <h1>회원가입</h1>
                 <RegisterForm
-                    email={email} setEmail={setEmail}
+                    email1={email1} setEmail1={setEmail1}
+                    email2={email2} setEmail2={setEmail2}
                     password={password} setPassword={setPassword}
+                    password2={password2} setPassword2={setPassword2}
                     displayName={displayName} setDisplayName={setDisplayName}
                     year={year} setYear={setYear}
                     month={month} setMonth={setMonth}
