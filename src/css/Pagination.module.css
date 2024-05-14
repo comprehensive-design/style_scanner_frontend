@@ -13,6 +13,16 @@
 }
 
 .buttonshape{
+    border-radius : 50%;
+    border-style: none;
+    margin : 1px;
+    background-color: white;
+    color : black;
     width: 30px;
-    height: 20px;
+    height: 30px;
+}
+
+.active {
+    border-radius: 50%;
+    background-color: #DEDEDE
 }
