@@ -1,6 +1,6 @@
 import styles from "../css/feed.module.css";
 import { useNavigate } from "react-router-dom";
-function Feed(){
+function Feed({id, image}){
 
     const navigate = useNavigate();
     const navigateToHomeInfo = () => {
@@ -12,7 +12,7 @@ function Feed(){
                 <div className={styles.ImageBox}>
                     <img id={styles.profileImage} src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
                 </div>
-                <p className={styles.profileId} id='name'>hi_sseulgi</p>
+                <p className={styles.profileId} id={styles.name}>{id}</p>
             </div>
             <div className={styles.feedMain}>
                 <img onClick={navigateToHomeInfo} id={styles.feedImage} src={process.env.PUBLIC_URL + 'img/feed1.png'}></img>
