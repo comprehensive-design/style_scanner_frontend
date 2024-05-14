@@ -1,7 +1,21 @@
-import styles from"../css/FollowingUser.module.css";
-import Button from "./Button";
+import styles from "../css/UsersList.module.css";
+import Button from './Button';
 
-function FollowingUser(){
+// export default function UsersList({list}) {
+//     return(
+//         <ol>
+//         {list.map(({ id, title, body}) => (
+//             <li key={id}>
+//                 <h2>
+//                     {id}. {title}
+//                 </h2>
+//                 <p>{body}</p>
+//             </li>
+//         ))}
+//     </ol>
+//     );
+// }
+export default function UsersList(){
     return(
         <body>
             <div style={{height : '12px'}}></div>
@@ -11,8 +25,8 @@ function FollowingUser(){
                     id={styles.profileImage}
                     // src={process.env.PUBLIC_URL + 'img/profile.png'}
                     src=" http://via.placeholder.com/180x180"
-                    width={180}
-                    height={180}
+                    width={120}
+                    height={120}
                 >
                 </img>
 
@@ -30,9 +44,21 @@ function FollowingUser(){
             </div>
 
             <div style={{height : '12px'}}></div>
-            <hr></hr>
+            <HorizonLine></HorizonLine>
         </body>
     )
 }
 
-export default FollowingUser;
+const HorizonLine = () => {
+    return (
+      <div
+        style={{
+          width: "100%",
+          borderBottom: "2px solid #DEDEDE",
+          lineHeight: "0.1em",
+          margin: "10px 0 20px",
+        }}
+      >
+      </div>
+    );
+  };
