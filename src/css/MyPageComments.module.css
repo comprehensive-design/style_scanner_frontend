@@ -1,4 +1,8 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
+*{
+    font-family: 'Pretendard';
+} 
 .content {
     width: calc(100% - 400px);
     position: absolute;
@@ -21,3 +25,8 @@
     background-color: #aaa;
     margin: 10px 0 0px;
 }
+.commentList{
+    height: 1400px;
+}
+
+  

@@ -20,6 +20,7 @@ import HomeInfo from './Components/HomeInfo';
 import CommunityFeed from './Components/CommunityFeed';
 import CommunityWrite from './Components/CommunityWrite';
 import LikeList from './Components/LikeList';
+import CommunityInfo from './Components/CommunityInfo';
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/HomeInfo" element={<HomeInfo />} />
         <Route path="/CommunityFeed" element={<CommunityFeed />} />
         <Route path="/CommunityWrite" element={<CommunityWrite />} />
+        <Route path="/CommunityInfo" element={<CommunityInfo />} />
         <Route path="/LikeList" element={<LikeList />} />
       </Routes> 
     </div>

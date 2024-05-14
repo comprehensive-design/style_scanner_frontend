@@ -5,35 +5,39 @@ export default function Pagination({
     itemsPerPage,
     setCurrentPage,
     currentPage
-}){
+}) {
     const pageList = [];
-    const totalpages = Math.ceil(itemsNum/itemsPerPage);
+    const totalpages = Math.ceil(itemsNum / itemsPerPage);
 
-    for (let i=1; i<=totalpages; i++){
+    // 한 화면에 표시될 최대 페이지 수
+    const maxPage = 10;
+
+    // 현재 페이지 그룹을 계산
+    const currentPageGroup = Math.ceil(currentPage / maxPage);
+    const startPage = (currentPageGroup - 1) * maxPage + 1;
+    const endPage = Math.min(startPage + maxPage - 1, totalpages);
+
+    for (let i = startPage; i <= endPage; i++) {
         pageList.push(i);
     }
 
     const goToNextPage = () => {
-        setCurrentPage(currentPage + 1);
+        setCurrentPage(Math.min(currentPage + 1, totalpages));
     };
 
     const goToPrevPage = () => {
-        setCurrentPage(currentPage -1);
+        setCurrentPage(Math.max(currentPage - 1, 1));
     };
 
-    if (totalpages <= 0){
+    if (totalpages <= 1) {
         return null;
     }
 
-    if (totalpages === 1){
-        return null;
-    }
-
-    return(
-        // 페이지 이동 버튼
-        <div className={styles.pageButton} >
-            <button 
-                onClick={goToPrevPage} disabled = {currentPage === 1}
+    return (
+        <div className={styles.pageButton}>
+            <button
+                onClick={goToPrevPage}
+                disabled={currentPage === 1}
                 className={styles.buttonshape}
             >&lt;</button>
 
@@ -45,9 +49,11 @@ export default function Pagination({
                 >{page}</button>
             ))}
 
-            <button 
-            className={styles.buttonshape}
-            onClick={goToNextPage} disabled={currentPage === pageList.length}>&gt;</button>
+            <button
+                onClick={goToNextPage}
+                disabled={currentPage === totalpages}
+                className={styles.buttonshape}
+            >&gt;</button>
         </div>
-    )
-}   
+    );
+}
