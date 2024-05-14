@@ -7,6 +7,7 @@ const StyledButton = styled.p`
   cursor: pointer;
   padding: 7px 14px;
   font-size: 12px;
+  text-align: center;
   background-color: ${props => props.BackColor};
   color: ${props => props.txtColor};
   border-radius: ${props => props.borderRad};

@@ -47,7 +47,7 @@ function Sidebar() {
             </NavLink>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/xxx' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact to='/LikeList' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               좋아요
             </NavLink>
           </li>
@@ -59,12 +59,12 @@ function Sidebar() {
             <b>커뮤니티</b>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/xxx' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact to='/MyPageWritings' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               내가 작성한 글
             </NavLink>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/xxx' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact to='/MyPageComments' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               내가 작성한 댓글
             </NavLink>
           </li>

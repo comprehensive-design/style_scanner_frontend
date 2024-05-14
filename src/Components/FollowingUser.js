@@ -1,5 +1,5 @@
 import styles from"../css/FollowingUser.module.css";
-import Button from './Button';
+import Button from "./Button";
 
 function FollowingUser(){
     return(
@@ -25,8 +25,7 @@ function FollowingUser(){
                 </div>
 
                 <div style={{display:'flex'}}className={styles.FollowingDelete}>
-                    {/* <button id={styles.buttonDelete}>삭제</button> */}
-                    <Button>삭제</Button>
+                    <Button id={styles.buttonDelete}>삭제</Button>
                 </div>
             </div>
 

@@ -22,7 +22,7 @@ export default function Ranking(){
         
         <div className={styles.totalWrap}>
             <div className={styles.RankingWord}>
-                <h1 id={styles.rankingBest}>&nbsp;BEST</h1>
+                <h1 id={styles.rankingBest}>BEST</h1>
                 <p id={styles.rankingPopular}>인기 있는 피드</p>
             </div>
 
@@ -37,7 +37,7 @@ export default function Ranking(){
                         </ul>
                     </div>
 
-                    <div className={styles.RankingRow_1}>
+                    <div className={styles.RankingRow}>
                         <RankingFeed></RankingFeed>
                         <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
@@ -48,7 +48,7 @@ export default function Ranking(){
                         
                     </div>
 
-                    <div className={styles.RankingRow_2}>
+                    <div className={styles.RankingRow}>
                         <RankingFeed></RankingFeed>
                         <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>
@@ -58,7 +58,77 @@ export default function Ranking(){
                         <RankingFeed></RankingFeed>
                     </div>
 
-                    <div className={styles.RankingRow_3}>
+                    <div className={styles.RankingRow}>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                    </div>
+
+                    <div className={styles.RankingRow}>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                    </div>
+
+                    <div className={styles.RankingRow}>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                    </div>
+
+                    <div className={styles.RankingRow}>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                    </div>
+
+                    <div className={styles.RankingRow}>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                    </div>
+
+                    <div className={styles.RankingRow}>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                    </div>
+
+                    <div className={styles.RankingRow}>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                        <div className={styles.RankingPadding}></div>
+                        <RankingFeed></RankingFeed>
+                    </div>
+
+                    <div className={styles.RankingRow}>
                         <RankingFeed></RankingFeed>
                         <div className={styles.RankingPadding}></div>
                         <RankingFeed></RankingFeed>

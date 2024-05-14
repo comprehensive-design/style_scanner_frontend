@@ -13,6 +13,7 @@ function SearchBar({onChange}){
                 placeholder='  @ 셀럽을 검색해보세요'
                 className = {styles.search_bar}
                 name = "searchText"
+                id = "input"
                 onChange={onChange}
             />
             </form>

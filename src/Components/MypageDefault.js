@@ -1,6 +1,7 @@
 
 import styles from "../css/MypageDefault.module.css";
 import Sidebar from './Sidebar';
+import { NavLink } from "react-router-dom";
 
 function CelebrityInfo({ imgUrl, celebID }) {
     return (
@@ -54,7 +55,7 @@ export default function MypageDefault() {
 
                     <div className={styles.textBox}>
                         <p>팔로잉</p>
-                        <p>더보기</p>
+                        <NavLink exact to='/FollowingList'>더보기</NavLink>
                     </div>
 
                     <div className={styles.following}>
@@ -82,7 +83,7 @@ export default function MypageDefault() {
 
                     <div className={styles.textBox}>
                         <p>좋아요</p>
-                        <p>더보기</p>
+                        <NavLink exact to='/LikeList'>더보기</NavLink>
                     </div>
 
                     <div className={styles.like}>

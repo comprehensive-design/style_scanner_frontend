@@ -13,19 +13,27 @@ export default function Category() {
             
             <div id={styles.categoryList}>
                 <ul className={styles.categoryUl}>
+                    <li><Link to="" className={`${styles.gen} ${styles.lists}`}>전체</Link></li>
+
                     <li><Link to="" className={`${styles.gen} ${styles.lists}`}>여성</Link></li>
                     
+                    <li><Link to="" className={styles.lists}>아우터</Link></li>
                     <li><Link to="" className={styles.lists}>상의</Link></li>
                     <li><Link to="" className={styles.lists}>팬츠</Link></li>
                     <li><Link to="" className={styles.lists}>스커트</Link></li>
                     <li><Link to="" className={styles.lists}>원피스</Link></li>
+                    <li><Link to="" className={styles.lists}>신발</Link></li>
+                    <li><Link to="" className={styles.lists}>가방</Link></li>
                     <li><Link to="" className={styles.lists}>악세사리</Link></li>
                     <li><Link to="" className={`${styles.lastlists} ${styles.lists}`}>기타</Link></li>
                     <br></br>
                     <br></br>
                     <li><Link to="" className={`${styles.gen} ${styles.lists}`}>남성</Link></li>
+                    <li><Link to="" className={styles.lists}>아우터</Link></li>
                     <li><Link to="" className={styles.lists}>상의</Link></li>
                     <li><Link to="" className={styles.lists}>팬츠</Link></li>
+                    <li><Link to="" className={styles.lists}>신발</Link></li>
+                    <li><Link to="" className={styles.lists}>가방</Link></li>
                     <li><Link to="" className={styles.lists}>악세사리</Link></li>
                     <li><Link to="" className={`${styles.lastlists} ${styles.lists}`}>기타</Link></li>
 

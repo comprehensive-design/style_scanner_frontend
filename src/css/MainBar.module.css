@@ -1,7 +1,11 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 .header{
     display : 'flex';
     margin: 30px;
     overflow: hidden;
+    z-index: 1;
+    height:60px;
 }
 
 .navigation{

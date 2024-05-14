@@ -1,4 +1,5 @@
 import styles from '../css/Login.module.css';
+import { NavLink } from "react-router-dom";
 
 
 export default function Register() {
@@ -18,7 +19,7 @@ export default function Register() {
                     <input className={styles.submitButton} type="submit" value="로그인"></input>
                 </form>
                 <div>
-                    <a href='/'>이메일 가입</a>
+                    <NavLink exact to='/Register'>회원가입</NavLink>
                     <a href='/'>이메일 찾기</a>
                     <a href='/'>비밀번호 찾기</a>
                 </div>
