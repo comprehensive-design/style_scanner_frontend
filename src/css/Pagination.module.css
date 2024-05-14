@@ -13,6 +13,10 @@
 }
 
 .buttonshape{
-    width: 30px;
-    height: 20px;
+    background-color: black;
+    margin : 1px;
+    color : white;
+    border-radius : 10%;
+    width: 40px;
+    height: 25px;
 }

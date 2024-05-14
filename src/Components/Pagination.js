@@ -1,4 +1,5 @@
 import styles from "../css/Pagination.module.css";
+import Button from './Button';
 
 export default function Pagination({
     itemsNum,
