@@ -35,6 +35,19 @@ form {
     margin-top: 10px;
 }
 
+.mailBox{
+    display: flex;
+    margin-top: 10px;
+    margin-Bottom: 30px;
+}
+
+.mailBox :nth-child(4){
+    width: 30%;
+    text-align: right;
+    cursor: pointer;
+    font-size: 14px;
+}
+
 .birthBox{
 display: flex;
 width: 100%;
