@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import RankingFeed from "./RankingFeed";
 import React, {useState} from 'react';
 
+// https://leedaeho1188.tistory.com/55
+
 export default function Ranking(){
     const [bestFeeds, setBestFeeds] = useState([]); 
 

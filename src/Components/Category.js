@@ -1,10 +1,30 @@
 import styles from '../css/Category.module.css';
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";g
+import React, {useState} from 'react';
 
 export default function Category() {
     const activeStyle = {
         color : 'black'
     };
+    const [rankingAll, setrankingAll] = useState(true)
+    const [rankingFeAll, setrankingFeAll] = useState(false)
+    const [rankingFeOuter, setrankingFeOuter] = useState(false)
+    const [rankingFeTop, setrankingFeTop] = useState(false)
+    const [rankingFePants, setrankingFePants] = useState(false)
+    const [rankingFeSkirt, setrankingFeSkirt] = useState(false)
+    const [rankingFeDress, setrankingFeDress] = useState(false)
+    const [rankingFeShoes, setrankingFeShoes] = useState(false)
+    const [rankingFeBags, setrankingFeBags] = useState(false)
+    const [rankingFeAcc, setrankingFeAcc] = useState(false)
+    const [rankingFeEtc, setrankingFeEtc] = useState(false)
+
+    const [rankingMaAll, setrankingMaAll] = useState(false)
+    const [rankingMaOuter, setrankingMaOuter] = useState(false)
+    const [rankingMaTop, setrankingMaTop] = useState(false)
+    const [rankingMaPants, setrankingMaPants] = useState(false)
+    const [rankingMaShoes, setrankingShoes] = useState(false)
+    const [rankingMaBags, setrankingBags] = useState(false)
+    const [rankingMaEtc, setrankingMaEtc] = useState(false)
 
     return(
         <div id = {styles.categoryDiv}>
