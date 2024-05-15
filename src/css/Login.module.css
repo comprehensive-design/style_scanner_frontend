@@ -25,7 +25,7 @@ body {
 
 .content > p {
     color: gray;
-    font-size: 13px;
+    font-size: 16px;
     margin-bottom: 60px;
 }
 
@@ -67,7 +67,6 @@ form > input{
 a {
     text-decoration-line: none;
     color: gray;
-    margin-right: 10px;
 }
 
  a:hover {

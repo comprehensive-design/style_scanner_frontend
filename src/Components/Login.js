@@ -18,10 +18,8 @@ export default function Register() {
 
                     <input className={styles.submitButton} type="submit" value="로그인"></input>
                 </form>
-                <div>
-                    <NavLink exact to='/Register'>회원가입</NavLink>
-                    <a href='/'>이메일 찾기</a>
-                    <a href='/'>비밀번호 찾기</a>
+                <div style={{textAlign:'right', width: '70%', margin: '0 auto' }}>
+                    <NavLink exact to='/Register' style={{fontSize:'14px'}}>회원가입</NavLink>
                 </div>
 
             </div>
