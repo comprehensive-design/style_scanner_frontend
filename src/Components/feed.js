@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from "../css/feed.module.css";
 import { useNavigate } from "react-router-dom";
+import SlideBtn from './SlideButton'
 
 function Feed({ children }) {
     const navigate = useNavigate();
@@ -56,6 +57,7 @@ function Feed({ children }) {
             {/* 사진 넘어가는 버튼 */}
             <button onClick={goToPrevImage}>Prev</button>
             <button onClick={goToNextImage}>Next</button>
+            
         </div>
     );
 }
