@@ -67,6 +67,7 @@ form > input{
 a {
     text-decoration-line: none;
     color: gray;
+    margin-right: 10px;
 }
 
  a:hover {
