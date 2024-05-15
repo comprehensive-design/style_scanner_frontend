@@ -14,7 +14,6 @@ function FeedList() {
     const [loading, setLoading] = useState(false);
     const feedListRef = useRef(); 
     
-    
     useEffect(() => {
         const fetchPosts = async () => {
             try {
@@ -27,36 +26,11 @@ function FeedList() {
       
         fetchPosts();
 
-        // const observer = new IntersectionObserver((entries) => {
-        //     entries.forEach((entry) => {
-        //         if (!entry.isIntersecting) {
-        //             return;
-        //         }
-        //         if (loading) return;
-        //     });
-        // });
-        // observer.observe(feedListRef.current);
-
-        // return () => {
-        //     observer.disconnect();
-        // };
     }, [loading]); 
 
-    // const loadFeeds = () => {
-    //     setLoading(true); 
-    //     const newFeeds = [];
-    //     for (let i = 0; i < 5; i++) {
-    //         newFeeds.push({
-    //             id: feeds.length + i,
-    //             image: `img/feed${(feeds.length + i) % 5 + 1}.png`
-    //         });
-    //     }
-    //     setFeeds([...feeds, ...newFeeds]);
-    //     setLoading(false); 
-    // };
-    
     return (
-        <body className={styles.feedScroll}>
+        //한 아이디에 사진 여러개면???
+        <div className={styles.feedScroll}>
            
             <div className={styles.feedList} ref={feedListRef}>
                 {feeds.map(feed => (
@@ -64,7 +38,7 @@ function FeedList() {
                 ))}
                 <div style={{height: '10px'}} />
             </div>
-        </body>
+        </div>
     );
 }
 
