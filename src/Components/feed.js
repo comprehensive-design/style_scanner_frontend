@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styles from "../css/feed.module.css";
 import { useNavigate } from "react-router-dom";
-import SlideBtn from './SlideButton'
+import styled from 'styled-components';
 
-function Feed({ children }) {
+function Feed({ list }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     
+    //하드코딩..
     const images = [
         // "http://via.placeholder.com/370X465",
         // "http://via.placeholder.com/370X465",
@@ -47,16 +48,27 @@ function Feed({ children }) {
                 <p className={styles.profileId} id={styles.name}>hi_sseulgi</p>
             </div>
 
-            {/* 캐러셔 구현 */}
+            {/* carousel 구현 */}
             <div className={styles.feedMain}>
                 <div className={styles.imageWrapper} onClick={navigateToHomeInfo}>
                     <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
                 </div>
+                <div className={styles.dirBtn}>
+                     {/* 사진 넘어가는 버튼 */}
+                    {images.length > 1 && ( // 이미지가 2개 이상 일 때만 버튼 표시
+                        <>
+                            {currentImageIndex !== 0 && ( // 첫 번째 사진이 아닐 때만 왼쪽 버튼 표시
+                                <button className={styles.prevBtn} onClick={goToPrevImage}>{'<'}</button>
+                            )}
+                            {currentImageIndex !== images.length - 1 && ( // 마지막 사진이 아닐 때만 오른쪽 버튼 표시
+                                <button className={styles.nextBtn} onClick={goToNextImage}>{'>'}</button>
+                            )}
+                        </>
+                    )}
+                </div>
             </div>
 
-            {/* 사진 넘어가는 버튼 */}
-            <button onClick={goToPrevImage}>Prev</button>
-            <button onClick={goToNextImage}>Next</button>
+           
             
         </div>
     );
