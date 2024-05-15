@@ -4,9 +4,9 @@
     font-family: 'Pretendard';
 }
 
-#categoryDiv{
+.categoryWrap{
     width : 20%;
-    margin : 30px;
+    /* background-color: beige; */
     /* display: flex; */
 }
 
@@ -21,8 +21,12 @@
     list-style: none;
 }
 
+.totalWrap{
+    margin : 30px;
+    display: flex;
+}
+
 .suplists{
-    background-color: white;
     line-height: 200%;
     color:black;
     list-style: none;
@@ -35,6 +39,9 @@
     font-size: 16px;
 }
 
+.categoryList{
+    /* background-color: beige; */
+}
 .subcateButton{
     background-color: white;
     border-style: none;
@@ -55,4 +62,8 @@
 
 .subcateButton:hover:active{
     font-weight: 600;
+}
+
+.rankingWrap{
+    width : 100%;
 }

@@ -1,4 +1,3 @@
-import Category from "./Category"
 import styles from '../css/Ranking.module.css';
 import { Link } from "react-router-dom";
 import RankingFeed from "./RankingFeed";
@@ -22,16 +21,16 @@ export default function Ranking({selectedCategory, selectedSubcategory}){
             });
     }, []);
 
-    // const renderItems = () => {
-    //     const items = [];
-    //     for (let i=0; i<4; i++){
-    //         items.push(
-    //             <RankingFeed key = {`feed${i}`}/>
-    //         );
-    //         items.push(<div key={`padding${i}`} className={styles.RankingPadding}></div>);
-    //     }
-    //     return items;
-    // }
+    const renderItems = () => {
+        const items = [];
+        for (let i=0; i<4; i++){
+            items.push(
+                <RankingFeed key = {`feed${i}`}/>
+            );
+            items.push(<div key={`padding${i}`} className={styles.RankingPadding}></div>);
+        }
+        return items;
+    }
 
     return(
         <div className={styles.totalWrap}>
@@ -40,8 +39,7 @@ export default function Ranking({selectedCategory, selectedSubcategory}){
                 <p id={styles.rankingPopular}>인기 있는 피드</p>
             </div>
 
-            <div className={styles.ContentWrap} style={{display:'flex'}}>
-                {/* <Category></Category> */}
+            <div className={styles.ContentWrap} >
                 <div className={styles.RankingContent}>
                     <div className={styles.RankingType}>
                         <ul className={styles.RankingUl}>
@@ -49,11 +47,16 @@ export default function Ranking({selectedCategory, selectedSubcategory}){
                             <li className={styles.RankingLists}><Link>일간</Link></li>
                             <li className={styles.RankingLists}><Link>월간</Link></li>
                         </ul>
+                    </div>
 
-                        <div>
-                            {/* {renderItems()} */}
-                            <h1>test</h1>
-                        </div>
+                    <div className={styles.RankingItems} style={{display:'flex'}}>
+                        {renderItems()}
+                        <div style={{height:"30px"}}></div>
+                    </div>
+                    
+                    <div className={styles.RankingItems} style={{display:'flex'}}>
+                        {renderItems()}
+                        <div style={{height:"30px"}}></div>
                     </div>
                     
                 </div>

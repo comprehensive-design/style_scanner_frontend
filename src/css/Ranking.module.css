@@ -2,7 +2,6 @@
     height: 100%;
     /* padding: 30px; */
     margin : 0;
-    flex : 1;
 }
 
 .RankingWord{
@@ -10,8 +9,15 @@
     margin : 0 auto;
 }
 
-.ContantWrap{
+
+.RankingItems{
     display: flex;
+    margin : 0 auto;
+    justify-content: center;
+    align-items: center;
+    margin-top : 20px;
+    /* margin : 30px; */
+    /* background-color: blue; */
 }
 
 #rankingPopular{
@@ -22,15 +28,15 @@
 #rankingBest{
     height : fit-content;
     padding: 0;
-    margin: 5px;
+    margin-bottom: 5px;
+    margin-top : 5px;
     justify-content: center;
     align-items: center;
 }
 
 .totalWrap{
-    /* background-color: beige; */
+    /* background-color: blue; */
     font-family: 'Pretendard';
-    display: flex;
 }
 
 .RankingBest{
@@ -41,6 +47,8 @@
 .RankingUl{
     list-style: none;
     margin : 0;
+    width: 100%;
+    overflow: hidden;
 }
 
 .RankingType{
