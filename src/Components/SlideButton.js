@@ -14,7 +14,7 @@ const ScrollButton = styled.button`
   text-align: center;
   border-radius: 50px;
   transition: opacity 0.3s ease;
-  z-index: 999;
+  z-index: 888;
 `;
 
 const LeftScrollButton = styled(ScrollButton)`
