@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 import CommentBox from './CommentBox';
 import Pagination from './Pagination';
 import axios from 'axios';
-
+import Footer from  './Footer';
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
 export const getPosts = async () => {
@@ -33,38 +33,36 @@ export default function MyPageComments() {
     fetchPosts();
   }, [currentPage, itemsPerPage]);
 
-  return (
+   return (
+    
     <body>
+      
+      <div className={styles.total}>
       <Sidebar/>
-      <div className={styles.content}>
-        <div className={styles.title}>
-          <h3>내가 작성한 댓글</h3>
-          <hr></hr>
+        <div className={styles.content}>
+          <div className={styles.title}>
+            <h3>내가 작성한 댓글</h3>
+            <hr />
+          </div>
+          <div className={styles.commentList}>
+            {currentItems.map((post, index) => (
+              <CommentBox key={index} feedId="@roses_are_rosie" feedImg="" title="로제 반지 어디 건가요?" contents="까르띠에입니다!!!!! " date="2024.05.13" />
+            ))}
+          </div>
+          
         </div>
-        <div className={styles.commentList}>
-          {currentItems.map((post, index) => (
-            // <CommentBox
-            //   key={index}
-            //   feedId="@roses_are_rosie"
-            //   title={post.title}
-            //   contents={post.body}
-            //   date="2024.05.13"
-            // />
-
-            //json 데이터 못생겨서 이걸로 함..제대로 되는겁니다.
-            <CommentBox key={index} feedId= "@roses_are_rosie" feedImg='' title="로제 반지 어디 건가요?" contents="까르띠에입니다!!!!! " date="2024.05.13"/>
-          ))}
-        </div>
-        <footer className={styles.footer}>
-          <div style={{ height: "50px" }}></div>
-          <Pagination
-            itemsNum={posts.length}
-            itemsPerPage={itemsPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-        </footer>
       </div>
+      <footer>
+      <Pagination
+                  itemsNum={posts.length}
+                  itemsPerPage={itemsPerPage}
+                  setCurrentPage={setCurrentPage}
+                  currentPage={currentPage}
+                />
+              <Footer/>
+      </footer>
     </body>
+   
+    
   );
 }

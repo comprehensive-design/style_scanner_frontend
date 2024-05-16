@@ -3,6 +3,9 @@
 *{
     font-family: 'Pretendard';
 } 
+body{
+    position: relative;
+}
 .content {
     width: calc(100% - 400px);
     position: absolute;
@@ -26,7 +29,10 @@
     margin: 10px 0 0px;
 }
 .commentList{
-    height: 1400px;
+    height: fit-content;
 }
-
-  
+footer {
+    position: absolute;
+    top:1500px;
+    width: 100%;
+}
