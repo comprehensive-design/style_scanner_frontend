@@ -44,24 +44,25 @@ export default function Category() {
 
     return (
         <div className={styles.totalWrap}>
-            <div className={styles.categoryWrap}>
-                <p id={styles.categoryNa}>카테고리</p>
-                <HorizonLine></HorizonLine>
+            <div className = {styles.contentWrap}>
+                <div className={styles.categoryWrap}>
+                    <p id={styles.categoryNa}>카테고리</p>
+                    <HorizonLine></HorizonLine>
 
-                <div className={styles.categoryList}>
-                    <ul className={styles.categoryUl}>
-                        {Object.keys(categories).map((category, index) => (
-                            <li key={index} className={styles.suplists}>
-                                <SortButton onClick={() => {
-                                    handleCategoryClick(category);
-                                    setActiveSortButton('');
-                                }}
-                                active={selectedCategory === category}
-                                className={`${selectedCategory === category ? 'itemLinkOn' : 'itemLink'}  ${styles.supcateButton}`}>{category}</SortButton>
-                                {selectedCategory === category &&
-                                <ul className={styles.subcategoryUl}>
-                                    {categories[category].map((subcategory, subIndex) => (
-                                        <li key={subIndex} className={styles.sublists}>
+                    <div className={styles.categoryList}>
+                        <ul className={styles.categoryUl}>
+                            {Object.keys(categories).map((category, index) => (
+                                <li key={index} className={styles.suplists}>
+                                    <SortButton onClick={() => {
+                                        handleCategoryClick(category);
+                                        setActiveSortButton('');
+                                    }}
+                                    active={selectedCategory === category}
+                                    className={`${selectedCategory === category ? 'itemLinkOn' : 'itemLink'}  ${styles.supcateButton}`}>{category}</SortButton>
+                                    {selectedCategory === category &&
+                                    <ul className={styles.subcategoryUl}>
+                                        {categories[category].map((subcategory, subIndex) => (
+                                            <li key={subIndex} className={styles.sublists}>
                                             <SortButton onClick={() => {
                                                 handleSubcategoryClick(subcategory);
                                                 setActiveSortButton(subcategory);
@@ -76,11 +77,14 @@ export default function Category() {
                         ))}
                     </ul>
 
+                    </div>
                 </div>
+                <div className={styles.rankingWrap}>
+                    {selectedCategory && <Ranking selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} />}
+                </div>
+
             </div>
-            <div className={styles.rankingWrap}>
-                {selectedCategory && <Ranking selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} />}
-            </div>
+            {/* <Footer></Footer> */}
         </div>
     )
 }
@@ -89,7 +93,7 @@ const HorizonLine = () => {
     return (
         <div
             style={{
-                width: "80%",
+                width: "100%",
                 borderBottom: "2px solid #aaa",
                 lineHeight: "0.1em",
                 margin: "10px 0 20px",
