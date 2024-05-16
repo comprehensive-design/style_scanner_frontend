@@ -4,6 +4,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import Pagination from './Pagination';
 import axios from "axios";
 import UsersList from './UsersList';
+import Footer from './Footer';
 
 export default function FollowingList() {
     const [followings, setFollowings] = useState([]);
@@ -61,6 +62,8 @@ export default function FollowingList() {
 
                 </div>
             </div>
+
+            <Footer></Footer>
         </body>
     );
 }

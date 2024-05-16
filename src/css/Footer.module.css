@@ -1,0 +1,52 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+*{
+    font-family: 'Pretendard';
+    /* margin : 30px; */
+}
+
+.totalWrap{
+    /* margin : 30px; */
+    background-color: #DEDEDE;
+    height: 300px;
+}
+
+.mainInfo{
+    margin : 30px;
+    color : black;
+    height: 80px;
+    padding-top : 50px;
+    font-size: 18px;
+    text-align: left;
+    font-weight: 600;
+    /* float: left; */
+}
+
+.etcInfo{
+    margin : 30px;
+    float:left;
+    text-align: left;
+    color:gray;
+    margin-bottom: 50px;
+    font-size : 14px;
+}
+
+.mainSerName{
+    float:left;
+}
+
+.mainReadme{
+    margin-left : 150px;
+    color: black;
+}
+
+.mainEmail{
+    margin-left : 30px;
+    color : black;
+}
+
+.mainGitAddr{
+    margin-left : 30px;
+    color : black;
+}
+

@@ -4,12 +4,13 @@ import Sidebar from '../Components/Sidebar';
 import { useEffect, useState } from "react";
 import ItemsList from "./ItemsList";
 import Pagination from './Pagination';
+import Footer from './Footer';
 import axios from "axios";
 
 export default function LikeList() {
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(30); 
+    const [itemsPerPage, setItemsPerPage] = useState(30);
     // 30개로 설정
 
     useEffect(() => {
@@ -29,29 +30,32 @@ export default function LikeList() {
 
     // jsondata 쉽게 받아오려고 이렇게 해놨습니다 일부러 그랬습니다.. 
     return (
-        <body className={styles.wrap}>
-            <Sidebar></Sidebar>
+        <>
+            <body className={styles.totalwrap}>
+                <Sidebar></Sidebar>
 
-            <div className={styles.content}>
-                <div className={styles.title}>
-                    <h2>좋아요</h2>
-                    <div className={styles.horizon}></div>
+                <div className={styles.content}>
+                    <div className={styles.title}>
+                        <h2>좋아요</h2>
+                        <div className={styles.horizon}></div>
+                    </div>
+
+                    <main>
+                        <ItemsList list={currentItems} />
+                    </main>
+
+                    <footer>
+                        <div style={{ height: "50px" }}></div>
+                        <Pagination
+                            itemsNum={items.length}
+                            itemsPerPage={itemsPerPage}
+                            setCurrentPage={setCurrentPage}
+                            currentPage={currentPage}
+                        />
+                    </footer>
                 </div>
-
-                <main>
-                    <ItemsList list={currentItems} />
-                </main>
-
-                <footer>
-                    <div style={{height:"50px"}}></div>
-                    <Pagination
-                        itemsNum={items.length}
-                        itemsPerPage={itemsPerPage}
-                        setCurrentPage={setCurrentPage}
-                        currentPage={currentPage}
-                    />
-                </footer>
-            </div>
-        </body>
+            </body>
+            {/* <Footer></Footer> */}
+        </>
     );
 }

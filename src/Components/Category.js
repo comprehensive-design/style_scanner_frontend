@@ -2,6 +2,7 @@ import styles from '../css/Category.module.css';
 import React, { useEffect, useState } from 'react';
 import Ranking from './Ranking';
 import styled from 'styled-components';
+import Footer from './Footer';
 import { stepButtonClasses } from '@mui/material';
 
 export default function Category() {
@@ -43,49 +44,50 @@ export default function Category() {
     `;
 
     return (
-        <div className={styles.totalWrap}>
-            <div className = {styles.contentWrap}>
-                <div className={styles.categoryWrap}>
-                    <p id={styles.categoryNa}>카테고리</p>
-                    <HorizonLine></HorizonLine>
+        <>
+            <div className={styles.totalWrap}>
+                <div className={styles.contentWrap}>
+                    <div className={styles.categoryWrap}>
+                        <p id={styles.categoryNa}>카테고리</p>
+                        <HorizonLine></HorizonLine>
 
-                    <div className={styles.categoryList}>
-                        <ul className={styles.categoryUl}>
-                            {Object.keys(categories).map((category, index) => (
-                                <li key={index} className={styles.suplists}>
-                                    <SortButton onClick={() => {
-                                        handleCategoryClick(category);
-                                        setActiveSortButton('');
-                                    }}
-                                    active={selectedCategory === category}
-                                    className={`${selectedCategory === category ? 'itemLinkOn' : 'itemLink'}  ${styles.supcateButton}`}>{category}</SortButton>
-                                    {selectedCategory === category &&
-                                    <ul className={styles.subcategoryUl}>
-                                        {categories[category].map((subcategory, subIndex) => (
-                                            <li key={subIndex} className={styles.sublists}>
-                                            <SortButton onClick={() => {
-                                                handleSubcategoryClick(subcategory);
-                                                setActiveSortButton(subcategory);
-                                            }}
-                                                active={selectedSubcategory === subcategory}
-                                                className={`${selectedSubcategory === subcategory ? 'itemLinkOn' : 'itemLink'} ${styles.subcateButton}`}>{subcategory}</SortButton>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                }
-                            </li>
-                        ))}
-                    </ul>
-
+                        <div className={styles.categoryList}>
+                            <ul className={styles.categoryUl}>
+                                {Object.keys(categories).map((category, index) => (
+                                    <li key={index} className={styles.suplists}>
+                                        <SortButton onClick={() => {
+                                            handleCategoryClick(category);
+                                            setActiveSortButton('');
+                                        }}
+                                            active={selectedCategory === category}
+                                            className={`${selectedCategory === category ? 'itemLinkOn' : 'itemLink'}  ${styles.supcateButton}`}>{category}</SortButton>
+                                        {selectedCategory === category &&
+                                            <ul className={styles.subcategoryUl}>
+                                                {categories[category].map((subcategory, subIndex) => (
+                                                    <li key={subIndex} className={styles.sublists}>
+                                                        <SortButton onClick={() => {
+                                                            handleSubcategoryClick(subcategory);
+                                                            setActiveSortButton(subcategory);
+                                                        }}
+                                                            active={selectedSubcategory === subcategory}
+                                                            className={`${selectedSubcategory === subcategory ? 'itemLinkOn' : 'itemLink'} ${styles.subcateButton}`}>{subcategory}</SortButton>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        }
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className={styles.rankingWrap}>
+                        {selectedCategory && <Ranking selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} />}
                     </div>
                 </div>
-                <div className={styles.rankingWrap}>
-                    {selectedCategory && <Ranking selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} />}
-                </div>
-
+                {/* <Footer></Footer> */}
             </div>
-            {/* <Footer></Footer> */}
-        </div>
+            <Footer></Footer>
+        </>
     )
 }
 

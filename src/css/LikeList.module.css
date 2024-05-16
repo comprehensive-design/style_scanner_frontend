@@ -5,9 +5,10 @@
     padding: 0;
 }
 
-.wrap{
+.totalwrap{
     display: flex;
     font-family: 'Pretendard';
+    /* background-color: beige; */
 }
 
 
@@ -19,7 +20,8 @@
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
-    z-index: 10;
+    /* z-index: 10; */
+    /* background-color: beige; */
 }
 
 
