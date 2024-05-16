@@ -52,7 +52,10 @@
 }
 
 .RankingType{
+    /* margin: 30px; */
+    margin-left : 75px;
     width:100%;
+    /* background-color: blue; */
 }
 
 .RankingLists{

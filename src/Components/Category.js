@@ -89,7 +89,7 @@ const HorizonLine = () => {
     return (
         <div
             style={{
-                width: "80%",
+                width: "100%",
                 borderBottom: "2px solid #aaa",
                 lineHeight: "0.1em",
                 margin: "10px 0 20px",
