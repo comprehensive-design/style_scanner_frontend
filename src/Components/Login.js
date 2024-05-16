@@ -1,31 +1,35 @@
-import styles from '../css/Login.module.css';
-import { NavLink } from "react-router-dom";
-
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import LoginForm from './LoginForm';
 
 export default function Register() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/login', {
+                email,
+                password,
+            });
+            console.log(response.data);
+            alert('로그인되었습니다!');
+            navigate('/homefeed'); 
+        } catch (error) {
+            alert('이메일 혹은 비밀번호를 확인해 주세요.', error);
+        }
+    };
+
     return (
         <body>
-            <div className={styles.content}>
-                <h1>Style Scanner</h1>
-                <p> 당신의 취향을 만들어 드릴게요! </p>
-
-                <form>
-                    <label for="email" >이메일 주소</label>
-                    <input type="text" name="email" />
-
-                    <label for="password" >비밀번호</label>
-                    <input type="password" name="password" />
-
-                    <input className={styles.submitButton} type="submit" value="로그인"></input>
-                </form>
-                <div>
-                    <NavLink exact to='/Register'>회원가입</NavLink>
-                    <a href='/'>이메일 찾기</a>
-                    <a href='/'>비밀번호 찾기</a>
-                </div>
-
-            </div>
-        </body >
-
+            <LoginForm
+                email={email} setEmail={setEmail}
+                password={password} setPassword={setPassword}
+                handleSubmit={handleSubmit}
+            />
+        </body>
     );
 }
