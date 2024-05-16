@@ -2,19 +2,20 @@ import styles from '../css/Login.module.css';
 import { NavLink } from "react-router-dom";
 
 
-export default function Register({email, password, setEmail, setPassword}) {
+export default function Register({email, password, setEmail, setPassword, handleSubmit}) {
     return (
         <body>
             <div className={styles.content}>
                 <h1>Style Scanner</h1>
                 <p> 당신의 취향을 만들어 드릴게요! </p>
 
-                <form>
-                    <label for="email" >이메일 주소</label>
-                    <input type="text" name="email" />
+                <form onSubmit={handleSubmit}>
+                    <label for="email" >이메일</label>
+                    <input type="text" name="email"  value={email} onChange={(e) => setEmail(e.target.value)}/>
 
                     <label for="password" >비밀번호</label>
-                    <input type="password" name="password" />
+                    <input type="password" name="password" value={password}
+                onChange={(e) => setPassword(e.target.value)}/>
 
                     <input className={styles.submitButton} type="submit" value="로그인"></input>
                 </form>
