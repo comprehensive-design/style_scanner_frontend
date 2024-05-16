@@ -4,14 +4,14 @@ import ItemInfo from './ItemInfo.js';
 import styles from '../css/HomeInfo.module.css';
 import { useNavigate } from "react-router-dom";
 
-export default function HomeInfo(){
+export default function HomeInfo() {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
-    const itemListRef = useRef(); 
+    const itemListRef = useRef();
     const navigate = useNavigate();
     const navigateToCommunity = () => {
         navigate("/CommunityWrite");
-      };
+    };
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -19,7 +19,7 @@ export default function HomeInfo(){
                     return;
                 }
                 if (loading) return;
-                
+
                 loadItems();
             });
         });
@@ -29,10 +29,10 @@ export default function HomeInfo(){
             observer.disconnect();
         };
 
-    }, [loading]); 
+    }, [loading]);
 
     const loadItems = () => {
-        setLoading(true); 
+        setLoading(true);
         const newItems = [];
         for (let i = 0; i < 3; i++) {
             newItems.push({
@@ -41,25 +41,26 @@ export default function HomeInfo(){
             });
         }
         setItems([...items, ...newItems]);
-        setLoading(false); 
+        setLoading(false);
     };
 
-   
-    return(
+
+    return (
         <div className={styles.contents}>
             <Feed></Feed>
-                
+
             <div className={styles.totalItem} ref={itemListRef}>
+                <p className={styles.product}>Product</p>
                 {items.map(feed => (
-                <ItemInfo key={feed.id} image={feed.image} />
+                    <ItemInfo key={feed.id} image={feed.image} />
                 ))}
-                <div style={{height: '10px'}} />
+                <div style={{ height: '10px' }} />
             </div>
-            <div className={styles.decoBox}>
+            {/* <div>
                 <input type="button" className={styles.writeButton} value="+" onClick={navigateToCommunity}></input>
-            </div>
-                
+            </div> */}
+
         </div>
-        
+
     )
 }

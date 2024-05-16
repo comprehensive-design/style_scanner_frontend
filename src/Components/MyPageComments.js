@@ -36,29 +36,27 @@ export default function MyPageComments() {
    return (
     
     <body>
-      
       <div className={styles.total}>
       <Sidebar/>
         <div className={styles.content}>
           <div className={styles.title}>
             <h3>내가 작성한 댓글</h3>
-            <hr />
+            <hr/>
           </div>
           <div className={styles.commentList}>
             {currentItems.map((post, index) => (
               <CommentBox key={index} feedId="@roses_are_rosie" feedImg="" title="로제 반지 어디 건가요?" contents="까르띠에입니다!!!!! " date="2024.05.13" />
             ))}
           </div>
-          
         </div>
       </div>
       <footer>
-      <Pagination
-                  itemsNum={posts.length}
-                  itemsPerPage={itemsPerPage}
-                  setCurrentPage={setCurrentPage}
-                  currentPage={currentPage}
-                />
+        <Pagination
+                    itemsNum={posts.length}
+                    itemsPerPage={itemsPerPage}
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                  />
               <Footer/>
       </footer>
     </body>
