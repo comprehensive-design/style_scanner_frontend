@@ -6,8 +6,8 @@ export default function RankingFeed(){
             <div>
                 <img 
                     id={styles.bestFeed} src={process.env.PUBLIC_URL + 'img/best.png'}
-                    width = "210px"
-                    height = "280px"
+                    width = "240px"
+                    height = "320px"
                 >
                 </img>
 

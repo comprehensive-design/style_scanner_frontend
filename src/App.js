@@ -20,6 +20,7 @@ import HomeInfo from './Components/HomeInfo';
 import CommunityFeed from './Components/CommunityFeed';
 import CommunityWrite from './Components/CommunityWrite';
 import LikeList from './Components/LikeList';
+import Category from './Components/Category';
 import CommunityInfo from './Components/CommunityInfo';
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
         <Route path="/CommunityWrite" element={<CommunityWrite />} />
         <Route path="/CommunityInfo" element={<CommunityInfo />} />
         <Route path="/LikeList" element={<LikeList />} />
+        <Route path='/Category' element={<Category/>}/>
       </Routes> 
     </div>
   );
