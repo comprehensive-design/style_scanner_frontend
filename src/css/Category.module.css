@@ -24,6 +24,8 @@
 .totalWrap{
     margin : 30px;
     display: flex;
+    /* height : 100vh; */
+
 }
 
 .suplists{
@@ -39,14 +41,19 @@
     font-size: 16px;
 }
 
-.categoryList{
-    /* background-color: beige; */
-}
 .subcateButton{
     background-color: white;
     border-style: none;
     font-size: 16px;
     color:gray;
+}
+
+.contentWrap{ 
+    width: 100%;
+    display : flex;
+    /* justify-content: center;
+	align-items: center; */
+	flex-direction: row;
 }
 
 .sublists{
@@ -65,5 +72,8 @@
 }
 
 .rankingWrap{
+    margin : 30px;
+    margin-left: 50px;
     width : 100%;
+    /* background-color: beige; */
 }
