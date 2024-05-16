@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Ranking from './Ranking';
 import styled from 'styled-components';
 import Footer from './Footer';
-import { stepButtonClasses } from '@mui/material';
-
 export default function Category() {
     const activeStyle = {
         color: 'black'
@@ -35,12 +33,14 @@ export default function Category() {
     };
 
     const SortButton = styled.button`
-    color: ${props => (props.active ? 'black' : 'rgb(153, 153, 153)')};
+    // color: ${props => (props.active ? 'black' : 'rgb(153, 153, 153)')};
+    color : black;
     background-color: transparent;
-    text-decoration: none;
     border: none;
     cursor: pointer;
-    // font-weight: ${props => (props.active ? 'bold' : 'normal')};
+    font-weight: ${props => (props.active ? 'bold' : 'normal')};
+    text-decoration: ${props => (props.active ? 'underline' : 'none')};
+
     `;
 
     return (
@@ -65,6 +65,7 @@ export default function Category() {
                                             <ul className={styles.subcategoryUl}>
                                                 {categories[category].map((subcategory, subIndex) => (
                                                     <li key={subIndex} className={styles.sublists}>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;
                                                         <SortButton onClick={() => {
                                                             handleSubcategoryClick(subcategory);
                                                             setActiveSortButton(subcategory);

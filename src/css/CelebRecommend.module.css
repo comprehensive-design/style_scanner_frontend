@@ -6,28 +6,36 @@
 }
 
 body {
-    min-width: 1000px;
+    /* min-width: 1000px; */
     margin: 0 auto;
     font-family: 'Pretendard';
-    position: relative;
+    /* position: relative; */
+    width: 100%;
 }
 
+.total{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+
 .content {
-    min-width: calc(100% - 400px);
-    position: absolute;
+    width : 70%;
     left: 300px;
     top: 0px;
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
     z-index: 10;
+    flex: 1;
+    /* background-color: blue; */
 }
-
 
 .title {
     text-align: left;
     margin-left: 0px;
-    margin-top: 0px;
+    margin-top: 8px;
 }
 
 .horizon {
@@ -37,7 +45,7 @@ body {
     margin: 10px 0 20px;
 }
 
-.wrap{
+.boxwrap{
     min-width: 1000px;
     display: flex;
     flex-wrap: wrap; 

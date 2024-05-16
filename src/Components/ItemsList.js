@@ -16,11 +16,11 @@ export default function ItemsList({list}){
                         <div key={id} style={{ flex: 1, margin: '5px' }} className={styles.ItemDiv}>
                             <img
                                 id={styles.LikeItemImg}
-                                src="https://via.placeholder.com/150x150/808080/FFFFFF/?text=Grey+Image"
-                                styles={{marginBottom : "20px"}}
+                                src="https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"
+                                // styles={{marginBottom : "30px"}}
                             >   
                             </img>
-                            <p style={{fontWeight:"bold"}}>{id}. {title}</p>
+                            <p style={{fontWeight:"bold"}}>{title}</p>
                             <p>{body}</p>
                         </div>
                     ))}

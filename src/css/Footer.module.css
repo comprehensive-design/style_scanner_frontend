@@ -9,6 +9,7 @@
     /* margin : 30px; */
     background-color: #DEDEDE;
     height: 300px;
+    /* z-index: 999; */
 }
 
 .mainInfo{

@@ -5,17 +5,13 @@ import Footer from './Footer';
 
 export default function CelebRecommend() {
     return (
-        <>
-            <body>
+        <body>
+            <div style={{ display: 'flex' }} className={styles.total}>
                 <Sidebar></Sidebar>
-
                 <div className={styles.content}>
-                    <div className={styles.title}>
-                        <h2>추천 셀럽</h2>
-                        <div className={styles.horizon}></div>
-                    </div>
-
-                    <div className={styles.wrap}>
+                    <h3 className={styles.title}>추천 셀럽</h3>
+                    <div className={styles.horizon}></div>
+                    <div className={styles.boxwrap}>
                         <CelebBox></CelebBox>
                         <CelebBox></CelebBox>
                         <CelebBox></CelebBox>
@@ -23,11 +19,11 @@ export default function CelebRecommend() {
                         <CelebBox></CelebBox>
                         <CelebBox></CelebBox>
                     </div>
+                    {/* <Footer></Footer> Footer가 total 안에 위치 */}
                 </div>
-
-            </body>
-            {/* <Footer></Footer> */}
-        </>
+            </div>
+            <Footer></Footer> {/* Footer가 total 안에 위치 */}
+        </body>
 
     );
 }
