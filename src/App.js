@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import MainBar from './Components/MainBar';
 import { Route, Routes } from 'react-router-dom';
 import Main from './Components/Main';
@@ -26,28 +26,32 @@ import CommunityInfo from './Components/CommunityInfo';
 const App = () => {
   return (
     <div>
-      <MainBar/>
-      <Routes>
-      <Route path="/" element={<Main />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/MypageDefault" element={<MypageDefault />} />
-        <Route path="/AccountManage" element={<AccountManage />} />
-        <Route path="/CommunityNoti" element={<CommunityNoti />} />
-        <Route path="/CelebRecommend" element={<CelebRecommend />} />
-        <Route path="/Ranking" element={<Ranking/>}/>
-        <Route path="/Search" elemnt={<Search/>}/>
-        <Route path="/FollowingList" element={<FollowingList/>}/>
-        <Route path="/MyPageWritings" element={<MyPageWritings />} />
-        <Route path="/MyPageComments" element={<MyPageComments />} />
-        <Route path="/HomeFeed" element={<HomeFeed />} />
-        <Route path="/HomeInfo" element={<HomeInfo />} />
-        <Route path="/CommunityFeed" element={<CommunityFeed />} />
-        <Route path="/CommunityWrite" element={<CommunityWrite />} />
-        <Route path="/CommunityInfo" element={<CommunityInfo />} />
-        <Route path="/LikeList" element={<LikeList />} />
-        <Route path='/Category' element={<Category/>}/>
-      </Routes> 
+      <header>
+      <MainBar />
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/MypageDefault" element={<MypageDefault />} />
+          <Route path="/AccountManage" element={<AccountManage />} />
+          <Route path="/CommunityNoti" element={<CommunityNoti />} />
+          <Route path="/CelebRecommend" element={<CelebRecommend />} />
+          <Route path="/Ranking" element={<Ranking />} />
+          <Route path="/Search" element={<Search />} />
+          <Route path="/FollowingList" element={<FollowingList />} />
+          <Route path="/MyPageWritings" element={<MyPageWritings />} />
+          <Route path="/MyPageComments" element={<MyPageComments />} />
+          <Route path="/HomeFeed" element={<HomeFeed />} />
+          <Route path="/HomeInfo" element={<HomeInfo />} />
+          <Route path="/CommunityFeed" element={<CommunityFeed />} />
+          <Route path="/CommunityWrite" element={<CommunityWrite />} />
+          <Route path="/CommunityInfo" element={<CommunityInfo />} />
+          <Route path="/LikeList" element={<LikeList />} />
+          <Route path="/Category" element={<Category />} />
+        </Routes>
+      </main>
     </div>
   );
 }
