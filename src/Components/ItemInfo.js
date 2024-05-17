@@ -38,7 +38,7 @@ export default function ItemInfo({ image, index }) {
                 <p id={styles.itemDetail}>Vonzo01 - Black</p>
             </div>
             <div className={styles.bottomCom}>
-                <hr></hr>
+                <hr className={styles.line}></hr>
                 &nbsp;
                 <p id={styles.itemPrice}>320,000{'₩'}</p>
             </div>
