@@ -3,63 +3,80 @@ import Feed from './feed.js';
 import ItemInfo from './ItemInfo.js';
 import styles from '../css/HomeInfo.module.css';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
-export default function HomeInfo(){
+axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
+
+export const getPosts = async () => {
+    const response = await axios.get("/posts");
+    return response.data;
+};
+
+export default function HomeInfo() {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
-    const itemListRef = useRef(); 
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 4; 
     const navigate = useNavigate();
+
     const navigateToCommunity = () => {
         navigate("/CommunityWrite");
-      };
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
-                if (loading) return;
-                
-                loadItems();
-            });
-        });
-        observer.observe(itemListRef.current);
-
-        return () => {
-            observer.disconnect();
-        };
-
-    }, [loading]); 
-
-    const loadItems = () => {
-        setLoading(true); 
-        const newItems = [];
-        for (let i = 0; i < 3; i++) {
-            newItems.push({
-                id: items.length + i,
-                image: ' '
-            });
-        }
-        setItems([...items, ...newItems]);
-        setLoading(false); 
     };
 
-   
-    return(
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const data = await getPosts();
+                setItems(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchItems();
+
+    }, [loading]);
+
+    const nextPage = () => {
+        setCurrentPage((prevPage) => (prevPage+1) % Math.ceil(items.length / itemsPerPage));
+    };
+
+    const prevPage = () => {
+        setCurrentPage((prevPage) => (prevPage-1 + Math.ceil(items.length / itemsPerPage)) % Math.ceil(items.length / itemsPerPage));
+    };
+
+    const currentItems = items.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+
+    return (
         <div className={styles.contents}>
-            <Feed></Feed>
-                
-            <div className={styles.totalItem} ref={itemListRef}>
-                {items.map(feed => (
-                <ItemInfo key={feed.id} image={feed.image} />
-                ))}
-                <div style={{height: '10px'}} />
+            <Feed />
+            <div>
+                <p className={styles.product}>Product</p>
+                <HorizonLine />
+                <div className={styles.totalItem}>
+                    {currentItems.map((feed, index) => (
+                        <ItemInfo key={feed.id} image={feed.image} index={currentPage * itemsPerPage + index} />
+                    ))}
+                </div>
+                <div className={styles.carouselButtons}>
+                    <button className={styles.prevBtn} onClick={prevPage}>{'<'}</button>
+                    <button className={styles.nextBtn} onClick={nextPage}>{'>'}</button>
+                </div>
+                <p className={styles.goComBtn} onClick={navigateToCommunity}>찾는 제품이 없으신가요?</p>
             </div>
-            <div className={styles.decoBox}>
-                <input type="button" className={styles.writeButton} value="+" onClick={navigateToCommunity}></input>
-            </div>
-                
         </div>
-        
-    )
+    );
 }
+
+const HorizonLine = () => {
+    return (
+        <div
+            style={{
+                width: '1000px',
+                borderBottom: "2px solid black",
+                lineHeight: "0.1em",
+                margin: "10px 0 0 30px",
+            }}
+        />
+    );
+};

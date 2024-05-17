@@ -1,47 +1,91 @@
-.contents{
-    padding-left: 240px;
-    height: fit-content;
-    width:fit-content;
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+* {
+    font-family: 'Pretendard';
+}
+
+.contents {
     display: flex;
     justify-content: center;
     align-items: center;
     float: left;
-}
-
-.totalItem{
+    height: fit-content;
+    width: 100%;
+    margin: auto auto;
     position: relative;
-    display: block;
-    border: 2px solid #D9D9D9;
-    height: 400px;
-    width:fit-content;
-
-    overflow-y: Scroll;
-    /* 스크롤바 없애기 */
-    scrollbar-width: none;
-   
-    padding: 10px;
-    margin: 35px 0 0 50px;
-    border: 1px solid black;
-    z-index: 1;
-    
-}
-.decoBox{
-    position: absolute;
-    width: 643px;
-    height: 500px;
-    border: 1px solid black;
-    margin-top:35px;
-    left: 720px;
-    z-index: 0;
 }
 
-.writeButton{
-    margin-top: 465px;
-    margin-left: 600px;
+.totalItem {
+    margin: auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 1000px;
+    float: left;
+    overflow-x: hidden;
+}
+
+.product {
+    text-align: left;
+    font-weight: 700;
     font-size: 20px;
+    margin: auto 30px;
+}
+
+.goComBtn {
+    float: right;
+    color: #ddd;
+    cursor: pointer;
+    font-size: 15px;
+    margin: auto 30px;
+}
+
+.goComBtn:hover {
+    border: 1px solid black;
+    color: black;
+    border: none;
+}
+
+
+.nextBtn{
+    position: absolute;
+    top: 265px;
     width: 30px;
     height: 30px;
-    border: 1px solid black;
-    border-radius: 10px;
-    background-color: white;
+    right: 10px;
+    border: none;
+    border-radius: 50px;
+    background-color: rgba(0,0,0, 0.2);
+    transition: opacity 0.3s ease;
+    color: white;
+
+    line-height: 30px;
+    font-weight: 600;
+    text-align: center;
+    
+    &:hover {
+        background-color: rgba(0,0,0,0.8);
+        border: none;
+      }
+}
+.prevBtn{
+    position: absolute;
+    top: 230px;
+    width: 30px;
+    height: 30px;
+    right: 10px;
+    border: none;
+    border-radius: 50px;
+    background-color: rgba(0,0,0, 0.2);
+    transition: opacity 0.3s ease;
+    color: white;
+
+    line-height: 30px;
+    font-weight: 600;
+    text-align: center;
+    
+    &:hover {
+        background-color: rgba(0,0,0,0.8);
+        border: none;
+      }
 }
