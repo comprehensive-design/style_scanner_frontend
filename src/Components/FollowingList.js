@@ -33,14 +33,14 @@ export default function FollowingList() {
             <div style={{display:'flex'}}>
                 <Sidebar></Sidebar>
                 <div className={styles.wrap}>
-                    <h2 className={styles.Following}>팔로잉</h2>
+                    <h3 className={styles.Following}>팔로잉</h3>
                     <HorizonLine></HorizonLine> 
                     <div className={styles.word}>
                         <p>전체</p>
                         <p>&nbsp;{totalFollowings}</p>
                     </div>
 
-                    <main>
+                    <div>
                         <UsersList list={currentItems}/>
                         <UsersList list={currentItems}/>
                         <UsersList list={currentItems}/>
@@ -48,7 +48,7 @@ export default function FollowingList() {
                         <UsersList list={currentItems}/>
                         <UsersList list={currentItems}/>
 
-                    </main>
+                    </div>
 
                     <footer className={styles.footer}>
                         <div style={{ height: "50px" }}></div>

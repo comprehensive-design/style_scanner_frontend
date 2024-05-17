@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 import CommentBox from './CommentBox';
 import Pagination from './Pagination';
 import axios from 'axios';
-import Footer from  './Footer';
+import Footer from './Footer';
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
 export const getPosts = async () => {
@@ -15,7 +15,7 @@ export const getPosts = async () => {
 export default function MyPageComments() {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5); 
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const firstItemIndex = (currentPage - 1) * itemsPerPage;
   const lastItemIndex = firstItemIndex + itemsPerPage;
   const currentItems = posts.slice(firstItemIndex, lastItemIndex);
@@ -33,11 +33,12 @@ export default function MyPageComments() {
     fetchPosts();
   }, [currentPage, itemsPerPage]);
 
-   return (
-    
+  return (
+
     <body>
+
       <div className={styles.total}>
-      <Sidebar/>
+        <Sidebar />
         <div className={styles.content}>
           <div className={styles.title}>
             <h3>내가 작성한 댓글</h3>
@@ -50,17 +51,20 @@ export default function MyPageComments() {
           </div>
         </div>
       </div>
-      <footer>
+
+      <div className={styles.heightPadding}></div>
+      <div>
         <Pagination
-                    itemsNum={posts.length}
-                    itemsPerPage={itemsPerPage}
-                    setCurrentPage={setCurrentPage}
-                    currentPage={currentPage}
-                  />
-              <Footer/>
-      </footer>
+          itemsNum={posts.length}
+          itemsPerPage={itemsPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </div>
+      <Footer />
+
     </body>
-   
-    
+
+
   );
 }

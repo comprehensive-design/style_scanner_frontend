@@ -59,7 +59,7 @@
 .sublists{
     background-color: white;
     line-height: 200%;
-    color:gray;
+    color:black;
     list-style: none;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .rankingWrap{
-    margin : 30px;
+    /* margin : 30px; */
     margin-left: 50px;
     width : 100%;
     /* background-color: beige; */

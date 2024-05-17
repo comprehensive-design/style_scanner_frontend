@@ -56,18 +56,24 @@ export default function MyPageWritings() {
 
               <WritingBox key={index} feedId="@roses_are_rosie" feedImg='' commentCnt='15' title="로제 반지 어디 건가요?" contents="따라 사고 싶은데 어디 건지 잘 모르겠어요 ㅠㅠ.. ..;; " date="2024.05.14" />
             ))}
+
+
           </div>
+
         </div>
       </div>
-      <footer>
+      
+      <div className={styles.heightPadding}></div>
+      <div className={styles.footer}>
         <Pagination
           itemsNum={posts.length}
           itemsPerPage={itemsPerPage}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />
-        <Footer />
-      </footer>
+      </div>
+
+      <Footer></Footer>
     </body>
   );
 }
