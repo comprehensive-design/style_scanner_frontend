@@ -4,6 +4,7 @@ import NotiBox from './NotiBox';
 import Pagination from './Pagination';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Footer from './Footer';
 
 export default function CommunityNoti() {
     const [items, setItems] = useState([]);
@@ -28,13 +29,11 @@ export default function CommunityNoti() {
     const currentItems = items.slice(firstItemIndex, lastItemIndex);
     return (
         <body>
-
             <Sidebar></Sidebar>
-
             <div className={styles.content}>
                 <div className={styles.title}>
                     <h2>알림</h2>
-                    <hr></hr>
+                <div className={styles.horizon}></div>
                 </div>
                 <div className={styles.wrap}>
                     <NotiBox></NotiBox>
@@ -52,6 +51,9 @@ export default function CommunityNoti() {
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
             />
+            </div>
+            <div className={styles.footer}>
+            <Footer></Footer>
             </div>
         </body>
     );
