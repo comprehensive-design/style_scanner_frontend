@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import styles from '../css/ItemInfo.module.css'
-
+import Button from './Button';
 export default function HomeInfo() {
     const [imageSrc, setImageSrc] = useState(`img/heart.png`); // 초기 상태는 선택이 되지 않은 상태를 나타내기 위함
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
-
+   
+    const shoppingClick = () => {
+        alert("shopping버튼 누름")
+     };
     const handleClick = () => {
         if (isClicked) {
             setImageSrc(`img/fullHeart.png`);
@@ -16,23 +19,28 @@ export default function HomeInfo() {
     };
     return (
         <div className={styles.infoBox}>
-            <img className={styles.item} src="http://via.placeholder.com/150X150"></img>
-            <hr></hr>
-            <div className={styles.infoText}>
-                
-                <p id={styles.itemName}><b>Gentle Monster</b></p>
-                <p id={styles.itemDetail}>Vonzo01 - Black</p>
-              
-                <div className={styles.bottomCom}>
-                    <p id={styles.itemPrice}>320,000원</p>
-                    {/* 하트 버튼 누르기 */}
-                    <div>
-                        <img id={styles.itemHeart} src={imageSrc} onClick={handleClick}></img>
-                    </div>
+            <div className={styles.infoMain}>
+                <img className={styles.item} src="http://via.placeholder.com/180X240"></img>
+                <div id={styles.itemHeart}>
+                    <img src={imageSrc} onClick={handleClick}></img>
                 </div>
             </div>
 
-           
+            <div className={styles.infoText}>
+
+                <p id={styles.itemName}><b>Gentle Monster</b></p>
+                <p id={styles.itemDetail}>Vonzo01 - Black</p>
+            </div>
+            <div className={styles.bottomCom}>
+                <hr></hr>
+                &nbsp;
+                <p id={styles.itemPrice}>320,000{'₩'}</p>
+            </div>
+            <div className={styles.goBtn}>
+                <span>&nbsp;SHOP</span>
+                <span id={styles.arrow}>→&nbsp;</span>
+            </div>
+            
         </div>
     )
 

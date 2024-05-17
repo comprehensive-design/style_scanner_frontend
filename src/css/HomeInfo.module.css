@@ -1,48 +1,27 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-
-* {
-    font-family: 'Pretendard';
+*{  
+    font-family:'Pretendard';
 }
-
-.product {
+.product{
     position: fixed;
     text-align: left;
     font-weight: 700;
 }
-
-.contents {
+.contents{
     height: fit-content;
-    width: 100%;
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
     float: left;
 }
 
-.totalItem {
+.totalItem{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     float: left;
-    overflow-x: auto; /* Changed to auto to show scroll bar only when needed */
+    overflow-x: Scroll;
     border: 1px solid black;
-    width: 100%; /* Make totalItem take full width */
-    padding: 10px; /* Add padding for better spacing */
-    box-sizing: border-box; /* Ensure padding is included in total width */
 }
 
-.itemList {
-    flex: 0 0 200px; /* Fixed width for each item */
-    height: 300px; /* Fixed height for each item */
-    border: 1px solid gray; /* Add border for clarity */
-    margin-right: 10px; /* Add space between items */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box; /* Ensure border and padding are included in dimensions */
-}
-
-/* Additional styling for better visuals */
-.itemList:last-child {
-    margin-right: 0; /* Remove margin for the last item */
-}
