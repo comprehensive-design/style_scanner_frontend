@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styles from '../css/ItemInfo.module.css'
 import Button from './Button';
-export default function HomeInfo() {
+
+export default function ItemInfo({ image, index }) {
     const [imageSrc, setImageSrc] = useState(`img/heart.png`); // 초기 상태는 선택이 되지 않은 상태를 나타내기 위함
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
    
     const shoppingClick = () => {
-        alert("shopping버튼 누름")
+        alert("shopping  link로 이동해야함")
      };
     const handleClick = () => {
         if (isClicked) {
@@ -17,9 +18,14 @@ export default function HomeInfo() {
             setIsClicked(true); // true일 땐 변경될 이미지 src
         }
     };
+
+
+
+
     return (
         <div className={styles.infoBox}>
             <div className={styles.infoMain}>
+                <p>{`Item ${index}`}</p>
                 <img className={styles.item} src="http://via.placeholder.com/180X240"></img>
                 <div id={styles.itemHeart}>
                     <img src={imageSrc} onClick={handleClick}></img>
@@ -36,7 +42,7 @@ export default function HomeInfo() {
                 &nbsp;
                 <p id={styles.itemPrice}>320,000{'₩'}</p>
             </div>
-            <div className={styles.goBtn}>
+            <div onClick={shoppingClick} className={styles.goBtn}>
                 <span>&nbsp;SHOP</span>
                 <span id={styles.arrow}>→&nbsp;</span>
             </div>

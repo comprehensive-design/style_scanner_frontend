@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 30px;
+    margin: 25px;
 }
 
 .infoBox > .infoMain{
@@ -32,7 +32,7 @@
 }
 
 .infoText {
-    margin: 20px auto;
+    margin: 30px auto;
 }
 
 #itemName {
@@ -63,15 +63,17 @@ hr {
     text-align: right;
 }
 .infoBox > .goBtn{
+    margin-top: 20px;
     text-align: left;
     line-height: 30px;
     width: 200px;
     height: 30px;
-    
+    cursor: pointer;
     color: gray;
     border: 2px solid #ddd;
    
 }
 #arrow{
     float: right;
+   
 }
