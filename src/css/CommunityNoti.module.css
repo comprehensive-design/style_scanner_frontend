@@ -39,9 +39,9 @@ body {
     border: none;
 }
 
-.wrap{
+/* .wrap{
     flex-wrap: wrap; 
     overflow-y: auto; 
     max-height: 600px;  
     scrollbar-width: none; 
-}
+} */

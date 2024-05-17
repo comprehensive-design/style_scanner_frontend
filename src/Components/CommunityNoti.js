@@ -21,10 +21,6 @@ export default function CommunityNoti() {
                     <NotiBox></NotiBox>
                     <NotiBox></NotiBox>
                     <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
                 </div>
             </div>
         </body>
