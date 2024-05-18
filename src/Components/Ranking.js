@@ -1,33 +1,45 @@
-import Category from "./Category"
 import styles from '../css/Ranking.module.css';
 import { Link } from "react-router-dom";
 import RankingFeed from "./RankingFeed";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 
-export default function Ranking(){
-    const [bestFeeds, setBestFeeds] = useState([]); 
+// https://leedaeho1188.tistory.com/55
 
-    const loadFeeds = () => {
-        const newBestFeeds = [];
-        for (let i=0; i< 4; i++){
-            newBestFeeds.push({
-                id : bestFeeds.length + i,
-                image: `img/bestFeed${(bestFeeds.length+i)%4+1}.png`
+export default function Ranking({selectedCategory, selectedSubcategory}){
+    const [items, setItems] = useState([]);
+    const [itemsPerPage, setItemsPerPage] = useState(40); 
+
+    useEffect(() => {
+        axios.get("https://jsonplaceholder.typicode.com/posts")
+            .then((response) => {
+                setItems(response.data);
+            })
+            .catch((error) => {
+                // 에러 처리
+                console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);
             });
+    }, []);
+
+    const renderItems = () => {
+        const items = [];
+        for (let i=0; i<4; i++){
+            items.push(
+                <RankingFeed key = {`feed${i}`}/>
+            );
+            items.push(<div key={`padding${i}`} className={styles.RankingPadding}></div>);
         }
-        setBestFeeds([...bestFeeds, ...newBestFeeds]);
-    };
+        return items;
+    }
 
     return(
-        
         <div className={styles.totalWrap}>
             <div className={styles.RankingWord}>
                 <h1 id={styles.rankingBest}>BEST</h1>
                 <p id={styles.rankingPopular}>인기 있는 피드</p>
             </div>
 
-            <div className={styles.ContentWrap} style={{display:'flex'}}>
-                <Category></Category>
+            <div className={styles.ContentWrap} >
                 <div className={styles.RankingContent}>
                     <div className={styles.RankingType}>
                         <ul className={styles.RankingUl}>
@@ -37,106 +49,16 @@ export default function Ranking(){
                         </ul>
                     </div>
 
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        
+                    <div className={styles.RankingItems} style={{display:'flex'}}>
+                        {renderItems()}
+                        <div style={{height:"30px"}}></div>
                     </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
+                    
+                    <div className={styles.RankingItems} style={{display:'flex'}}>
+                        {renderItems()}
+                        <div style={{height:"30px"}}></div>
                     </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                    </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                    </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                    </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                    </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                    </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                    </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                    </div>
-
-                    <div className={styles.RankingRow}>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                        <div className={styles.RankingPadding}></div>
-                        <RankingFeed></RankingFeed>
-                    </div>
+                    
                 </div>
             </div>
         </div>

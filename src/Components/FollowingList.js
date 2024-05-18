@@ -1,65 +1,73 @@
 import styles from '../css/FollowingList.module.css';
 import Sidebar from "./Sidebar"
-import FollowingUser from "./FollowingUser";
 import React, {useState, useEffect, useRef} from 'react';
+import Pagination from './Pagination';
+import axios from "axios";
+import UsersList from './UsersList';
+import Footer from './Footer';
 
 export default function FollowingList() {
     const [followings, setFollowings] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const followingListRef = useRef(); 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10); 
+    const [totalFollowings, setTotalFollowings] = useState(0);
    
     useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
-                if (loading) return;
-                
-                loadFeeds();
+        axios.get("https://jsonplaceholder.typicode.com/posts")
+            .then((response) => {
+                setFollowings(response.data);
+                setTotalFollowings(response.data.length);
+            })
+            .catch((error) => {
+                // 에러 처리
+                console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);
             });
-        });
-        observer.observe(followingListRef.current);
+    }, []);
 
-        return () => {
-            observer.disconnect();
-        };
-    }, [loading]); 
-    const loadFeeds = () => {
-        setLoading(true); 
-        const newFollowings = [];
-        for (let i = 0; i < 5; i++) {
-            newFollowings.push({
-                id: followings.length + i,
-                image: `img/following${(followings.length + i) % 5 + 1}.png`
-            });
-        }
-        setFollowings([...followings, ...newFollowings]);
-        setLoading(false); 
-    };
-
+    const firstItemIndex = (currentPage - 1) * itemsPerPage;
+    const lastItemIndex = firstItemIndex + itemsPerPage;
+    const currentItems = followings.slice(firstItemIndex, lastItemIndex);
+    
     return(
         <body>
             <div style={{display:'flex'}}>
                 <Sidebar></Sidebar>
                 <div className={styles.wrap}>
-                    <h2 className={styles.Following}>팔로잉</h2>
+                    <h3 className={styles.Following}>팔로잉</h3>
                     <HorizonLine></HorizonLine> 
                     <div className={styles.word}>
                         <p>전체</p>
-                        <p>22</p>
+                        <p>&nbsp;{totalFollowings}</p>
                     </div>
 
-                    <div className="feedList" ref={followingListRef}>
-                        {followings.map(feed => (
-                            <FollowingUser key={followings.id} image={FollowingUser.image} />
-                         ))}
+                    <div>
+                        <UsersList list={currentItems}/>
+                        <UsersList list={currentItems}/>
+                        <UsersList list={currentItems}/>
+                        <UsersList list={currentItems}/>
+                        <UsersList list={currentItems}/>
+                        <UsersList list={currentItems}/>
+
                     </div>
+
+                    <footer className={styles.footer}>
+                        <div style={{ height: "50px" }}></div>
+                        <Pagination
+                            itemsNum={followings.length}
+                            itemsPerPage={itemsPerPage}
+                            setCurrentPage={setCurrentPage}
+                            currentPage={currentPage}
+                        />
+                    </footer>
+
                 </div>
             </div>
+
+            <Footer></Footer>
         </body>
     );
 }
+
 
 const HorizonLine = () => {
     return (

@@ -3,15 +3,25 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Pretendard";
+}
+
+body{
+    width: 100%;
+}
+
+.likeWrap{
+    /* background-color: blue; */
+    width : 70%;
 }
 
 .wrap{
-    display: flex;
-    font-family: 'Pretendard';
+    /* width : 60%; */
+    align-items: center;
+    /* background-color: blue; */
 }
 
-
-.content {
+/* .content {
     min-width: calc(100% - 400px);
     position: absolute;
     left: 300px;
@@ -19,7 +29,19 @@
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
-    z-index: 10;
+    /* z-index: 10; */
+    /* background-color: beige; */
+/* } */ 
+
+.Like{
+    margin : 0;
+    text-align: left;
+    margin-top : 8px;
+}
+
+.word{
+    display: flex;
+    padding-bottom: 20px;
 }
 
 
@@ -30,7 +52,7 @@
 }
 
 .horizon {
-    width: 100%;
+    width: 80%;
     border-Bottom: 2px solid #aaa;
     line-height: 0.1em;
     margin: 10px 0 20px;

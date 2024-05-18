@@ -1,5 +1,5 @@
 import styles from "../css/Pagination.module.css";
-import Button from './Button';
+import { useEffect, useState } from "react";
 
 export default function Pagination({
     itemsNum,
@@ -7,13 +7,17 @@ export default function Pagination({
     setCurrentPage,
     currentPage
 }) {
+    const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
+    
+    const handleButtonClick = (index) => {
+        setCurrentPage(index); // 페이지 변경
+        setSelectedButtonIndex(index); // 선택된 버튼 인덱스 업데이트
+    };
+
     const pageList = [];
     const totalpages = Math.ceil(itemsNum / itemsPerPage);
-
-    // 한 화면에 표시될 최대 페이지 수
     const maxPage = 10;
 
-    // 현재 페이지 그룹을 계산
     const currentPageGroup = Math.ceil(currentPage / maxPage);
     const startPage = (currentPageGroup - 1) * maxPage + 1;
     const endPage = Math.min(startPage + maxPage - 1, totalpages);
@@ -23,11 +27,13 @@ export default function Pagination({
     }
 
     const goToNextPage = () => {
-        setCurrentPage(Math.min(currentPage + 1, totalpages));
+        setCurrentPage(Math.min(currentPage + 1, totalpages)); // 다음 페이지로 이동
+        setSelectedButtonIndex(currentPage + 1); // 다음 페이지로 이동한 버튼을 선택된 상태로 표시
     };
 
     const goToPrevPage = () => {
-        setCurrentPage(Math.max(currentPage - 1, 1));
+        setCurrentPage(Math.max(currentPage - 1, 1)); // 이전 페이지로 이동
+        setSelectedButtonIndex(currentPage - 1); // 이전 페이지로 이동한 버튼을 선택된 상태로 표시
     };
 
     if (totalpages <= 1) {
@@ -45,8 +51,8 @@ export default function Pagination({
             {pageList.map((page) => (
                 <button
                     key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`${currentPage === page ? "active" : ""} ${styles.buttonshape}`}
+                    onClick={() => handleButtonClick(page)} // 페이지 번호를 전달하여 페이지 변경
+                    className={`${selectedButtonIndex === page ? styles.active : ""} ${styles.buttonshape}`}
                 >{page}</button>
             ))}
 

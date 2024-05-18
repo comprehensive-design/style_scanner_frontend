@@ -3,9 +3,16 @@
 *{
     font-family: 'Pretendard';
 } 
+/* body{ */
+    /* position: relative; */
+/* } */
+
+.total{
+    display: flex;
+}
 .content {
     width: calc(100% - 400px);
-    position: absolute;
+    /* position: absolute; */
     left: 300px;
     top: 20px;
     padding: 0px 100px;
@@ -26,7 +33,15 @@
     margin: 10px 0 0px;
 }
 .commentList{
-    height: 1400px;
+    height: fit-content;
 }
 
-  
+.heightPadding{
+    height: 30px;
+}
+
+/* footer {
+    position: absolute;
+    top:1500px;
+    width: 100%;
+} */

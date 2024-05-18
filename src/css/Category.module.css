@@ -1,8 +1,13 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
-#categoryDiv{
+*{
+    font-family: 'Pretendard';
+}
+
+.categoryWrap{
     width : 20%;
-    margin : 30px;
+    /* background-color: beige; */
+    /* display: flex; */
 }
 
 #categoryNa{
@@ -16,16 +21,59 @@
     list-style: none;
 }
 
-.lists{
+.totalWrap{
+    margin : 30px;
+    display: flex;
+    /* height : 100vh; */
+
+}
+
+.suplists{
     line-height: 200%;
+    color:black;
+    list-style: none;
+}
+
+.supcateButton{
+    background-color: white;
+    border-style: none;
+    color:black;
+    font-size: 16px;
+}
+
+.subcateButton{
+    background-color: white;
+    border-style: none;
+    font-size: 16px;
     color:gray;
 }
 
-.lastlists{
-    margin-bottom : 20px;
+.contentWrap{ 
+    width: 100%;
+    display : flex;
+    /* justify-content: center;
+	align-items: center; */
+	/* flex-direction: column; */
 }
 
-.gen{
-    font-weight: bold;
-    /* font-size : 18px; */
+.sublists{
+    background-color: white;
+    line-height: 200%;
+    color:black;
+    list-style: none;
+}
+
+.supcateButton:hover:active{
+    font-weight: 600;
+}
+
+.subcateButton:hover:active{
+    font-weight: 600;
+}
+
+.rankingWrap{
+    /* margin : 30px; */
+    margin-left: 50px;
+    width : 100%;
+    /* background-color: beige; */
 }
