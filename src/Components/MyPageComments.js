@@ -41,7 +41,7 @@ export default function MyPageComments() {
         <Sidebar />
         <div className={styles.content}>
           <div className={styles.title}>
-            <h3>내가 작성한 댓글</h3>
+            <h2>내가 작성한 댓글</h2>
             <hr />
           </div>
           <div className={styles.commentList}>
@@ -54,14 +54,17 @@ export default function MyPageComments() {
       </div>
 
       <div className={styles.heightPadding}></div>
-      <div>
-        <Pagination
-          itemsNum={posts.length}
-          itemsPerPage={itemsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </div>
+      <div className={styles.footerBox}>
+                <div className={styles.leftBtween} />
+                <div className={styles.footer}>
+                    <Pagination
+                        itemsNum={posts.length}
+                        itemsPerPage={itemsPerPage}
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}
+                    />
+                </div>
+            </div>
       <Footer />
     </body>
 
