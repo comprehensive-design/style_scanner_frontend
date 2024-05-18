@@ -1,6 +1,6 @@
 import styles from '../css/FollowingList.module.css';
 import Sidebar from "./Sidebar"
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Pagination from './Pagination';
 import axios from "axios";
 import UsersList from './UsersList';
@@ -9,9 +9,9 @@ import Footer from './Footer';
 export default function FollowingList() {
     const [followings, setFollowings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10); 
+    const [itemsPerPage, setItemsPerPage] = useState(10);
     const [totalFollowings, setTotalFollowings] = useState(0);
-   
+
     useEffect(() => {
         axios.get("https://jsonplaceholder.typicode.com/posts")
             .then((response) => {
@@ -27,39 +27,44 @@ export default function FollowingList() {
     const firstItemIndex = (currentPage - 1) * itemsPerPage;
     const lastItemIndex = firstItemIndex + itemsPerPage;
     const currentItems = followings.slice(firstItemIndex, lastItemIndex);
-    
-    return(
+
+    return (
+
         <body>
-            <div style={{display:'flex'}}>
-                <Sidebar></Sidebar>
-                <div className={styles.wrap}>
-                    <h3 className={styles.Following}>팔로잉</h3>
-                    <HorizonLine></HorizonLine> 
+
+            <div className={styles.total}>
+                <Sidebar />
+                <div className={styles.content}>
+                    <div className={styles.title}>
+                        <h2>팔로잉</h2>
+                        <hr /></div>
                     <div className={styles.word}>
                         <p>전체</p>
                         <p>&nbsp;{totalFollowings}</p>
                     </div>
 
                     <div>
-                        <UsersList list={currentItems}/>
-                        <UsersList list={currentItems}/>
-                        <UsersList list={currentItems}/>
-                        <UsersList list={currentItems}/>
-                        <UsersList list={currentItems}/>
-                        <UsersList list={currentItems}/>
+                        <UsersList list={currentItems} />
+                        <UsersList list={currentItems} />
+                        <UsersList list={currentItems} />
+                        <UsersList list={currentItems} />
+                        <UsersList list={currentItems} />
+                        <UsersList list={currentItems} />
 
                     </div>
 
-                    <footer className={styles.footer}>
-                        <div style={{ height: "50px" }}></div>
-                        <Pagination
-                            itemsNum={followings.length}
-                            itemsPerPage={itemsPerPage}
-                            setCurrentPage={setCurrentPage}
-                            currentPage={currentPage}
-                        />
-                    </footer>
-
+                </div>
+            </div>
+            <div className={styles.heightPadding}></div>
+            <div className={styles.footerBox}>
+                <div className={styles.leftBtween} />
+                <div className={styles.footer}>
+                    <Pagination
+                        itemsNum={followings.length}
+                        itemsPerPage={itemsPerPage}
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}
+                    />
                 </div>
             </div>
 
@@ -71,14 +76,14 @@ export default function FollowingList() {
 
 const HorizonLine = () => {
     return (
-      <div
-        style={{
-          width: "100%",
-          borderBottom: "2px solid black",
-          lineHeight: "0.1em",
-          margin: "10px 0 20px",
-        }}
-      >
-      </div>
+        <div
+            style={{
+                width: "100%",
+                borderBottom: "2px solid black",
+                lineHeight: "0.1em",
+                margin: "10px 0 20px",
+            }}
+        >
+        </div>
     );
-  };
+};

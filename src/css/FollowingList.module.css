@@ -1,23 +1,50 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
-.wrap{
-    width: calc(100% - 450px);
+
+.total {
+    display: flex;
 }
 
-.Following{
-    margin: 0;
-    margin-top : 8px;
-    /* margin-bottom: 20px; */
+.content {
+    width: calc(100% - 400px);
+    padding: 0px 70px 0px 70px;
+    box-sizing: border-box;
     text-align: left;
+    z-index: 10;
 }
-
 .word{
     display: flex;
+    padding-top: 20px;
     padding-bottom: 20px;
 }
 
-.paddingBox{
-    height: 50px;
+.title {
+    text-align: left;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+.title>hr {
+    height: 2px;
     width: 100%;
-    background-color: blue;
+    border: none;
+    background-color: #aaa;
+    margin: 10px 0 0px;
+}
+
+.heightPadding {
+    height: 30px;
+}
+
+
+.footerBox {
+    display: flex;
+}
+
+.leftBtween {
+    width: 20%;
+}
+
+.footer {
+    width: 80%;
 }
