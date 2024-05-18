@@ -55,7 +55,6 @@ export default function MypageDefault() {
 
   return (
     <div className={styles.writeContents}>
-      <Feed />
       <div className={styles.comDecoBox}>
         <div className={styles.comWriterBox}>
           <div className={styles.writerProfile}>

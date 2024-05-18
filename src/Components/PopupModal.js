@@ -12,8 +12,6 @@ export default function PopupModal({ onClose }) { // onClose 프로퍼티로 팝
       console.error("질문을 입력하세요.");
       return;
     }
-    
-    
     axios
       .post("http://localhost:8080/CommunityWrite", {
         feedId: "hi_sseulgi",
