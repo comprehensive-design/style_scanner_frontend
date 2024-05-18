@@ -5,28 +5,33 @@ import Pagination from './Pagination';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from './Footer';
+axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
+
+export const getPosts = async () => {
+    const response = await axios.get("/posts");
+    return response.data;
+};
 
 export default function CommunityNoti() {
-    const [items, setItems] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(8);
-    const [totalLikes, setTotalLikes] = useState(0);
-
-    useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/posts")
-            .then((response) => {
-                setItems(response.data);
-                setTotalLikes(response.data.length);
-            })
-            .catch((error) => {
-                // Error handling
-                console.error('An error occurred while fetching data:', error);
-            });
-    }, []);
-
     const firstItemIndex = (currentPage - 1) * itemsPerPage;
     const lastItemIndex = firstItemIndex + itemsPerPage;
-    const currentItems = items.slice(firstItemIndex, lastItemIndex);
+    const currentItems = posts.slice(firstItemIndex, lastItemIndex);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const data = await getPosts(currentPage, itemsPerPage);
+                setPosts(data);
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
+        };
+
+        fetchPosts();
+    }, [currentPage, itemsPerPage]);
 
     return (
         <div>
@@ -38,11 +43,11 @@ export default function CommunityNoti() {
                 </div>
                 <div className={styles.wrap}>
                     {currentItems.map(item => (
-                        <NotiBox key={item.id} item={item} />
+                        <NotiBox key={item.id} />
                     ))}
                 </div>
                 <Pagination
-                    itemsNum={items.length}
+                    itemsNum={posts.length}
                     itemsPerPage={itemsPerPage}
                     setCurrentPage={setCurrentPage}
                     currentPage={currentPage}
