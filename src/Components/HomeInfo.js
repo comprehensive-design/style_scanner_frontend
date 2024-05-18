@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Feed from './feed.js';
 import ItemInfo from './ItemInfo.js';
 import styles from '../css/HomeInfo.module.css';
+import PopupModal from './PopupModal'; // 팝업 모달 컴포넌트 import
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
@@ -14,13 +15,26 @@ export const getPosts = async () => {
 
 export default function HomeInfo() {
     const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 4; 
     const navigate = useNavigate();
 
-    const navigateToCommunity = () => {
-        navigate("/CommunityWrite");
+    const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 열림/닫힘 상태를 관리하는 상태 추가
+
+    const openPopup = () => {
+        setIsPopupOpen(true); // 팝업 열기
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false); // 팝업 닫기
+    };
+
+    const nextPage = () => {
+        setCurrentPage((prevPage) => (prevPage+1) % Math.ceil(items.length / itemsPerPage));
+    };
+
+    const prevPage = () => {
+        setCurrentPage((prevPage) => (prevPage-1 + Math.ceil(items.length / itemsPerPage)) % Math.ceil(items.length / itemsPerPage));
     };
 
     useEffect(() => {
@@ -34,25 +48,16 @@ export default function HomeInfo() {
         };
 
         fetchItems();
-
-    }, [loading]);
-
-    const nextPage = () => {
-        setCurrentPage((prevPage) => (prevPage+1) % Math.ceil(items.length / itemsPerPage));
-    };
-
-    const prevPage = () => {
-        setCurrentPage((prevPage) => (prevPage-1 + Math.ceil(items.length / itemsPerPage)) % Math.ceil(items.length / itemsPerPage));
-    };
+    }, []);
 
     const currentItems = items.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
     return (
         <div className={styles.contents}>
-            <Feed />
+            <Feed/>
             <div>
                 <p className={styles.product}>Product</p>
-                <HorizonLine />
+                <hr></hr>
                 <div className={styles.totalItem}>
                     {currentItems.map((feed, index) => (
                         <ItemInfo key={feed.id} image={feed.image} index={currentPage * itemsPerPage + index} />
@@ -62,21 +67,9 @@ export default function HomeInfo() {
                     <button className={styles.prevBtn} onClick={prevPage}>{'<'}</button>
                     <button className={styles.nextBtn} onClick={nextPage}>{'>'}</button>
                 </div>
-                <p className={styles.goComBtn} onClick={navigateToCommunity}>찾는 제품이 없으신가요?</p>
+                <p className={styles.goComBtn} onClick={openPopup}>찾는 제품이 없으신가요?</p>
+                {isPopupOpen && <PopupModal onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
             </div>
         </div>
     );
 }
-
-const HorizonLine = () => {
-    return (
-        <div
-            style={{
-                width: '1000px',
-                borderBottom: "2px solid black",
-                lineHeight: "0.1em",
-                margin: "10px 0 0 30px",
-            }}
-        />
-    );
-};
