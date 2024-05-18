@@ -18,7 +18,7 @@ body {
     min-width: calc(100% - 400px);
     position: absolute;
     left: 300px;
-    top: 0px;
+    top: 120px;
     padding: 0px 100px;
     box-sizing: border-box;
     text-align: left;
@@ -28,7 +28,7 @@ body {
 .footer{
     position: absolute;
     width: 100%;
-    top: 1000px;
+    top: 1150px;
 }
 
 .title {
@@ -47,5 +47,5 @@ body {
 }
 
 .wrap{
-    margin-bottom: 20px; 
+    margin-bottom: 50px; 
 }

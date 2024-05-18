@@ -9,7 +9,7 @@ import Footer from './Footer';
 export default function CommunityNoti() {
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(30);
+    const [itemsPerPage, setItemsPerPage] = useState(8);
     const [totalLikes, setTotalLikes] = useState(0);
 
     useEffect(() => {
@@ -19,42 +19,38 @@ export default function CommunityNoti() {
                 setTotalLikes(response.data.length);
             })
             .catch((error) => {
-                // 에러 처리
-                console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);
+                // Error handling
+                console.error('An error occurred while fetching data:', error);
             });
     }, []);
 
     const firstItemIndex = (currentPage - 1) * itemsPerPage;
     const lastItemIndex = firstItemIndex + itemsPerPage;
     const currentItems = items.slice(firstItemIndex, lastItemIndex);
+
     return (
-        <body>
-            <Sidebar></Sidebar>
+        <div>
+            <Sidebar />
             <div className={styles.content}>
                 <div className={styles.title}>
                     <h2>알림</h2>
-                <div className={styles.horizon}></div>
+                    <div className={styles.horizon}></div>
                 </div>
                 <div className={styles.wrap}>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
-                    <NotiBox></NotiBox>
+                    {currentItems.map(item => (
+                        <NotiBox key={item.id} item={item} />
+                    ))}
                 </div>
-            <Pagination
-                itemsNum={items.length}
-                itemsPerPage={itemsPerPage}
-                setCurrentPage={setCurrentPage}
-                currentPage={currentPage}
-            />
+                <Pagination
+                    itemsNum={items.length}
+                    itemsPerPage={itemsPerPage}
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                />
             </div>
             <div className={styles.footer}>
-            <Footer></Footer>
+                <Footer />
             </div>
-        </body>
+        </div>
     );
 }
