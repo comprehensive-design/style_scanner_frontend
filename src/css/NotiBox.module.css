@@ -17,9 +17,14 @@
 }
 
 .Qtext {
+    color: black;
     display: inline-block;
     font-weight: bold;
     font-size: 16px;
+}
+
+.Qtext:hover {
+    color: gray;
 }
 
 .A {
