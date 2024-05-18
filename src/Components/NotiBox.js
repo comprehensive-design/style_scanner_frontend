@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import styles from '../css/NotiBox.module.css';
 
-function NotiBox() {
+function NotiBox( { link="http://localhost:3000/CommunityInfo", title="로제 폰케이스 뭔가요?", reply="저도 너무 궁금해요.....", date="2024.04.05"}) {
 
     return (
         <div>
             <div className={styles.box}>
                 <div className={styles.NBox}>
                     <div>
-                        <p className={styles.Q}>Q. </p>
-                        <p className={styles.Qtext} >로제 반지 어디 건가요?</p>
+                        <a href={link} className={styles.Qtext} >Q {title}</a>
                     </div>
                     <div>
-                        <p className={styles.A}>A. </p>
-                        <p className={styles.Atext}>저도 너무 궁금;;; 제발 알려주세요</p>
+                        <p className={styles.A}>A.&nbsp;</p>
+                        <p className={styles.Atext}>{reply}</p>
                     </div>
                 </div>
                 <div className={styles.DBox}>
-                    2024.04.05
+                    {date}
                 </div>
             </div >
             <hr></hr>
