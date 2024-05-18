@@ -1,0 +1,49 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+*{
+    font-family: 'Pretendard';
+}
+
+.userProfileImg{
+    border-radius: 50%;
+}
+
+.userInfo{
+    display: flex;
+}
+
+.userInfoWord{
+    margin-left:50px;
+}
+
+.userFollow{
+    display: flex;
+}
+
+.FollowButton{
+    margin : auto 0;
+    margin-left: 10px;
+}
+
+.followsInfo{
+    display: flex;
+}
+
+.userbio{
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+.feedGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.feedItem {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+}
