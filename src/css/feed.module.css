@@ -52,7 +52,7 @@
 .nextBtn{
     position: absolute;
     width: 30px;
-    height: 25px;
+    height: 30px;
     right: 10px;
 
     border: none;
@@ -73,7 +73,7 @@
 .prevBtn{
     position: absolute;
     width: 30px;
-    height: 25px;
+    height: 30px;
     left:10px;
 
     border: none;
