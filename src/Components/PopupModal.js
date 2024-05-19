@@ -3,7 +3,7 @@ import styles from "../css/PopupMadal.module.css";
 import axios from "axios";
 import Button from './Button';
 
-export default function PopupModal({ onClose }) { // onClose 프로퍼티로 팝업창을 닫을 수 있는 함수를 전달합니다.
+export default function PopupModal({ onClose }) { 
   const [question, setQuestion] = useState("");
   const textarea = useRef();
 
@@ -42,9 +42,19 @@ export default function PopupModal({ onClose }) { // onClose 프로퍼티로 팝
   return (
     <div className={styles.popup}>
       <div className={styles.popupContent}>
-        <div className={styles.topDiv}>
-            <p className={styles.title}>제품을 찾고 싶으신가요?</p>
-            <p className={styles.closeButton} onClick={onClose}>×</p>
+      <p className={styles.closeButton} onClick={onClose}>×</p>
+        <div className={styles.comWriterBox}>
+          <div className={styles.writerProfile}>
+            <img
+              id={styles.writerImage}
+              src={process.env.PUBLIC_URL + "img/profile.png"}
+              alt="Profile"
+            />
+          </div>
+          <p id={styles.writerId}>
+            <b>nwbd_we</b>
+          </p>
+          
         </div>
         <div className={styles.decoBox}>
         <textarea 

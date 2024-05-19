@@ -28,29 +28,54 @@
     justify-content: center;
     align-items: center;
 }
-.topDiv{
+
+.comWriterBox{
     position: absolute;
     top: 20px;
     font-size: 20px;
-    color: #333;
-    width: 100%;
+    color: black;
 
-    display: inline-block;
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    float: left;
+    
+}
+.writerProfile{
+    height:45px; width:45px;
+    background-color: #D9D9D9;
+    border-radius: 50px;
+    line-height: 50px;
+    margin-left: 20px;
+    img {
+        width: 50%;
+        height:50%;
+        object-fit: cover; 
+      }
+      
+}
+#writerId{
+    margin-left: 20px;
+}
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right :10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: black;
 }
 .title{
     padding: 0 20px;
     float: left;
     font-weight: 600;
 }
-.closeButton {
-    float: right;
-    padding: 0 30px;
-    cursor: pointer;
-    font-size: 20px;
-    color: #333;
-}
+
 .decoBox{
-     margin-top: 40px;
+     margin-top: 100px;
 }
 .questionBox {
     display: block;
@@ -60,7 +85,8 @@
     padding: 10px;
     margin: 20px auto;
     resize: none;
-    border: 1px solid #ccc;
+    border: 1 px solid black;
+    
     border-radius: 4px;
     font-size: 16px;
 }
