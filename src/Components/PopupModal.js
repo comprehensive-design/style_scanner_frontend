@@ -33,16 +33,16 @@ export default function PopupModal({ onClose }) {
     console.log("버튼 누름");
     handleSubmit(); // 작성 버튼 클릭 시 데이터 전송
   };
+ 
 
-  const handleResizeHeight = () => {
-    textarea.current.style.height = "auto";
-    textarea.current.style.height = textarea.current.scrollHeight + "px";
-  };
 
   return (
     <div className={styles.popup}>
       <div className={styles.popupContent}>
-      <p className={styles.closeButton} onClick={onClose}>×</p>
+        <div className={styles.titleDiv}>
+          <p className={styles.closeButton} onClick={onClose}>×</p>
+          <p className={styles.title}>질문 글</p>
+        </div>
         <div className={styles.comWriterBox}>
           <div className={styles.writerProfile}>
             <img
@@ -51,22 +51,20 @@ export default function PopupModal({ onClose }) {
               alt="Profile"
             />
           </div>
-          <p id={styles.writerId}>
-            <b>nwbd_we</b>
-          </p>
-          
+          <p id={styles.writerId}>nwbd_we</p>
         </div>
         <div className={styles.decoBox}>
-        <textarea 
-            ref={textarea}
-            onInput={handleResizeHeight}
-            rows={1}
-            className={styles.questionBox}
-            placeholder="질문을 작성해주세요...(100자 이내)"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-          ></textarea>
-            <Button onClick={okClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>작성</Button>
+          <textarea 
+              ref={textarea}
+              rows={1}
+              className={styles.questionBox}
+              placeholder="질문을 작성해주세요..."
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+            ></textarea>
+              <div className={styles.btn}>
+              <Button onClick={okClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>작성</Button>
+              </div>
         </div>
       </div>
     </div>
