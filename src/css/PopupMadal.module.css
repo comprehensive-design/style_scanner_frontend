@@ -1,0 +1,66 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* 다른 요소 위에 나타나도록 z-index 값을 설정합니다. */
+}
+
+.popupContent {
+    position: relative;
+    background-color: white;
+    
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+    width: 400px;
+    height:400px;
+    padding: 30px;
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.topDiv{
+    position: absolute;
+    top: 20px;
+    font-size: 20px;
+    color: #333;
+    width: 100%;
+
+    display: inline-block;
+}
+.title{
+    padding: 0 20px;
+    float: left;
+    font-weight: 600;
+}
+.closeButton {
+    float: right;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+}
+.decoBox{
+     margin-top: 40px;
+}
+.questionBox {
+    display: block;
+    width: 400px;
+    height: 300px;
+    
+    padding: 10px;
+    margin: 20px auto;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}

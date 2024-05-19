@@ -33,7 +33,7 @@ export default function CommunityFeed() {
         <div className={styles.ComFeedScroll}>
             <div className={styles.ComFeedList} ref={comfeedListRef}>
                 {comfeeds.map(comfeed => (
-                    <ComFeed key={comfeed.id} id={comfeed.id} image={comfeed.image} />
+                    <ComFeed key={comfeed.id} id={comfeed.id} image={comfeed.image} goDir={"navigateToCommunityComment"} />
                 ))}
                 <div style={{height: '10px'}} />
             </div>

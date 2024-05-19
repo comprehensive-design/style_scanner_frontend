@@ -2,7 +2,7 @@ import styles from "../css/comfeed.module.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 
-function ComFeed({list}){
+function ComFeed({ list, goDir }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     //하드코딩..
@@ -16,11 +16,11 @@ function ComFeed({list}){
     ];
     const navigateToCommunityComment = () => {
         navigate("/CommunityInfo");
-      };
-      const navigateToHomeInfo= () => {
+    };
+    const navigateToHomeInfo = () => {
         navigate("/HomeInfo");
-      };
-      const goToNextImage = () => {
+    };
+    const goToNextImage = () => {
         setCurrentImageIndex((prevIndex) => {
             const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
             console.log(`다음 이미지 index: ${nextIndex}`);
@@ -36,8 +36,8 @@ function ComFeed({list}){
             return nextIndex;
         });
     };
-    return(
-       
+    return (
+
         <div>
             <div className={styles.comCompleteFeed}>
                 {/* header */}
@@ -50,9 +50,16 @@ function ComFeed({list}){
                 </div>
 
                 <div className={styles.comFeedMain}>
-                    <div className={styles.imageWrapper} onClick={navigateToHomeInfo}>
-                        <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
-                    </div>
+                    {goDir !== "navigateToHomeInfo" ?
+                        <div className={styles.imageWrapper} onClick={navigateToCommunityComment}>
+                            <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
+                        </div> :
+                        <div className={styles.imageWrapper} onClick={navigateToHomeInfo}>
+                            <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
+                        </div>
+                    }
+
+
                     <div className={styles.dirBtn}>
                         {/* 사진 넘어가는 버튼 */}
                         {images.length > 1 && ( // 이미지가 2개 이상 일 때만 버튼 표시
@@ -68,7 +75,7 @@ function ComFeed({list}){
                     </div>
                 </div>
             </div>
-            
+
             <div className={styles.writeBox}>
                 <span className={styles.writeId} id="writerId"><b>useruser2</b></span>
                 <div className={styles.writeTotal}>
@@ -78,7 +85,7 @@ function ComFeed({list}){
                 </div>
             </div>
         </div>
-       
+
     );
 }
 export default ComFeed;

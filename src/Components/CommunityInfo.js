@@ -49,7 +49,7 @@ export default function CommunityInfo(){
             
             <div className={styles.contents}>
                 
-                <ComFeed></ComFeed>
+                <ComFeed goDir={"navigateToHomeInfo"}></ComFeed>
                 <div className={styles.commentDecoBox}>
                     <div className={styles.totalItem} ref={commentListRef}>
                         {comments.map(comment=> (

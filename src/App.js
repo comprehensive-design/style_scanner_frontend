@@ -22,6 +22,7 @@ import CommunityWrite from './Components/CommunityWrite';
 import LikeList from './Components/LikeList';
 import Category from './Components/Category';
 import CommunityInfo from './Components/CommunityInfo';
+import FeedPopup from './Components/FeedPopup';
 
 const App = () => {
   return (
@@ -31,7 +32,7 @@ const App = () => {
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main/>} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/MypageDefault" element={<MypageDefault />} />

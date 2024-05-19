@@ -59,6 +59,15 @@ export default function Ranking({selectedCategory, selectedSubcategory}){
                         <div style={{height:"30px"}}></div>
                     </div>
                     
+                    <div className={styles.RankingItems} style={{display:'flex'}}>
+                        {renderItems()}
+                        <div style={{height:"30px"}}></div>
+                    </div>
+
+                    <div className={styles.RankingItems} style={{display:'flex'}}>
+                        {renderItems()}
+                        <div style={{height:"30px"}}></div>
+                    </div>
                 </div>
             </div>
         </div>
