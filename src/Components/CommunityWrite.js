@@ -1,61 +1,48 @@
 import React, { useRef, useState } from "react";
 import styles from "../css/CommunityWrite.module.css";
-import Feed from "./feed.js";
 import axios from "axios";
+import Button from './Button';
 
-export default function MypageDefault() {
-  const [content, setContent] = useState("");
-  const handleContentChange = (e) => setContent(e.target.value);
+export default function CommunityWrite({ onClose }) { 
+  const [question, setQuestion] = useState("");
   const textarea = useRef();
 
   const handleSubmit = () => {
-    // 데이터 유효성 검사 - 내용이 비어있는지 확인
-    if (!content.trim()) {
-      console.error("내용을 입력하세요.");
+    if (!question.trim()) {
+      console.error("질문을 입력하세요.");
       return;
     }
-
-    // 데이터 전송
     axios
       .post("http://localhost:8080/CommunityWrite", {
         feedId: "hi_sseulgi",
         writerId: "nwbd_we",
-        content: content,
+        content: question,
       })
-    //   .then(res => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //   })
-
       .then(function (response) {
         console.log("성공", response);
-        // 서버로부터의 응답 처리
+        onClose(); // 데이터 전송 후 팝업창 닫기
       })
       .catch(function (error) {
         console.error("실패", error);
-        // 오류 발생시 처리
       })
       .then(function () {
         console.log("데이터 요청 완료");
-        // 요청 완료 후 실행할 작업
       });
   };
-
-  // Textarea의 높이 자동 조정
-  const handleResizeHeight = () => {
-    textarea.current.style.height = "auto";
-    textarea.current.style.height = textarea.current.scrollHeight + "px";
-  };
-
-  // 작성 버튼 클릭 이벤트
-  const navigateToCommunity = () => {
+  const okClick = () => {
     console.log("버튼 누름");
     handleSubmit(); // 작성 버튼 클릭 시 데이터 전송
   };
+ 
+
 
   return (
-    <div className={styles.writeContents}>
-      <div className={styles.comDecoBox}>
+    <div className={styles.popup}>
+      <div className={styles.popupContent}>
+        <div className={styles.titleDiv}>
+          <p className={styles.closeButton} onClick={onClose}>×</p>
+          <p className={styles.title}>질문 글</p>
+        </div>
         <div className={styles.comWriterBox}>
           <div className={styles.writerProfile}>
             <img
@@ -64,26 +51,20 @@ export default function MypageDefault() {
               alt="Profile"
             />
           </div>
-          <p id={styles.writerId}>
-            <b>nwbd_we</b>
-          </p>
+          <p id={styles.writerId}>nwbd_we</p>
         </div>
-        <textarea
-          ref={textarea}
-          onInput={handleResizeHeight}
-          rows={1}
-          className={styles.questionBox}
-          placeholder="질문을 작성해주세요...(100자 이내)"
-          onChange={handleContentChange}
-        ></textarea>
-
-        <div className={styles.comButtonBox}>
-          <input
-            type="button"
-            className={styles.comWriteButton}
-            value="작성"
-            onClick={navigateToCommunity}
-          />
+        <div className={styles.decoBox}>
+          <textarea 
+              ref={textarea}
+              rows={1}
+              className={styles.questionBox}
+              placeholder="질문을 작성해주세요..."
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+            ></textarea>
+              <div className={styles.btn}>
+              <Button onClick={okClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>작성</Button>
+              </div>
         </div>
       </div>
     </div>
