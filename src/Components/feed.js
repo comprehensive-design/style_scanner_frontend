@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import styles from "../css/feed.module.css";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
+import FeedPopup from './FeedPopup';
 
 function Feed({ list }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
     //하드코딩..
     const images = [
         // "http://via.placeholder.com/370X465",
@@ -16,12 +17,22 @@ function Feed({ list }) {
         'img/feed2.png',
         'img/feed3.png'
     ];
+    
 
+    const openPopup = () => {
+        setIsPopupOpen(true); 
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false);
+    };
     // 이미지 클릭 -> 아이템 정보창으로 이동
     const navigateToHomeInfo = () => {
         navigate("/HomeInfo");
     };
-
+    const goToFeedPopup = () => {
+        navigate("FeedPopup")
+    };
     const goToNextImage = () => {
         setCurrentImageIndex((prevIndex) => {
             const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
@@ -41,7 +52,9 @@ function Feed({ list }) {
     return (
         <div className={styles.completeFeed}>
             {/* header */}
-            <div className={styles.profile}>
+            <div className={styles.profile} onClick={openPopup}>
+                {isPopupOpen && <FeedPopup onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
+
                 <div className={styles.ImageBox}>
                     <img id={styles.profileImage} src={process.env.PUBLIC_URL + 'img/profile.png'} alt="Profile"></img>
                 </div>
