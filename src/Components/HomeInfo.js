@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Feed from './feed.js';
 import ItemInfo from './ItemInfo.js';
 import styles from '../css/HomeInfo.module.css';
-import PopupModal from './PopupModal'; // 팝업 모달 컴포넌트 import
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import CommunityWrite from './CommunityWrite.js';
 
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
@@ -68,7 +68,7 @@ export default function HomeInfo() {
                     <button className={styles.nextBtn} onClick={nextPage}>{'>'}</button>
                 </div>
                 <p className={styles.goComBtn} onClick={openPopup}>찾는 제품이 없으신가요?</p>
-                {isPopupOpen && <PopupModal onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
+                {isPopupOpen && <CommunityWrite onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
             </div>
         </div>
     );
