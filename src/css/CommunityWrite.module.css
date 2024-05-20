@@ -1,60 +1,81 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
-.writeContents{
-    position: relative;
-    height: fit-content;
-    width:960px;
-    /* padding-left: 240px; */
-    margin: 0 auto;
-    
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+
     display: flex;
     justify-content: center;
     align-items: center;
-    float: left;
+    z-index: 9999; /* 다른 요소 위에 나타나도록 z-index 값을 설정합니다. */
 }
 
-.comDecoBox{
-    position: absolute;
-    margin-left: 100px;
-    display:flex;
-    align-items:flex-start;
-    justify-content: left;
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
-    margin-top:35px;
-    left: 660px;
-    z-index: 0;
-}
+.popupContent {
+    position: relative;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+    width: 400px;
+    height:100%;
+    padding: 30px;
 
-.comDecoBox > .comWriterBox{
-    position: absolute;
-    border: 1px solid black;
-    height: 60px;
-    width: 500px;
-
-    top: 30px;
     display: flex;
-    float:left;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
+}
+.titleDiv{
+    position: absolute;
+    top: 30px;
+    left :10px;
     
-    border:none;
-    border-top: 1px solid black;;
-    border-bottom: 1px solid black;
-    z-index: 1;
+    height:fit-content;
+    
+    display: flex;
+  
+}
+.title{
+    text-align: center;
+    line-height: 60px;
+    font-weight: 800;
+    color: black;
+    font-size: 20px;
+    margin-left: 20px;
+}
+.closeButton {
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 50px;
+    font-weight: 100;
+    color: black;
+}
+.comWriterBox{
+    position: absolute;
+
+    top: 100px;
+    font-size: 20px;
+    
+    color: black;
+
+    width: 90%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    float: lef;
+    border-bottom: 1.8px solid black;
+    
+    
 }
 .writerProfile{
     height:45px; width:45px;
     background-color: #D9D9D9;
     border-radius: 50px;
     line-height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 20px;
-    z-index: 3;
-    
     img {
         width: 50%;
         height:50%;
@@ -65,47 +86,26 @@
 #writerId{
     margin-left: 20px;
 }
-.comDecoBox > .questionBox{
+
+
+.decoBox{
     position: absolute;
-    width: 460px;
-    font-size: 16px;
-    font-family: 'Pretendard';
-    border: none;
+    bottom: 50px;
+}
+.questionBox {
+    display: block;
+    width: 400px;
+    height: 400px;
+    
+    padding: 20px 10px;
+    
+    margin: 20px auto;
     resize: none;
-    z-index: 5;
-    outline: none;
-
-    left: 30px;
-    top: 150px;
-   
+    border: 1 px solid #aaa;
+    
+    border-radius: 4px;
+    font-size: 16px;
 }
-.questionBox::placeholder {
-    color: black;
-}
-.comDecoBox > .comButtonBox{
-    position: absolute;
-    top: 450px;
-
-    display: flex;
-    width: 500px;
-    height: 50px;
-    align-items: center;
-    justify-content: right;
-
-    /* border 겹침 이슈 */
-    border:none;
-    border-top: 1px solid black;
-    z-index: 10;
-}
-
-.comButtonBox >.comWriteButton{
-    font-size: 10px;
-    color:black;
-    font-weight: bold;
-    width: 30px;
-    height: 30px;
-    margin:30px;
-    border: 1px solid black;
-    border-radius: 10px;
-    background-color: white;
+.btn{
+    float: right;
 }

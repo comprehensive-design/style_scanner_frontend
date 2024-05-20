@@ -49,7 +49,6 @@ export default function MyPageComments() {
               <CommentBox key={index} feedId="@roses_are_rosie" feedImg="" title="로제 반지 어디 건가요?" contents="까르띠에입니다!!!!! " date="2024.05.13" />
             ))}
           </div>
-
         </div>
       </div>
 
@@ -66,6 +65,7 @@ export default function MyPageComments() {
                 </div>
             </div>
       <Footer />
+
     </body>
 
 
