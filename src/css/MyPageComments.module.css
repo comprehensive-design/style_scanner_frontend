@@ -12,10 +12,7 @@
 }
 .content {
     width: calc(100% - 400px);
-    /* position: absolute; */
-    left: 300px;
-    top: 20px;
-    padding: 0px 100px;
+    padding: 0px 70px 0px 70px;
     box-sizing: border-box;
     text-align: left;
     z-index: 10;
@@ -40,8 +37,12 @@
     height: 30px;
 }
 
-/* footer {
-    position: absolute;
-    top:1500px;
-    width: 100%;
-} */
+.footerBox{
+    display: flex;
+}
+.leftBtween{
+    width: 20%;
+}
+.footer {
+    width: 80%;
+}

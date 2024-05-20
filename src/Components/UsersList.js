@@ -39,7 +39,7 @@ export default function UsersList(){
                 </div>
 
                 <div style={{display:'flex'}}className={styles.FollowingDelete}>
-                    <Button id={styles.buttonDelete}>삭제</Button>
+                    <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white">언팔로우</Button>
                 </div>
             </div>
 

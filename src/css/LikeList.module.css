@@ -6,49 +6,34 @@
     font-family: "Pretendard";
 }
 
-body{
-    width: 100%;
+.total{
+    display: flex;
 }
-
-.likeWrap{
-    /* background-color: blue; */
-    width : 70%;
-}
-
-.wrap{
-    /* width : 60%; */
-    align-items: center;
-    /* background-color: blue; */
-}
-
-/* .content {
-    min-width: calc(100% - 400px);
-    position: absolute;
-    left: 300px;
-    top: 0px;
-    padding: 0px 100px;
+.content {
+    width: calc(100% - 400px);
+    padding: 0px 70px 0px 70px;
     box-sizing: border-box;
     text-align: left;
-    /* z-index: 10; */
-    /* background-color: beige; */
-/* } */ 
-
-.Like{
-    margin : 0;
-    text-align: left;
-    margin-top : 8px;
+    z-index: 10;
 }
+.title {
+    text-align: left;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+.title>hr {
+    height: 2px;
+    width: 100%;
+    border: none;
+    background-color: #aaa;
+    margin: 10px 0 0px;
+}
+
 
 .word{
     display: flex;
+    padding-top: 20px;
     padding-bottom: 20px;
-}
-
-
-.title {
-    text-align: left;
-    margin-left: 0;
-    margin-top: 0;
 }
 
 .horizon {
@@ -56,4 +41,19 @@ body{
     border-Bottom: 2px solid #aaa;
     line-height: 0.1em;
     margin: 10px 0 20px;
+}
+
+.heightPadding{
+    height: 30px;
+}
+
+
+.footerBox{
+    display: flex;
+}
+.leftBtween{
+    width: 20%;
+}
+.footer {
+    width: 80%;
 }
