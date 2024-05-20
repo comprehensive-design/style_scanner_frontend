@@ -61,7 +61,7 @@ function ComFeed({ list, goDir }) {
 
                 <div className={styles.comFeedMain}>
                     {goDir !== "navigateToHomeInfo" ?
-                        <div className={styles.imageWrapper} onClick={navigateToCommunityComment}>
+                        <div className={styles.imageWrapper} onClick={openPopup}>
                             <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
                         </div> :
                         <div className={styles.imageWrapper} onClick={navigateToHomeInfo}>
