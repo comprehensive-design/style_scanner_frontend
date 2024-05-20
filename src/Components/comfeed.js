@@ -1,12 +1,14 @@
 import styles from "../css/comfeed.module.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
-import CommentTmp from './CommentTmp';
+import CommunityInfo from './CommunityInfo';
+import FeedPopup from './FeedPopup';
 
 function ComFeed({ list, goDir }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isFeedPopupOpen, setIsFeedPopup] = useState(false);
     //하드코딩..
     const images = [
         // "http://via.placeholder.com/370X465",
@@ -23,6 +25,10 @@ function ComFeed({ list, goDir }) {
     const closePopup = () => {
         setIsPopupOpen(false);
     };
+    const openFeedPopup = () => {
+        setIsFeedPopup(true);
+    };
+  
     const navigateToCommunityComment = () => {
         navigate("/CommunityInfo");
     };
@@ -51,12 +57,13 @@ function ComFeed({ list, goDir }) {
             <div className={styles.comCompleteFeed}>
                 {/* header */}
                 <div className={styles.comProfile}>
-                    <div className={styles.comProfileBox}>
-                        <img id='comProfileImage' src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
+                    <div className={styles.comProfileBox} onClick={openFeedPopup}>
+                        <img id='comProfileImage' src={process.env.PUBLIC_URL + 'img/profile.png'} ></img>
                     </div>
-                    <p className={styles.comProfileName} id='comProfileName'>hi_sseulgi</p>
+                    <p className={styles.comProfileName} id='comProfileName' onClick={openFeedPopup}>hi_sseulgi</p>
                     <input type="button" className={styles.comGoButton} value="→" onClick={openPopup}></input>
-                    {isPopupOpen && <CommentTmp onClose={closePopup} />} 
+                    {isFeedPopupOpen && <FeedPopup onClose={closePopup} />} 
+                    {isPopupOpen && <CommunityInfo onClose={closePopup} />} 
                 </div>
 
                 <div className={styles.comFeedMain}>
