@@ -1,8 +1,8 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
 .box {
-    width: calc(50% - 25px);
-    margin-bottom: 40px;
+    width: calc(50% - 70px);
+    margin-bottom: 50px;
 }
 
 .pBox {
@@ -12,8 +12,8 @@
 
 .profileImg {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
 }
 
 .mPart {
@@ -23,13 +23,11 @@
 }
 
 .uText {
-    display: flex;
     font-size: 16px;
     font-weight: 500;
 }
 
 .fText {
-    display: flex;
     font-size: 12px;
     color: gray;
 }
@@ -45,9 +43,14 @@
 }
 
 .fimage {
+    width: 200px;
+    height: 250px;
+}
+/* 
+.fimage {
     width: 145px;
     height: 180px;
-}
+} */
 
 .iBox :nth-child(1) {
     margin-right: 10px;

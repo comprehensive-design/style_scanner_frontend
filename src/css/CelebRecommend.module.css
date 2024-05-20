@@ -6,22 +6,13 @@
 }
 
 body {
-    /* min-width: 1000px; */
     margin: 0 auto;
     font-family: 'Pretendard';
-    /* position: relative; */
     width: 100%;
 }
 
-.total{
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-}
-
-
 .content {
-    width : 70%;
+    min-width: 1000px;
     left: 300px;
     top: 0px;
     padding: 0px 100px;
@@ -29,28 +20,29 @@ body {
     text-align: left;
     z-index: 10;
     flex: 1;
-    /* background-color: blue; */
 }
 
 .title {
-    text-align: left;
-    margin-left: 0px;
-    margin-top: 8px;
+    min-width: 1500px;
+    text-align: center;
+    margin: 30px 0 50px 0;
+}
+.title > p{
+    color: #aaa;
+    margin-top: 10px;
 }
 
 .horizon {
+    height: 2px;
     width: 100%;
-    border-Bottom: 2px solid #aaa;
-    line-height: 0.1em;
-    margin: 10px 0 20px;
+    border: none;
+    background-color: #aaa;
+    margin: 50px 0 20px;
 }
 
-.boxwrap{
-    min-width: 1000px;
+.boxwrap {
+    min-width: 1500px;
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     justify-content: space-between;
-    overflow-y: auto; 
-    max-height: 600px;  
-    scrollbar-width: none; 
 }
