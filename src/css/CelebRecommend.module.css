@@ -25,7 +25,7 @@ body {
 .title {
     min-width: 1500px;
     text-align: center;
-    margin: 20px 0 50px 0;
+    margin: 30px 0 50px 0;
 }
 .title > p{
     color: #aaa;
