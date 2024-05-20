@@ -1,90 +1,185 @@
-.contents{
-    position: relative;
-    height: fit-content;
-    width:960px;
-    margin: 0 auto;
-    
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); 
+
     display: flex;
     justify-content: center;
     align-items: center;
-    float: left;
+    z-index: 9999; /* 다른 요소 위에 나타나도록 z-index 값을 설정합니다. */
 }
 
-.commentDecoBox > .totalItem{
+.popupContent {
     position: relative;
-    height: 400px;
-    width:500px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+    width: 400px;
+    height:100%;
+    padding: 30px;
 
-    overflow-y: Scroll;
-    scrollbar-width: none;
-   
-    margin: 40px 0 0px 0px;
-    border-top: 3px solid rgb(71, 71, 71);
-    border-bottom: 3px solid black;
-    z-index: 1;
-    
-}
-.commentDecoBox{
-    position: absolute;
-    margin-left: 100px;
-    display:flex;
-    justify-content: left;
-    width: 500px;
-    height: 500px;
-    border: 3px solid black;
-    margin-top:35px;
-    left: 660px;
-    z-index: 0;
-}
-
-.commentDecoBox > .comInputBox{
-    position: absolute;
-    bottom: 10px;
-
-    display: inline-block;
-    width: 500px;
-    height: 30px;
-    line-height: 30px;
+    display: flex;
+    float: left;
+    justify-content: center;
     align-items: center;
+}
+.feedDiv{
+    background-color: rgb(0, 0, 0, 0.6); 
+    
+    height: 100%;
+}
+.feedImg{
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid black; */
 
+    img {
+        width: 100%;
+        height:100%;
+        object-fit: cover; 
+      }
+}
+.nextBtn{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 10px;
+
+    border: none;
+    border-radius: 50px;
+    background-color: rgba(0,0,0, 0.2);
+    transition: opacity 0.3s ease;
+    color: white;
+
+    line-height: 25px;
+    font-weight: 600;
+    text-align: center;
+    
+    &:hover {
+        background-color: rgba(0,0,0,0.8);
+        border: none;
+      }
+}
+.prevBtn{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left:10px;
+
+    border: none;
+    border-radius: 50px;
+    background-color: rgba(0,0,0, 0.2);
+    transition: opacity 0.3s ease;
+    color: white;
+
+    line-height: 25px;
+    font-weight: 600;
+    text-align: center;
+
+    &:hover {
+        background-color: rgba(0,0,0,0.8);
+        border: none;
+      }
+}
+.titleDiv{
+    position: absolute;
+    top: 30px;
+    left :10px;
+    
+    height:fit-content;
+    
+    display: flex;
+  
+}
+.title{
+    text-align: center;
+    line-height: 60px;
+    font-weight: 800;
+    color: black;
+    font-size: 20px;
+    margin-left: 20px;
+}
+.closeButton {
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 50px;
+    font-weight: 100;
+    color: black;
+}
+.comWriterBox{
+    position: absolute;
+
+    top: 100px;
+    font-size: 20px;
+    
+    color: black;
+
+    width: 90%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    float: lef;
+    border-bottom: 1.8px solid #D9D9D9;
+    
     
 }
- .comProfileBox{
-
-    height:30px; width:30px;
+.writerProfile{
+    height:45px; width:45px;
     background-color: #D9D9D9;
     border-radius: 50px;
-    margin-left: 20px;
-    
-    display: flex;
-    float: left;
-    line-height: 100px;
-    align-items: center;
-    justify-content: center;
-
+    line-height: 50px;
     img {
         width: 50%;
         height:50%;
         object-fit: cover; 
       }
+      
 }
-.inputBox{
-    float: left;
-    margin-left: 30px;
+#writerId{
+    margin-left: 20px;
+}
+.mainDiv{
+    position:absolute;
+    top: 200px;
+    left: 30px;
+}
+.totalItem{
+   
+    height: 430px;
+    width:500px;
+
+    overflow-y: Scroll;
+    scrollbar-width: none;
+}
+.bottomDiv{
+    margin-top: 30px;
+    display: flex;
+    float:left;
+    width: 400px;
+    justify-content: center;
+    align-items: center;
 }
 .comInput{
-    border:none;
-    /* border: 1px solid blue; */
+    border: 1px solid #D9D9D9;
     outline: none;
     height: 30px;
-    width : 350px;
+    width : 300px;
+    padding: 0 10px;
+    border-radius: 5px;
     font-size: 16px;
     font-weight: 500;
 }
-.writeBtn{
-    position: absolute;
-    width: 25px;
-    height:25px;
-    right: 10px;
-    /* border: 1px solid blue; */
+.btn{
+    margin-left: 20px;
+    float: right;
 }
