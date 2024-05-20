@@ -4,7 +4,7 @@ import styles from "../css/HomeFeed.module.css";
 import axios from 'axios';
 import SlideBtn from './SlideButton'; // SlideButton 가져오기
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
-
+//http://54.180.208.25:9000/api/User/signup/
 export const getPosts = async () => {
   const response = await axios.get("/posts");
   return response.data;
