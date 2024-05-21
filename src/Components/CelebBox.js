@@ -14,7 +14,7 @@ function CelebBox() {
                     <div className={styles.fText}>343 follower</div>
                 </div>
                 <div className={styles.btn}>
-                    <Button borderRad='20px' >팔로우</Button>
+                    <Button borderRad ='20px' >팔로우</Button>
                 </div>
             </div>
 
