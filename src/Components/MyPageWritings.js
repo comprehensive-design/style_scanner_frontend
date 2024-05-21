@@ -6,10 +6,9 @@ import Pagination from './Pagination';
 import axios from 'axios';
 import Footer from './Footer';
 
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
 export const getPosts = async () => {
-  const response = await axios.get("/posts");
+  const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
   return response.data;
 };
 
