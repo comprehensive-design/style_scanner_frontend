@@ -23,7 +23,7 @@ body {
 }
 
 .title {
-    min-width: 1500px;
+    min-width: 1000px;
     text-align: center;
     margin: 30px 0 50px 0;
 }
@@ -41,7 +41,7 @@ body {
 }
 
 .boxwrap {
-    min-width: 1500px;
+    min-width: 1000px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

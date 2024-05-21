@@ -1,7 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
 .box {
-    width: calc(50% - 70px);
+    width: calc(50% - 80px);
     margin-bottom: 50px;
 }
 
@@ -43,8 +43,8 @@
 }
 
 .fimage {
-    width: 200px;
-    height: 250px;
+    width: 160px;
+    height: 200px;
 }
 /* 
 .fimage {
