@@ -14,10 +14,10 @@ export default function RegisterForm({ email1, email2, password, password2, disp
             <div className={styles.mailBox}>
                 <input className={styles.inputBox} style={{ margin: 'auto 0' }} type="text"
                     value={email1} onChange={(e) => setEmail1(e.target.value)} />
-                <p>@</p>
+                <p>&nbsp;&nbsp;@&nbsp;&nbsp;</p>
                 <input className={styles.inputBox} style={{ margin: 'auto 0' }} type="text"
                     value={email2} onChange={(e) => setEmail2(e.target.value)} />
-                <p onClick={handleDuplicateCheck}>중복확인</p> {/* 중복 확인 버튼 */}
+                <div onClick={handleDuplicateCheck} className={styles.duplCheckBtn}>중복확인</div>
             </div>
             <label htmlFor="password">비밀번호</label>
             <input className={styles.inputBox} type="password" value={password}
