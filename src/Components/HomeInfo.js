@@ -6,17 +6,25 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import CommunityWrite from './CommunityWrite.js';
 
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
-export const getPosts = async () => {
-    const response = await axios.get("/posts");
-    return response.data;
+export const getPosts = async (id) => {
+    try {
+        const response = await axios.get('http://54.180.208.255:9000/api/item', {
+            params: { id: id }
+        });
+        return response.data; 
+
+    } catch (error) {
+        console.error('Error', error);
+        throw error; 
+    }
 };
+
 
 export default function HomeInfo() {
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 4; 
+    const itemsPerPage = 4;
     const navigate = useNavigate();
 
     const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 열림/닫힘 상태를 관리하는 상태 추가
@@ -30,17 +38,18 @@ export default function HomeInfo() {
     };
 
     const nextPage = () => {
-        setCurrentPage((prevPage) => (prevPage+1) % Math.ceil(items.length / itemsPerPage));
+        setCurrentPage((prevPage) => (prevPage + 1) % Math.ceil(items.length / itemsPerPage));
     };
 
     const prevPage = () => {
-        setCurrentPage((prevPage) => (prevPage-1 + Math.ceil(items.length / itemsPerPage)) % Math.ceil(items.length / itemsPerPage));
+        setCurrentPage((prevPage) => (prevPage - 1 + Math.ceil(items.length / itemsPerPage)) % Math.ceil(items.length / itemsPerPage));
     };
 
     useEffect(() => {
         const fetchItems = async () => {
+            const id = 1;
             try {
-                const data = await getPosts();
+                const data = await getPosts(id);
                 setItems(data);
             } catch (error) {
                 console.error(error);
@@ -54,13 +63,13 @@ export default function HomeInfo() {
 
     return (
         <div className={styles.contents}>
-            <Feed/>
+            <Feed />
             <div>
                 <p className={styles.product}>Product</p>
                 <hr></hr>
                 <div className={styles.totalItem}>
-                    {currentItems.map((feed, index) => (
-                        <ItemInfo key={feed.id} image={feed.image} index={currentPage * itemsPerPage + index} />
+                    {currentItems.map((item, index) => (
+                        <ItemInfo key={item.id} name={item.name} price={item.price} image={item.image} index={currentPage * itemsPerPage + index} />
                     ))}
                 </div>
                 <div className={styles.carouselButtons}>
