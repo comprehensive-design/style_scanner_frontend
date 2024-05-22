@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from '../css/ItemInfo.module.css'
 import Button from './Button';
 
-export default function ItemInfo({ image, index }) {
+export default function ItemInfo({ image, name, index, price }) {
     const [imageSrc, setImageSrc] = useState(`img/heart.png`); // 초기 상태는 선택이 되지 않은 상태를 나타내기 위함
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
    
@@ -19,9 +19,6 @@ export default function ItemInfo({ image, index }) {
         }
     };
 
-
-
-
     return (
         <div className={styles.infoBox}>
             <div className={styles.infoMain}>
@@ -33,14 +30,14 @@ export default function ItemInfo({ image, index }) {
             </div>
 
             <div className={styles.infoText}>
-
-                <p id={styles.itemName}><b>Gentle Monster</b></p>
+                {/* Gentle Monster */}
+                <p id={styles.itemName}><b>{name}</b></p>
                 <p id={styles.itemDetail}>Vonzo01 - Black</p>
             </div>
             <div className={styles.bottomCom}>
                 <hr className={styles.line}></hr>
                 &nbsp;
-                <p id={styles.itemPrice}>320,000{'₩'}</p>
+                <p id={styles.itemPrice}>{price}{'₩'}</p>
             </div>
             <div onClick={shoppingClick} className={styles.goBtn}>
                 <span>&nbsp;SHOP</span>

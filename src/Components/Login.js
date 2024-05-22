@@ -24,12 +24,10 @@ export default function Register() {
     };
 
     return (
-        <body>
             <LoginForm
                 email={email} setEmail={setEmail}
                 password={password} setPassword={setPassword}
                 handleSubmit={handleSubmit}
             />
-        </body>
     );
 }

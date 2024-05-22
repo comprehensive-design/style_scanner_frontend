@@ -41,6 +41,7 @@ export default function Register() {
             }
         } catch (error) {
             console.log('이메일 중복 확인 오류:', error);
+            console.log('이메일 중복 확인 오류:', error);
         }
     };
 
@@ -98,6 +99,23 @@ export default function Register() {
     }, []);
 
     return (
+        <div className={styles.content}>
+            <h1>회원가입</h1>
+            <RegisterForm
+                email1={email1} setEmail1={setEmail1}
+                email2={email2} setEmail2={setEmail2}
+                password={password} setPassword={setPassword}
+                password2={password2} setPassword2={setPassword2}
+                displayName={displayName} setDisplayName={setDisplayName}
+                year={year} setYear={setYear}
+                month={month} setMonth={setMonth}
+                day={day} setDay={setDay}
+                gender={gender} setGender={setGender}
+                handleSubmit={handleSubmit}
+                handleCheckDuplicate={handleCheckDuplicate}
+                years={years} months={months} days={days}
+            />
+        </div>
         <div className={styles.content}>
             <h1>회원가입</h1>
             <RegisterForm

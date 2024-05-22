@@ -23,7 +23,7 @@ export default function CommentInfo(){
                     </div>
                 </div>
                 <div className={styles.fakeBox3}>
-                    <span className={styles.commentWriterId} id='commentWriterName'>hi_sseulgi</span>
+                    <span className={styles.commentWriterId} id='commentWriterName'>nwbd_we</span>
                     <span className={styles.commentContents} id="commentContents">하파 크리스틴 찾아보세요</span>
                 </div>
                 <div className={styles.heartBox} >

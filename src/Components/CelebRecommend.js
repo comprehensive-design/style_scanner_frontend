@@ -4,7 +4,7 @@ import Footer from './Footer';
 
 export default function CelebRecommend() {
     return (
-        <body>
+        <div>
             <div className={styles.content}>
                 <div className={styles.title}>
                     <h2>회원님을 위한 추천</h2>
@@ -20,7 +20,7 @@ export default function CelebRecommend() {
                 </div>
             </div>
             <Footer></Footer> 
-        </body>
+        </div>
 
     );
 }

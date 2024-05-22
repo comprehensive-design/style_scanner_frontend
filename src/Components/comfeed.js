@@ -1,10 +1,14 @@
 import styles from "../css/comfeed.module.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
+import CommunityInfo from './CommunityInfo';
+import FeedPopup from './FeedPopup';
 
 function ComFeed({ list, goDir }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isFeedPopupOpen, setIsFeedPopup] = useState(false);
     //하드코딩..
     const images = [
         // "http://via.placeholder.com/370X465",
@@ -14,6 +18,17 @@ function ComFeed({ list, goDir }) {
         'img/feed2.png',
         'img/feed3.png'
     ];
+    const openPopup = () => {
+        setIsPopupOpen(true); 
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false);
+    };
+    const openFeedPopup = () => {
+        setIsFeedPopup(true);
+    };
+  
     const navigateToCommunityComment = () => {
         navigate("/CommunityInfo");
     };
@@ -42,16 +57,18 @@ function ComFeed({ list, goDir }) {
             <div className={styles.comCompleteFeed}>
                 {/* header */}
                 <div className={styles.comProfile}>
-                    <div className={styles.comProfileBox}>
-                        <img id='comProfileImage' src={process.env.PUBLIC_URL + 'img/profile.png'}></img>
+                    <div className={styles.comProfileBox} onClick={openFeedPopup}>
+                        <img id='comProfileImage' src={process.env.PUBLIC_URL + 'img/profile.png'} ></img>
                     </div>
-                    <p className={styles.comProfileName} id='comProfileName'>hi_sseulgi</p>
-                    <input type="button" className={styles.comGoButton} value="→" onClick={navigateToCommunityComment}></input>
+                    <p className={styles.comProfileName} id='comProfileName' onClick={openFeedPopup}>hi_sseulgi</p>
+                    <input type="button" className={styles.comGoButton} value="→" onClick={openPopup}></input>
+                    {isFeedPopupOpen && <FeedPopup onClose={closePopup} />} 
+                    {isPopupOpen && <CommunityInfo onClose={closePopup} />} 
                 </div>
 
                 <div className={styles.comFeedMain}>
                     {goDir !== "navigateToHomeInfo" ?
-                        <div className={styles.imageWrapper} onClick={navigateToCommunityComment}>
+                        <div className={styles.imageWrapper} onClick={openPopup}>
                             <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
                         </div> :
                         <div className={styles.imageWrapper} onClick={navigateToHomeInfo}>
