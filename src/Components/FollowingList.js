@@ -13,10 +13,25 @@ export default function FollowingList() {
     const [totalFollowings, setTotalFollowings] = useState(0);
 
     useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/posts")
+
+        const accessToken = localStorage.getItem('accessToken');
+        console.log(accessToken);
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+
+        axios.get("/api/follow/followingList", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
             .then((response) => {
-                setFollowings(response.data);
-                setTotalFollowings(response.data.length);
+                const { following_list } = response.data;
+                setTotalFollowings(following_list.length);
+                setFollowings(following_list);
+
+                console.log(following_list);
             })
             .catch((error) => {
                 // 에러 처리
@@ -44,13 +59,7 @@ export default function FollowingList() {
                     </div>
 
                     <div>
-                        <UsersList list={currentItems} />
-                        <UsersList list={currentItems} />
-                        <UsersList list={currentItems} />
-                        <UsersList list={currentItems} />
-                        <UsersList list={currentItems} />
-                        <UsersList list={currentItems} />
-
+                        <UsersList list={followings} />
                     </div>
 
                 </div>

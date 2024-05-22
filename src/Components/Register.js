@@ -1,8 +1,8 @@
-// 회원가입 기능 구현
 import React, { useState, useEffect } from 'react';
 import styles from '../css/Register.module.css';
 import axios from 'axios';
 import RegisterForm from './RegisterForm';
+import { NavLink } from "react-router-dom";
 
 export default function Register() {
     const [email1, setEmail1] = useState('');
@@ -14,59 +14,50 @@ export default function Register() {
     const [month, setMonth] = useState('');
     const [day, setDay] = useState('');
     const [gender, setGender] = useState('1');
-    const [emailChecked, setEmailChecked] = useState(false);
-
+    const [emailChecked, setEmailChecked] = useState(false);  // 상태로 관리
 
     const handleCheckDuplicate = async (email1, email2) => {
         try {
-            if (email1 == '' || email2 == '') {
-                alert('이메일을 채워 주세요');
+            const email = email1 + '@' + email2;
+            const response = await axios.get(`/api/user/emailcheck`, {
+                params: { email }
+            });
+            if (response.data.exists) {
+                alert('이미 사용 중인 이메일입니다.');
                 setEmailChecked(false);
-            }
-            else {
-                const email = email1 + '@' + email2;
-                const response = await axios.get(`/api/user/emailcheck`, {
-                    params: {
-                        email: email
-                    }
-                });
-                if (response.data.exists) {
-                    alert('이미 사용 중인 이메일입니다.');
-                } else {
-                    alert('사용 가능한 이메일입니다.');
-                    setEmailChecked(true);
-                }
+            } else {
+                alert('사용 가능한 이메일입니다.');
+                setEmailChecked(true);
             }
         } catch (error) {
-            console.log('이메일 중복 확인 오류:', error);
+            alert('이메일 중복 확인 오류:', error);
+            setEmailChecked(false);
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // const birthdate = year + '-' + month + '-' + day;
-            const birthdate="2024-05-21";
-            const email = email1 + '@' + email2;
+            const birthdate = `${year}-${month}-${day}`;
+            const email = `${email1}@${email2}`;
 
             if (password === password2 && emailChecked) {
-                // 비밀번호 일치 시 회원가입 진행
                 const response = await axios.post('/api/user/signup', {
                     email,
-                    displayName,
                     password,
+                    displayName,
                     birthdate,
                     gender
                 });
                 console.log(response.data);
                 alert('가입되었습니다!');
-            } else if (password != password2) {
+            } else if (password !== password2) {
                 alert('비밀번호를 다시 확인해 주세요');
             } else if (!emailChecked) {
                 alert('이메일 중복 여부를 확인해 주세요');
             }
         } catch (error) {
-            alert('회원가입 오류:', error);
+            alert('회원가입 오류: ' + (error.response?.data?.message || error.message));
         }
     };
 
@@ -77,7 +68,7 @@ export default function Register() {
     useEffect(() => {
         const yearOptions = [];
         for (let i = 2022; i >= 1960; i--) {
-            yearOptions.push(<option key={i} value={i}> {i}</option>);
+            yearOptions.push(<option key={i} value={i}>{i}</option>);
         }
         setYears(yearOptions);
 
