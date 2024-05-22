@@ -5,9 +5,34 @@ import axios from 'axios';
 import SlideBtn from './SlideButton'; 
 import FeedPopup from './FeedPopup';
 
-export const getPosts = async () => {
-  const response = await axios.get("http://54.180.208.255:9000/api/insta/home");
-  return response.data;
+const getPosts = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+        console.error("토큰이 없습니다.");
+        throw new Error("토큰이 없습니다.");
+    }
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    console.log("Access Token:", token); // 토큰 값 확인
+
+    try {
+        const response = await axios.get('/api/insta/home', config);
+        return response.data.feeds; // feeds 배열을 직접 반환
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.error('Axios 에러: 게시물 가져오기 실패:', error.response?.data || error.message);
+            console.error('응답 상태:', error.response?.status); // 상태 코드 로그
+            console.error('응답 헤더:', error.response?.headers); // 헤더 로그
+        } else {
+            console.error('예상치 못한 에러: 게시물 가져오기 실패:', error);
+        }
+        throw error;
+    }
 };
 
 function FeedList() {
@@ -20,7 +45,8 @@ function FeedList() {
         const fetchPosts = async () => {
             try {
               const data = await getPosts();
-              setFeeds(data);
+              console.log(data);
+              setFeeds(data); // 배열을 직접 설정
               setLoading(false); 
             } catch (error) {
               setError('포스트를 가져오는 중 에러 발생');
@@ -30,7 +56,6 @@ function FeedList() {
           };
       
         fetchPosts();
-
     }, []);
 
     if (loading) {
@@ -44,18 +69,21 @@ function FeedList() {
     return (
         <div className={styles.feedScroll}>
             <div className={styles.feedList} ref={feedListRef}>
-                {feeds.map(feed => (
-                    <Feed 
-                        key={feed.media_id} 
-                        media_url_list={feed.media_url_list} 
-                        profile_url={feed.profile_url} 
-                        username={feed.username} 
-                        media_id={feed.media_id} 
-                    />
-                ))}
+                {feeds.map(feed => {
+                    const mediaUrls = Array.isArray(feed.media_url_list) ? feed.media_url_list : [];
+                    return (
+                        <Feed 
+                            key={feed.media_id} 
+                            media_url_list={mediaUrls} 
+                            profile_url={feed.profile_url} 
+                            username={feed.username} 
+                            media_id={feed.media_id} 
+                        />
+                    );
+                })}
                 <div style={{height: '10px'}} />
             </div>
-            <SlideBtn /> {/* SlideButton 렌더링 */}
+            <SlideBtn/> {/* SlideButton 렌더링 */}
         </div>
     );
 }

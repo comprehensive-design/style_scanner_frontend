@@ -8,15 +8,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    //하드코딩..
-    // const images = [
-    //     // "http://via.placeholder.com/370X465",
-    //     // "http://via.placeholder.com/370X465",
-    //     // "http://via.placeholder.com/370X465"
-    //     'img/feed1.png',
-    //     'img/feed2.png',
-    //     'img/feed3.png'
-    // ];
+   
     const images = media_url_list;
 
     const openPopup = () => {
@@ -26,6 +18,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
     const closePopup = () => {
         setIsPopupOpen(false);
     };
+    
     // 이미지 클릭 -> 아이템 정보창으로 이동
     const navigateToHomeInfo = () => {
         navigate("/HomeInfo");
@@ -55,10 +48,11 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
             <div className={styles.profile} onClick={openPopup}>
                 {/* 셀럽 피드에 media id 보내기 */}
                 {isPopupOpen && <FeedPopup onClose={closePopup} media_id={media_id}/>} 
-
-                <div className={styles.ImageBox}>
-                    <img id={styles.profileImage} src={profile_url} alt="Profile"></img>
-                </div>
+                {profile_url === null ? (
+                    <div className={styles.ImageBox}>
+                        <img id={styles.profileImage} src={`img/profile.png`} alt="Profile"></img>
+                    </div>
+                ): <div className={styles.ImageBox} backgroundImage={profile_url}> </div> }
                 <p className={styles.profileId} id={styles.name}>{username}</p>
             </div>
 
