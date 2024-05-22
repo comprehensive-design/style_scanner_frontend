@@ -1,4 +1,3 @@
-// 회원가입 기능 구현
 import React, { useState, useEffect } from 'react';
 import styles from '../css/Register.module.css';
 import axios from 'axios';
@@ -40,7 +39,8 @@ export default function Register() {
                 }
             }
         } catch (error) {
-            console.log('이메일 중복 확인 오류:', error);
+            alert('이메일 중복 확인 오류:', error);
+            setEmailChecked(false);
         }
     };
 
@@ -51,7 +51,6 @@ export default function Register() {
             const email = email1 + '@' + email2;
 
             if (password === password2 && emailChecked) {
-                // 비밀번호 일치 시 회원가입 진행
                 const response = await axios.post('/api/user/signup', {
                     email: email,
                     displayName: displayName,
@@ -67,7 +66,7 @@ export default function Register() {
                 alert('이메일 중복 여부를 확인해 주세요');
             }
         } catch (error) {
-            alert('회원가입 오류:', error);
+            alert('회원가입 오류: ' + (error.response?.data?.message || error.message));
         }
     };
 
@@ -78,7 +77,7 @@ export default function Register() {
     useEffect(() => {
         const yearOptions = [];
         for (let i = 2022; i >= 1960; i--) {
-            yearOptions.push(<option key={i} value={i}> {i}</option>);
+            yearOptions.push(<option key={i} value={i}>{i}</option>);
         }
         setYears(yearOptions);
 
