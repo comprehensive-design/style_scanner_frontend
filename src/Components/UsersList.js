@@ -1,9 +1,23 @@
 import styles from "../css/UsersList.module.css";
 import Button from './Button';
 import axios from 'axios';
+import {useEffect, useState} from 'react';
+import FeedPopup from "./FeedPopup";
 
 export default function UsersList({ list }) {
+    const [popupVisible, setPopupVisible] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
 
+    const openPopup = (user) => {
+        setSelectedUser(user);
+        setPopupVisible(true);
+    }
+
+    const closePopup = () => {
+        setSelectedUser(null);
+        setPopupVisible(false);
+    }
+ 
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
             return (count / 1000000).toFixed(1) + 'M';
@@ -15,7 +29,18 @@ export default function UsersList({ list }) {
     };
 
     const handleUnfollow = (userId) => {
-        axios.post( '/api/follow/unfollowing', { userId })
+
+        const accessToken = localStorage.getItem('accessToken');
+        if(!accessToken){
+            console.error('Access token is missing');
+            return;
+        }
+
+        axios.post('/api/follow/unfollowing', { userId }, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
         .then(response => {
             window.location.reload(); // 성공시 새로고침
             console.log('Unfollowed successfully');
@@ -31,7 +56,7 @@ export default function UsersList({ list }) {
             <div style={{ height: '10px' }}></div>
             {list.map((user, index) => (
                 <div key={user.id}>
-                    <div className={styles.userInfo}>
+                    <div className={styles.userInfo} onClick={() => openPopup(user)} >
                         <img
                             id={styles.profileImage}
                             src={user.profilePictureUrl}
@@ -47,13 +72,16 @@ export default function UsersList({ list }) {
                             </div>
                         </div>
                         <div style={{ display: 'flex' }} className={styles.FollowingDelete}>
-                            <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white" onClick={() => handleUnfollow(user.id)}>언팔로우</Button>
+                            <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white" onClick={() => handleUnfollow(user.profileName)}>언팔로우</Button>
                         </div>
                     </div>
                     {index < list.length - 1 && <HorizonLine />}
                     <div style={{ height: '10px' }}></div>
                 </div>
             ))}
+            {popupVisible && selectedUser && (
+                <FeedPopup user={selectedUser} onClose={closePopup}/>
+            )}
         </div>
     );
 }

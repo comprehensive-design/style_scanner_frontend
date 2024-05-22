@@ -27,6 +27,7 @@ export default function FollowingList() {
             }
         })
             .then((response) => {
+                console.log(response.data);
                 const { following_list } = response.data;
                 setTotalFollowings(following_list.length);
                 setFollowings(following_list);

@@ -1,4 +1,4 @@
-export default function UserFeed({ feed }) {
+export default function UserFeed({ id, feed }) {
     const handleClick = () => {{
         console.log("Button clicked!");
     }}
@@ -7,7 +7,10 @@ export default function UserFeed({ feed }) {
         <div>
             <button onClick={handleClick} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer'}}>
                 <img
-                    src="https://via.placeholder.com/300x300/808080/FFFFFF/?text=Grey+Image"
+                    src={feed.media_url_list}
+                    width={"300px"}
+                    height={"300px"}
+                    style={{objectFit:"contain"}}
                 >
                 </img>
             </button>
