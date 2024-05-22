@@ -41,7 +41,6 @@ export default function Register() {
             }
         } catch (error) {
             console.log('이메일 중복 확인 오류:', error);
-            console.log('이메일 중복 확인 오류:', error);
         }
     };
 
@@ -49,7 +48,6 @@ export default function Register() {
         e.preventDefault();
         try {
             const birthdate = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
-            console.log(birthdate);
             const email = email1 + '@' + email2;
 
             if (password === password2 && emailChecked) {
@@ -61,9 +59,8 @@ export default function Register() {
                     birthdate: birthdate,
                     gender: gender
                 });
-                console.log(response.data);
                 alert('가입되었습니다!');
-                navigate('/Login'); 
+                navigate('/Login');
             } else if (password != password2) {
                 alert('비밀번호를 다시 확인해 주세요');
             } else if (!emailChecked) {
@@ -116,22 +113,6 @@ export default function Register() {
                 years={years} months={months} days={days}
             />
         </div>
-        <div className={styles.content}>
-            <h1>회원가입</h1>
-            <RegisterForm
-                email1={email1} setEmail1={setEmail1}
-                email2={email2} setEmail2={setEmail2}
-                password={password} setPassword={setPassword}
-                password2={password2} setPassword2={setPassword2}
-                displayName={displayName} setDisplayName={setDisplayName}
-                year={year} setYear={setYear}
-                month={month} setMonth={setMonth}
-                day={day} setDay={setDay}
-                gender={gender} setGender={setGender}
-                handleSubmit={handleSubmit}
-                handleCheckDuplicate={handleCheckDuplicate}
-                years={years} months={months} days={days}
-            />
-        </div>
+
     );
 }
