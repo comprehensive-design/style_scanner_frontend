@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/Register.module.css';
 import axios from 'axios';
 import RegisterForm from './RegisterForm';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const [email1, setEmail1] = useState('');
@@ -15,6 +16,7 @@ export default function Register() {
     const [day, setDay] = useState('');
     const [gender, setGender] = useState('1');
     const [emailChecked, setEmailChecked] = useState(false);
+    const navigate = useNavigate();
 
 
     const handleCheckDuplicate = async (email1, email2) => {
@@ -25,12 +27,12 @@ export default function Register() {
             }
             else {
                 const email = email1 + '@' + email2;
-                const response = await axios.get(`http://54.180.208.255:9000/api/user/emailcheck`, {
+                const response = await axios.get(`/api/user/emailcheck`, {
                     params: {
                         email: email
                     }
                 });
-                if (response.data.exists) {
+                if (response.data) {
                     alert('이미 사용 중인 이메일입니다.');
                 } else {
                     alert('사용 가능한 이메일입니다.');
@@ -45,12 +47,13 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const birthdate = year + '-' + month + '-' + day;
+            const birthdate = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+            console.log(birthdate);
             const email = email1 + '@' + email2;
 
             if (password === password2 && emailChecked) {
                 // 비밀번호 일치 시 회원가입 진행
-                const response = await axios.post('http://54.180.208.255:9000/api/user/signup', {
+                const response = await axios.post('/api/user/signup', {
                     email: email,
                     displayName: displayName,
                     password: password,
@@ -59,6 +62,7 @@ export default function Register() {
                 });
                 console.log(response.data);
                 alert('가입되었습니다!');
+                navigate('/Login'); 
             } else if (password != password2) {
                 alert('비밀번호를 다시 확인해 주세요');
             } else if (!emailChecked) {
