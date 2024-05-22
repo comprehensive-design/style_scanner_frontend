@@ -41,13 +41,16 @@ form {
     margin-Bottom: 30px;
 }
 
-.mailBox :nth-child(4){
+.duplCheckBtn{
     width: 30%;
     text-align: right;
     cursor: pointer;
     font-size: 14px;
+    color: gray;
 }
-
+.duplCheckBtn:hover{
+    color: black;
+}
 .birthBox{
 display: flex;
 width: 100%;
