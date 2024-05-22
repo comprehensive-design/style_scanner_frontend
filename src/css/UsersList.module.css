@@ -1,43 +1,56 @@
-#profileImage{
+#profileImage {
     border-radius: 50%;
     object-fit: cover;
 }
 
-.userInfo{
+.userInfo {
     display: flex;
     align-items: center;
+    padding-bottom: 20px;
 }
 
-.userInfoWord{
-    margin:0;
-    padding:0;
+.userInfoWord {
+    margin: 0;
+    padding: 0;
     margin-left: 30px;
 }
 
-.FollowigId{
-    font-size:16px;
+.FollowigId {
+    font-size: 16px;
     width: 150px;
+    text-align: left;
 }
 
-.userFollowerInfo{
+.userFollowerInfo {
     margin-left: 0;
     padding: 0;
     font-size: 14px;
-    color:gray;
+    color: gray;
     margin: 0;
 }
 
-#FollowerWord{
+#FollowerWord {
     margin: 0;
     padding: 0;
 }
 
-.FollowingDelete{
+.FollowingDelete {
     display: flex;
-    margin-left: 700px;
+    margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 오른쪽 정렬 */
 }
 
-.paddingHeight{
+.paddingHeight {
     height: 20px;
     width: 100%;
+}
+
+#buttonDelete {
+    /* background-color: #d9d9d9; 문자열을 사용하지 않음 */
+    /* color: black; */
+    /* 호버 스타일은 추가적인 CSS 클래스를 사용하여 정의 */
+}
+
+#buttonDelete:hover {
+    background-color: black;
+    color: white;
 }
