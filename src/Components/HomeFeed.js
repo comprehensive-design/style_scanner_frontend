@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Feed from './feed'; 
+import Feed from './feed';
 import styles from "../css/HomeFeed.module.css";
 import axios from 'axios';
 import SlideBtn from './SlideButton'; 
-import FeedPopup from './FeedPopup';
 
 const getPosts = async () => {
     const token = localStorage.getItem("accessToken");
@@ -39,24 +38,48 @@ function FeedList() {
     const [feeds, setFeeds] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const feedListRef = useRef(); 
+    const feedListRef = useRef(null);
     
+    const fetchData = async () => {
+        try {
+            const data = await getPosts();
+            setFeeds((prevFeeds) => [...prevFeeds, ...data]); // 이전 피드와 새로운 피드를 합침
+            setLoading(false);
+        } catch (error) {
+            setError('게시물을 불러오는 중 에러 발생');
+            setLoading(false);
+            console.error('Error fetching posts:', error);
+        }
+    };
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-              const data = await getPosts();
-              console.log(data);
-              setFeeds(data); // 배열을 직접 설정
-              setLoading(false); 
-            } catch (error) {
-              setError('포스트를 가져오는 중 에러 발생');
-              setLoading(false);
-              console.error('Error fetching posts:', error);
-            }
-          };
-      
-        fetchPosts();
+        fetchData();
     }, []);
+
+    useEffect(() => {
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    fetchData(); // Intersection Observer가 페이지 하단에 도달하면 데이터를 추가로 가져옴
+                }
+            });
+        }, options);
+
+        if (feedListRef.current) {
+            observer.observe(feedListRef.current);
+        }
+
+        return () => {
+            if (feedListRef.current) {
+                observer.unobserve(feedListRef.current);
+            }
+        };
+    }, [feedListRef]);
 
     if (loading) {
         return <div>로딩 중...</div>;
@@ -69,21 +92,17 @@ function FeedList() {
     return (
         <div className={styles.feedScroll}>
             <div className={styles.feedList} ref={feedListRef}>
-                {feeds.map(feed => {
-                    const mediaUrls = Array.isArray(feed.media_url_list) ? feed.media_url_list : [];
-                    return (
-                        <Feed 
-                            key={feed.media_id} 
-                            media_url_list={mediaUrls} 
-                            profile_url={feed.profile_url} 
-                            username={feed.username} 
-                            media_id={feed.media_id} 
-                        />
-                    );
-                })}
-                <div style={{height: '10px'}} />
+                {feeds.map((feed) => (
+                    <Feed
+                        key={feed.media_id}
+                        media_url_list={feed.media_url_list}
+                        profile_url={feed.profile_url}
+                        username={feed.username}
+                        media_id={feed.media_id}
+                    />
+                ))}
             </div>
-            <SlideBtn/> {/* SlideButton 렌더링 */}
+            <SlideBtn />
         </div>
     );
 }

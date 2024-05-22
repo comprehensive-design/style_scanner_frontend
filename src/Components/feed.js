@@ -8,17 +8,17 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-   
+
     const images = media_url_list;
 
     const openPopup = () => {
-        setIsPopupOpen(true); 
+        setIsPopupOpen(true);
     };
 
     const closePopup = () => {
         setIsPopupOpen(false);
     };
-    
+
     // 이미지 클릭 -> 아이템 정보창으로 이동
     const navigateToHomeInfo = () => {
         navigate("/HomeInfo");
@@ -47,12 +47,15 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
             {/* header */}
             <div className={styles.profile} onClick={openPopup}>
                 {/* 셀럽 피드에 media id 보내기 */}
-                {isPopupOpen && <FeedPopup onClose={closePopup} media_id={media_id}/>} 
-                {profile_url === null ? (
-                    <div className={styles.ImageBox}>
-                        <img id={styles.profileImage} src={`img/profile.png`} alt="Profile"></img>
-                    </div>
-                ): <div className={styles.ImageBox} backgroundImage={profile_url}> </div> }
+                {isPopupOpen && <FeedPopup onClose={closePopup} media_id={media_id} />}
+                <div className={styles.ImageBox}>
+                    {profile_url ? (
+                        <img className={styles.profileImage2} src={profile_url} alt="Profile" />
+                        // <img id={styles.profileImage} src={`img/profile.png`} alt="Profile"></img>
+
+                    ) : <img id={styles.profileImage} src={`img/profile.png`} alt="Profile"></img>}
+                </div>
+
                 <p className={styles.profileId} id={styles.name}>{username}</p>
             </div>
 
@@ -62,7 +65,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
                     <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
                 </div>
                 <div className={styles.dirBtn}>
-                     {/* 사진 넘어가는 버튼 */}
+                    {/* 사진 넘어가는 버튼 */}
                     {images.length > 1 && ( // 이미지가 2개 이상 일 때만 버튼 표시
                         <>
                             {currentImageIndex !== 0 && ( // 첫 번째 사진이 아닐 때만 왼쪽 버튼 표시
@@ -76,8 +79,8 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
                 </div>
             </div>
 
-           
-            
+
+
         </div>
     );
 }
