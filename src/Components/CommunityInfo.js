@@ -4,7 +4,6 @@ import axios from "axios";
 import Button from './Button';
 import CommentInfo from "./CommentInfo";
 
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
 export const getComments = async () => {
   const response = await axios.get("/posts");

@@ -4,10 +4,9 @@ import ComFeed from './comfeed'
 import axios from 'axios';
 import SlideBtn from './SlideButton';
 
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
 export const getPosts = async () => {
-  const response = await axios.get("/posts");
+  const response = await axios.get("http://54.180.208.255:9000/api/posts");
   return response.data;
 };
 export default function CommunityFeed() {

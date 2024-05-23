@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import FeedPopup from './FeedPopup';
 
-function Feed({ list }) {
+function Feed({ media_url_list, profile_url, username, media_id }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     //하드코딩..
-    const images = [
-        // "http://via.placeholder.com/370X465",
-        // "http://via.placeholder.com/370X465",
-        // "http://via.placeholder.com/370X465"
-        'img/feed1.png',
-        'img/feed2.png',
-        'img/feed3.png'
-    ];
-    
+    // const images = [
+    //     // "http://via.placeholder.com/370X465",
+    //     // "http://via.placeholder.com/370X465",
+    //     // "http://via.placeholder.com/370X465"
+    //     'img/feed1.png',
+    //     'img/feed2.png',
+    //     'img/feed3.png'
+    // ];
+    const images = media_url_list;
 
     const openPopup = () => {
         setIsPopupOpen(true); 
@@ -53,12 +53,13 @@ function Feed({ list }) {
         <div className={styles.completeFeed}>
             {/* header */}
             <div className={styles.profile} onClick={openPopup}>
-                {isPopupOpen && <FeedPopup onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
+                {/* 셀럽 피드에 media id 보내기 */}
+                {isPopupOpen && <FeedPopup onClose={closePopup} media_id={media_id}/>} 
 
                 <div className={styles.ImageBox}>
-                    <img id={styles.profileImage} src={process.env.PUBLIC_URL + 'img/profile.png'} alt="Profile"></img>
+                    <img id={styles.profileImage} src={profile_url} alt="Profile"></img>
                 </div>
-                <p className={styles.profileId} id={styles.name}>hi_sseulgi</p>
+                <p className={styles.profileId} id={styles.name}>{username}</p>
             </div>
 
             {/* carousel 구현 */}

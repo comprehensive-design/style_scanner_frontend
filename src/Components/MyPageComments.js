@@ -5,10 +5,9 @@ import CommentBox from './CommentBox';
 import Pagination from './Pagination';
 import axios from 'axios';
 import Footer from './Footer';
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
 export const getPosts = async () => {
-  const response = await axios.get("/posts");
+  const response = await axios.get("http:/http://54.180.208.255:9000/api/post");
   return response.data;
 };
 

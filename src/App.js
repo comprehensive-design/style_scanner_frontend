@@ -50,7 +50,7 @@ const App = () => {
           <Route path="/CommunityWrite" element={<CommunityWrite />} />
           <Route path="/CommunityInfo" element={<CommunityInfo />} />
           <Route path="/LikeList" element={<LikeList />} />
-          <Route path="/Category" element={<Category />} />
+          <Route path="/Category" element={<Category />} /> 
         </Routes>
       </main>
     </div>

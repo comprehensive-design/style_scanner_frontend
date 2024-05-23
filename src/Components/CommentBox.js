@@ -12,7 +12,7 @@ export default function CommentBox({feedId, feedImg, title, contents, date }){
     return(
         <div className={styles.writingBox}>
             <div className={styles.feedDiv}>
-                <img className={styles.feedImage} src="http://via.placeholder.com/150X200"></img>
+                {/* <img className={styles.feedImage} src="http://via.placeholder.com/150X200"></img> */}
                 <p className={styles.feedId}>{feedId}</p>
             </div>
             <div className={styles.textDiv}>
