@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
 
 export default function Register() {
@@ -13,15 +12,12 @@ export default function Register() {
         try {
 
             if (email != '' && password != '') {
-                const response = await axios.post('http://54.180.208.255:9000/api/user/login', {
+                const response = await axios.post('/api/user/login', {
                     "email": email,
                     "password": password
                 });
-                const accessToken = response.data.accessToken;
+                const accessToken = response.data.access_token;
                 localStorage.setItem("accessToken", accessToken);
-                console.log(response.data);
-                alert('로그인되었습니다!');
-                // navigate('/homefeed');
                 window.location.replace("/homefeed");
             }
             else {
