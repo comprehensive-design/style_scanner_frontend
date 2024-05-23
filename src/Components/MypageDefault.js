@@ -46,18 +46,18 @@ export default function MypageDefault() {
             });
 
             // Back 다 되면 해야함
-            axios.get("/api/follow/likeList", {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            })
-                .then((response) => {
-                    const { like_list } = response.data;
-                    setLikes(like_list.slice(0, 2));
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
-                });
+            // axios.get("/api/follow/likeList", {
+            //     headers: {
+            //         'Authorization': `Bearer ${accessToken}`
+            //     }
+            // })
+            //     .then((response) => {
+            //         const { like_list } = response.data;
+            //         setLikes(like_list.slice(0, 2));
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error fetching data:', error);
+            //     });
     }, []);
 
     const followingURLs = followings.map(following => following.profilePictureUrl);
