@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
 
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,9 +17,6 @@ export default function Register() {
                 });
                 const accessToken = response.data.access_token;
                 localStorage.setItem("accessToken", accessToken);
-                console.log(response.data);
-                alert('로그인되었습니다!');
-                // navigate('/homefeed');
                 window.location.replace("/homefeed");
             }
             else {
