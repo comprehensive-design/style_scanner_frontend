@@ -30,7 +30,7 @@ function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCoun
     );
 }
 
-export default function MypageDefault() {
+export default function MypageDefault({ displayName, bio, profilePictureUrl,}) {
     return (
         <body>
             <div className={styles.wrap}>
@@ -39,13 +39,13 @@ export default function MypageDefault() {
 
                 <div className={styles.content}>
                     <div className={styles.profileBox}>
-                        <img className={styles.profileImg} src="http://via.placeholder.com/100X100"></img>
+                        <img className={styles.profileImg} src={profilePictureUrl} alt="사진없음"></img>
                         <div className={styles.nameBox}>
                             <div style={{ display: "flex" }}>
                                 <p className={styles.bigFont}>@&nbsp;</p>
-                                <p id='userName' className={styles.bigFont}>username</p>
+                                <p className={styles.bigFont}>{displayName}</p>
                             </div>
-                            <p id='userId' style={{ fontSize: "14px", color: "gray" }}>소개소개소개한줄소개라리루레로</p>
+                            <p style={{ fontSize: "14px", color: "gray" }}>{bio}</p>
                         </div>
                         <div>
                             <p id='followNum' className={styles.bigFont}>256</p>
