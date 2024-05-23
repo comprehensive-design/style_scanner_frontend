@@ -7,6 +7,20 @@
   object-fit: cover;
 }
 
-body{
+/* body{
   font-family: 'Pretendard';
+} */
+body, html {
+  font-family: 'Pretendard';
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding-top: 8%; /* Match this value to the height of your fixed header */
+}
+header{
+  position: fixed;
+  /* width: 100%; */
+  z-index: 999;
 }

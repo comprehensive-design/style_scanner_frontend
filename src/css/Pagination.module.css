@@ -1,0 +1,28 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+*{
+    font-family: 'Pretendard';
+    
+}
+
+.pageButton{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.buttonshape{
+    border-radius : 50%;
+    border-style: none;
+    margin : 1px;
+    background-color: white;
+    color : black;
+    width: 30px;
+    height: 30px;
+}
+
+.active {
+    border-radius: 50%;
+    background-color: #DEDEDE
+}

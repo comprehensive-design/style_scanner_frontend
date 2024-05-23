@@ -5,12 +5,8 @@ body {
     background-color: #ffffff;
     text-align: center;
 }
-.menubar{
-    height: 100px;
-    background-color: gray;
-}
 
-.RegisterPage {
+.content {
     margin: 0 auto;
     width: 40%;
 }
@@ -35,16 +31,34 @@ form {
     border-left: none;
     border-right: none;
     border-bottom: 1px solid gray;
+    margin-Bottom: 30px;
     margin-top: 10px;
 }
 
-#birthBox{
+.mailBox{
+    display: flex;
+    margin-top: 10px;
+    margin-Bottom: 30px;
+}
+
+.duplCheckBtn{
+    width: 30%;
+    text-align: right;
+    cursor: pointer;
+    font-size: 14px;
+    color: gray;
+}
+.duplCheckBtn:hover{
+    color: black;
+}
+.birthBox{
 display: flex;
 width: 100%;
 }
 
-#aa{
+.birthBox p{
     width: 20%;
+    margin: auto 0;
 }
 
 .box{
@@ -57,28 +71,38 @@ width: 100%;
     width: 25%;
 }
 
-#genderBox {
+.genderBox {
     margin-top: 30px;
     display: flex;
     width: 100%;
-
 }
 
-#gg{
+.genderBox p{
     width: 30%;
+    margin: auto 0;
 }
 
-.gbox{
+.genderBox > div{
     margin: auto 0px;
     margin-right: 50px;
     font-size: 16px;
 }
 
-
-#submitBox{
-    margin-top: 60px;
+.genderBox > div >label{
+    margin-left: 5px;
 }
 
-#submitBox:hover{
+.submitBox{
+    margin-top: 60px;
+    width: 100%;
+    height: 55px;
+    border: 1px;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #d9d9d9;
+    color: white;
+}
+
+.submitBox:hover{
     background-color: black;
 }

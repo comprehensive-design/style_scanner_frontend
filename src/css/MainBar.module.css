@@ -1,0 +1,39 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+.header{
+    display : 'flex';
+    padding: 30px;
+    width: 97%;
+    overflow: hidden;
+    height:60px;
+    background-color: white;
+}
+
+.navigation{
+    display: flex;
+    float : right;
+}
+
+.parent{
+    display:flex;
+}
+
+
+a{
+    text-decoration : none;
+}
+
+.mainUl {
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+  
+.mainLists{
+    padding:0;
+    margin: 0;
+    margin-top: 20px;
+    float: left;
+    /* background-color: white; */
+}

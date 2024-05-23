@@ -1,27 +1,92 @@
-import { useState, useEffect } from 'react';
-import '../css/Register.css';
+import React, { useState, useEffect } from 'react';
+import styles from '../css/Register.module.css';
+import axios from 'axios';
+import RegisterForm from './RegisterForm';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
+    const [email1, setEmail1] = useState('');
+    const [email2, setEmail2] = useState('');
+    const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [displayName, setDisplayName] = useState('');
+    const [year, setYear] = useState('');
+    const [month, setMonth] = useState('');
+    const [day, setDay] = useState('');
+    const [gender, setGender] = useState('1');
+    const [emailChecked, setEmailChecked] = useState(false);
+    const navigate = useNavigate();
+
+
+    const handleCheckDuplicate = async (email1, email2) => {
+        try {
+            if (email1 == '' || email2 == '') {
+                alert('이메일을 채워 주세요');
+                setEmailChecked(false);
+            }
+            else {
+                const email = email1 + '@' + email2;
+                const response = await axios.get(`/api/user/emailcheck`, {
+                    params: {
+                        email: email
+                    }
+                });
+                if (response.data) {
+                    alert('이미 사용 중인 이메일입니다.');
+                } else {
+                    alert('사용 가능한 이메일입니다.');
+                    setEmailChecked(true);
+                }
+            }
+        } catch (error) {
+            alert('이메일 중복 확인 오류:', error);
+            setEmailChecked(false);
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const birthdate = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+            const email = email1 + '@' + email2;
+
+            if (password === password2 && emailChecked) {
+                const response = await axios.post('/api/user/signup', {
+                    email: email,
+                    displayName: displayName,
+                    password: password,
+                    birthdate: birthdate,
+                    gender: gender
+                });
+                alert('가입되었습니다!');
+                navigate('/Login');
+            } else if (password != password2) {
+                alert('비밀번호를 다시 확인해 주세요');
+            } else if (!emailChecked) {
+                alert('이메일 중복 여부를 확인해 주세요');
+            }
+        } catch (error) {
+            alert('회원가입 오류: ' + (error.response?.data?.message || error.message));
+        }
+    };
+
     const [years, setYears] = useState([]);
     const [months, setMonths] = useState([]);
     const [days, setDays] = useState([]);
 
     useEffect(() => {
-        // 출생 년도 생성
         const yearOptions = [];
         for (let i = 2022; i >= 1960; i--) {
-            yearOptions.push(<option key={i} value={i}> {i}</option>);
+            yearOptions.push(<option key={i} value={i}>{i}</option>);
         }
         setYears(yearOptions);
 
-        // 출생 월 생성
         const monthOptions = [];
         for (let i = 1; i <= 12; i++) {
             monthOptions.push(<option key={i} value={i}>{i}</option>);
         }
         setMonths(monthOptions);
 
-        // 출생 일 생성 (31일까지)
         const dayOptions = [];
         for (let i = 1; i <= 31; i++) {
             dayOptions.push(<option key={i} value={i}>{i}</option>);
@@ -30,50 +95,23 @@ export default function Register() {
     }, []);
 
     return (
-        <div className="App">
-            <div className='menubar'>메뉴바</div>
-            <div className="RegisterPage">
-                <h1>회원가입</h1>
-                <form>
-                    <label for="email">이메일 주소</label>
-                    <input style={{ marginBottom: '30px' }} className='inputBox' type="text" id="email" name="email" />
-                    <label for="password" >비밀번호</label>
-                    <input style={{ marginBottom: '30px' }} className='inputBox' type="password" id="password" name="password" />
+        <div className={styles.content}>
+            <h1>회원가입</h1>
+            <RegisterForm
+                email1={email1} setEmail1={setEmail1}
+                email2={email2} setEmail2={setEmail2}
+                password={password} setPassword={setPassword}
+                password2={password2} setPassword2={setPassword2}
+                displayName={displayName} setDisplayName={setDisplayName}
+                year={year} setYear={setYear}
+                month={month} setMonth={setMonth}
+                day={day} setDay={setDay}
+                gender={gender} setGender={setGender}
+                handleSubmit={handleSubmit}
+                handleCheckDuplicate={handleCheckDuplicate}
+                years={years} months={months} days={days}
+            />
+        </div>
 
-                    <label for="id">아이디</label>
-                    <input style={{ marginBottom: '30px' }} className='inputBox' type="text" id="id" name="id" />
-
-                    <div id='birthBox'>
-                        <p id='aa'>생년월일</p>
-                        <select className="box" id="birth-year" style={{ marginLeft: '20px' }}>
-                            <option disabled selected>출생 연도</option>
-                            {years}
-                        </select>
-                        <select className="box" id="birth-month" style={{ marginLeft: '20px' }}>
-                            <option disabled selected>월</option>
-                            {months}
-                        </select>
-                        <select className="box" id="birth-day" style={{ marginLeft: '20px' }}>
-                            <option disabled selected>일</option>
-                            {days}
-                        </select>
-                    </div>
-
-
-                    <div id='genderBox'>
-                        <p id='gg'> 성별</p>
-                        <div className='gbox'>
-                            <input type="radio" value="sync" id="male" name="gender"></input>
-                            <label style={{ fontSize: '16px' }} for="male">남성</label>
-                        </div>
-                        <div className='gbox'>
-                            <input type="radio" value="sync" id="female" name="gender"></input>
-                            <label for="female">여성</label>
-                        </div>
-                    </div>
-                    <input id='submitBox' type="submit" value="가입하기"></input>
-                </form>
-            </div>
-        </div >
     );
 }

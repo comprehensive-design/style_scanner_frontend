@@ -1,0 +1,79 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+*{
+    font-family: 'Pretendard';
+}
+
+.categoryWrap{
+    width : 20%;
+    /* background-color: beige; */
+    /* display: flex; */
+}
+
+#categoryNa{
+    font-size: 25px;
+    text-align: left;
+}
+
+.categoryUl{
+    flex-direction: column;
+    text-align: left;
+    list-style: none;
+}
+
+.totalWrap{
+    margin : 30px;
+    display: flex;
+    /* height : 100vh; */
+
+}
+
+.suplists{
+    line-height: 200%;
+    color:black;
+    list-style: none;
+}
+
+.supcateButton{
+    background-color: white;
+    border-style: none;
+    color:black;
+    font-size: 16px;
+}
+
+.subcateButton{
+    background-color: white;
+    border-style: none;
+    font-size: 16px;
+    color:gray;
+}
+
+.contentWrap{ 
+    width: 100%;
+    display : flex;
+    /* justify-content: center;
+	align-items: center; */
+	/* flex-direction: column; */
+}
+
+.sublists{
+    background-color: white;
+    line-height: 200%;
+    color:black;
+    list-style: none;
+}
+
+.supcateButton:hover:active{
+    font-weight: 600;
+}
+
+.subcateButton:hover:active{
+    font-weight: 600;
+}
+
+.rankingWrap{
+    /* margin : 30px; */
+    margin-left: 50px;
+    width : 100%;
+    /* background-color: beige; */
+}
