@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 function CelebrityInfo({ imgUrl, celebID }) {
     return (
         <div>
-            <img id='celebImg1' src={imgUrl} alt="Celebrity" />
+            <img id='celebImg1' src={imgUrl} alt="Celebrity" style={{ width: "100px", height: "100px" }} />
             <p id='celebID1'>@{celebID}</p>
         </div>
     );
@@ -15,7 +15,7 @@ function CelebrityInfo({ imgUrl, celebID }) {
 function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCount }) {
     return (
         <div className={styles.likeComponent}>
-            <img className={styles.likeComponent} id='itemImg' src={imgUrl} alt="상품" />
+            <img className={styles.likeComponent} id='itemImg' src={imgUrl} alt="상품" style={{ width: "100px", height: "100px" }} />
             <p className={styles.likeComponent} id={styles.brandName}>{brandName}</p>
             <div className={styles.item}>
                 <p id={styles.itemName}>{itemName}</p> -
@@ -30,7 +30,8 @@ function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCoun
     );
 }
 
-export default function MypageDefault({ displayName, bio, profilePictureUrl,}) {
+export default function MypageDefaultForm({ displayName, bio, profilePictureUrl, followingNum, followingURLs = [], followingIDs = [], imgUrls = [], brandNames = [], itemNames = [], itemOptions = [], itemPrices = [], likeCounts = [] }) {
+
     return (
         <body>
             <div className={styles.wrap}>
@@ -48,66 +49,56 @@ export default function MypageDefault({ displayName, bio, profilePictureUrl,}) {
                             <p style={{ fontSize: "14px", color: "gray" }}>{bio}</p>
                         </div>
                         <div>
-                            <p id='followNum' className={styles.bigFont}>256</p>
+                            <p id='followNum' className={styles.bigFont}>{followingNum}</p>
                             <p style={{ fontSize: "14px", color: "gray" }}>팔로잉</p>
                         </div>
                     </div>
 
                     <div className={styles.textBox}>
                         <p>팔로잉</p>
-                        <NavLink exact to='/FollowingList'>더보기</NavLink>
+                        <NavLink exact="true" to="/FollowingList">더보기</NavLink>
                     </div>
 
                     <div className={styles.following}>
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
+                        {followingURLs.map((url, index) => (
+                            <CelebrityInfo
+                                key={index}
+                                imgUrl={url}
+                                celebID={followingIDs[index]}
+                            />
+                        ))}
                     </div>
 
                     <div className={styles.textBox}>
                         <p>좋아요</p>
-                        <NavLink exact to='/LikeList'>더보기</NavLink>
+                        <NavLink exact="true" to="/LikeList">더보기</NavLink>
                     </div>
 
                     <div className={styles.like}>
-                        <LikeInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            brandName="브랜드이름"
-                            itemName="아이템이름"
-                            itemOption="옵션명"
-                            itemPrice="가격"
-                            likeCount="좋아요수"
-                        />
+                        {imgUrls.map((url, index) => (
+                            <LikeInfo
+                                key={index}
+                                imgUrl={url}
+                                brandName={brandNames[index]}
+                                itemName={itemNames[index]}
+                                itemOption={itemOptions[index]}
+                                itemPrice={itemPrices[index]}
+                                likeCount={likeCounts[index]}
+                            />
+                        ))}
 
-                        <LikeInfo
+                        {/* <LikeInfo
                             imgUrl="http://via.placeholder.com/100X100"
                             brandName="브랜드이름"
                             itemName="아이템이름"
                             itemOption="옵션명"
                             itemPrice="가격"
                             likeCount="좋아요수"
-                        />
+                        /> */}
                     </div>
 
                 </div>
-            </div>
-        </body>
+            </div></body>
+
     );
 }
