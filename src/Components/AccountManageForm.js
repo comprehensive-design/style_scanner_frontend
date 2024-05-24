@@ -7,7 +7,7 @@ import Button from './Button';
 import axios from 'axios';
 import Footer from './Footer';
 
-export default function AccountManage({ profilePictureUrl, displayName, bio, password, email, birthdate, gender }) {
+export default function AccountManage({ profilePictureUrl='/img/profile.png', displayName, bio, password, email, birthdate, gender }) {
     const [popupType, setPopupType] = useState(null);
 
     const openPopup = (type) => {
@@ -83,7 +83,7 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
                 alert("탈퇴되었습니다.");
             }
             else {
-                const response = await axios.post('/api/user/update', postData, {
+                await axios.post('/api/user/update', postData, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
                     }
@@ -100,6 +100,8 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
     };
 
     const gen = gender === 0 ? "여성" : "남성";
+    if(profilePictureUrl=="")
+        profilePictureUrl="/img/profile.png";
 
     return (
         <body>
@@ -113,7 +115,7 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
 
                     <div className={styles.profileBox}>
                         <div className={styles.profileBox1}>
-                            <img id={styles.profileImg} src={profilePictureUrl} ></img>
+                        <img id={styles.profileImg} src={profilePictureUrl}></img>
                             <input type="image" id={styles.changeImg} onClick={() => openPopup("image")} src="/img/fix.png" ></input>
                         </div>
                         <div className={styles.profileBox2}>

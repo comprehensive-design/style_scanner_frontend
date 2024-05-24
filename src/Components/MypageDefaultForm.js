@@ -32,6 +32,8 @@ function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCoun
 
 export default function MypageDefaultForm({ displayName, bio, profilePictureUrl, followingNum, followingURLs = [], followingIDs = [], imgUrls = [], brandNames = [], itemNames = [], itemOptions = [], itemPrices = [], likeCounts = [] }) {
 
+    if(profilePictureUrl=="")
+        profilePictureUrl="/img/profile.png";
     return (
         <body>
             <div className={styles.wrap}>
@@ -40,13 +42,13 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
 
                 <div className={styles.content}>
                     <div className={styles.profileBox}>
-                        <img className={styles.profileImg} src={profilePictureUrl} alt="사진없음"></img>
+                        <img className={styles.profileImg} src={profilePictureUrl}></img>
                         <div className={styles.nameBox}>
                             <div style={{ display: "flex" }}>
                                 <p className={styles.bigFont}>@&nbsp;</p>
                                 <p className={styles.bigFont}>{displayName}</p>
                             </div>
-                            <p style={{ fontSize: "14px", color: "gray" }}>{bio}</p>
+                            <p style={{ marginTop:"3px",fontSize: "14px", color: "gray" }}>{bio}</p>
                         </div>
                         <div>
                             <p id='followNum' className={styles.bigFont}>{followingNum}</p>
