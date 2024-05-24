@@ -35,12 +35,12 @@ const App = () => {
           <Route path="/" element={<Main/>} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/Search" element={<Search />} />
           <Route path="/MypageDefault" element={<MypageDefault />} />
           <Route path="/AccountManage" element={<AccountManage />} />
           <Route path="/CommunityNoti" element={<CommunityNoti />} />
           <Route path="/CelebRecommend" element={<CelebRecommend />} />
           <Route path="/Ranking" element={<Ranking />} />
-          <Route path="/Search" element={<Search />} />
           <Route path="/FollowingList" element={<FollowingList />} />
           <Route path="/MyPageWritings" element={<MyPageWritings />} />
           <Route path="/MyPageComments" element={<MyPageComments />} />
