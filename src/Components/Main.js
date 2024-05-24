@@ -33,9 +33,8 @@ function Main() {
       const pageHeight = window.innerHeight; // 화면 세로길이, 100vh와 같습니다.
 
       if (deltaY > 0) {
-        // 스크롤 내릴 때
+        // Scroll down
         if (scrollTop >= 0 && scrollTop < pageHeight) {
-          //현재 1페이지
           outerDivRef.current.scrollTo({
             top: pageHeight + DIVIDER_HEIGHT,
             left: 0,
@@ -43,46 +42,56 @@ function Main() {
           });
           setCurrentPage(2);
         } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
-          //현재 2페이지
           outerDivRef.current.scrollTo({
             top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
             left: 0,
             behavior: "smooth",
           });
           setCurrentPage(3);
-        } else {
-          // 현재 3페이지
+        } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
           outerDivRef.current.scrollTo({
-            top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+            top: pageHeight * 3 + DIVIDER_HEIGHT * 3,
             left: 0,
             behavior: "smooth",
           });
+          setCurrentPage(4);
+        } else {
+          outerDivRef.current.scrollTo({
+            top: pageHeight * 4 + DIVIDER_HEIGHT * 4,
+            left: 0,
+            behavior: "smooth",
+          });
+          setCurrentPage(5);
         }
       } else {
-        // 스크롤 올릴 때
+        // Scroll up
         if (scrollTop >= 0 && scrollTop < pageHeight) {
-          //현재 1페이지
           outerDivRef.current.scrollTo({
             top: 0,
             left: 0,
             behavior: "smooth",
           });
         } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
-          //현재 2페이지
           outerDivRef.current.scrollTo({
             top: 0,
             left: 0,
             behavior: "smooth",
           });
           setCurrentPage(1);
-        } else {
-          // 현재 3페이지
+        } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
           outerDivRef.current.scrollTo({
             top: pageHeight + DIVIDER_HEIGHT,
             left: 0,
             behavior: "smooth",
           });
           setCurrentPage(2);
+        } else {
+          outerDivRef.current.scrollTo({
+            top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+            left: 0,
+            behavior: "smooth",
+          });
+          setCurrentPage(3);
         }
       }
     };
@@ -94,20 +103,20 @@ function Main() {
   }, []);
   return (
     <>
-  <div ref={outerDivRef} className={styles.outer}>
-    {/* <Dots currentPage={currentPage} /> */}
-    <div className={`${styles.inner} ${styles.bgYellow}`} style={{backgroundImage:"url('/img/Main1.png')"}}></div>
-    <div className={styles.divider}></div>
-    <div className={`${styles.inner} ${styles.bgBlue}`}  style={{backgroundImage:"url('/img/Main2.png')"}}></div>
-    <div className={styles.divider}></div>
-    <div className={`${styles.inner} ${styles.bgPink}`}  style={{backgroundImage:"url('/img/Main3.png')"}}></div>
-    <div className={styles.divider}></div>
-    <div className={`${styles.inner} ${styles.bgPink}`}  style={{backgroundImage:"url('/img/Main4.png')"}}></div>
-    <div className={styles.divider}></div>
-    <div className={`${styles.inner} ${styles.bgPink}`}  style={{backgroundImage:"url('/img/Main5.png')"}}></div>
-  </div>
+      <div ref={outerDivRef} className={styles.outer}>
+        {/* <Dots currentPage={currentPage} /> */}
+        <div className={`${styles.inner} ${styles.bgYellow}`} style={{ backgroundImage: "url('/img/Main1.png')" }}></div>
+        <div className={styles.divider}></div>
+        <div className={`${styles.inner} ${styles.bgBlue}`} style={{ backgroundImage: "url('/img/Main2.png')" }}></div>
+        <div className={styles.divider}></div>
+        <div className={`${styles.inner} ${styles.bgPink}`} style={{ backgroundImage: "url('/img/Main3.png')" }}></div>
+        <div className={styles.divider}></div>
+        <div className={`${styles.inner} ${styles.bgPink}`} style={{ backgroundImage: "url('/img/Main4.png')" }}></div>
+        <div className={styles.divider}></div>
+        <div className={`${styles.inner} ${styles.bgPink}`} style={{ backgroundImage: "url('/img/Main5.png')" }}></div>
+      </div>
 
-</>
+    </>
 
   );
 }
