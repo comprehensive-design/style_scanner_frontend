@@ -8,9 +8,13 @@ export default function Popup({ title, onClose, onSave, visible = true, rightBtn
     const handleChange = (e) => {
         setValue(e.target.value);
     };
-
     const handleSave = () => {
-        onSave(value); // 저장 버튼을 눌렀을 때 값 전달
+        if (type === "radio") {
+        const genderValue = document.querySelector('input[name="gender"]:checked').value;
+        onSave(genderValue);
+    } else {
+        onSave(value); // 다른 경우, 입력한 값을 전달
+    }
     };
 
     return (
@@ -24,27 +28,39 @@ export default function Popup({ title, onClose, onSave, visible = true, rightBtn
             {type === "radio" && (
                 <div className={styles.genderBox}>
                     <div>
-                        <input type="radio" name="gender" value="male" id="male" />
-                        <label style={{ fontSize: '16px' }} htmlFor="male">남성</label>
+                        <input
+                            type="radio"
+                            id="male"
+                            name="gender"
+                            value="1"
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="male">남성</label>
                     </div>
                     <div>
-                        <input type="radio" name="gender" value="female" id="female" />
+                        <input
+                            type="radio"
+                            id="female"
+                            name="gender"
+                            value="0"
+                            onChange={handleChange}
+                        />
                         <label htmlFor="female">여성</label>
                     </div>
                 </div>
             )}
             {type == "password" && (
-                    <input type={type} className={styles.inputBox} value={value} onChange={handleChange}  ></input>
+                <input type={type} className={styles.inputBox} value={value} onChange={handleChange}  ></input>
 
             )}
-            
-            {type=="birth" && <input type='text' className={styles.inputBox} value={value} onChange={handleChange} placeholder='YYYY-MM-DD' />}
+
+            {type == "birth" && <input type='text' className={styles.inputBox} value={value} onChange={handleChange} placeholder='YYYY-MM-DD' />}
             <div className={styles.buttonBox}>
                 <Button onClick={onClose} BackColor="#d9d9d9" txtColor='black' border='1px solid black' hovColor='black' hovTxtColor='white'>
                     취소
                 </Button>
                 <Button onClick={handleSave} BackColor="#d9d9d9" txtColor='black' border='1px solid black' hovColor='black' hovTxtColor='white'>
-                {rightBtn}
+                    {rightBtn}
                 </Button>
             </div>
         </div >

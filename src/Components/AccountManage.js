@@ -9,6 +9,7 @@ export default function MypageDefault() {
     const [email, setEmail] = useState('');
     const [birthdate, setBirthdate] = useState('');
     const [gender, setGender] = useState('');
+    const [password, setPassword] = useState('');
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
@@ -27,10 +28,11 @@ export default function MypageDefault() {
                 setProfilePictureUrl(response.data.profilePictureUrl);
                 setEmail(response.data.email);
                 setBirthdate(response.data.birthdate);
-                if(response.data.gender==1)
-                    setGender("여성");
+                setPassword(response.data.password);
+                if(response.data.gender==0)
+                    setGender("0");
                 else
-                setGender("남성");
+                setGender("1");
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -46,6 +48,7 @@ export default function MypageDefault() {
             email={email}
             birthdate={birthdate}
             gender={gender}
+            password={password}
         />
     );
 }

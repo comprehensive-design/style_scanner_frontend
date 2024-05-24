@@ -4,9 +4,10 @@ import Popup from './Popup';
 import Sidebar from './Sidebar';
 import ManageBox from './ManageBox';
 import Button from './Button';
+import axios from 'axios';
 import Footer from './Footer';
 
-export default function AccountManage({profilePictureUrl, displayName, bio, email, password, birthdate, gender}) {
+export default function AccountManage({ profilePictureUrl, displayName, bio, password, email, birthdate, gender }) {
     const [popupType, setPopupType] = useState(null);
 
     const openPopup = (type) => {
@@ -17,6 +18,70 @@ export default function AccountManage({profilePictureUrl, displayName, bio, emai
         setPopupType(null);
     };
 
+    const onSave = async (data) => {
+        let postData = {};
+
+        // popupType에 따라 다른 데이터를 postData에 추가합니다.
+        switch (popupType) {
+            case "image":
+                // 이미지 변경에 관련된 처리
+                postData = {
+                    profilePictureUrl: data
+                };
+                break;
+            case "name":
+                // 이름 변경에 관련된 처리
+                postData = {
+                    displayName: data
+                };
+                break;
+            case "msg":
+                // 소개 수정에 관련된 처리
+                postData = {
+                    bio: data
+                };
+                break;
+            case "birth":
+                // 생년월일 수정에 관련된 처리
+                postData = {
+                    birthdate: data
+                };
+                break;
+            case "password":
+                // 비밀번호 수정에 관련된 처리
+                postData = {
+                    password: data
+                };
+                break;
+            case "gender":
+                // 성별 변경에 관련된 처리
+                postData = {
+                    gender: data
+                };
+                console.log(postData);
+                break;
+            default:
+                // 로그아웃 또는 탈퇴 처리
+                // 서버로 직접 요청을 보내거나 로컬 상태를 업데이트할 수 있습니다.
+                break;
+        }
+
+        // console.log(postData);
+        try {
+            console.log(data);
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await axios.post('/api/user/update', postData, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+        } catch (error) {
+            alert('서버가 불안정합니다.', error);
+        }
+    };
+
+    const gen = gender == 0 ? "여성" : "남성";
 
     return (
         <body>
@@ -50,7 +115,7 @@ export default function AccountManage({profilePictureUrl, displayName, bio, emai
                         <ManageBox title='이메일' content={email} visible={false}></ManageBox>
                         <ManageBox title='생년월일' content={birthdate} left='55%' onClick={() => openPopup("birth")}></ManageBox>
                         <ManageBox title='비밀번호' content="****" top='45%' onClick={() => openPopup("password")}></ManageBox>
-                        <ManageBox title='성별' content={gender} left='55%' top='45%' onClick={() => openPopup("gender")}></ManageBox>
+                        <ManageBox title='성별' content={gen} left='55%' top='45%' onClick={() => openPopup("gender")}></ManageBox>
                     </div>
 
                     <div className={styles.buttonBox}>
@@ -83,11 +148,14 @@ export default function AccountManage({profilePictureUrl, displayName, bio, emai
                                     popupType === "gender" ? "radio" : ""}
                         rightBtn={popupType === "logout" ? "로그아웃" :
                             popupType === "delete" ? "탈퇴" : "저장"}
+                        onSave={onSave}
                     />
                 </>
             )}
             <div className={styles.heightPadding}></div>
             <Footer />
         </body>
+
+
     );
 }
