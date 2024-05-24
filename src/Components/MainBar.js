@@ -1,7 +1,60 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import SearchBar from './SearchBar';
+import React, {  useState, useCallback, useEffect  } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import SearchBar from './SearchBar';;
 import styles from '../css/MainBar.module.css';
+import axios from 'axios';
+
+function MainBar() {
+    const [searchText, setSearchText] = useState("");
+    const [searchResults, setSearchResults] = useState(null);
+    const navigate = useNavigate();
+
+    const fetchSearchResults = useCallback(async (keyword) => {
+        console.log(`Fetching results for: ${keyword}`);
+
+        try {
+            const response = await axios.get(`/api/follow/search?keyword=${keyword}`);
+            // console.log('response data data : ', response.data.data);
+            if (response.data ) {
+                // console.log('Setting search results:', response.data);
+                setSearchResults(response.data); // 상태 설정
+                setSearchText(""); // 검색 완료 후 검색창 비우기
+            } else {
+                setSearchResults(null); // 예외 상황 처리
+                // console.log('Response data is null or does not contain data field');
+            }
+        } catch (error) {
+            console.error('Error fetching search results: ', error);
+            setSearchResults(null); // 에러 발생 시 결과 초기화
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log('Updated search results in useEffect:', searchResults);
+        if (searchResults !== null) {
+            console.log('Navigating to Search with results:', searchResults);
+            navigate(`/Search`, { state: { results: searchResults } }); // 검색 결과와 함께 Search 페이지로 이동
+            setSearchResults(null); // 상태 초기화
+
+        }
+    }, [searchResults, navigate]);
+
+    const handleSearchChange = (e) => {
+        setSearchText(e.target.value);
+    };
+
+
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            fetchSearchResults(searchText);
+        }
+    };
+
+    const handleLogoClick = () => {
+        setSearchText("");
+    };
+
 
 class MainBar extends Component {
     constructor(props) {
@@ -23,9 +76,8 @@ class MainBar extends Component {
                             alt="Logo"
                         />
                     </Link>
-                    <SearchBar />
-
-                    <nav className={styles.navigation}>
+                    <SearchBar value={searchText} onChange={handleSearchChange} onKeyPress={handleKeyPress} />
+                <nav className={styles.navigation}>
                         <ul className={styles.mainUl}>
                             <li className={styles.mainLists}><Link to="/HomeFeed">홈</Link></li>
                             <li className={styles.mainLists}><Link to="/Category">랭킹</Link></li>
@@ -44,5 +96,6 @@ class MainBar extends Component {
         );
     }
 }
-
+}
 export default MainBar;
+

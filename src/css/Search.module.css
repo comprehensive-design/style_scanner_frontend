@@ -7,7 +7,7 @@ body {
     position: relative;
 }
 
-#profileBox{
+.profileBox{
     width : 70%;
     margin: 0 auto;
 }
