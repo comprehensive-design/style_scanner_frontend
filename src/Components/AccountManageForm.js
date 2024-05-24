@@ -51,14 +51,8 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
                     gender: data
                 };
                 break;
-            case "delete":
-                const accessToken = localStorage.getItem('accessToken');
-                const response = await axios.post('/api/user/withdrawal', postData, {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
-                console.log(response.data);
+            case "logout":
+                localStorage.removeItem('accessToken');
                 break;
 
             default:
@@ -70,14 +64,22 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
             if (popupType === "image") {
                 const formData = new FormData();
                 formData.append('profilePictureUrl', data);
-                const response = await axios.post('/api/user/update', formData, {
+                await axios.post('/api/user/update', formData, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
                         'Content-Type': 'multipart/form-data'
                     }
                 });
+            }  else if (popupType === "logout") {
+                window.location.href = '/';
+                alert("로그아웃되었습니다.");
             } else if (popupType === "delete") {
-                window.location.replace("/");
+                await axios.post('/api/user/withdrawal', postData, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                window.location.href = '/';
                 alert("탈퇴되었습니다.");
             }
             else {
@@ -91,7 +93,7 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
             closePopup();
             setTimeout(() => {
                 window.location.reload();
-            }, 0); // set
+            }, 0);
         } catch (error) {
             alert('서버가 불안정합니다.', error);
         }
