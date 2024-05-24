@@ -20,46 +20,47 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
 
     const onSave = async (data) => {
         let postData = {};
-
-        // popupType에 따라 다른 데이터를 postData에 추가합니다.
         switch (popupType) {
             case "image":
-                // 이미지 변경에 관련된 처리
                 postData = {
                     profilePictureUrl: data
                 };
                 break;
             case "name":
-                // 이름 변경에 관련된 처리
                 postData = {
                     displayName: data
                 };
                 break;
             case "msg":
-                // 소개 수정에 관련된 처리
                 postData = {
                     bio: data
                 };
                 break;
             case "birth":
-                // 생년월일 수정에 관련된 처리
                 postData = {
                     birthdate: data
                 };
                 break;
             case "password":
-                // 비밀번호 수정에 관련된 처리
                 postData = {
                     password: data
                 };
                 break;
             case "gender":
-                // 성별 변경에 관련된 처리
                 postData = {
                     gender: data
                 };
-                console.log(postData);
                 break;
+            case "delete":
+                const accessToken = localStorage.getItem('accessToken');
+                const response = await axios.post('/api/user/withdrawal', postData, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                console.log(response.data);
+                break;
+
             default:
                 break;
         }
@@ -68,13 +69,16 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
             const accessToken = localStorage.getItem('accessToken');
             if (popupType === "image") {
                 const formData = new FormData();
-                formData.append('profilePictureUrl', data); // 'file'은 사용자가 선택한 파일입니다.
+                formData.append('profilePictureUrl', data);
                 const response = await axios.post('/api/user/update', formData, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
-                        'Content-Type': 'multipart/form-data' // FormData를 전송할 때는 적절한 Content-Type을 설정해야 합니다.
+                        'Content-Type': 'multipart/form-data'
                     }
                 });
+            } else if (popupType === "delete") {
+                window.location.replace("/");
+                alert("탈퇴되었습니다.");
             }
             else {
                 const response = await axios.post('/api/user/update', postData, {
@@ -84,6 +88,10 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
                 });
             }
 
+            closePopup();
+            setTimeout(() => {
+                window.location.reload();
+            }, 0); // set
         } catch (error) {
             alert('서버가 불안정합니다.', error);
         }

@@ -29,10 +29,7 @@ export default function MypageDefault() {
                 setEmail(response.data.email);
                 setBirthdate(response.data.birthdate);
                 setPassword(response.data.password);
-                if(response.data.gender==0)
-                    setGender("0");
-                else
-                setGender("1");
+                setGender(response.data.gender);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
