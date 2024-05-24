@@ -14,13 +14,11 @@ function MainBar() {
 
         try {
             const response = await axios.get(`/api/follow/search?keyword=${keyword}`);
-            // console.log('Full API response:', response); // 전체 응답 로그 추가
-            // console.log('Response data:', response.data); // 응답 데이터 로그 추가
-
             // console.log('response data data : ', response.data.data);
             if (response.data ) {
                 // console.log('Setting search results:', response.data);
                 setSearchResults(response.data); // 상태 설정
+                setSearchText(""); // 검색 완료 후 검색창 비우기
             } else {
                 setSearchResults(null); // 예외 상황 처리
                 // console.log('Response data is null or does not contain data field');
@@ -36,6 +34,8 @@ function MainBar() {
         if (searchResults !== null) {
             console.log('Navigating to Search with results:', searchResults);
             navigate(`/Search`, { state: { results: searchResults } }); // 검색 결과와 함께 Search 페이지로 이동
+            setSearchResults(null); // 상태 초기화
+
         }
     }, [searchResults, navigate]);
 
@@ -49,10 +49,14 @@ function MainBar() {
         }
     };
 
+    const handleLogoClick = () => {
+        setSearchText("");
+    };
+
     return (
         <header className={styles.header}>
             <div style={{ display: 'flex' }} className={styles.parent}>
-                <Link to="/">
+                <Link to="/" onClick={handleLogoClick}>
                     <img
                         src={`img/logo.png`}
                         width='130'
