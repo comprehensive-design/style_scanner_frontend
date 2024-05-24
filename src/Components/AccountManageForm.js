@@ -61,27 +61,35 @@ export default function AccountManage({ profilePictureUrl, displayName, bio, pas
                 console.log(postData);
                 break;
             default:
-                // 로그아웃 또는 탈퇴 처리
-                // 서버로 직접 요청을 보내거나 로컬 상태를 업데이트할 수 있습니다.
                 break;
         }
-
-        // console.log(postData);
         try {
             console.log(data);
             const accessToken = localStorage.getItem('accessToken');
-            const response = await axios.post('/api/user/update', postData, {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
+            if (popupType === "image") {
+                const formData = new FormData();
+                formData.append('profilePictureUrl', data); // 'file'은 사용자가 선택한 파일입니다.
+                const response = await axios.post('/api/user/update', formData, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'multipart/form-data' // FormData를 전송할 때는 적절한 Content-Type을 설정해야 합니다.
+                    }
+                });
+            }
+            else {
+                const response = await axios.post('/api/user/update', postData, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+            }
 
         } catch (error) {
             alert('서버가 불안정합니다.', error);
         }
     };
 
-    const gen = gender == 0 ? "여성" : "남성";
+    const gen = gender === 0 ? "여성" : "남성";
 
     return (
         <body>
