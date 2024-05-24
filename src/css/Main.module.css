@@ -8,7 +8,6 @@ body {
     overflow-y: auto;
   }
   
-  /* 화면에서 스크롤바 안보이게 */
   .outer::-webkit-scrollbar {
     display: none;
   }
@@ -21,21 +20,24 @@ body {
     font-size: 100px;
   }
   
-  .bgYellow {
+  .bg {
   background-repeat: no-repeat;
+  background-position:center;
 }
 
-  
-  .bgBlue {
-    background-repeat: no-repeat;
-  }
-  
-  .bgPink {
-    background-repeat: no-repeat;
-  }
-  
-  /* .divider {
-    width: 100%;
-    height: 5px;
-    background-color: gray;
-  } */
+.bg2 {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position:center;
+}
+
+.link{
+  margin-top: 150px;
+  font-size: 24px;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
