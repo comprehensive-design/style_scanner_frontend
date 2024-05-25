@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Feed from './feed.js';
 import ItemInfo from './ItemInfo.js';
 import styles from '../css/HomeInfo.module.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import CommunityWrite from './CommunityWrite.js';
-
 
 export const getItems = async (id) => {
     const token = localStorage.getItem("accessToken");
@@ -34,21 +33,24 @@ export const getItems = async (id) => {
     }
 
 };
+
 //버튼 누른 피드 정보 가져오기
-export const getFeedPost = async () => {
-    try {
-        //수정
-        const response = await axios.get('/api/insta/?');
-        return response.data;
-    } catch (error) {
-        console.error('피드 데이터 가져오기 오류:', error);
-        throw error;
-    }
-};
+// export const getFeedPost = async () => {
+//     try {
+//         //수정
+//         const response = await axios.get('/api/insta/?');
+//         return response.data;
+//     } catch (error) {
+//         console.error('피드 데이터 가져오기 오류:', error);
+//         throw error;
+//     }
+// };
 
 //next버튼 누를 때마다 피드 정보 주기
 
-export default function HomeInfo({mediaUrls, media_id, username, profile_url}) {
+export default function HomeInfo() {
+    const location = useLocation(); 
+    const { mediaUrls, feedUrl, media_id, username, profile_url } = location.state || {}; // 전달된 상태 받기
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 4;
@@ -90,14 +92,15 @@ export default function HomeInfo({mediaUrls, media_id, username, profile_url}) {
 
     return (
         <div className={styles.contents}>
-            {/* <Feed
-                key={media_id}
-                media_url_list={mediaUrls}
-                profile_url={profile_url}
-                username={username}
-                media_id={media_id}
-            /> */}
-            <Feed media_url_list={[`img/feed1.png`]} profile_url={`img/profile.png`} username={"hi_sseulgi"}></Feed>
+            {mediaUrls && profile_url && username && media_id && (
+                <Feed
+                    key={media_id}
+                    media_url_list={mediaUrls}
+                    profile_url={profile_url}
+                    username={username}
+                    media_id={media_id}
+                />
+            )}
             <div>
                 <p className={styles.product}>Product</p>
                 <hr></hr>
@@ -111,7 +114,7 @@ export default function HomeInfo({mediaUrls, media_id, username, profile_url}) {
                     <button className={styles.nextBtn} onClick={nextPage}>{'>'}</button>
                 </div>
                 <p className={styles.goComBtn} onClick={openPopup}>찾는 제품이 없으신가요?</p>
-                {isPopupOpen && <CommunityWrite onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
+                {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
             </div>
         </div>
     );
