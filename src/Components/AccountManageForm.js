@@ -100,6 +100,7 @@ export default function AccountManageForm({ profilePictureUrl, displayName, bio,
 
     if(profilePictureUrl=="")
         profilePictureUrl="/img/whiteBox.png"
+        
     return (
         <body>
             <div className={styles.total}>
