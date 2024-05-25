@@ -79,6 +79,7 @@ body {
 
 #SearchUserid{
     font-weight:bold;
+    text-align: left;
 }
 
 .SearchFollow{
