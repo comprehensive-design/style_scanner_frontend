@@ -3,38 +3,62 @@ import styles from "../css/CommunityWrite.module.css";
 import axios from "axios";
 import Button from './Button';
 
-export default function CommunityWrite({ onClose }) { 
+export default function CommunityWrite({ onClose }) {
   const [question, setQuestion] = useState("");
   const textarea = useRef();
 
-  const handleSubmit = () => {
-    if (!question.trim()) {
-      console.error("질문을 입력하세요.");
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      alert('로그인이 필요합니다.');
       return;
     }
-    axios
-      .post("http://localhost:8080/CommunityWrite", {
-        feedId: "hi_sseulgi",
-        writerId: "nwbd_we",
-        content: question,
-      })
-      .then(function (response) {
-        console.log("성공", response);
-        onClose(); // 데이터 전송 후 팝업창 닫기
-      })
-      .catch(function (error) {
-        console.error("실패", error);
-      })
-      .then(function () {
-        console.log("데이터 요청 완료");
-      });
-  };
-  const okClick = () => {
-    console.log("버튼 누름");
-    handleSubmit(); // 작성 버튼 클릭 시 데이터 전송
-  };
- 
 
+    try {
+      if (question.trim()) {
+        const response = await axios.post(
+          '/api/post/create',
+          {
+            feedUrl: "wow",
+            content: question
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`, // Proper token format
+            }
+          }
+        );
+
+        console.log(response.data);
+        if (response.status === 200) {
+          const accessToken = response.data.access_token;
+          localStorage.setItem("accessToken", accessToken);
+          alert("등록되었습니다.");
+        } else {
+          console.error('Error:', response.status, response.statusText);
+          alert('서버 오류가 발생했습니다.');
+        }
+      } else {
+        alert('질문을 작성해주세요.');
+      }
+    } catch (error) {
+      console.error('Error:', error.response ? error.response.data : error.message);
+      if (error.response) {
+        // Print server error message for better debugging
+        alert(`서버 오류: ${error.response.data.message}`);
+      } else {
+        // Handle network errors or other issues
+        alert('서버 오류가 발생했습니다. 관리자에게 문의하세요.');
+      }
+    }
+  };
+
+  const okClick = (e) => {
+    handleSubmit(e); // Pass the event to handleSubmit
+  };
 
   return (
     <div className={styles.popup}>
@@ -54,17 +78,17 @@ export default function CommunityWrite({ onClose }) {
           <p id={styles.writerId}>nwbd_we</p>
         </div>
         <div className={styles.decoBox}>
-          <textarea 
-              ref={textarea}
-              rows={1}
-              className={styles.questionBox}
-              placeholder="질문을 작성해주세요..."
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            ></textarea>
-              <div className={styles.btn}>
-              <Button onClick={okClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>작성</Button>
-              </div>
+          <textarea
+            ref={textarea}
+            rows={1}
+            className={styles.questionBox}
+            placeholder="질문을 작성해주세요..."
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          ></textarea>
+          <div className={styles.btn}>
+            <Button onClick={okClick} BackColor="#d9d9d9" txtColor="black" border="none" hovColor="black" hovTxtColor="white">작성</Button>
+          </div>
         </div>
       </div>
     </div>

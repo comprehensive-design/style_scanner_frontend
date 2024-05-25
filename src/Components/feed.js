@@ -26,17 +26,38 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
     const closePopup = () => {
         setIsPopupOpen(false);
     };
-    // 이미지 클릭 -> 아이템 정보창으로 이동
-    const navigateToHomeInfo = () => {
+
+    //버튼 누른 피드 정보 서버에 전송
+    const postCurrentImage = async (imageUrl, images, shouldNavigate = false) => {
+        console.log(`click image: ${imageUrl}`);
         navigate("/HomeInfo");
-    };
-    const goToFeedPopup = () => {
-        navigate("FeedPopup")
+        // try {
+        //     // const response = await axios.post('/api/insta/home', {
+        //     //     imageUrl: imageUrl,
+        //     //     username: username,
+        //     //     media_id: media_id,
+        //     // });
+        //     // console.log('성공', response.data);
+
+        //     if (shouldNavigate) {
+        //         navigate("/HomeInfo", {
+        //             state: {
+        //                 mediaUrls: images, 
+        //                 media_id: media_id,
+        //                 username: username,
+        //                 profile_url: profile_url
+        //             }
+        //         });
+        //     }
+        // } catch (error) {
+        //     console.error('Error posting image:', error);
+        // }
     };
     const goToNextImage = () => {
         setCurrentImageIndex((prevIndex) => {
             const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
             console.log(`다음 이미지 index: ${nextIndex}`);
+            // postCurrentImage(images[nextIndex]); 
             return nextIndex;
         });
     };
@@ -46,6 +67,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
             //0번 인덱스에서 이전 x
             const nextIndex = prevIndex === 0 ? 0 : prevIndex - 1;
             console.log(`이전 이미지 index: ${nextIndex}`);
+            // postCurrentImage(images[nextIndex]);
             return nextIndex;
         });
     };
@@ -64,7 +86,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
 
             {/* carousel 구현 */}
             <div className={styles.feedMain}>
-                <div className={styles.imageWrapper} onClick={navigateToHomeInfo}>
+                <div className={styles.imageWrapper} onClick={postCurrentImage}>
                     <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
                 </div>
                 <div className={styles.dirBtn}>
