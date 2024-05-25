@@ -10,6 +10,16 @@ export default function Search() {
 
     console.log('Search component rendered with results: ', searchResults);
 
+    const formatFollowerCount = (count) => {
+        if (count >= 1000000) {
+            return (count / 1000000).toFixed(1) + 'M';
+        } else if (count >= 1000) {
+            return (count / 1000).toFixed(1) + 'K';
+        } else {
+            return count;
+        }
+    };
+
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
     }
@@ -34,7 +44,7 @@ export default function Search() {
                     <p id={styles.profileBio}>{searchResults.profileBio}</p>
                     <div style={{ display: 'flex' }} className={styles.userFollowerInfo}>
                         <p id={styles.FollowerWord}>팔로워</p>
-                        <p id={styles.FollowerCountWord}>&nbsp;{searchResults.profileFollowerCount}</p>
+                        <p id={styles.FollowerCountWord}>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
                     </div>
                 </div>
                 <div className={styles.SearchFollow}>
