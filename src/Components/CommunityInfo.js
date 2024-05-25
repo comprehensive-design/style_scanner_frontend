@@ -10,7 +10,8 @@ export const getComments = async () => {
   return response.data;
 };
 
-export default function CommunityInfo({ onClose }) {
+export default function CommunityInfo({onClose}) {
+  
   //댓글 post
   const [question, setQuestion] = useState("");
   const textarea = useRef();
@@ -46,20 +47,20 @@ export default function CommunityInfo({ onClose }) {
 
   const handleSubmit = () => {
     if (!question.trim()) {
-      console.error("질문을 입력하세요.");
+      console.error("댓글을 입력하세요.");
       return;
     }
 
     //댓글쓰기
     axios
-      .post("http://localhost:8080/CommunityInfo", {
+      .post('/api/comment/create', {
         feedId: "hi_sseulgi",
         writerId: "nwbd_we",
         content: question,
       })
       .then(function (response) {
         console.log("성공", response);
-        onClose();
+        
       })
       .catch(function (error) {
         console.error("실패", error);
@@ -117,6 +118,7 @@ export default function CommunityInfo({ onClose }) {
 
         <div className={styles.titleDiv}>
           <p className={styles.closeButton} onClick={onClose}>×</p>
+          
           <p className={styles.title}>댓글</p>
         </div>
         <div className={styles.comWriterBox}>

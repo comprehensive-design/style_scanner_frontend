@@ -14,6 +14,7 @@ function ComFeed({ feedUrl, userId, content, displayName, profilePictureUrl, goD
     };
 
     const closePopup = () => {
+        console.log("Closing CommunityInfo popup");
         setIsPopupOpen(false);
     };
 
@@ -22,6 +23,7 @@ function ComFeed({ feedUrl, userId, content, displayName, profilePictureUrl, goD
     };
 
     const closeFeedPopup = () => {
+        console.log("Closing FeedPopup");
         setIsFeedPopupOpen(false);
     };
 
@@ -33,25 +35,24 @@ function ComFeed({ feedUrl, userId, content, displayName, profilePictureUrl, goD
         <div>
             <div className={styles.comCompleteFeed}>
                 <div className={styles.comProfile} onClick={openFeedPopup}>
-
                     <div className={styles.comProfileBox}>
                         {profilePictureUrl ? (
                             <img className={styles.comProfileImage2} src={profilePictureUrl} alt="Profile" />
-                            
-                        ) : <img id={styles.comProfileImage} src={`img/profile.png`} alt="Profile"></img>}
+                        ) : (
+                            <img id={styles.comProfileImage} src={`img/profile.png`} alt="Profile" />
+                        )}
                     </div>
                     <p className={styles.comProfileName} id={styles.name}>{displayName}</p>
                 </div>
 
                 {isFeedPopupOpen && <FeedPopup onClose={closeFeedPopup} />}
 
-
                 <div className={styles.comFeedMain}>
                     <div className={styles.imageWrapper} onClick={goDir === "navigateToHomeInfo" ? () => navigateTo("/HomeInfo") : openPopup}>
                         <img src={feedUrl} alt="Feed" />
-                        {isPopupOpen && <CommunityInfo onClose={closePopup} />}
                     </div>
                 </div>
+                {isPopupOpen && <CommunityInfo onClose={closePopup} />}
             </div>
 
             <div className={styles.writeBox}>

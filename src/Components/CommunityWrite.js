@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styles from "../css/CommunityWrite.module.css";
 import axios from "axios";
 import Button from './Button';
 
-export const getProfile = async () => {
+const getProfile = async () => {
   const token = localStorage.getItem("accessToken");
   if (!token) {
     console.error("토큰이 없습니다.");
@@ -17,11 +17,9 @@ export const getProfile = async () => {
   };
 
   try {
-    const profileResponse = await axios.get('/api/user', config);
+    const profileResponse = await axios.get('/api/user/me', config);
     return profileResponse.data;
-  }
-  catch (error) {
-
+  } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('Axios 에러: 프로필 가져오기 실패:', error.response?.data || error.message);
       console.error('응답 상태:', error.response?.status); // 상태 코드 로그
@@ -35,12 +33,22 @@ export const getProfile = async () => {
 
 export default function CommunityWrite({ feedUrl, onClose }) {
   const [question, setQuestion] = useState("");
-  const [profiles, setProfiles] = useState([]); // 빈 배열로 초기화
-  const [loading, setLoading] = useState(true); // 초기 로딩 상태를 true로 설정
-  const [error, setError] = useState(null);
-  const profileListRef = useRef();
+  const [profile, setProfile] = useState({ profilePictureUrl: "", displayName: "" });
   const textarea = useRef();
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getProfile();
+        console.log(data);
+        setProfile({ profilePictureUrl: data.profilePictureUrl, displayName: data.displayName });
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,10 +58,9 @@ export default function CommunityWrite({ feedUrl, onClose }) {
       alert('로그인이 필요합니다.');
       return;
     }
+
     try {
-      //질문 글 post
       if (question.trim()) {
-        alert(feedUrl);
         const response = await axios.post(
           '/api/post/create',
           {
@@ -67,12 +74,12 @@ export default function CommunityWrite({ feedUrl, onClose }) {
             }
           }
         );
+
         console.log(response.data);
 
         if (response.status === 200) {
-          const accessToken = response.data.access_token;
-          localStorage.setItem("accessToken", accessToken);
           alert("등록되었습니다.");
+          setQuestion(""); // Clear the input field after submission
         } else {
           console.error('Error:', response.status, response.statusText);
           alert('서버 오류가 발생했습니다.');
@@ -80,7 +87,15 @@ export default function CommunityWrite({ feedUrl, onClose }) {
       } else {
         alert('질문을 작성해주세요.');
       }
-    } catch (error) { }
+    } catch (error) {
+      console.error('Error:', error.response ? error.response.data : error.message);
+
+      if (error.response) {
+        alert(`서버 오류: ${error.response.data.message}`);
+      } else {
+        alert('서버 오류가 발생했습니다. 관리자에게 문의하세요.');
+      }
+    }
   };
 
   const okClick = (e) => {
@@ -95,37 +110,29 @@ export default function CommunityWrite({ feedUrl, onClose }) {
           <p className={styles.title}>질문 글</p>
         </div>
         <div className={styles.comWriterBox}>
-
-          {Array.isArray(profiles) && profiles.length > 0 ? (
-            profiles.map(profile => (
-              <div className={styles.writerProfile} ref={profileListRef}>
-                <img
-                  id={styles.writerImage}
-                  src={profile.profilePictureUrl}
-                  alt="Profile"
-                />
-                <p id={styles.writerId}>{profile.displayName}</p>
-              </div>
-            ))
-          ) : (
-            <div>니 누구?</div>
-          )}
-
-          <div className={styles.decoBox}>
-            <textarea
-              ref={textarea}
-              rows={1}
-              className={styles.questionBox}
-              placeholder="질문을 작성해주세요..."
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            ></textarea>
-            <div className={styles.btn}>
-              <Button onClick={okClick} BackColor="#d9d9d9" txtColor="black" border="none" hovColor="black" hovTxtColor="white">작성</Button>
-            </div>
+          <div className={styles.writerProfile}>
+            <img
+              id={styles.writerImage}
+              src={profile.profilePictureUrl || process.env.PUBLIC_URL + "img/profile.png"}
+              alt="Profile"
+            />
+          </div>
+          <p id={styles.writerId}>{profile.displayName || "Unknown User"}</p>
+        </div>
+        <div className={styles.decoBox}>
+          <textarea
+            ref={textarea}
+            rows={1}
+            className={styles.questionBox}
+            placeholder="질문을 작성해주세요..."
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          ></textarea>
+          <div className={styles.btn}>
+            <Button onClick={okClick} BackColor="#d9d9d9" txtColor="black" border="none" hovColor="black" hovTxtColor="white">작성</Button>
           </div>
         </div>
       </div>
-      </div>
-      );
+    </div>
+  );
 }

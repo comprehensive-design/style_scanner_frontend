@@ -82,7 +82,7 @@ export default function CommunityFeed() {
         )}
         <div style={{ height: '10px' }} />
       </div>
-      <SlideBtn />
+      <SlideBtn/>
     </div>
   );
 }
