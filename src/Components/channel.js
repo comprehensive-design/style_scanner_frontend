@@ -1,6 +1,6 @@
 import styles from "../css/Channel.module.css";
 
-function Channel(){
+function channel(){
     return(
         <div className = {styles.channelDiv}>
             <div>
@@ -25,4 +25,4 @@ function Channel(){
     );
 }
 
-export default Channel;
+export default channel;

@@ -55,7 +55,7 @@ function MainBar() {
         <header className={styles.header}>
             <div style={{ display: 'flex' }} className={styles.parent}>
 
-                {isLoggedIn ? (<div><Link to="/HomeFeed">
+                {isLoggedIn ? (<div><Link to="/HomeFeed" onChange={handleLogoClick}>
                     <img
                         src={`img/logo.png`}
                         width='130'
@@ -64,7 +64,7 @@ function MainBar() {
                     />
                 </Link></div>) : (
                     <div>
-                        <Link to="">
+                        <Link to="" onChange={handleLogoClick}>
                             <img
                                 src={`img/logo.png`}
                                 width='130'

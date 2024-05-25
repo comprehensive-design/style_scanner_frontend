@@ -8,6 +8,7 @@
     align-items: center;
     padding-bottom: 20px;
     cursor: pointer;
+    z-index: 1;
 }
 
 .userInfoWord {
@@ -49,6 +50,7 @@
     /* background-color: #d9d9d9; 문자열을 사용하지 않음 */
     /* color: black; */
     /* 호버 스타일은 추가적인 CSS 클래스를 사용하여 정의 */
+    z-index: 10;
 }
 
 #buttonDelete:hover {

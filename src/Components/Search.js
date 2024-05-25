@@ -1,14 +1,16 @@
 import styles from '../css/Search.module.css';
 import Channel from '../Components/channel';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Search() {
     const location = useLocation();
     const searchResults = location.state?.results;
-
-    console.log('Search component rendered with results: ', searchResults);
+    const [isFollowing, setIsFollowing] = useState(false);
+    const accessToken = localStorage.getItem('accessToken');
+    const followeeId = searchResults?.profileName;
 
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
@@ -19,6 +21,76 @@ export default function Search() {
             return count;
         }
     };
+
+    const handleFollow = () => {
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+
+        axios.post('/api/follow/following', { followeeId }, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then(response => {
+                console.log('Followed successfully');
+                setIsFollowing(true); // 팔로우 상태 업데이트
+
+                console.log(isFollowing);
+                console.log(response)
+            })
+            .catch(error => {
+                console.error('Error while following:', error);
+            });
+    };
+
+    const handleUnfollow = () => {
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+
+        axios.post('/api/follow/unfollowing', { followeeId }, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then(response => {
+                console.log('Unfollowed successfully');
+                setIsFollowing(false); // 언팔로우 상태 업데이트
+                
+            })
+            .catch(error => {
+                console.error('Error while unfollowing:', error);
+            });
+    };
+
+    const checkFollowingStatus = () => {
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+
+        axios.get(`/api/follow/checkFollowing?keyword=${searchResults.profileName}`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then(response => {
+                console.log(response.data);
+                setIsFollowing(!response.data); // 올바르게 상태 설정
+            })
+            .catch(error => {
+                console.error('Error while checking follow status:', error);
+            });
+    };
+
+    useEffect(() => {
+        if (searchResults && searchResults.profileName) {
+            checkFollowingStatus();
+        }
+    }, [searchResults]);
 
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
@@ -48,7 +120,15 @@ export default function Search() {
                     </div>
                 </div>
                 <div className={styles.SearchFollow}>
-                    <Button id={styles.followButton}>팔로우</Button>
+                    {!isFollowing ? (
+                        <div className={styles.FollowButton}>
+                            <Button onClick={handleFollow}>팔로우</Button>
+                        </div>
+                    ) : (
+                        <div className={styles.FollowButton}>
+                            <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -57,16 +137,16 @@ export default function Search() {
 
                 <div className={styles.SearchRelChannel}>
                     <Channel />
-                    <div className={styles.paddingWidth}></div>
+                    {/* <div className={styles.paddingWidth}></div>
                     <Channel />
                     <div className={styles.paddingWidth}></div>
                     <Channel />
                     <div className={styles.paddingWidth}></div>
-                    <Channel />
+                    <Channel /> */}
                 </div>
                 <div className={styles.paddingHeight}></div>
 
-                <div className={styles.SearchRelChannel}>
+                {/* <div className={styles.SearchRelChannel}>
                     <Channel />
                     <div className={styles.paddingWidth}></div>
                     <Channel />
@@ -74,7 +154,7 @@ export default function Search() {
                     <Channel />
                     <div className={styles.paddingWidth}></div>
                     <Channel />
-                </div>
+                </div> */}
             </div>
         </div>
     );

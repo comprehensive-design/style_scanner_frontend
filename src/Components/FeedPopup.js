@@ -4,14 +4,16 @@ import axios from "axios";
 import Button from './Button';
 import UserFeed from './UserFeed';
 
-export default function FeedPopup({ user ,onClose }) {
+export default function FeedPopup({ user, onClose }) {
     const [feeds, setFeeds] = useState([]);
     const [followers, setFollowers] = useState(0);
     const [follows, setFollows] = useState(0);
     const [userbio, setBio] = useState("");
     const [totalFeeds, setTotalFeeds] = useState(0);
     const [profileImage, setProfileImage] = useState("");
+    const [isFollowing, setIsFollowing] = useState(false);
 
+    const accessToken = localStorage.getItem('accessToken');
 
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
@@ -23,8 +25,12 @@ export default function FeedPopup({ user ,onClose }) {
         }
     };
 
-
     useEffect(() => {
+        if (!user || !user.profileName) {
+            console.error('User or profile name is missing');
+            return;
+        }
+
         axios.get(`/api/insta/${user.profileName}`)
             .then((response) => {
                 const { profile, feedList } = response.data;
@@ -33,40 +39,65 @@ export default function FeedPopup({ user ,onClose }) {
                 setFollows(profile.profileFollowingCount);
                 setBio(profile.profileBio);
                 setTotalFeeds(feedList.length);
-                setProfileImage(profile.profilePictureUrl); // 수정된 부분
+                setProfileImage(profile.profilePictureUrl);
                 setFeeds(feedList);
 
-                // checkFollowingStatus();
+                checkFollowingStatus();
             })
             .catch((error) => {
-                // 에러 처리
                 console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);
             });
     }, [user]);
 
-    // const checkFollowingStatus = () => {
-    //     // 여기서 서버 API를 호출하여 팔로우 여부 확인
-    //     // 만약 팔로우 중이라면 setIsFollowing(true), 아니면 false 설정
-    //     const accessToken = localStorage.getItem('accessToken');
-    //     if (!accessToken) {
-    //         console.error('Access token is missing');
-    //         return;
-    //     }
+    const handleUnfollow = (userId) => {
 
-    //     axios.get(`/api/follow/${user.id}/check`, {
-    //         headers: {
-    //             'Authorization': `Bearer ${accessToken}`
-    //         }
-    //     })
-    //     .then(response => {
-    //         setIsFollowing(response.data.isFollowing);
-    //     })
-    //     .catch(error => {
-    //         // Handle error
-    //         console.error('Error while checking follow status:', error);
-    //     });
-    // };
+        // const accessToken = localStorage.getItem('accessToken');
+        if(!accessToken){
+            console.error('Access token is missing');
+            return;
+        }
 
+        axios.post('/api/follow/unfollowing', { userId }, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+        .then(response => {
+            window.location.reload(); // 성공시 새로고침
+            console.log('Unfollowed successfully');
+        })
+        .catch(error => {
+            // Handle error
+            console.error('Error while unfollowing:', error);
+        });
+    };
+
+    const checkFollowingStatus = () => {
+        // const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+
+        axios.get(`/api/follow/checkFollowing?keyword=${user.profileName}`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then(response => {
+                // console.log(response.data);
+                // setIsFollowing(response.data.isFollowing);
+                if (response.data===false){
+                    setIsFollowing(true);
+                }
+                else{
+                    setIsFollowing(false);
+                }
+            })
+            .catch(error => {
+                console.error('Error while checking follow status:', error);
+            });
+    };
 
     return (
         <div className={styles.totalWrap}>
@@ -87,9 +118,17 @@ export default function FeedPopup({ user ,onClose }) {
                     <div className={styles.userInfoWord}>
                         <div className={styles.userFollow}>
                             <p className={styles.userId}>{user.profileName}</p>
-                            <div className={styles.FollowButton}>
-                                <Button>팔로우</Button>
-                            </div>
+                            {!isFollowing && (
+                                <div className={styles.FollowButton}>
+                                    <Button>팔로우</Button>
+                                </div>
+                            )}
+                            {isFollowing && (
+                                <div className={styles.FollowButton}>
+                                    <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white" onClick={() => handleUnfollow(user.profileName)}>언팔로우</Button>
+                                </div>
+                            )}
+
                         </div>
 
                         <div className={styles.followsInfo}>
@@ -108,7 +147,7 @@ export default function FeedPopup({ user ,onClose }) {
                         </div>
                     </div>
                 </div>
-                <HorizonLine></HorizonLine>
+                <HorizonLine />
 
                 <div className={styles.feedGrid}>
                     {feeds.map(feed => (
@@ -117,7 +156,7 @@ export default function FeedPopup({ user ,onClose }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 const HorizonLine = () => {
@@ -129,7 +168,6 @@ const HorizonLine = () => {
                 lineHeight: "0.1em",
                 margin: "10px 0 20px",
             }}
-        >
-        </div>
+        />
     );
 };
