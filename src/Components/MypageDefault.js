@@ -1,113 +1,98 @@
-
-import styles from "../css/MypageDefault.module.css";
-import Sidebar from './Sidebar';
-import { NavLink } from "react-router-dom";
-
-function CelebrityInfo({ imgUrl, celebID }) {
-    return (
-        <div>
-            <img id='celebImg1' src={imgUrl} alt="Celebrity" />
-            <p id='celebID1'>@{celebID}</p>
-        </div>
-    );
-}
-
-function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCount }) {
-    return (
-        <div className={styles.likeComponent}>
-            <img className={styles.likeComponent} id='itemImg' src={imgUrl} alt="상품" />
-            <p className={styles.likeComponent} id={styles.brandName}>{brandName}</p>
-            <div className={styles.item}>
-                <p id={styles.itemName}>{itemName}</p> -
-                <p id={styles.itemOption}>{itemOption}</p>
-            </div>
-            <p className={styles.likeComponent} id={styles.itemPrice}>{itemPrice}</p>
-            <div className={styles.heartBox}>
-                <img src="img/fullHeart.png" alt="하트 아이콘" />
-                <p id='likeCount'>{likeCount}</p>
-            </div>
-        </div>
-    );
-}
+import MypageDefaultForm from "./MypageDefaultForm";
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 export default function MypageDefault() {
+    const [displayName, setDisplayName] = useState('');
+    const [bio, setBio] = useState('');
+    const [profilePictureUrl, setProfilePictureUrl] = useState('');
+    const [totalFollowings, setTotalFollowings] = useState(0);
+
+    const [followings, setFollowings] = useState([]);
+    const [likes, setLikes] = useState([]);
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+        axios.get("/api/user/me", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((response) => {
+                setDisplayName(response.data.displayName);
+                setBio(response.data.bio);
+                setProfilePictureUrl(response.data.profilePictureUrl);
+                if(profilePictureUrl=="")
+                    setProfilePictureUrl("/img/profile.png");
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+
+        axios.get("/api/follow/followingList", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((response) => {
+                const { following_list } = response.data;
+                setTotalFollowings(following_list.length);
+                setFollowings(following_list.slice(0, 5));
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+
+            // Back 다 되면 해야함
+            // axios.get("/api/follow/likeList", {
+            //     headers: {
+            //         'Authorization': `Bearer ${accessToken}`
+            //     }
+            // })
+            //     .then((response) => {
+            //         const { like_list } = response.data;
+            //         setLikes(like_list.slice(0, 2));
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error fetching data:', error);
+            //     });
+    }, []);
+
+    const followingURLs = followings.map(following => following.profilePictureUrl);
+    const followingIDs = followings.map(following => following.profileName);
+
+
+    // Back 다 되면 해야함 followings, request
+    const likeURLs = followings.map(following => following.profilePictureUrl);
+    const brandNames = followings.map(following => following.brandName);
+    const itemNames = followings.map(following => following.itemName);
+    const itemOptions = followings.map(following => following.itemOption);
+    const itemPrices = followings.map(following => following.itemPrice);
+    const likeCounts = followings.map(following => following.likeCount);
+
     return (
-        <body>
-            <div className={styles.wrap}>
+        <MypageDefaultForm
+            displayName={displayName}
+            bio={bio}
+            profilePictureUrl={profilePictureUrl}
 
-                <Sidebar></Sidebar>
+            
+            followingNum={totalFollowings}
+            followingURLs={followingURLs}
+            followingIDs={followingIDs}
 
-                <div className={styles.content}>
-                    <div className={styles.profileBox}>
-                        <img className={styles.profileImg} src="http://via.placeholder.com/100X100"></img>
-                        <div className={styles.nameBox}>
-                            <div style={{ display: "flex" }}>
-                                <p className={styles.bigFont}>@&nbsp;</p>
-                                <p id='userName' className={styles.bigFont}>username</p>
-                            </div>
-                            <p id='userId' style={{ fontSize: "14px", color: "gray" }}>소개소개소개한줄소개라리루레로</p>
-                        </div>
-                        <div>
-                            <p id='followNum' className={styles.bigFont}>256</p>
-                            <p style={{ fontSize: "14px", color: "gray" }}>팔로잉</p>
-                        </div>
-                    </div>
-
-                    <div className={styles.textBox}>
-                        <p>팔로잉</p>
-                        <NavLink exact to='/FollowingList'>더보기</NavLink>
-                    </div>
-
-                    <div className={styles.following}>
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                        <CelebrityInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            celebID="celebID"
-                        />
-                    </div>
-
-                    <div className={styles.textBox}>
-                        <p>좋아요</p>
-                        <NavLink exact to='/LikeList'>더보기</NavLink>
-                    </div>
-
-                    <div className={styles.like}>
-                        <LikeInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            brandName="브랜드이름"
-                            itemName="아이템이름"
-                            itemOption="옵션명"
-                            itemPrice="가격"
-                            likeCount="좋아요수"
-                        />
-
-                        <LikeInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            brandName="브랜드이름"
-                            itemName="아이템이름"
-                            itemOption="옵션명"
-                            itemPrice="가격"
-                            likeCount="좋아요수"
-                        />
-                    </div>
-
-                </div>
-            </div>
-        </body>
+            // Back 다 되면 해야함
+            imgUrls = {likeURLs}
+            brandNames = {brandNames}
+            itemNames = {itemNames}
+            itemOptions = {itemOptions}
+            itemPrices = {itemPrices}
+            likeCounts = {likeCounts}
+            
+        />
     );
 }

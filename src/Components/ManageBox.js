@@ -23,7 +23,7 @@ const Horizon = styled.div`
         margin: 10px 0 20px;
 `;
 
-function ManageBox({ onClick, title = '제목', content = '내용', visible = true, top = '0px', left = '0px' }) {
+function ManageBox({ onClick, title, content, visible = true, top = '0px', left = '0px' }) {
 
     return (
         <StyledDiv top={top} left={left}>
