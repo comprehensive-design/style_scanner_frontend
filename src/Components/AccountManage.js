@@ -26,8 +26,10 @@ export default function MypageDefault() {
                 setDisplayName(response.data.displayName);
                 setBio(response.data.bio);
                 setProfilePictureUrl(response.data.profilePictureUrl);
+                console.log(profilePictureUrl);
                 if(profilePictureUrl=="")
                     setProfilePictureUrl("/img/profile.png");
+                    console.log(profilePictureUrl);
                 setEmail(response.data.email);
                 setBirthdate(response.data.birthdate);
                 setPassword(response.data.password);

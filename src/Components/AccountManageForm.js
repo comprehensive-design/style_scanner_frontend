@@ -64,12 +64,13 @@ export default function AccountManage({ profilePictureUrl='/img/profile.png', di
             if (popupType === "image") {
                 const formData = new FormData();
                 formData.append('profilePictureUrl', data);
-                await axios.post('/api/user/update', formData, {
+                const response=await axios.post('/api/user/updateProfile', formData, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
                         'Content-Type': 'multipart/form-data'
                     }
                 });
+                console.log(response.data);
             }  else if (popupType === "logout") {
                 window.location.href = '/';
                 alert("로그아웃되었습니다.");
@@ -120,7 +121,7 @@ export default function AccountManage({ profilePictureUrl='/img/profile.png', di
                         </div>
                         <div className={styles.profileBox2}>
                             <div>
-                                <p>@&nbsp;</p>
+                                <p>@</p>
                                 <p id="userID">{displayName}</p>
                                 <input type="image" id={styles.changeName} onClick={() => openPopup("name")} src="/img/fix.png"></input>
                             </div>
