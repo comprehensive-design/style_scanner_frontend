@@ -32,28 +32,30 @@ function ComFeed({ feedUrl, userId, content, displayName, profilePictureUrl, goD
     return (
         <div>
             <div className={styles.comCompleteFeed}>
-                {/* Header */}
-                <div className={styles.comProfile}>
-                    <div className={styles.comProfileBox} onClick={openFeedPopup}>
-                        <img id='comProfileImage' src={profilePictureUrl} alt="Profile" />
+                <div className={styles.comProfile} onClick={openFeedPopup}>
+
+                    <div className={styles.comProfileBox}>
+                        {profilePictureUrl ? (
+                            <img className={styles.comProfileImage2} src={profilePictureUrl} alt="Profile" />
+                            
+                        ) : <img id={styles.comProfileImage} src={`img/profile.png`} alt="Profile"></img>}
                     </div>
-                    <p className={styles.comProfileName} id='comProfileName' onClick={openFeedPopup}>
-                        {displayName}
-                    </p>
-                    <input type="button" className={styles.comGoButton} value="→" onClick={openPopup} />
-                    {isFeedPopupOpen && <FeedPopup onClose={closeFeedPopup} />}
-                    {isPopupOpen && <CommunityInfo onClose={closePopup} />}
+                    <p className={styles.comProfileName} id={styles.name}>{displayName}</p>
                 </div>
+
+                {isFeedPopupOpen && <FeedPopup onClose={closeFeedPopup} />}
+
 
                 <div className={styles.comFeedMain}>
                     <div className={styles.imageWrapper} onClick={goDir === "navigateToHomeInfo" ? () => navigateTo("/HomeInfo") : openPopup}>
                         <img src={feedUrl} alt="Feed" />
+                        {isPopupOpen && <CommunityInfo onClose={closePopup} />}
                     </div>
                 </div>
             </div>
 
             <div className={styles.writeBox}>
-                <span className={styles.writeId} id="writerId"><b>useruser2</b></span>
+                <span className={styles.writeId} id="writerId"><b>{displayName}</b></span>
                 <div className={styles.writeTotal}>
                     <span className={styles.writeContent} id="writeContent">{content}&nbsp;</span>
                     <span className={styles.tag} id="tag">@noodle.zip</span>
