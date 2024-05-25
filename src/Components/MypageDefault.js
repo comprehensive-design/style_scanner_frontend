@@ -26,7 +26,7 @@ export default function MypageDefault() {
                 setDisplayName(response.data.displayName);
                 setBio(response.data.bio);
                 setProfilePictureUrl(response.data.profilePictureUrl);
-                if(profilePictureUrl=="")
+                if (response.data.profilePictureUrl == null)
                     setProfilePictureUrl("/img/profile.png");
             })
             .catch((error) => {
