@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    overflow-y: hidden;
+  }
+  
+  .outer {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .outer::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .inner {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+  }
+  
+  .bg {
+  background-repeat: no-repeat;
+  background-position:center;
+}
+
+.bg2 {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position:center;
+}
+
+.link{
+  margin-top: 150px;
+  font-size: 24px;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
