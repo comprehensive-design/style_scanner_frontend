@@ -7,9 +7,8 @@ import Button from './Button';
 import axios from 'axios';
 import Footer from './Footer';
 
-export default function AccountManage({ profilePictureUrl='/img/profile.png', displayName, bio, password, email, birthdate, gender }) {
+export default function AccountManageForm({ profilePictureUrl, displayName, bio, password, email, birthdate, gender }) {
     const [popupType, setPopupType] = useState(null);
-
     const openPopup = (type) => {
         setPopupType(type);
     };
@@ -21,11 +20,6 @@ export default function AccountManage({ profilePictureUrl='/img/profile.png', di
     const onSave = async (data) => {
         let postData = {};
         switch (popupType) {
-            case "image":
-                postData = {
-                    profilePictureUrl: data
-                };
-                break;
             case "name":
                 postData = {
                     displayName: data
@@ -59,20 +53,20 @@ export default function AccountManage({ profilePictureUrl='/img/profile.png', di
                 break;
         }
         try {
-            console.log(data);
             const accessToken = localStorage.getItem('accessToken');
             if (popupType === "image") {
                 const formData = new FormData();
-                formData.append('profilePictureUrl', data);
-                const response=await axios.post('/api/user/updateProfile', formData, {
+                formData.append("profilePictureUrl", data);
+                const response = await axios.post('/api/user/updateProfile', formData, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
-                        'Content-Type': 'multipart/form-data'
+                        'Content-Type': "multipart/form-data"
                     }
                 });
-                console.log(response.data);
-            }  else if (popupType === "logout") {
+            } else if (popupType === "logout") {
+                setTimeout(() => {
                 window.location.href = '/';
+                }, 0);
                 alert("로그아웃되었습니다.");
             } else if (popupType === "delete") {
                 await axios.post('/api/user/withdrawal', postData, {
@@ -80,7 +74,9 @@ export default function AccountManage({ profilePictureUrl='/img/profile.png', di
                         'Authorization': `Bearer ${accessToken}`
                     }
                 });
+                setTimeout(() => {
                 window.location.href = '/';
+                }, 0);
                 alert("탈퇴되었습니다.");
             }
             else {
@@ -92,18 +88,18 @@ export default function AccountManage({ profilePictureUrl='/img/profile.png', di
             }
 
             closePopup();
-            setTimeout(() => {
-                window.location.reload();
-            }, 0);
+            window.location.reload();
         } catch (error) {
-            alert('서버가 불안정합니다.', error);
+            if (error.response && error.response.data) {
+                alert(JSON.stringify(error.response.data.message));
+            } else {
+                alert(error);
+            }
         }
     };
 
-    const gen = gender === 0 ? "여성" : "남성";
     if(profilePictureUrl=="")
-        profilePictureUrl="/img/profile.png";
-
+        profilePictureUrl="/img/whiteBox.png"
     return (
         <body>
             <div className={styles.total}>
@@ -116,7 +112,7 @@ export default function AccountManage({ profilePictureUrl='/img/profile.png', di
 
                     <div className={styles.profileBox}>
                         <div className={styles.profileBox1}>
-                        <img id={styles.profileImg} src={profilePictureUrl}></img>
+                            <img id={styles.profileImg} src={profilePictureUrl}></img>
                             <input type="image" id={styles.changeImg} onClick={() => openPopup("image")} src="/img/fix.png" ></input>
                         </div>
                         <div className={styles.profileBox2}>
@@ -136,7 +132,7 @@ export default function AccountManage({ profilePictureUrl='/img/profile.png', di
                         <ManageBox title='이메일' content={email} visible={false}></ManageBox>
                         <ManageBox title='생년월일' content={birthdate} left='55%' onClick={() => openPopup("birth")}></ManageBox>
                         <ManageBox title='비밀번호' content="****" top='45%' onClick={() => openPopup("password")}></ManageBox>
-                        <ManageBox title='성별' content={gen} left='55%' top='45%' onClick={() => openPopup("gender")}></ManageBox>
+                        <ManageBox title='성별' content={gender} left='55%' top='45%' onClick={() => openPopup("gender")}></ManageBox>
                     </div>
 
                     <div className={styles.buttonBox}>

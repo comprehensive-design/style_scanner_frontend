@@ -6,15 +6,20 @@ export default function Popup({ title, onClose, onSave, visible = true, rightBtn
     const [value, setValue] = useState('');
 
     const handleChange = (e) => {
-        setValue(e.target.value);
+        if (type === "file") {
+            const file = e.target.files[0];
+            setValue(file);
+        }
+        else
+            setValue(e.target.value);
     };
     const handleSave = () => {
         if (type === "radio") {
-        const genderValue = document.querySelector('input[name="gender"]:checked').value;
-        onSave(genderValue);
-    } else {
-        onSave(value); // 다른 경우, 입력한 값을 전달
-    }
+            const genderValue = document.querySelector('input[name="gender"]:checked').value;
+            onSave(genderValue);
+        } else {
+            onSave(value); // 다른 경우, 입력한 값을 전달
+        }
     };
 
     return (
@@ -24,7 +29,8 @@ export default function Popup({ title, onClose, onSave, visible = true, rightBtn
             </h3>
             {visible && <input type='text' className={styles.inputBox} value={value} onChange={handleChange} />}
             {type == "file" &&
-                <input type={type} className={styles.inputBox} accept=".jpg, .png" value={value} onChange={handleChange} />}
+                <input type={type} className={styles.inputBox} accept=".jpg, .png" onChange={handleChange} />
+            }
             {type === "radio" && (
                 <div className={styles.genderBox}>
                     <div>

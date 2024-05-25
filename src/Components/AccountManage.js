@@ -26,14 +26,15 @@ export default function MypageDefault() {
                 setDisplayName(response.data.displayName);
                 setBio(response.data.bio);
                 setProfilePictureUrl(response.data.profilePictureUrl);
-                console.log(profilePictureUrl);
-                if(profilePictureUrl=="")
+                if (response.data.profilePictureUrl == null)
                     setProfilePictureUrl("/img/profile.png");
-                    console.log(profilePictureUrl);
                 setEmail(response.data.email);
                 setBirthdate(response.data.birthdate);
                 setPassword(response.data.password);
-                setGender(response.data.gender);
+                if ((response.data.gender) == 0)
+                    setGender("여성");
+                else
+                    setGender("남성");
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
