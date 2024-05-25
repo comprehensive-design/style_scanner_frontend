@@ -33,7 +33,7 @@ function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCoun
 export default function MypageDefaultForm({ displayName, bio, profilePictureUrl, followingNum, followingURLs = [], followingIDs = [], imgUrls = [], brandNames = [], itemNames = [], itemOptions = [], itemPrices = [], likeCounts = [] }) {
 
     if(profilePictureUrl=="")
-        profilePictureUrl="/img/profile.png";
+        profilePictureUrl="/img/whiteBox.png"
     return (
         <body>
             <div className={styles.wrap}>
