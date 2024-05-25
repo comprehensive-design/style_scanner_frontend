@@ -3,7 +3,7 @@ import styles from "../css/CommunityWrite.module.css";
 import axios from "axios";
 import Button from './Button';
 
-export default function CommunityWrite({ onClose }) {
+export default function CommunityWrite({ feedUrl, onClose }) {
   const [question, setQuestion] = useState("");
   const textarea = useRef();
 
@@ -18,10 +18,11 @@ export default function CommunityWrite({ onClose }) {
 
     try {
       if (question.trim()) {
+        alert(feedUrl);
         const response = await axios.post(
           '/api/post/create',
           {
-            feedUrl: "wow",
+            feedUrl: feedUrl,
             content: question
           },
           {
@@ -33,6 +34,7 @@ export default function CommunityWrite({ onClose }) {
         );
 
         console.log(response.data);
+        
         if (response.status === 200) {
           const accessToken = response.data.access_token;
           localStorage.setItem("accessToken", accessToken);

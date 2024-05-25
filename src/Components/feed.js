@@ -35,6 +35,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
             navigate("/HomeInfo", {
                     state: {
                         mediaUrls: images, 
+                        feedUrl: imageUrl,
                         media_id: media_id,
                         username: username,
                         profile_url: profile_url

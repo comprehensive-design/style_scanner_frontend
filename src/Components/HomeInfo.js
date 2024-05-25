@@ -35,22 +35,22 @@ export const getItems = async (id) => {
 };
 
 //버튼 누른 피드 정보 가져오기
-export const getFeedPost = async () => {
-    try {
-        //수정
-        const response = await axios.get('/api/insta/?');
-        return response.data;
-    } catch (error) {
-        console.error('피드 데이터 가져오기 오류:', error);
-        throw error;
-    }
-};
+// export const getFeedPost = async () => {
+//     try {
+//         //수정
+//         const response = await axios.get('/api/insta/?');
+//         return response.data;
+//     } catch (error) {
+//         console.error('피드 데이터 가져오기 오류:', error);
+//         throw error;
+//     }
+// };
 
 //next버튼 누를 때마다 피드 정보 주기
 
 export default function HomeInfo() {
     const location = useLocation(); 
-    const { mediaUrls, media_id, username, profile_url } = location.state || {}; // 전달된 상태 받기
+    const { mediaUrls, feedUrl, media_id, username, profile_url } = location.state || {}; // 전달된 상태 받기
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 4;
@@ -114,7 +114,7 @@ export default function HomeInfo() {
                     <button className={styles.nextBtn} onClick={nextPage}>{'>'}</button>
                 </div>
                 <p className={styles.goComBtn} onClick={openPopup}>찾는 제품이 없으신가요?</p>
-                {isPopupOpen && <CommunityWrite onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
+                {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
             </div>
         </div>
     );
