@@ -7,21 +7,48 @@ import axios from 'axios';
 import CommunityWrite from './CommunityWrite.js';
 
 
-export const getPosts = async (id) => {
+export const getItems = async (id) => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+        console.error("토큰이 없습니다.");
+        throw new Error("토큰이 없습니다.");
+    }
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    //아이템 정보 가져오기
     try {
-        const response = await axios.get('http://54.180.208.255:9000/api/item', {
-            params: { id: id }
+        const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
+            params: { id: id },
+            ...config,
         });
-        return response.data; 
+        return response.data;
 
     } catch (error) {
         console.error('Error', error);
-        throw error; 
+        throw error;
+    }
+
+};
+//버튼 누른 피드 정보 가져오기
+export const getFeedPost = async () => {
+    try {
+        //수정
+        const response = await axios.get('/api/insta/?');
+        return response.data;
+    } catch (error) {
+        console.error('피드 데이터 가져오기 오류:', error);
+        throw error;
     }
 };
 
+//next버튼 누를 때마다 피드 정보 주기
 
-export default function HomeInfo() {
+export default function HomeInfo({mediaUrls, media_id, username, profile_url}) {
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 4;
@@ -49,7 +76,7 @@ export default function HomeInfo() {
         const fetchItems = async () => {
             const id = 1;
             try {
-                const data = await getPosts(id);
+                const data = await getItems(id);
                 setItems(data);
             } catch (error) {
                 console.error(error);
@@ -63,7 +90,14 @@ export default function HomeInfo() {
 
     return (
         <div className={styles.contents}>
-            <Feed />
+            {/* <Feed
+                key={media_id}
+                media_url_list={mediaUrls}
+                profile_url={profile_url}
+                username={username}
+                media_id={media_id}
+            /> */}
+            <Feed media_url_list={[`img/feed1.png`]} profile_url={`img/profile.png`} username={"hi_sseulgi"}></Feed>
             <div>
                 <p className={styles.product}>Product</p>
                 <hr></hr>
