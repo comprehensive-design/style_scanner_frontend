@@ -8,15 +8,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    //하드코딩..
-    // const images = [
-    //     // "http://via.placeholder.com/370X465",
-    //     // "http://via.placeholder.com/370X465",
-    //     // "http://via.placeholder.com/370X465"
-    //     'img/feed1.png',
-    //     'img/feed2.png',
-    //     'img/feed3.png'
-    // ];
+    
     const images = media_url_list;
 
     const openPopup = () => {
@@ -28,9 +20,10 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
     };
 
     //버튼 누른 피드 정보 서버에 전송
-    const postCurrentImage = async (imageUrl, images, shouldNavigate = false) => {
+    const postCurrentImage = async (imageUrl, images) => {
         console.log(`click image: ${imageUrl}`);
-        navigate("/HomeInfo");
+        // navigate("/HomeInfo");
+        
         // try {
         //     // const response = await axios.post('/api/insta/home', {
         //     //     imageUrl: imageUrl,
@@ -39,16 +32,14 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
         //     // });
         //     // console.log('성공', response.data);
 
-        //     if (shouldNavigate) {
-        //         navigate("/HomeInfo", {
-        //             state: {
-        //                 mediaUrls: images, 
-        //                 media_id: media_id,
-        //                 username: username,
-        //                 profile_url: profile_url
-        //             }
-        //         });
-        //     }
+            navigate("/HomeInfo", {
+                    state: {
+                        mediaUrls: images, 
+                        media_id: media_id,
+                        username: username,
+                        profile_url: profile_url
+                    }
+                });
         // } catch (error) {
         //     console.error('Error posting image:', error);
         // }
@@ -57,7 +48,6 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
         setCurrentImageIndex((prevIndex) => {
             const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
             console.log(`다음 이미지 index: ${nextIndex}`);
-            // postCurrentImage(images[nextIndex]); 
             return nextIndex;
         });
     };
@@ -67,7 +57,6 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
             //0번 인덱스에서 이전 x
             const nextIndex = prevIndex === 0 ? 0 : prevIndex - 1;
             console.log(`이전 이미지 index: ${nextIndex}`);
-            // postCurrentImage(images[nextIndex]);
             return nextIndex;
         });
     };
@@ -75,18 +64,22 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
         <div className={styles.completeFeed}>
             {/* header */}
             <div className={styles.profile} onClick={openPopup}>
-                {/* 셀럽 피드에 media id 보내기 */}
-                {isPopupOpen && <FeedPopup onClose={closePopup} media_id={media_id}/>} 
+                {/* 셀럽 피드에 username 보내기 */}
+                {isPopupOpen && <FeedPopup onClose={closePopup} username={username}/>} 
 
                 <div className={styles.ImageBox}>
-                    <img id={styles.profileImage} src={profile_url} alt="Profile"></img>
+                    {profile_url ? (
+                        <img className={styles.profileImage2} src={profile_url} alt="Profile" />
+                        // <img id={styles.profileImage} src={`img/profile.png`} alt="Profile"></img>
+
+                    ) : <img id={styles.profileImage} src={`img/profile.png`} alt="Profile"></img>}
                 </div>
                 <p className={styles.profileId} id={styles.name}>{username}</p>
             </div>
 
             {/* carousel 구현 */}
             <div className={styles.feedMain}>
-                <div className={styles.imageWrapper} onClick={postCurrentImage}>
+                <div className={styles.imageWrapper} onClick={() => postCurrentImage(images[currentImageIndex], images)}>
                     <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
                 </div>
                 <div className={styles.dirBtn}>

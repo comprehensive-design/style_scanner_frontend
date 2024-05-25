@@ -8,7 +8,7 @@ export default function CommunityWrite({ onClose }) {
   const textarea = useRef();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
 
     const token = localStorage.getItem('accessToken');
     if (!token) {
@@ -45,19 +45,20 @@ export default function CommunityWrite({ onClose }) {
         alert('질문을 작성해주세요.');
       }
     } catch (error) {
+
       console.error('Error:', error.response ? error.response.data : error.message);
+
       if (error.response) {
-        // Print server error message for better debugging
         alert(`서버 오류: ${error.response.data.message}`);
-      } else {
-        // Handle network errors or other issues
+      } 
+      else {
         alert('서버 오류가 발생했습니다. 관리자에게 문의하세요.');
       }
     }
   };
 
   const okClick = (e) => {
-    handleSubmit(e); // Pass the event to handleSubmit
+    handleSubmit(e); 
   };
 
   return (
