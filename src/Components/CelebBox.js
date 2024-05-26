@@ -2,28 +2,27 @@ import React, { Component } from 'react';
 import styles from '../css/CelebBox.module.css';
 import Button from './Button';
 
-function CelebBox() {
+function CelebBox({prifileImgUrl="/img/whiteBox.png", displayName, follower, picUrl1="/img/whiteBox.png", picUrl2="/img/whiteBox.png", picUrl3="/img/whiteBox.png", onSave}) {
 
     return (
         <div className={styles.box}>
-
             <div className={styles.pBox}>
-                <img className={styles.profileImg} src="http://via.placeholder.com/60X60" ></img>
+                <img className={styles.profileImg} src={prifileImgUrl} ></img>
                 <div className={styles.mPart}>
-                    <div className={styles.uText} >@userName</div>
-                    <div className={styles.fText}>343 follower</div>
+                    <div className={styles.uText} >@{displayName}</div>
+                    <div className={styles.fText}>{follower} follower</div>
                 </div>
                 <div className={styles.btn}>
-                    <Button borderRad ='20px' >팔로우</Button>
+                    <Button borderRad ='20px' onClick={() => onSave()}>팔로우</Button>
                 </div>
             </div>
 
             <div className={styles.iBox}>
-                <img className={styles.fimage} src="http://via.placeholder.com/200X250" ></img>
-                <img className={styles.fimage} src="http://via.placeholder.com/200X250" ></img>
-                <img className={styles.fimage} src="http://via.placeholder.com/200X250" ></img>
+                <img className={styles.fimage} src={picUrl1} ></img>
+                <img className={styles.fimage} src={picUrl2} ></img>
+                <img className={styles.fimage} src={picUrl3} ></img>
             </div>
-        </div >
+        </div>
     )
 
 }
