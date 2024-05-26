@@ -6,7 +6,7 @@ import CommentInfo from "./CommentInfo";
 
 
 export const getComments = async () => {
-  const response = await axios.get("/posts");
+  const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
   return response.data;
 };
 
