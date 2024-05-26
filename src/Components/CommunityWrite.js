@@ -110,13 +110,11 @@ export default function CommunityWrite({ feedUrl, onClose }) {
           <p className={styles.title}>질문 글</p>
         </div>
         <div className={styles.comWriterBox}>
-          <div className={styles.writerProfile}>
-            <img
-              id={styles.writerImage}
-              src={profile.profilePictureUrl || process.env.PUBLIC_URL + "img/profile.png"}
-              alt="Profile"
-            />
-          </div>
+          <img
+            id={styles.writerImage}
+            src={profile.profilePictureUrl || process.env.PUBLIC_URL + "img/profile.png"}
+            alt="Profile"
+          />
           <p id={styles.writerId}>{profile.displayName || "Unknown User"}</p>
         </div>
         <div className={styles.decoBox}>

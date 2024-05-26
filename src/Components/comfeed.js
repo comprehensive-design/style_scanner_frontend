@@ -35,13 +35,11 @@ function ComFeed({ feedUrl, userId, content, displayName, profilePictureUrl, goD
         <div>
             <div className={styles.comCompleteFeed}>
                 <div className={styles.comProfile} onClick={openFeedPopup}>
-                    <div className={styles.comProfileBox}>
-                        {profilePictureUrl ? (
-                            <img className={styles.comProfileImage2} src={profilePictureUrl} alt="Profile" />
-                        ) : (
-                            <img id={styles.comProfileImage} src={`img/profile.png`} alt="Profile" />
-                        )}
-                    </div>
+                    {profilePictureUrl ? (
+                        <img className={styles.comProfileImage} src={profilePictureUrl} alt="Profile" />
+                    ) : (
+                        <img className={styles.comProfileImage} src={`img/profile.png`} alt="Profile" />
+                    )}
                     <p className={styles.comProfileName} id={styles.name}>{displayName}</p>
                 </div>
 
