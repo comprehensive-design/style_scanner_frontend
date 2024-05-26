@@ -105,6 +105,7 @@ body {
     display: flex;
     padding: 0 auto;
     justify-content: center;
+    min-height: 100px;
 }
 
 .following div{
@@ -128,6 +129,7 @@ body {
     display: flex;
     justify-content: center;
     margin-right: 30px;
+    min-height: 100px
 }
 
 .like > div {
