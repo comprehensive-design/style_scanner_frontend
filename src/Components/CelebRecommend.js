@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 
 export default function CelebRecommend() {
 
-    const [celebs, setCelebs] = useState([]);
+    const [displayName, setDisplayName] = useState('');
 
+    const [celebs, setCelebs] = useState([]);
 
     const imgUrls = celebs.map(following => following.prifileImgUrl);
     const displayNames = celebs.map(following => following.displayName);
@@ -16,26 +17,36 @@ export default function CelebRecommend() {
 
 
     // get
-    // useEffect(() => {
-    //     const accessToken = localStorage.getItem('accessToken');
-    //     if (!accessToken) {
-    //         console.error('Access token is missing');
-    //         return;
-    //     }
-
-    //     axios.get("/api/", {
-    //         headers: {
-    //             'Authorization': `Bearer ${accessToken}`
-    //         }
-    //     })
-    //         .then((response) => {
-    //             const { celeb_list } = response.data;
-    //             setCelebs(celeb_list.slice(0, 6));
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error fetching data:', error);
-    //         });
-    // }, []);
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+        axios.get("/api/user/me", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((response) => {
+                setDisplayName(response.data.displayName);
+            })
+            .catch((error) => {
+                alert(error.response.data.message);
+            });
+        // axios.get("/api/", {
+        //     headers: {
+        //         'Authorization': `Bearer ${accessToken}`
+        //     }
+        // })
+        //     .then((response) => {
+        //         const { celeb_list } = response.data;
+        //         setCelebs(celeb_list.slice(0, 6));
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error fetching data:', error);
+        //     });
+    }, []);
 
     //post
     // const handleFollow = (index) => {
@@ -51,16 +62,16 @@ export default function CelebRecommend() {
     //         });
     // };
 
+    console.log(displayName);
     return (
-        <CelebRecommendForm>
+        <CelebRecommendForm
+            name={displayName} 
             imgUrls={imgUrls}
             displayNames={displayNames}
             followers={followers}
             picUrl1s={picUrl1s}
             picUrl2s={picUrl2s}
-            picUrl3s={picUrl3s}
-            {/* onSave={handleFollow} */}
-        </CelebRecommendForm>
+            picUrl3s={picUrl3s} />
+        //    onSave={handleFollow}
     );
-
 }
