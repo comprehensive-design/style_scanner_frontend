@@ -1,11 +1,6 @@
-import styles from '../css/CommunityNoti.module.css';
-import Sidebar from './Sidebar';
-import NotiBox from './NotiBox';
-import Pagination from './Pagination';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Footer from './Footer';
-
+import CommunityNotiForm from './CommunityNotiForm';
 
 export const getPosts = async () => {
     const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
@@ -13,6 +8,9 @@ export const getPosts = async () => {
 };
 
 export default function CommunityNoti() {
+
+    const [notifications, setNotifications] = useState([]);
+
     const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(8);
@@ -33,38 +31,22 @@ export default function CommunityNoti() {
         fetchPosts();
     }, [currentPage, itemsPerPage]);
 
+    const urls = notifications.map(notification => notification.profilePictureUrl);
+    const titles = notifications.map(notification => notification.brandName);
+    const replys = notifications.map(notification => notification.itemName);
+    const dates = notifications.map(notification => notification.itemOption);
     return (
+        <CommunityNotiForm
+            urls={urls}
+            titles={titles}
+            replys={replys}
+            posts={posts}
+            dates={dates}
 
-        <body>
-
-            <div className={styles.total}>
-                <Sidebar />
-                <div className={styles.content}>
-                    <div className={styles.title}>
-                        <h2>알림</h2>
-                        <hr />
-                    </div>
-                    <div className={styles.wrap}>
-                        {currentItems.map(item => (
-                            <NotiBox key={item.id} />
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.heightPadding}></div>
-            <div className={styles.footerBox}>
-                <div className={styles.leftBtween} />
-                <div className={styles.footer}>
-                    <Pagination
-                        itemsNum={posts.length}
-                        itemsPerPage={itemsPerPage}
-                        setCurrentPage={setCurrentPage}
-                        currentPage={currentPage}
-                    />
-                </div>
-            </div>
-            <Footer />
-        </body>
+            currentItems={currentItems}
+            itemsPerPage={itemsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+        />
     );
 }
