@@ -55,6 +55,10 @@ body {
     justify-content: center;
 }
 
+#profileBio{
+    text-align: left;
+}
+
 #FollowerWord{
     margin: 0;
     padding: 0;
