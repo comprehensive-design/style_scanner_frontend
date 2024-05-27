@@ -66,7 +66,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
             {/* header */}
             <div className={styles.profile} onClick={openPopup}>
                 {/* 셀럽 피드에 username 보내기 */}
-                {isPopupOpen && <FeedPopup onClose={closePopup} username={username}/>} 
+                {isPopupOpen && <FeedPopup onClose={closePopup} user={username}/>} 
 
                 <div className={styles.ImageBox}>
                     {profile_url ? (
