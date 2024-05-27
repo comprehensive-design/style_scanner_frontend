@@ -142,6 +142,7 @@
 }
 #writerId{
     margin-left: 20px;
+    font-weight: 600;
 }
 .mainDiv{
     position:absolute;

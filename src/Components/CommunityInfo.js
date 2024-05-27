@@ -6,24 +6,40 @@ import Button from './Button';
 import CommentInfo from "./CommentInfo";
 
 
-export const getComments = async () => {
-  const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
-  return response.data;
+//댓글 get
+export const getComments = async (postId) => {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+      console.error("토큰이 없습니다.");
+      throw new Error("토큰이 없습니다.");
+  }
+  const config = {
+      headers: {
+          Authorization: `Bearer ${token}`,
+      },
+  };
+
+  try {
+      const response = await axios.get('/api/comment/', {
+          params: { postId: postId },
+          ...config,
+      });
+      return response.data || [];
+  }
+  catch (error) {
+      console.log(error);
+      throw error;
+  }
 };
 
 export default function CommunityInfo({ onClose, goDir, feedUrl, postId, displayName, profilePictureUrl }) {
   const navigate = useNavigate();
-  //댓글 post
   const [content, setContent] = useState("");
-  const textarea = useRef();
 
   //댓글 get
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const commentListRef = useRef();
-
-  //사진
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -90,8 +106,7 @@ export default function CommunityInfo({ onClose, goDir, feedUrl, postId, display
     navigate(path);
   };
   const okClick = () => {
-    alert("버튼 누름");
-    // handleSubmit(); // 작성 버튼 클릭 시 데이터 전송
+    handleSubmit(); 
   };
 
   return (
@@ -126,8 +141,9 @@ export default function CommunityInfo({ onClose, goDir, feedUrl, postId, display
         <div className={styles.mainDiv}>
           <div className={styles.totalItem} ref={commentListRef}>
             {comments.map(comment => (
-              <CommentInfo key={comment.id} image={comment.image} />
+              <CommentInfo key={comment.id} displayName={comment.displayName} content={comment.content} profilePictureUrl={comment.profilePictureUrl}/>
             ))}
+            <CommentInfo key={0} displayName={"nwbd_we"} content={"하파크리스틴 찾아보세요"} profilePictureUrl={""}/>
           </div>
           <div className={styles.bottomDiv}>
             <input className={styles.comInput} type="text" placeholder="댓글을 입력하세요"></input>
