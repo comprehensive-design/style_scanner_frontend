@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import CommunityInfo from './CommunityInfo';
 import FeedPopup from './FeedPopup';
 
-function ComFeed({ key, feedUrl, userId, content, displayName, profilePictureUrl, goDir }) {
+function ComFeed({ postId, feedUrl,content, displayName, profilePictureUrl, goDir }) {
     const navigate = useNavigate();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isFeedPopupOpen, setIsFeedPopupOpen] = useState(false);
@@ -50,7 +50,7 @@ function ComFeed({ key, feedUrl, userId, content, displayName, profilePictureUrl
                         <img src={feedUrl} alt="Feed" />
                     </div>
                 </div>
-                {isPopupOpen && <CommunityInfo onClose={closePopup} feedUrl={feedUrl} postId={key} profilePictureUrl={profilePictureUrl} displayName={displayName} />}
+                {isPopupOpen && <CommunityInfo onClose={closePopup} feedUrl={feedUrl} postId={postId} profilePictureUrl={profilePictureUrl} displayName={displayName} />}
             </div>
 
             <div className={styles.writeBox}>
