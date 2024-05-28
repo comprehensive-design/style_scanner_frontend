@@ -102,7 +102,7 @@ export default function AccountManageForm({ profilePictureUrl, displayName, bio,
         profilePictureUrl="/img/whiteBox.png"
         
     return (
-        <body>
+        <div>
             <div className={styles.total}>
                 <Sidebar />
                 <div className={styles.content}>
@@ -171,9 +171,7 @@ export default function AccountManageForm({ profilePictureUrl, displayName, bio,
                 </>
             )}
             <div className={styles.heightPadding}></div>
-            <Footer />
-        </body>
-
-
+            <div className={styles.footer}><Footer /></div>
+        </div>
     );
 }
