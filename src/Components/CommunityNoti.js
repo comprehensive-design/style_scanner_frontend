@@ -35,7 +35,7 @@ export default function CommunityNoti() {
 
     return (
 
-        <body>
+        <>
 
             <div className={styles.total}>
                 <Sidebar />
@@ -65,6 +65,6 @@ export default function CommunityNoti() {
                 </div>
             </div>
             <Footer />
-        </body>
+        </>
     );
 }

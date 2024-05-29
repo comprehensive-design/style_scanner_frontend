@@ -36,7 +36,7 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
     if(profilePictureUrl=="")
         profilePictureUrl="/img/whiteBox.png"
     return (
-        <body>
+        <>
             <div className={styles.total}>
                 <Sidebar />
                 <div className={styles.content}>
@@ -100,10 +100,8 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
 
                 </div>
             </div>
-
-            <div className={styles.heightPadding}></div>
             <Footer />
-            </body>
+            </>
 
     );
 }

@@ -131,9 +131,9 @@ export default function AccountManageForm({ profilePictureUrl, displayName, bio,
                     <hr className={styles.horizon}></hr>
                     <div className={styles.managingBox}>
                         <ManageBox title='이메일' content={email} visible={false}></ManageBox>
-                        <ManageBox title='생년월일' content={birthdate} left='55%' onClick={() => openPopup("birth")}></ManageBox>
-                        <ManageBox title='비밀번호' content="****" top='45%' onClick={() => openPopup("password")}></ManageBox>
-                        <ManageBox title='성별' content={gender} left='55%' top='45%' onClick={() => openPopup("gender")}></ManageBox>
+                        <ManageBox title='생년월일' content={birthdate} $left='55%' onClick={() => openPopup("birth")}></ManageBox>
+                        <ManageBox title='비밀번호' content="****" $top='45%' onClick={() => openPopup("password")}></ManageBox>
+                        <ManageBox title='성별' content={gender} $left='55%' $top='45%' onClick={() => openPopup("gender")}></ManageBox>
                     </div>
 
                     <div className={styles.buttonBox}>
