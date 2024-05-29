@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../css/CommentInfo.module.css'
 
-export default function CommentInfo({ profilePictureUrl, displayName, content }) {
+export default function CommentInfo({ key,profilePictureUrl, displayName, content }) {
     const [imageSrc, setImageSrc] = useState(`img/heart.png`); // 초기 상태는 선택이 되지 않은 상태를 나타내기 위함
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
 
