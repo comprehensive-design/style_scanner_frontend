@@ -5,35 +5,31 @@ import axios from "axios";
 import Button from './Button';
 import CommentInfo from "./CommentInfo";
 
+
 // 댓글 get
 export const getComments = async (postId) => {
   const token = localStorage.getItem("accessToken");
   if (!token) {
-      console.error("토큰이 없습니다.");
-      throw new Error("토큰이 없습니다.");
+    console.error("토큰이 없습니다.");
+    throw new Error("토큰이 없습니다.");
   }
-  if (!postId) {
-      console.error("postId가 없습니다.");
-      throw new Error("postId가 없습니다.");
-  }
+
   const config = {
-      headers: {
-          Authorization: `Bearer ${token}`,
-      },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
 
   try {
-      const response = await axios.get('/api/comment/', {
-          params: { postId: postId },
-          ...config,
-      });
-      return response.data || [];
-  }
-  catch (error) {
-      console.log(error);
-      throw error;
+    const response = await axios.get(`/api/comment/${postId}`, config);
+    console.log(response);
+    return response.data || [];
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };
+
 
 export default function CommunityInfo({ onClose, goDir, feedUrl, postId, displayName, profilePictureUrl }) {
   const navigate = useNavigate();
@@ -61,15 +57,14 @@ export default function CommunityInfo({ onClose, goDir, feedUrl, postId, display
     fetchComments();
   }, [postId]);
 
+  //댓글 post
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const token = localStorage.getItem('accessToken');
     if (!token) {
       alert('로그인이 필요합니다.');
       return;
     }
-   
     try {
       if (content.trim()) {
         const response = await axios.post(
@@ -142,6 +137,7 @@ export default function CommunityInfo({ onClose, goDir, feedUrl, postId, display
             {comments.map(comment => (
               <CommentInfo key={comment.id} displayName={comment.displayName} content={comment.content} profilePictureUrl={comment.profilePictureUrl}/>
             ))}
+           
           </div>
           <div className={styles.bottomDiv}>
             <input 
