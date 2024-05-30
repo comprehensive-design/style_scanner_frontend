@@ -68,7 +68,7 @@ export default function CommunityFeed() {
         {Array.isArray(posts) && posts.length > 0 ? (
           posts.map(post => (
             <ComFeed 
-              key={post.id} 
+              postId={post.id} 
               feedUrl={post.feedUrl} 
               userId={post.userId} 
               content={post.content} 

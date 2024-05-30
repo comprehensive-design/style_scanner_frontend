@@ -24,9 +24,9 @@ export default function CommentBox({feedId, feedImg, title, contents, date }){
                 <p className={styles.date}>{date}</p>
             </div>
             <div className={styles.buttonDiv}>
-                <Button onClick={editClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>수정</Button>
+                <Button onClick={editClick} $BackColor="#d9d9d9" $txtColor='black' $border='none' $hovColor='black' $hovTxtColor='white'>수정</Button>
                 &nbsp;
-                <Button  onClick={deleteClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>삭제</Button>
+                <Button  onClick={deleteClick} $BackColor="#d9d9d9" $txtColor='black' $border='none' $hovColor='black' $hovTxtColor='white'>삭제</Button>
             </div>
         </div>
     );

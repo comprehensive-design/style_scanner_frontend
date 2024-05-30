@@ -1,66 +1,40 @@
 .commentBox{
+    position: relative;
     display: flex;
+    float: left;
     border-bottom: 1px solid #D9D9D9;
     height: 70px;
     width:400px;
-    position: relative;
     align-items: center;
-    
-    img {
-        width: 50%;
-        height:50%;
-        object-fit: cover; 
-      }
-      z-index: 0;
+    z-index: 0;
 }
-.commentWriterprofile{
-    line-height: 70px;
-    align-items: center;
-    height: 70px;
-    width:350px;
-
-}
-.fakeBox{
-    position: absolute;
-    height:70px;
-    width:30px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-}
-.fakeBox .commentProfileBox{
-    height:30px; width:30px;
-    background-color: #D9D9D9;
+.writerProfile{
+    margin-left: 10px;
+    height:35px; width:35px;
     border-radius: 50px;
-    
-    float:left;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
 
-} 
-.fakeBox3{
+.contentDiv{
     position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    width: 280px;
     left: 30px;
 }
-.fakeBox3 .commentWriterId{
-    display: inline-block;
-    width: 50px;
+.contentDiv .commentWriterId{
     text-align: center;
     margin-left: 30px;
+    font-weight: 600;
 }
-.fakeBox3 .commentContents{
-    display: inline-block;
+.contentDiv .commentContents{
+   
     text-align: center;
-    margin-left: 30px;
-    width: 200px;
+    margin-left: 20px;
 }
 
 .heartBox{
     position: absolute;
     right: 20px;
-
     display: flex;
     width: fit-content;
     height: 70px;
@@ -75,22 +49,4 @@
     border: none;
     cursor: pointer;
 }
-.fakeBox4{
-    position: absolute;
-    height:70px;
-    width:30px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-}
-.fakeBox4 .commentProfileBox{
-    height:30px; width:30px;
-    border-radius: 50px;
-    
-    float:left;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-} 

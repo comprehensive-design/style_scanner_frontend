@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
-    top: ${props => props.top};
-    left: ${props => props.left};
+    top: ${props => props.$top};
+    left: ${props => props.$left};
     position: absolute;
     width: 45%;
     height: 30%;
@@ -23,10 +23,10 @@ const Horizon = styled.div`
         margin: 10px 0 20px;
 `;
 
-function ManageBox({ onClick, title, content, visible = true, top = '0px', left = '0px' }) {
+function ManageBox({ onClick, title, content, visible = true, $top = '0px', $left = '0px' }) {
 
     return (
-        <StyledDiv top={top} left={left}>
+        <StyledDiv $top={$top} $left={$left}>
             <p>{title}</p>
             <ChangeBox>
                 <p>{content}</p>
