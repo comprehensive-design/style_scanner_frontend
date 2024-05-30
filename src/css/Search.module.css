@@ -22,6 +22,7 @@ body {
     width: 100%;
     justify-content: flex-start;
     align-items: center;
+    cursor: pointer;
 }
 
 .SearchUserProfile{
@@ -45,6 +46,15 @@ body {
 .userInfo{
     display: flex;
     align-items: center;
+}
+
+.grayP{
+    color: gray;
+    text-align: left;
+    font-weight: normal;
+    margin-bottom: 30px;
+    padding: 0;
+    /* background-color: blue; */
 }
 
 .userInfoWord{
@@ -109,7 +119,7 @@ body {
 
 .RelResWord{
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .paddingWidth{
