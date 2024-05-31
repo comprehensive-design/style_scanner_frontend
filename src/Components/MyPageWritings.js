@@ -98,32 +98,34 @@ export default function MyPageWritings() {
   };
 
   return (
-    <div className={styles.total}>
-      <Sidebar />
-      <div className={styles.content}>
-        <div className={styles.title}>
-          <h2>내가 작성한 글</h2>
-          <hr />
-        </div>
-        <div className={styles.writingList}>
-          {currentPosts.map(post => {
-            const commentdata = Array.isArray(post.comments) ? post.comments : [];
-            return (
-              <WritingBox
-                key={post.id}
-                postId={post.id}
-                commentCnt={commentdata.length}
-                feedImg={post.feedUrl}
-                title={post.content}
-                date={post.createdAt}
-                onDelete={() => handleDelete(post.id)}
-                onEdit={() => openPopup(post)}
-              />
-            );
-          })}
-         
+    <body>
+      <div className={styles.total}>
+        <Sidebar />
+        <div className={styles.content}>
+          <div className={styles.title}>
+            <h2>내가 작성한 글</h2>
+            <hr />
+          </div>
+          <div className={styles.writingList}>
+            {currentPosts.map(post => {
+              const commentdata = Array.isArray(post.comments) ? post.comments : [];
+              return (
+                <WritingBox
+                  key={post.id}
+                  postId={post.id}
+                  commentCnt={commentdata.length}
+                  feedImg={post.feedUrl}
+                  title={post.content}
+                  date={post.createdAt}
+                  onDelete={() => handleDelete(post.id)}
+                  onEdit={() => openPopup(post)}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
+      <div className={styles.heightPadding}></div>
       <div className={styles.footerBox}>
         <div className={styles.leftBtween} />
         <div className={styles.footer}>
@@ -138,6 +140,6 @@ export default function MyPageWritings() {
       {isPopupOpen && (
             <CommunityWrite post={currentPost} onSave={handleSave} onClose={closePopup} />
           )}
-    </div>
+    </body>
   );
 }
