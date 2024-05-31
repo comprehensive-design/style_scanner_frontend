@@ -5,6 +5,7 @@ import WritingBox from './WritingBox';
 import Pagination from './Pagination';
 import axios from 'axios';
 import CommunityWrite from './CommunityWrite';
+import Footer from './Footer';
 
 const getPosts = async (currentPage, postsPerPage) => {
   const token = localStorage.getItem("accessToken");
@@ -148,8 +149,9 @@ export default function MyPageWritings() {
         </div>
       </div>
       {isPopupOpen && (
-            <CommunityWrite post={currentPost} onSave={handleSave} onClose={closePopup} />
-          )}
+        <CommunityWrite post={currentPost} onSave={handleSave} onClose={closePopup} />
+      )}
+      <Footer></Footer>
     </body>
   );
 }
