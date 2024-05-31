@@ -11,15 +11,7 @@ const formatDate = (dateArray) => {
     return formDate;
 };
 
-const editClick = async(e) => {
-    e.preventDefault();
-
-   
-
-
-};
-
-export default function WritingBox({ postId, feedImg, commentCnt, title, date, onDelete }) {
+export default function WritingBox({ postId, feedImg, commentCnt, title, date, onDelete, onEdit }) {
        return (
         <div className={styles.writingBox}>
             <div className={styles.feedDiv}>
@@ -38,7 +30,7 @@ export default function WritingBox({ postId, feedImg, commentCnt, title, date, o
                 <p className={styles.date}>{formatDate(date)}</p>
             </div>
             <div className={styles.buttonDiv}>
-                <Button onClick={editClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>수정</Button>
+                <Button onClick={() => onEdit(postId)} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>수정</Button>
                 &nbsp;
                 <Button onClick={() => onDelete(postId)} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>삭제</Button>
             </div>
