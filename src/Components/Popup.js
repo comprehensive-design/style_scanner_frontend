@@ -62,10 +62,10 @@ export default function Popup({ title, onClose, onSave, visible = true, rightBtn
 
             {type == "birth" && <input type='text' className={styles.inputBox} value={value} onChange={handleChange} placeholder='YYYY-MM-DD' />}
             <div className={styles.buttonBox}>
-                <Button onClick={onClose} BackColor="#d9d9d9" txtColor='black' border='1px solid black' hovColor='black' hovTxtColor='white'>
+                <Button onClick={onClose} $BackColor="#d9d9d9" $txtColor='black' $border='1px solid black' $hovColor='black' $hovTxtColor='white'>
                     취소
                 </Button>
-                <Button onClick={handleSave} BackColor="#d9d9d9" txtColor='black' border='1px solid black' hovColor='black' hovTxtColor='white'>
+                <Button onClick={handleSave} $BackColor="#d9d9d9" $txtColor='black' $border='1px solid black' $hovColor='black' $hovTxtColor='white'>
                     {rightBtn}
                 </Button>
             </div>

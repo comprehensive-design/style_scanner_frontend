@@ -42,8 +42,8 @@ const App = () => {
           <Route path="/CelebRecommend" element={<CelebRecommend />} />
           <Route path="/Ranking" element={<Ranking />} />
           <Route path="/FollowingList" element={<FollowingList />} />
-          <Route path="/MyPageWritings" element={<MyPageWritings />} />
-          <Route path="/MyPageComments" element={<MyPageComments />} />
+          {/* <Route path="/MyPageWritings" element={<MyPageWritings />} /> */}
+          {/* <Route path="/MyPageComments" element={<MyPageComments />} /> */}
           <Route path="/HomeFeed" element={<HomeFeed />} />
           <Route path="/HomeInfo" element={<HomeInfo />} />
           <Route path="/CommunityFeed" element={<CommunityFeed />} />

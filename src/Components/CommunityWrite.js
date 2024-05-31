@@ -124,7 +124,9 @@ export default function CommunityWrite({ post, feedUrl, onSave, onClose }) {
             onChange={(e) => setQuestion(e.target.value)}
           ></textarea>
           <div className={styles.btn}>
+
             <Button onClick={okClick} BackColor="#d9d9d9" txtColor="black" border="none" hovColor="black" hovTxtColor="white">{post ? "수정" : "작성"}</Button>
+
           </div>
         </div>
       </div>

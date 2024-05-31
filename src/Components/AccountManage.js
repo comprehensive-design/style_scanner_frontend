@@ -10,6 +10,7 @@ export default function MypageDefault() {
     const [birthdate, setBirthdate] = useState('');
     const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
@@ -35,6 +36,7 @@ export default function MypageDefault() {
                     setGender("여성");
                 else
                     setGender("남성");
+                setLoading(true);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -42,15 +44,16 @@ export default function MypageDefault() {
     }, []);
 
 
-    return (
-        <AccountManageForm
-            displayName={displayName}
-            bio={bio}
-            profilePictureUrl={profilePictureUrl}
-            email={email}
-            birthdate={birthdate}
-            gender={gender}
-            password={password}
-        />
-    );
+    if(loading){
+        return (
+            <AccountManageForm
+                displayName={displayName}
+                bio={bio}
+                profilePictureUrl={profilePictureUrl}
+                email={email}
+                birthdate={birthdate}
+                gender={gender}
+                password={password}
+            />
+        );}
 }

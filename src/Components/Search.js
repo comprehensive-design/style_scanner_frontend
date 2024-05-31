@@ -5,6 +5,7 @@ import Button from './Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Footer from './Footer';
+import FeedPopup from './FeedPopup';
 
 export default function Search() {
     const location = useLocation();
@@ -12,6 +13,18 @@ export default function Search() {
     const [isFollowing, setIsFollowing] = useState(false);
     const accessToken = localStorage.getItem('accessToken');
     const followeeId = searchResults?.profileName;
+    const [popupVisible, setPopupVisible] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    const openPopup = (user) => {
+        setSelectedUser(user);
+        setPopupVisible(true);
+    }
+
+    const closePopup = () => {
+        setSelectedUser(null);
+        setPopupVisible(false);
+    }
 
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
@@ -104,8 +117,8 @@ export default function Search() {
                     <p id={styles.Searchtotal}>검색 결과</p>
                 </div>
 
-                <div className={styles.SearchUserRes} style={{ display: 'flex' }}>
-                    <div className={styles.SearchprofileImg}>
+                <div className={styles.SearchUserRes} style={{ display: 'flex' }} onClick={() => openPopup(searchResults.profileName)}>
+                    <div className={styles.SearchprofileImg} >
                         <img
                             id={styles.SearchUserImg}
                             src={searchResults.profilePictureUrl}
@@ -128,23 +141,27 @@ export default function Search() {
                             </div>
                         ) : (
                             <div className={styles.FollowButton}>
-                                <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
+                                <Button id={styles.buttonDelete} $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
                             </div>
                         )}
                     </div>
                 </div>
 
                 <div className={styles.SearchRelRes}>
-                    <p className={styles.RelResWord}>현재 인기 있는 셀럽</p>
+                    <p className={styles.RelResWord}>Top Followee</p>
+                    <p className={styles.grayP}>인기 셀럽</p>
 
                     <div className={styles.SearchRelChannel}>
                         <Channel />
-                        {/* <div className={styles.paddingWidth}></div>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel /> */}
+                        <div className={styles.paddingWidth}></div>
+                        <Channel />
+                        <div className={styles.paddingWidth}></div>
+                        <Channel />
+                        <div className={styles.paddingWidth}></div>
+                        <Channel />
+                        <div className={styles.paddingWidth}></div>
+                        <Channel />
+
                     </div>
                     <div className={styles.paddingHeight}></div>
 

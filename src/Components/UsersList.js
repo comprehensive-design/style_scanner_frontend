@@ -71,7 +71,7 @@ export default function UsersList({ list }) {
                             </div>
                         </div>
                         <div style={{ display: 'flex' }} className={styles.FollowingDelete}>
-                            <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white" onClick={() => handleUnfollow(user.profileName)}>언팔로우</Button>
+                            <Button id={styles.buttonDelete} $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={() => handleUnfollow(user.profileName)}>언팔로우</Button>
                         </div>
                     </div>
                     {index < list.length - 1 && <HorizonLine key={`hline-${user.profileName}`}/>} {/* 고유한 key prop 추가 */}
