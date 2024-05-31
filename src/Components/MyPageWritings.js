@@ -38,6 +38,7 @@ export default function MyPageWritings() {
   const [postsPerPage] = useState(5);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
+  const [postSaved, setPostSaved] = useState(false);
 
   const firstPostIndex = (currentPage - 1) * postsPerPage;
   const lastPostIndex = firstPostIndex + postsPerPage;
@@ -52,9 +53,13 @@ export default function MyPageWritings() {
         console.error('Error fetching posts:', error);
       }
     };
+    if (postSaved) {
+      closePopup();
+      setPostSaved(false); // 상태를 리셋
+    }
 
     fetchPosts();
-  }, [currentPage]);
+  }, [currentPage, postSaved]);
 
   const openPopup = useCallback((post = null) => {
     setCurrentPost(post);
@@ -93,9 +98,14 @@ export default function MyPageWritings() {
   };
 
   const handleSave = (updatedPost) => {
-    setPosts(posts.map(post => (post.id === updatedPost.id ? updatedPost : post)));
-    closePopup();
+    setPosts((prevPosts) => {
+      const newPosts = prevPosts.map(post => (post.id === updatedPost.id ? updatedPost : post));
+      setPostSaved(true); // 상태가 업데이트되었음을 표시
+      return newPosts;
+    });
   };
+
+
 
   return (
     <body>
