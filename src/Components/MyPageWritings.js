@@ -56,6 +56,33 @@ export default function MyPageWritings() {
 
     fetchPosts();
   }, [currentPage, postsPerPage]);
+  
+  const handleDelete = async (postId) => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+        alert('로그인이 필요합니다.');
+        return;
+    }
+    try {
+        const response = await axios.delete(
+            `/api/post/delete/${postId}`,
+            {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`, // Proper token format
+                }
+            }
+        );
+        if (response.status === 200) {
+            alert('삭제되었습니다.');
+            setPosts(posts.filter(post => post.id !== postId));
+        }
+    } catch (error) {
+        alert('삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+        console.error('삭제 오류:', error);
+    }
+  };
+
   return (
     <body>
       <div className={styles.total}>
@@ -71,11 +98,12 @@ export default function MyPageWritings() {
               const commentdata = Array.isArray(post.comments) ? post.comments : [];
               return (
                 <WritingBox
-                  key={post.id}
+                  postId={post.id}
                   commentCnt={commentdata.length}
                   feedImg={post.feedUrl}
                   title={post.content}
                   date={post.createdAt}
+                  onDelete={handleDelete}
                 />
               );
             })}

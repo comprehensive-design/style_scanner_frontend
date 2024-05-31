@@ -1,5 +1,7 @@
 import styles from '../css/WritingBox.module.css';
 import Button from './Button';
+import axios from 'axios';
+
 
 const formatDate = (dateArray) => {
     const year = dateArray[0];
@@ -8,15 +10,17 @@ const formatDate = (dateArray) => {
     const formDate = `${year}-${month}-${day}`;
     return formDate;
 };
-export default function WritingBox({ key, feedImg, commentCnt, title, date }) {
-    const editClick = () => {
-        alert("edit버튼 누름")
-    };
-    const deleteClick = () => {
-        alert("delete버튼 누름")
-    };
 
-    return (
+const editClick = async(e) => {
+    e.preventDefault();
+
+   
+
+
+};
+
+export default function WritingBox({ postId, feedImg, commentCnt, title, date, onDelete }) {
+       return (
         <div className={styles.writingBox}>
             <div className={styles.feedDiv}>
                 {/* src={feedImg} 로 변경해야함 */}
@@ -36,7 +40,7 @@ export default function WritingBox({ key, feedImg, commentCnt, title, date }) {
             <div className={styles.buttonDiv}>
                 <Button onClick={editClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>수정</Button>
                 &nbsp;
-                <Button onClick={deleteClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>삭제</Button>
+                <Button onClick={() => onDelete(postId)} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>삭제</Button>
             </div>
         </div>
     );
