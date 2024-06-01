@@ -27,9 +27,9 @@ function MainBar() {
     }, []);
 
     useEffect(() => {
-        console.log('Updated search results in useEffect:', searchResults);
+        // console.log('Updated search results in useEffect:', searchResults);
         if (searchResults !== null) {
-            console.log('Navigating to Search with results:', searchResults);
+            // console.log('Navigating to Search with results:', searchResults);
             navigate(`/Search`, { state: { results: searchResults } });
             setSearchResults(null);
         }
