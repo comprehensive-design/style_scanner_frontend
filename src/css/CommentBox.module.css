@@ -6,9 +6,13 @@
     border-bottom: 1px solid #aaa;
     width: 100%;
 }
-.feedDiv > .feedId{
-    padding : 0 0 20px 0;
+.feedImage{
+    
+    width: 200px;
+    height: 250px;
     text-align: center;
+    margin-bottom :30px;
+    object-fit: cover;
 }
 .textDiv{
     height:fit-content;
@@ -34,7 +38,7 @@
 .buttonDiv{
     position: absolute;
     right:0;
-    top: 150px;
+    top: 180px;
     display: flex;
     float: left;
 }
