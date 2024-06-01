@@ -6,26 +6,22 @@ import Pagination from './Pagination';
 import axios from 'axios';
 import Footer from './Footer';
 
-const token = localStorage.getItem("accessToken");
-
-if (!token) {
-    console.error("토큰이 없습니다.");
-    throw new Error("토큰이 없습니다.");
-}
-const config = {
-    headers: {
-        Authorization: `Bearer ${token}`,
-    },
-};
-
 const getComments = async (currentPage, itemsPerPage) => {
+    const token = localStorage.getItem("accessToken");
 
+    if (!token) {
+        console.error("토큰이 없습니다.");
+        throw new Error("토큰이 없습니다.");
+    }
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
 
     try {
         const response = await axios.get('/api/comment/me', config);
-        return response.data; // feeds 배열을 직접 반환
-
-
+        return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             console.error('Axios 에러: 게시물 가져오기 실패:', error.response?.data || error.message);
@@ -38,11 +34,8 @@ const getComments = async (currentPage, itemsPerPage) => {
     }
 };
 
-
-
 export default function MyPageComments() {
     const [comments, setComments] = useState([]);
-    const [posts, setPosts] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -53,25 +46,18 @@ export default function MyPageComments() {
     const lastItemIndex = firstItemIndex + itemsPerPage;
     const currentComments = comments.slice(firstItemIndex, lastItemIndex);
 
-    useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const data = await getComments(currentPage, itemsPerPage);
-                setComments(data);
-            } catch (error) {
-                console.error('Error fetching comments:', error);
-            }
-        };
-    
-        fetchComments();
-
-        if (commentSaved) {
-            closePopup();
-            setCommentSaved(false); // 상태를 리셋
+    const fetchComments = useCallback(async () => {
+        try {
+            const data = await getComments(currentPage, itemsPerPage);
+            setComments(data);
+        } catch (error) {
+            console.error('Error fetching comments:', error);
         }
+    }, [currentPage, itemsPerPage]);
 
-
-    }, [currentPage, commentSaved]);
+    useEffect(() => {
+        fetchComments();
+    }, [fetchComments, commentSaved]);
 
     const openPopup = useCallback((comment = null) => {
         setCurrentComment(comment);
@@ -101,7 +87,8 @@ export default function MyPageComments() {
             );
             if (response.status === 200) {
                 alert('삭제되었습니다.');
-                setComments(comments.filter(comment => comment.id !== commentId));
+                setComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
+                setCommentSaved(true); // 삭제 후 commentSaved 상태를 업데이트
             }
         } catch (error) {
             alert('삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -119,52 +106,46 @@ export default function MyPageComments() {
 
     return (
         <body>
-            <div className={styles.total}>
-                <Sidebar />
-                <div className={styles.content}>
-                    <div className={styles.title}>
-                        <h2>내가 작성한 댓글</h2>
-                        <hr />
+            <div>
+                <div className={styles.total}>
+                    <Sidebar />
+                    <div className={styles.content}>
+                        <div className={styles.title}>
+                            <h2>내가 작성한 댓글</h2>
+                            <hr />
+                        </div>
+                        <div className={styles.commentList}>
+                            {currentComments.map(data => {
+                                const commentdata = data.comment;
+                                return (
+                                    <CommentBox
+                                        key={commentdata.id}
+                                        commentId={commentdata.id}
+                                        feedImg={data.feedUrl}
+                                        title={data.feedTitle}
+                                        content={commentdata.content}
+                                        onDelete={() => handleDelete(commentdata.id)}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
-                    <div className={styles.commentList}>
-                        
-                        {currentComments.map(data => {
-                            const commentdata = data.comment
-                            return (
-                                <CommentBox
+                </div>
 
-                                    commentId={commentdata.id}
-                                    feedImg={data.feedUrl}
-                                    title={data.feedTitle}
-                                    content={commentdata.content}
-                                    onDelete={() => handleDelete(commentdata.id)}
-                                // onEdit={() => openPopup(comment)}
-                                />
-                            );
-                        })}
+                <div className={styles.heightPadding}></div>
+                <div className={styles.footerBox}>
+                    <div className={styles.leftBtween} />
+                    <div className={styles.footer}>
+                        <Pagination
+                            itemsNum={comments.length}
+                            itemsPerPage={itemsPerPage}
+                            setCurrentPage={setCurrentPage}
+                            currentPage={currentPage}
+                        />
                     </div>
                 </div>
             </div>
-
-            <div className={styles.heightPadding}></div>
-            <div className={styles.footerBox}>
-                <div className={styles.leftBtween} />
-                <div className={styles.footer}>
-                    <Pagination
-                        itemsNum={comments.length}
-                        itemsPerPage={itemsPerPage}
-                        setCurrentPage={setCurrentPage}
-                        currentPage={currentPage}
-                    />
-                </div>
-            </div>
-            {/* {isPopupOpen && (
-                <CommunityInfo comment={currentPost} onSave={handleSave} onClose={closePopup} />
-            )} */}
             <Footer />
-
         </body>
-
-
     );
 }

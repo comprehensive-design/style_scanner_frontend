@@ -2,7 +2,7 @@ import styles from '../css/CommentBox.module.css';
 import Button from './Button';
 
 
-export default function CommentBox({commentId,feedImg, title, content,date, onDelete, onEdit }) {
+export default function CommentBox({commentId,feedImg, title, content, date, onDelete, onEdit }) {
 
     return (
         <div className={styles.writingBox}>
@@ -19,8 +19,6 @@ export default function CommentBox({commentId,feedImg, title, content,date, onDe
                 <p className={styles.date}>{}</p>
             </div> */}
             <div className={styles.buttonDiv}>
-                <Button onClick={() => onEdit(commentId)} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>수정</Button>
-                &nbsp;
                 <Button onClick={() => onDelete(commentId)} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>삭제</Button>
             </div>
         </div>
