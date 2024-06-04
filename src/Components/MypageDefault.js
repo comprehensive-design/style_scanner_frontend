@@ -47,19 +47,18 @@ export default function MypageDefault() {
                 console.error('Error fetching data:', error);
             });
 
-            // Back 다 되면 해야함
-            // axios.get("/api/follow/likeList", {
-            //     headers: {
-            //         'Authorization': `Bearer ${accessToken}`
-            //     }
-            // })
-            //     .then((response) => {
-            //         const { like_list } = response.data;
-            //         setLikes(like_list.slice(0, 2));
-            //     })
-            //     .catch((error) => {
-            //         console.error('Error fetching data:', error);
-            //     });
+
+        axios.get("/api/itemLike/me", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((response) => {
+                setLikes(response.data.slice(0, 2));
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
     }, []);
 
     const followingURLs = followings.map(following => following.profilePictureUrl);
@@ -67,12 +66,12 @@ export default function MypageDefault() {
 
 
     // Back 다 되면 해야함 followings, request
-    const likeURLs = followings.map(following => following.profilePictureUrl);
-    const brandNames = followings.map(following => following.brandName);
-    const itemNames = followings.map(following => following.itemName);
-    const itemOptions = followings.map(following => following.itemOption);
-    const itemPrices = followings.map(following => following.itemPrice);
-    const likeCounts = followings.map(following => following.likeCount);
+    const likeURLs = likes.map(like => like.itemUrl);
+    // const brandNames = likes.map(like => like.brandName);
+    const itemNames = likes.map(like => like.name);
+    // const itemOptions = likes.map(like => like.itemOption);
+    const itemPrices = likes.map(like => like.price);
+    const likeCounts = likes.map(like => like.likeCount);
 
     return (
         <MypageDefaultForm
@@ -80,19 +79,21 @@ export default function MypageDefault() {
             bio={bio}
             profilePictureUrl={profilePictureUrl}
 
-            
+
             followingNum={totalFollowings}
             followingURLs={followingURLs}
             followingIDs={followingIDs}
 
             // Back 다 되면 해야함
-            imgUrls = {likeURLs}
-            brandNames = {brandNames}
-            itemNames = {itemNames}
-            itemOptions = {itemOptions}
-            itemPrices = {itemPrices}
-            likeCounts = {likeCounts}
-            
+            imgUrls={likeURLs}
+            // brandNames={brandNames}
+            brandNames={"dkdkdk"}
+            itemNames={itemNames}
+            // itemOptions={itemOptions}
+            itemOptions={"black"}
+            itemPrices={itemPrices}
+            likeCounts={likeCounts}
+
         />
     );
 }
