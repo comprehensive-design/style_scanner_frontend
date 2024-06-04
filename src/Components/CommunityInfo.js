@@ -1,151 +1,158 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import styles from "../css/CommunityInfo.module.css";
 import axios from "axios";
 import Button from './Button';
 import CommentInfo from "./CommentInfo";
 
 
-export const getComments = async () => {
-  const response = await axios.get("/posts");
-  return response.data;
+// 댓글 get
+export const getComments = async (postId) => {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    console.error("토큰이 없습니다.");
+    throw new Error("토큰이 없습니다.");
+  }
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.get(`/api/comment/${postId}`, config);
+    console.log(response);
+    return response.data || [];
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
-export default function CommunityInfo({ onClose }) {
-  //댓글 post
-  const [question, setQuestion] = useState("");
-  const textarea = useRef();
 
-  //댓글 get
+export default function CommunityInfo({ onClose, goDir, feedUrl, postId, displayName, profilePictureUrl }) {
+  const navigate = useNavigate();
+  const [content, setContent] = useState("");
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(false);
   const commentListRef = useRef();
 
-  //사진
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = [
-    // "http://via.placeholder.com/370X465",
-    // "http://via.placeholder.com/370X465",
-    // "http://via.placeholder.com/370X465"
-    'img/feed1.png',
-    'img/feed2.png',
-    'img/feed3.png'
-  ];
   useEffect(() => {
+    console.log("useEffect triggered");
+    console.log("postId:", postId);
+
     const fetchComments = async () => {
-      try {
-        const data = await getComments();
-        setComments(data);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
+      if (!postId) {
+        console.error("postId가 없습니다.");
+        return;
       }
+
+      try {
+        const data = await getComments(postId); // postId를 getComments에 전달
+        console.log(data);
+        setComments(data);
+      } catch (error) {}
     };
 
     fetchComments();
+  }, [postId]);
 
-  }, [loading]);
-
-  const handleSubmit = () => {
-    if (!question.trim()) {
-      console.error("질문을 입력하세요.");
+  //댓글 post
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      alert('로그인이 필요합니다.');
       return;
     }
+    try {
+      if (content.trim()) {
+        const response = await axios.post(
+          '/api/comment/create',
+          {
+            postId: postId,
+            content: content
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            }
+          }
+        );
 
-    //댓글쓰기
-    axios
-      .post("http://localhost:8080/CommunityInfo", {
-        feedId: "hi_sseulgi",
-        writerId: "nwbd_we",
-        content: question,
-      })
-      .then(function (response) {
-        console.log("성공", response);
-        onClose();
-      })
-      .catch(function (error) {
-        console.error("실패", error);
-      })
-      .then(function () {
-        console.log("데이터 요청 완료");
-      });
+        console.log(response.data);
+
+        if (response.status === 200) {
+          alert("등록되었습니다.");
+
+          const data = await getComments(postId);
+          setComments(data);
+          setContent("");
+        } else {
+          console.error('Error:', response.status, response.statusText);
+        }
+      } else {
+        alert('댓글을 작성해주세요.');
+      }
+    } catch (error) {
+      console.error('Error:', error.response ? error.response.data : error.message);
+    }
   };
 
-  const okClick = () => {
-    alert("버튼 누름");
-    // handleSubmit(); // 작성 버튼 클릭 시 데이터 전송
-  };
-  const goToNextImage = () => {
-    setCurrentImageIndex((prevIndex) => {
-      const nextIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
-      console.log(`다음 이미지 index: ${nextIndex}`);
-      return nextIndex;
-    });
+  const navigateTo = (path) => {
+    navigate(path);
   };
 
-  const goToPrevImage = () => {
-    setCurrentImageIndex((prevIndex) => {
-      //0번 인덱스에서 이전 x
-      const nextIndex = prevIndex === 0 ? 0 : prevIndex - 1;
-      console.log(`이전 이미지 index: ${nextIndex}`);
-      return nextIndex;
-    });
+  const okClick = (e) => {
+    handleSubmit(e); 
   };
+
   return (
     <div className={styles.popup}>
       <div className={styles.feedDiv}>
-
-      <div className={styles.feedImg}>
-          <div className={styles.imageWrapper}>
-            <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
-          </div>
-          <div className={styles.dirBtn}>
-            {/* 사진 넘어가는 버튼 */}
-            {images.length > 1 && ( // 이미지가 2개 이상 일 때만 버튼 표시
-              <>
-                {currentImageIndex !== 0 && ( // 첫 번째 사진이 아닐 때만 왼쪽 버튼 표시
-                  <button className={styles.prevBtn} onClick={goToPrevImage}>{'<'}</button>
-                )}
-                {currentImageIndex !== images.length - 1 && ( // 마지막 사진이 아닐 때만 오른쪽 버튼 표시
-                  <button className={styles.nextBtn} onClick={goToNextImage}>{'>'}</button>
-                )}
-              </>
-            )}
+        <div className={styles.feedImg}>
+          <div className={styles.imageWrapper} onClick={goDir === "navigateToHomeInfo" ? () => navigateTo("/HomeInfo") : ""}>
+            <img src={feedUrl} alt={"feed"} />
           </div>
         </div>
       </div>
       <div className={styles.popupContent}>
-        
-
         <div className={styles.titleDiv}>
           <p className={styles.closeButton} onClick={onClose}>×</p>
           <p className={styles.title}>댓글</p>
         </div>
+
         <div className={styles.comWriterBox}>
-          <div className={styles.writerProfile}>
-            <img
-              id={styles.writerImage}
-              src={process.env.PUBLIC_URL + "img/profile.png"}
-              alt="Profile"
-            />
-          </div>
-          <p id={styles.writerId}>hi_sseulgi</p>
+          {profilePictureUrl ? (
+            <img className={styles.writerProfile} src={profilePictureUrl} alt="Profile" />
+          ) : (
+            <img className={styles.writerProfile} src={`img/profile.png`} alt="Profile" />
+          )}
+          <p id={styles.writerId}>{displayName}</p>
         </div>
 
         <div className={styles.mainDiv}>
           <div className={styles.totalItem} ref={commentListRef}>
             {comments.map(comment => (
-              <CommentInfo key={comment.id} image={comment.image} />
+              <CommentInfo key={comment.id} displayName={comment.displayName} content={comment.content} profilePictureUrl={comment.profilePictureUrl}/>
             ))}
+           
           </div>
-
           <div className={styles.bottomDiv}>
-            <input className={styles.comInput} type="text" placeholder="댓글을 입력하세요"></input>
+            <input 
+              className={styles.comInput} 
+              type="text" 
+              placeholder="댓글을 입력하세요"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
             <div className={styles.btn}>
-              <Button onClick={okClick} BackColor="#d9d9d9" txtColor='black' border='none' hovColor='black' hovTxtColor='white'>작성</Button>
+              <Button onClick={okClick} $BackColor="#d9d9d9" $txtColor='black' $border='none' $hovColor='black' $hovTxtColor='white'>작성</Button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   );
 }

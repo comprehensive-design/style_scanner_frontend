@@ -8,6 +8,7 @@
     display: flex;
 }
 .content {
+    min-height: calc(100vh - 300px);
     width: calc(100% - 400px);
     padding: 0px 70px 0px 70px;
     box-sizing: border-box;

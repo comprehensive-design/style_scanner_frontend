@@ -22,6 +22,7 @@ body {
     width: 100%;
     justify-content: flex-start;
     align-items: center;
+    cursor: pointer;
 }
 
 .SearchUserProfile{
@@ -47,12 +48,25 @@ body {
     align-items: center;
 }
 
+.grayP{
+    color: gray;
+    text-align: left;
+    font-weight: normal;
+    margin-bottom: 30px;
+    padding: 0;
+    /* background-color: blue; */
+}
+
 .userInfoWord{
     margin:0;
     padding:0;
     margin-left: 30px;
     align-items: center;
     justify-content: center;
+}
+
+#profileBio{
+    text-align: left;
 }
 
 #FollowerWord{
@@ -105,7 +119,7 @@ body {
 
 .RelResWord{
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .paddingWidth{

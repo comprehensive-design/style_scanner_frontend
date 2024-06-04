@@ -10,23 +10,26 @@ body {
     margin: 0 auto;
     font-family: 'Pretendard';
     background-color: white;
+    position: relative;
 }
 
+.total{
+    display: flex;
+}
 .content {
-    min-width: 1000px;
     width: calc(100% - 400px);
-    position: absolute;
-    left: 270px;
-    top: 50px;
-    padding: 0px 150px;
+    min-height: calc(100vh - 360px);
+    padding: 0px 70px 0px 70px;
+    margin-top: 40px;
     box-sizing: border-box;
+    text-align: left;
+    z-index: 10;
 }
-
 .profileBox {
     min-width: 1000px;
     height: 150px;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 2px solid #a9a9a9;
     border-radius: 10px;
     position: relative;
     margin: 0 30px 50px 0;
@@ -58,6 +61,7 @@ body {
 .bigFont{
     font-weight: 600;
     font-size: 16px;
+    text-align: center;
 }
 
 .textBox{
@@ -85,15 +89,17 @@ body {
     display: flex;
     padding: 0 auto;
     justify-content: center;
+    min-height: 100px;
 }
 
 .following div{
     width: 160px;
     border-radius: 10px;
-    border: 1px solid gray;
+    border: 2px solid #a9a9a9;
     padding: 20px 10px;
     margin: 0px 20px;
     box-sizing: border-box;
+    text-align: center;
     font-size: 14px;
 }
 
@@ -107,13 +113,14 @@ body {
     display: flex;
     justify-content: center;
     margin-right: 30px;
+    min-height: 100px
 }
 
 .like > div {
     width: 50%;
     height: 140px;
     margin: 0px 20px 60px 20px;
-    border: 1px solid gray;
+    border: 2px solid #a9a9a9;
     position: relative;
     border-radius: 5px;
 } 
@@ -160,4 +167,8 @@ body {
     width: 14px;
     height: 14px;
     margin: auto 0;
+}
+
+.heightPadding{
+    height: 30px;
 }

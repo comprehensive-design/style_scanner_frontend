@@ -10,6 +10,7 @@ export default function MypageDefault() {
 
     const [followings, setFollowings] = useState([]);
     const [likes, setLikes] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
@@ -42,6 +43,7 @@ export default function MypageDefault() {
                 const { following_list } = response.data;
                 setTotalFollowings(following_list.length);
                 setFollowings(following_list.slice(0, 5));
+                setLoading(true);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -73,7 +75,7 @@ export default function MypageDefault() {
     const itemPrices = likes.map(like => like.price);
     const likeCounts = likes.map(like => like.likeCount);
 
-    return (
+    if(loading){return (
         <MypageDefaultForm
             displayName={displayName}
             bio={bio}
@@ -95,5 +97,6 @@ export default function MypageDefault() {
             likeCounts={likeCounts}
 
         />
-    );
+    );}
+    
 }

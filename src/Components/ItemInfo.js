@@ -19,16 +19,13 @@ export default function ItemInfo({ image, index }) {
         }
     };
 
-
-
-
     return (
         <div className={styles.infoBox}>
             <div className={styles.infoMain}>
                 <p>{`Item ${index}`}</p>
-                {/* <img className={styles.item} src="http://via.placeholder.com/180X240"></img> */}
-                <div id={styles.itemHeart}>
-                    <img src={imageSrc} onClick={handleClick}></img>
+                <img className={styles.item} src={`img/image.png`}></img>
+                <div>
+                    <img  id={styles.itemHeart} src={imageSrc} onClick={handleClick}></img>
                 </div>
             </div>
 

@@ -2,6 +2,7 @@
 import styles from "../css/MypageDefault.module.css";
 import Sidebar from './Sidebar';
 import { NavLink } from "react-router-dom";
+import Footer from "./Footer"
 
 function CelebrityInfo({ imgUrl, celebID }) {
     return (
@@ -35,17 +36,15 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
     if(profilePictureUrl=="")
         profilePictureUrl="/img/whiteBox.png"
     return (
-        <body>
-            <div className={styles.wrap}>
-
-                <Sidebar></Sidebar>
-
+        <>
+            <div className={styles.total}>
+                <Sidebar />
                 <div className={styles.content}>
                     <div className={styles.profileBox}>
                         <img className={styles.profileImg} src={profilePictureUrl}></img>
                         <div className={styles.nameBox}>
                             <div style={{ display: "flex" }}>
-                                <p className={styles.bigFont}>@&nbsp;</p>
+                                <p className={styles.bigFont}>@</p>
                                 <p className={styles.bigFont}>{displayName}</p>
                             </div>
                             <p style={{ marginTop:"3px",fontSize: "14px", color: "gray" }}>{bio}</p>
@@ -100,7 +99,9 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
                     </div>
 
                 </div>
-            </div></body>
+            </div>
+            <Footer />
+            </>
 
     );
 }

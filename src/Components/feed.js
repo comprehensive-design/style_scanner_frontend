@@ -8,6 +8,7 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [profileName, setProfileName] = useState(username);
     
     const images = media_url_list;
 
@@ -65,8 +66,8 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
         <div className={styles.completeFeed}>
             {/* header */}
             <div className={styles.profile} onClick={openPopup}>
-                {/* 셀럽 피드에 username 보내기 */}
-                {isPopupOpen && <FeedPopup onClose={closePopup} username={username}/>} 
+
+                {isPopupOpen && <FeedPopup onClose={closePopup} user={{profileName}}/>} 
 
                 <div className={styles.ImageBox}>
                     {profile_url ? (
