@@ -15,16 +15,16 @@ function CelebrityInfo({ imgUrl, celebID }) {
 function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCount }) {
     return (
         <div className={styles.likeComponent}>
-            <img className={styles.likeComponent} id='itemImg' src={imgUrl} alt="상품" style={{ width: "100px", height: "100px" }} />
+            <img className={styles.likeComponent} id='itemImg' src={imgUrl} style={{ width: "100px", height: "100px" }} />
             <p className={styles.likeComponent} id={styles.brandName}>{brandName}</p>
             <div className={styles.item}>
-                <p id={styles.itemName}>{itemName}</p> -
+                <p id={styles.itemName}>{itemName}</p>&nbsp;-&nbsp;
                 <p id={styles.itemOption}>{itemOption}</p>
             </div>
-            <p className={styles.likeComponent} id={styles.itemPrice}>{itemPrice}</p>
+            <p className={styles.likeComponent} id={styles.itemPrice}>{itemPrice} 원</p>
             <div className={styles.heartBox}>
-                <img src="img/fullHeart.png" alt="하트 아이콘" />
-                <p id='likeCount'>{likeCount}</p>
+                <img src="img/fullHeart.png" />
+                <p id='likeCount'>&nbsp;{likeCount}</p>
             </div>
         </div>
     );
