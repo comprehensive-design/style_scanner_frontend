@@ -57,6 +57,7 @@ export default function MypageDefault() {
         })
             .then((response) => {
                 setLikes(response.data.slice(0, 2));
+                console.log(likes);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -69,9 +70,9 @@ export default function MypageDefault() {
 
     // Back 다 되면 해야함 followings, request
     const likeURLs = likes.map(like => like.itemUrl);
-    // const brandNames = likes.map(like => like.brandName);
+    const brand = likes.map(like => like.brand);
     const itemNames = likes.map(like => like.name);
-    // const itemOptions = likes.map(like => like.itemOption);
+    const itemOption = likes.map(like => like.itemOption);
     const itemPrices = likes.map(like => like.price);
     const likeCounts = likes.map(like => like.likeCount);
 
@@ -81,18 +82,15 @@ export default function MypageDefault() {
             bio={bio}
             profilePictureUrl={profilePictureUrl}
 
-
             followingNum={totalFollowings}
             followingURLs={followingURLs}
             followingIDs={followingIDs}
 
             // Back 다 되면 해야함
             imgUrls={likeURLs}
-            // brandNames={brandNames}
-            brandNames={"dkdkdk"}
+            brandNames={brand}
             itemNames={itemNames}
-            // itemOptions={itemOptions}
-            itemOptions={"black"}
+            itemOptions={itemOption}
             itemPrices={itemPrices}
             likeCounts={likeCounts}
 
