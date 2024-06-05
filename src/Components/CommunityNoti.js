@@ -32,7 +32,7 @@ export default function CommunityNoti() {
         <CommunityNotiForm
             noti={currentItems}
 
-            length={notis.length}
+            itemsNum={notis.length}
             currentItems={currentItems}
             itemsPerPage={itemsPerPage}
             setCurrentPage={setCurrentPage}
