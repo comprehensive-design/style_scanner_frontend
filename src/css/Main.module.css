@@ -1,42 +1,40 @@
 body {
-    margin: 0;
-  }
-  
-  .outer {
-    height: 100vh;
-    overflow-y: auto;
-  }
-  
-  .outer::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .inner {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 100px;
-  }
-  
-  .bg {
+  margin: 0;
+}
+
+.outer {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.outer::-webkit-scrollbar {
+  display: none;
+}
+
+.inner {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg {
   background-repeat: no-repeat;
-  background-position:center;
+  background-position-x: center; 
 }
 
 .bg2 {
   position: relative;
   background-repeat: no-repeat;
-  background-position:center;
+  background-position-x: center; 
 }
 
-.link{
-  margin-top: 150px;
+.link {
   font-size: 24px;
 }
 
-.footer{
+.footer {
   position: absolute;
-  bottom: 0;
+  bottom: 120px;
   width: 100%;
 }

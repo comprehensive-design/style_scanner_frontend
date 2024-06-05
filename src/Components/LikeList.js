@@ -12,10 +12,21 @@ export default function LikeList() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(20);
     const [totalLikes, setTotalLikes] = useState(0);
-
     useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/posts")
+        const accessToken = localStorage.getItem('accessToken');
+        console.log(accessToken);
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+
+        axios.get("/api/itemLike/me", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
             .then((response) => {
+                console.log(response.data);
                 setItems(response.data);
                 setTotalLikes(response.data.length);
             })
@@ -31,7 +42,7 @@ export default function LikeList() {
 
     // jsondata 쉽게 받아오려고 이렇게 해놨습니다 일부러 그랬습니다.. 
     return (
-        
+
         <body>
 
             <div className={styles.total}>
@@ -46,28 +57,24 @@ export default function LikeList() {
                         </div>
 
                         <div>
-                            <ItemsList list={currentItems} />
+                            <ItemsList list={items} />
                         </div>
-
-
-                        
-
                     </div>
 
                 </div>
             </div>
             <div className={styles.heightPadding}></div>
-                        <div className={styles.footerBox}>
-                            <div className={styles.leftBtween} />
-                            <div className={styles.footer}>
-                                <Pagination
-                                    itemsNum={items.length}
-                                    itemsPerPage={itemsPerPage}
-                                    setCurrentPage={setCurrentPage}
-                                    currentPage={currentPage}
-                                />
-                            </div>
-                        </div>
+            <div className={styles.footerBox}>
+                <div className={styles.leftBtween} />
+                <div className={styles.footer}>
+                    <Pagination
+                        itemsNum={items.length}
+                        itemsPerPage={itemsPerPage}
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}
+                    />
+                </div>
+            </div>
             <Footer></Footer>
         </body>
     );

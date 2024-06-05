@@ -14,74 +14,30 @@ function Main() {
       const { scrollTop } = outerDivRef.current;
       const pageHeight = window.innerHeight;
 
+      let newScrollTop = 0;
+
       if (deltaY > 0) {
         // Scroll down
-        if (scrollTop >= 0 && scrollTop < pageHeight) {
-          outerDivRef.current.scrollTo({
-            top: pageHeight + DIVIDER_HEIGHT,
-            left: 0,
-            behavior: "smooth",
-          });
-        } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
-          outerDivRef.current.scrollTo({
-            top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
-            left: 0,
-            behavior: "smooth",
-          });
-        } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
-          outerDivRef.current.scrollTo({
-            top: pageHeight * 3 + DIVIDER_HEIGHT * 3,
-            left: 0,
-            behavior: "smooth",
-          });
-        } else {
-          outerDivRef.current.scrollTo({
-            top: pageHeight * 4 + DIVIDER_HEIGHT * 4,
-            left: 0,
-            behavior: "smooth",
-          });
-        }
+        newScrollTop = Math.min(scrollTop + pageHeight + DIVIDER_HEIGHT, outerDivRef.current.scrollHeight - pageHeight);
       } else {
         // Scroll up
-        if (scrollTop >= 0 && scrollTop < pageHeight) {
-          outerDivRef.current.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-          });
-        } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
-          outerDivRef.current.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-          });
-        } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
-          outerDivRef.current.scrollTo({
-            top: pageHeight + DIVIDER_HEIGHT,
-            left: 0,
-            behavior: "smooth",
-          });
-        } else if (scrollTop >= pageHeight * 3 && scrollTop < pageHeight * 4) {
-          outerDivRef.current.scrollTo({
-            top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
-            left: 0,
-            behavior: "smooth",
-          });
-        } else {
-          outerDivRef.current.scrollTo({
-            top: pageHeight * 3 + DIVIDER_HEIGHT * 3,
-            left: 0,
-            behavior: "smooth",
-          });
-        }
+        newScrollTop = Math.max(scrollTop - pageHeight - DIVIDER_HEIGHT, 0);
       }
+
+      outerDivRef.current.scrollTo({
+        top: newScrollTop,
+        left: 0,
+        behavior: "smooth",
+      });
     };
+
     const outerDivRefCurrent = outerDivRef.current;
     outerDivRefCurrent.addEventListener("wheel", wheelHandler);
     return () => {
       outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
     };
   }, []);
+
   return (
     <>
       <div ref={outerDivRef} className={styles.outer}>
