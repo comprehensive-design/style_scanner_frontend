@@ -4,18 +4,22 @@ import NotiBox from './NotiBox';
 import Pagination from './Pagination';
 import Footer from './Footer';
 
-export default function CommunityNotiForm({ noti, itemsNum, itemsPerPage, setCurrentPage, currentPage}) {
+export default function CommunityNotiForm({ noti, itemsNum, itemsPerPage, setCurrentPage, currentPage }) {
     return (
         <body>
             <div className={styles.total}>
-                <Sidebar />
+                <Sidebar/>
                 <div className={styles.content}>
                     <div className={styles.title}>
                         <h2>알림</h2>
                         <hr />
                     </div>
                     <div className={styles.wrap}>
-                        <NotiBox noti={noti}/>
+                        {noti.length === 0 ? (
+                            <p style={{marginTop:"20px"}}>알림이 없습니다.</p>
+                        ) : (
+                            <NotiBox noti={noti} />
+                        )}
                     </div>
                 </div>
             </div>

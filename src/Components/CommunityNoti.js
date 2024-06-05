@@ -6,6 +6,7 @@ export default function CommunityNoti() {
     const [notis, setNotis] = useState([{}]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
@@ -19,6 +20,7 @@ export default function CommunityNoti() {
             }
         }).then((response) => {
             setNotis(response.data);
+            setLoading(true);
         }).catch((error) => {
             console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);
         });
@@ -28,15 +30,17 @@ export default function CommunityNoti() {
     const lastItemIndex = firstItemIndex + itemsPerPage;
     const currentItems = notis.slice(firstItemIndex, lastItemIndex);
 
-    return (
-        <CommunityNotiForm
-            noti={currentItems}
+    if (loading) {
+        return (
+            <CommunityNotiForm
+                noti={currentItems}
 
-            itemsNum={notis.length}
-            currentItems={currentItems}
-            itemsPerPage={itemsPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-        />
-    );
+                itemsNum={notis.length}
+                currentItems={currentItems}
+                itemsPerPage={itemsPerPage}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+            />
+        );
+    }
 }
