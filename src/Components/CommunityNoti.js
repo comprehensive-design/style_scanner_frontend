@@ -2,47 +2,43 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CommunityNotiForm from './CommunityNotiForm';
 
-export const getPosts = async () => {
-    const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
-    return response.data;
-};
-
 export default function CommunityNoti() {
-
-    const [notifications, setNotifications] = useState([]);
-
-    const [posts, setPosts] = useState([]);
+    const [followings, setFollowings] = useState([{}]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(8);
-    const firstItemIndex = (currentPage - 1) * itemsPerPage;
-    const lastItemIndex = firstItemIndex + itemsPerPage;
-    const currentItems = posts.slice(firstItemIndex, lastItemIndex);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [totalFollowings, setTotalFollowings] = useState(0);
 
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const data = await getPosts(currentPage, itemsPerPage);
-                setPosts(data);
-            } catch (error) {
-                console.error('Error fetching posts:', error);
+
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            console.error('Access token is missing');
+            return;
+        }
+
+        axios.get("/api/notification/me", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
             }
-        };
+        })
+            .then((response) => {
+                setFollowings(response.data);
+            })
+            .catch((error) => {
+                // 에러 처리
+                console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);
+            });
+    }, []);
 
-        fetchPosts();
-    }, [currentPage, itemsPerPage]);
+    const firstItemIndex = (currentPage - 1) * itemsPerPage;
+    const lastItemIndex = firstItemIndex + itemsPerPage;
+    const currentItems = followings.slice(firstItemIndex, lastItemIndex);
 
-    const urls = notifications.map(notification => notification.profilePictureUrl);
-    const titles = notifications.map(notification => notification.brandName);
-    const replys = notifications.map(notification => notification.itemName);
-    const dates = notifications.map(notification => notification.itemOption);
     return (
         <CommunityNotiForm
-            urls={urls}
-            titles={titles}
-            replys={replys}
-            posts={posts}
-            dates={dates}
+            list={currentItems}
 
+            length={followings.length}
             currentItems={currentItems}
             itemsPerPage={itemsPerPage}
             setCurrentPage={setCurrentPage}

@@ -4,7 +4,7 @@ import NotiBox from './NotiBox';
 import Pagination from './Pagination';
 import Footer from './Footer';
 
-export default function CommunityNotiForm({ urls=[], titles = [], replys = [], dates = [], currentItems, posts, itemsPerPage, setCurrentPage, currentPage}) {
+export default function CommunityNotiForm({ list, length, itemsPerPage, setCurrentPage, currentPage}) {
     return (
         <body>
             <div className={styles.total}>
@@ -15,14 +15,7 @@ export default function CommunityNotiForm({ urls=[], titles = [], replys = [], d
                         <hr />
                     </div>
                     <div className={styles.wrap}>
-                        {currentItems.map(index => (
-                            <NotiBox key={index}
-                            url={urls[index]}
-                            title={titles[index]}
-                            reply={replys[index]}
-                            date={dates[index]}
-                            />
-                        ))}
+                        <NotiBox list={list}/>
                     </div>
                 </div>
             </div>
@@ -32,7 +25,7 @@ export default function CommunityNotiForm({ urls=[], titles = [], replys = [], d
                 <div className={styles.leftBtween} />
                 <div className={styles.footer}>
                     <Pagination
-                        itemsNum={posts.length}
+                        itemsNum={length}
                         itemsPerPage={itemsPerPage}
                         setCurrentPage={setCurrentPage}
                         currentPage={currentPage}
