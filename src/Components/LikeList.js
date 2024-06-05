@@ -20,7 +20,7 @@ export default function LikeList() {
             return;
         }
 
-        axios.get("/api/follow/LikeList", {
+        axios.get("/api/itemLike/me", {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -28,6 +28,7 @@ export default function LikeList() {
             .then((response) => {
                 console.log(response.data);
                 setItems(response.data);
+                setTotalLikes(response.data.length);
             })
             .catch((error) => {
                 // 에러 처리
@@ -56,7 +57,7 @@ export default function LikeList() {
                         </div>
 
                         <div>
-                            <ItemsList list={currentItems} />
+                            <ItemsList list={items} />
                         </div>
                     </div>
 
