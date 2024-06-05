@@ -4,7 +4,7 @@ import NotiBox from './NotiBox';
 import Pagination from './Pagination';
 import Footer from './Footer';
 
-export default function CommunityNotiForm({ list, length, itemsPerPage, setCurrentPage, currentPage}) {
+export default function CommunityNotiForm({ noti, length, itemsPerPage, setCurrentPage, currentPage}) {
     return (
         <body>
             <div className={styles.total}>
@@ -15,7 +15,7 @@ export default function CommunityNotiForm({ list, length, itemsPerPage, setCurre
                         <hr />
                     </div>
                     <div className={styles.wrap}>
-                        <NotiBox list={list}/>
+                        <NotiBox noti={noti}/>
                     </div>
                 </div>
             </div>

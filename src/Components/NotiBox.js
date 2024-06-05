@@ -1,16 +1,14 @@
 import React from 'react';
 import styles from '../css/NotiBox.module.css';
 
-function NotiBox({ list }) {
+function NotiBox({ noti }) {
     return (
         <>
-            {list.map((user, index) => (
+            {noti.map((user, index) => (
                 <div key={index}>
                     <div className={styles.box}>
                         <div className={styles.NBox}>
                             <div>
-                                {/* formLink(user.postId) */}
-                                {/* user.postContent */}
                                 <a href={formLink(user.postId)} className={styles.Qtext} >Q {user.postContent}</a>
                             </div>
                             <div>
@@ -30,21 +28,15 @@ function NotiBox({ list }) {
 }
 
 function formLink(link) {
-    console.log(link)
     return `/CommunityFeed/${link}`;
 }
 
 function formatDate(createdAt) {
-    if (!createdAt || createdAt.length < 3) {
-        return 0;
-    }
-
-
+    if (!createdAt || createdAt.length < 3) return 0;
     const year = createdAt[0]
     const month = createdAt[1];
     const day = createdAt[2];
-
-    return `${year}.${month}.${day}`;
+    return `${year}. ${month}. ${day}`;
 }
 
 export default NotiBox;
