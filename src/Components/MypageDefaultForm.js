@@ -16,16 +16,18 @@ function CelebrityInfo({ imgUrl, celebID }) {
 function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCount }) {
     return (
         <div className={styles.likeComponent}>
-            <img className={styles.likeComponent} id='itemImg' src={imgUrl} alt="상품" style={{ width: "100px", height: "100px" }} />
+            <img className={styles.likeComponent} id='itemImg' src={imgUrl} style={{ width: "100px", height: "100px" }} />
             <p className={styles.likeComponent} id={styles.brandName}>{brandName}</p>
             <div className={styles.item}>
-                <p id={styles.itemName}>{itemName}</p> -
-                <p id={styles.itemOption}>{itemOption}</p>
+                <p id={styles.itemName}>{itemName}</p>
+                {itemOption && (
+                    <p id={styles.itemOption}>&nbsp;-&nbsp;{itemOption}</p>
+                )}
             </div>
-            <p className={styles.likeComponent} id={styles.itemPrice}>{itemPrice}</p>
+            <p className={styles.likeComponent} id={styles.itemPrice}>{itemPrice} ₩</p>
             <div className={styles.heartBox}>
-                <img src="img/fullHeart.png" alt="하트 아이콘" />
-                <p id='likeCount'>{likeCount}</p>
+                <img src="img/fullHeart.png" />
+                <p id='likeCount'>&nbsp;{likeCount}</p>
             </div>
         </div>
     );
@@ -33,8 +35,8 @@ function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCoun
 
 export default function MypageDefaultForm({ displayName, bio, profilePictureUrl, followingNum, followingURLs = [], followingIDs = [], imgUrls = [], brandNames = [], itemNames = [], itemOptions = [], itemPrices = [], likeCounts = [] }) {
 
-    if(profilePictureUrl=="")
-        profilePictureUrl="/img/whiteBox.png"
+    if (profilePictureUrl == "")
+        profilePictureUrl = "/img/whiteBox.png"
     return (
         <>
             <div className={styles.total}>
@@ -47,7 +49,7 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
                                 <p className={styles.bigFont}>@</p>
                                 <p className={styles.bigFont}>{displayName}</p>
                             </div>
-                            <p style={{ marginTop:"3px",fontSize: "14px", color: "gray" }}>{bio}</p>
+                            <p style={{ marginTop: "3px", fontSize: "14px", color: "gray" }}>{bio}</p>
                         </div>
                         <div>
                             <p id='followNum' className={styles.bigFont}>{followingNum}</p>
@@ -87,21 +89,12 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
                                 likeCount={likeCounts[index]}
                             />
                         ))}
-
-                        {/* <LikeInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            brandName="브랜드이름"
-                            itemName="아이템이름"
-                            itemOption="옵션명"
-                            itemPrice="가격"
-                            likeCount="좋아요수"
-                        /> */}
                     </div>
 
                 </div>
             </div>
             <Footer />
-            </>
+        </>
 
     );
 }
