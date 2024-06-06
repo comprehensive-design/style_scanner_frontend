@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import styles from '../css/Search.module.css';
 import Channel from '../Components/channel';
-import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -17,8 +17,12 @@ export default function Search() {
     const [selectedUser, setSelectedUser] = useState(null);
 
     const openPopup = (user) => {
-        setSelectedUser(user);
-        setPopupVisible(true);
+        if (user && user.profileName) { // user 객체와 profileName이 있는지 확인
+            setSelectedUser(user);
+            setPopupVisible(true);
+        } else {
+            console.error('유효하지 않은 사용자 데이터:', user);
+        }
     }
 
     const closePopup = () => {
@@ -50,9 +54,6 @@ export default function Search() {
             .then(response => {
                 console.log('Followed successfully');
                 setIsFollowing(true); // 팔로우 상태 업데이트
-
-                console.log(isFollowing);
-                console.log(response)
             })
             .catch(error => {
                 console.error('Error while following:', error);
@@ -73,7 +74,6 @@ export default function Search() {
             .then(response => {
                 console.log('Unfollowed successfully');
                 setIsFollowing(false); // 언팔로우 상태 업데이트
-
             })
             .catch(error => {
                 console.error('Error while unfollowing:', error);
@@ -93,7 +93,7 @@ export default function Search() {
         })
             .then(response => {
                 console.log(response.data);
-                setIsFollowing(!response.data); // 올바르게 상태 설정
+                setIsFollowing(response.data.isFollowing); // 올바르게 상태 설정
             })
             .catch(error => {
                 console.error('Error while checking follow status:', error);
@@ -117,7 +117,7 @@ export default function Search() {
                     <p id={styles.Searchtotal}>검색 결과</p>
                 </div>
 
-                <div className={styles.SearchUserRes} style={{ display: 'flex' }} onClick={() => openPopup(searchResults.profileName)}>
+                <div className={styles.SearchUserRes} style={{ display: 'flex' }} onClick={() => openPopup(searchResults)}>
                     <div className={styles.SearchprofileImg} >
                         <img
                             id={styles.SearchUserImg}
@@ -161,22 +161,14 @@ export default function Search() {
                         <Channel />
                         <div className={styles.paddingWidth}></div>
                         <Channel />
-
                     </div>
                     <div className={styles.paddingHeight}></div>
-
-                    {/* <div className={styles.SearchRelChannel}>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel />
-                </div> */}
                 </div>
             </div>
-            <Footer></Footer>
+            {popupVisible && selectedUser && (
+                <FeedPopup user={selectedUser} onClose={closePopup}/>
+            )}
+            <Footer />
         </div>
     );
 }
