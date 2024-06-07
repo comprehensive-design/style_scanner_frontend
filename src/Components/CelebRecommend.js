@@ -8,13 +8,6 @@ export default function CelebRecommend() {
 
     const [celebs, setCelebs] = useState([]);
 
-    const imgUrls = celebs.map(following => following.prifileImgUrl);
-    const displayNames = celebs.map(following => following.displayName);
-    const followers = celebs.map(following => following.followers);
-    const picUrl1s = celebs.map(following => following.picUrl1);
-    const picUrl2s = celebs.map(following => following.picUrl2);
-    const picUrl3s = celebs.map(following => following.picUrl3);
-
 
     // get
     useEffect(() => {
@@ -34,19 +27,28 @@ export default function CelebRecommend() {
             .catch((error) => {
                 alert(error.response.data.message);
             });
-        // axios.get("/api/", {
-        //     headers: {
-        //         'Authorization': `Bearer ${accessToken}`
-        //     }
-        // })
-        //     .then((response) => {
-        //         const { celeb_list } = response.data;
-        //         setCelebs(celeb_list.slice(0, 6));
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching data:', error);
-        //     });
+
+
+        axios.get("/api/follow/recommend", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((response) => {
+                setCelebs(response.data.slice(0, 6));
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
     }, []);
+
+
+    const imgUrls = celebs.map(celeb => celeb.profilePictureUrl);
+    const displayNames = celebs.map(celeb => celeb.profileName);
+    const followers = celebs.map(celeb => celeb.profileFollowerCount);
+    const picUrl1s = celebs.map(celeb => celeb.feed_3_list[0]);
+    const picUrl2s = celebs.map(celeb => celeb.feed_3_list[1]);
+    const picUrl3s = celebs.map(celeb => celeb.feed_3_list[2]);
 
     //post
     // const handleFollow = (index) => {
@@ -62,7 +64,7 @@ export default function CelebRecommend() {
     //         });
     // };
 
-    console.log(displayName);
+    
     return (
         <CelebRecommendForm
             name={displayName} 

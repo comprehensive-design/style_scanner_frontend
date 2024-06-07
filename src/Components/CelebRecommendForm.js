@@ -3,7 +3,7 @@ import CelebBox from './CelebBox';
 import Footer from './Footer';
 
 export default function CelebRecommendForm({ name, imgUrls = [], displayNames = [], followers = [], picUrl1s = [], picUrl2s = [], picUrl3s = [] , onSave = () => {} }) {
-    console.log(name);
+    
     return (
         <div>
             <div className={styles.content}>
@@ -24,12 +24,6 @@ export default function CelebRecommendForm({ name, imgUrls = [], displayNames = 
                             onSave={() => onSave(index)}
                         />
                     ))}
-                    <CelebBox></CelebBox>
-                    <CelebBox></CelebBox>
-                    <CelebBox></CelebBox>
-                    <CelebBox></CelebBox>
-                    <CelebBox></CelebBox>
-                    <CelebBox></CelebBox>
                 </div>
             </div>
             <Footer></Footer>
