@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import CommunityInfo from './CommunityInfo';
 import FeedPopup from './FeedPopup';
 
-function ComFeed({ feedUrl, userId, content, displayName, profilePictureUrl, goDir }) {
+function ComFeed({ postId, feedUrl,content, displayName, profilePictureUrl, goDir }) {
     const navigate = useNavigate();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isFeedPopupOpen, setIsFeedPopupOpen] = useState(false);
@@ -35,13 +35,11 @@ function ComFeed({ feedUrl, userId, content, displayName, profilePictureUrl, goD
         <div>
             <div className={styles.comCompleteFeed}>
                 <div className={styles.comProfile} onClick={openFeedPopup}>
-                    <div className={styles.comProfileBox}>
-                        {profilePictureUrl ? (
-                            <img className={styles.comProfileImage2} src={profilePictureUrl} alt="Profile" />
-                        ) : (
-                            <img id={styles.comProfileImage} src={`img/profile.png`} alt="Profile" />
-                        )}
-                    </div>
+                    {profilePictureUrl ? (
+                        <img className={styles.comProfileImage} src={profilePictureUrl} alt="Profile" />
+                    ) : (
+                        <img className={styles.comProfileImage} src={`img/profile.png`} alt="Profile" />
+                    )}
                     <p className={styles.comProfileName} id={styles.name}>{displayName}</p>
                 </div>
 
@@ -52,14 +50,14 @@ function ComFeed({ feedUrl, userId, content, displayName, profilePictureUrl, goD
                         <img src={feedUrl} alt="Feed" />
                     </div>
                 </div>
-                {isPopupOpen && <CommunityInfo onClose={closePopup} />}
+                {isPopupOpen && <CommunityInfo onClose={closePopup} feedUrl={feedUrl} postId={postId} profilePictureUrl={profilePictureUrl} displayName={displayName} />}
             </div>
 
             <div className={styles.writeBox}>
                 <span className={styles.writeId} id="writerId"><b>{displayName}</b></span>
                 <div className={styles.writeTotal}>
                     <span className={styles.writeContent} id="writeContent">{content}&nbsp;</span>
-                    <span className={styles.tag} id="tag">@noodle.zip</span>
+                    {/* <span className={styles.tag} id="tag">@noodle.zip</span> */}
                 </div>
             </div>
         </div>

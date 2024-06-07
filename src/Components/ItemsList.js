@@ -1,69 +1,103 @@
-// import styles from "../css/ItemLists.module.css";
+import axios from 'axios';
 import styles from '../css/ItemsList.module.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function ItemsList({ list }) {
-    const [imageSrc, setImageSrc] = useState(`img/heart.png`); // 초기 상태는 선택이 되지 않은 상태를 나타내기 위함
-    const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
+export default function ItemsList({ list = [] }) {
+    const [likeStatuses, setLikeStatuses] = useState(
+        list.map(item => ({ id: item.id, isLiked: item.isLiked, likeCount: item.likeCount }))
+    );
 
-    const rows = [];
-    for (let i = 0; i < list.length; i += 5) {
-        rows.push(list.slice(i, i + 5));
-    }
+    useEffect(() => {
+        setLikeStatuses(list.map(item => ({ id: item.id, isLiked: item.isLiked, likeCount: item.likeCount })));
+    }, [list]);
 
-    const handleClick = () => {
-        if (isClicked) {
-            setImageSrc(`img/fullHeart.png`);
-            setIsClicked(false); // 초기 상태 false 일 땐 초기 상태 이미지 src
-        } else {
-            setImageSrc(`img/heart.png`);
-            setIsClicked(true); // true일 땐 변경될 이미지 src
-        }
+    const handleClick = (id) => {
+        setLikeStatuses(prevStatuses =>
+            prevStatuses.map(status => {
+                if (status.id === id) {
+                    const newIsLiked = !status.isLiked;
+                    const newLikeCount = newIsLiked ? status.likeCount + 1 : status.likeCount - 1;
+
+                    if (newIsLiked) {
+                        axios.post(`/api/itemLike/${id}`, {}, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => {
+                            console.log(`Liked item ${id}`);
+                        })
+                        .catch(error => {
+                            console.error(`Error liking item ${id}:`, error);
+                        });
+                    } else {
+                        axios.delete(`/api/itemLike/${id}`, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => {
+                            console.log(`Unliked item ${id}`);
+                        })
+                        .catch(error => {
+                            console.error(`Error unliking item ${id}:`, error);
+                        });
+                    }
+
+                    return { ...status, isLiked: newIsLiked, likeCount: newLikeCount };
+                }
+                return status;
+            })
+        );
     };
 
     return (
         <div>
-            {rows.map((row, index) => (
-                <div key={index} style={{ display: 'flex' }} >
-                    {row.map(({ id, title, body }) => (
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {list.map(item => {
+                    const { id, feedUrl, name, price, brand, itemOption } = item;
+                    const status = likeStatuses.find(status => status.id === id) || { isLiked: false, likeCount: 0 };
+
+                    return (
                         <div key={id} style={{ flex: 1, margin: '5px' }} className={styles.ItemDiv}>
                             <img
                                 id={styles.LikeItemImg}
-                                src="https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"
-                            >
-                            </img>
+                                src={feedUrl || "https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"}
+                                alt={name}
+                            />
                             <div className={styles.itemInfo}>
-                                <p style={{ fontWeight: "bold" }} className={styles.storeName}>{title}</p>
-                                <p className={styles.itemName}>{body}</p>
+                                <p style={{ fontWeight: "bold" }} className={styles.storeName}>{brand}</p>
+                                <p className={styles.itemName}>{name}-{itemOption}</p>
                             </div>
-                            <p className={styles.itemPrice}>102,000</p>
-                            <div className={styles.itemprofile} style={{ display: 'flex' }}>
+                            <p className={styles.itemPrice}>{price}</p>
+                            <div className={styles.itemProfile} style={{ display: 'flex', alignItems: 'center' }}>
                                 <img
-                                    src={`img/fullHeart.png`}
-                                    width='14'
-                                    height='13'
+                                    id={styles.rankingHeart}
+                                    src={status.isLiked ? 'img/fullHeart.png' : 'img/heart.png'}
+                                    alt="Heart Icon"
+                                    onClick={() => handleClick(id)}
                                     style={{
                                         margin: 5,
+                                        cursor: 'pointer'
                                     }}
                                 />
                                 <div className={styles.likeCountDiv}>
-                                    <p className={styles.likeCount}>2233</p>
+                                    <p className={styles.likeCount}>{status.likeCount}</p>
                                 </div>
-
                                 <div className={styles.linkImg}>
                                     <img
                                         src={`img/link.png`}
                                         width='13'
                                         height='13'
                                         className="link"
+                                        alt="Link Icon"
                                     />
                                 </div>
-
                             </div>
                         </div>
-                    ))}
-                </div>
-            ))}
+                    );
+                })}
+            </div>
         </div>
     );
 }

@@ -42,12 +42,12 @@ function Sidebar() {
             <b>관심목록</b>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/FollowingList' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact="true" to='/FollowingList' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               팔로잉
             </NavLink>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/LikeList' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact="true" to='/LikeList' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               좋아요
             </NavLink>
           </li>
@@ -59,17 +59,17 @@ function Sidebar() {
             <b>커뮤니티</b>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/MyPageWritings' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact="true" to='/MyPageWritings' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               내가 작성한 글
             </NavLink>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/MyPageComments' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact="true" to='/MyPageComments' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               내가 작성한 댓글
             </NavLink>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/CommunityNoti' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact="true" to='/CommunityNoti' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               커뮤니티 알림
             </NavLink>
           </li>
@@ -81,7 +81,7 @@ function Sidebar() {
             <b>나의 계정</b>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact to='/AccountManage' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact="true" to='/AccountManage' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               계정 관리
             </NavLink>
           </li>

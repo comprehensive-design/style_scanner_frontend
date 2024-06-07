@@ -1,9 +1,11 @@
+import React, { useEffect, useState } from 'react';
 import styles from '../css/Search.module.css';
 import Channel from '../Components/channel';
-import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Footer from './Footer';
+import FeedPopup from './FeedPopup';
 
 export default function Search() {
     const location = useLocation();
@@ -11,6 +13,22 @@ export default function Search() {
     const [isFollowing, setIsFollowing] = useState(false);
     const accessToken = localStorage.getItem('accessToken');
     const followeeId = searchResults?.profileName;
+    const [popupVisible, setPopupVisible] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    const openPopup = (user) => {
+        if (user && user.profileName) { // user 객체와 profileName이 있는지 확인
+            setSelectedUser(user);
+            setPopupVisible(true);
+        } else {
+            console.error('유효하지 않은 사용자 데이터:', user);
+        }
+    }
+
+    const closePopup = () => {
+        setSelectedUser(null);
+        setPopupVisible(false);
+    }
 
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
@@ -36,9 +54,6 @@ export default function Search() {
             .then(response => {
                 console.log('Followed successfully');
                 setIsFollowing(true); // 팔로우 상태 업데이트
-
-                console.log(isFollowing);
-                console.log(response)
             })
             .catch(error => {
                 console.error('Error while following:', error);
@@ -59,7 +74,6 @@ export default function Search() {
             .then(response => {
                 console.log('Unfollowed successfully');
                 setIsFollowing(false); // 언팔로우 상태 업데이트
-                
             })
             .catch(error => {
                 console.error('Error while unfollowing:', error);
@@ -79,7 +93,7 @@ export default function Search() {
         })
             .then(response => {
                 console.log(response.data);
-                setIsFollowing(!response.data); // 올바르게 상태 설정
+                setIsFollowing(response.data.isFollowing); // 올바르게 상태 설정
             })
             .catch(error => {
                 console.error('Error while checking follow status:', error);
@@ -97,65 +111,64 @@ export default function Search() {
     }
 
     return (
-        <div className={styles.profileBox}>
-            <div style={{ display: 'flex' }}>
-                <p id={styles.Searchtotal}>전체</p>
-            </div>
-
-            <div className={styles.SearchUserRes} style={{ display: 'flex' }}>
-                <div className={styles.SearchprofileImg}>
-                    <img
-                        id={styles.SearchUserImg}
-                        src={searchResults.profilePictureUrl}
-                        alt="Profile"
-                    />
+        <div>
+            <div className={styles.profileBox}>
+                <div style={{ display: 'flex' }}>
+                    <p id={styles.Searchtotal}>검색 결과</p>
                 </div>
 
-                <div className={styles.userInfoWord}>
-                    <p id={styles.SearchUserid}>{searchResults.profileName}</p>
-                    <p id={styles.profileBio}>{searchResults.profileBio}</p>
-                    <div style={{ display: 'flex' }} className={styles.userFollowerInfo}>
-                        <p id={styles.FollowerWord}>팔로워</p>
-                        <p id={styles.FollowerCountWord}>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
+                <div className={styles.SearchUserRes} style={{ display: 'flex' }} onClick={() => openPopup(searchResults)}>
+                    <div className={styles.SearchprofileImg} >
+                        <img
+                            id={styles.SearchUserImg}
+                            src={searchResults.profilePictureUrl}
+                            alt="Profile"
+                        />
+                    </div>
+
+                    <div className={styles.userInfoWord}>
+                        <p id={styles.SearchUserid}>{searchResults.profileName}</p>
+                        <p id={styles.profileBio}>{searchResults.profileBio}</p>
+                        <div style={{ display: 'flex' }} className={styles.userFollowerInfo}>
+                            <p id={styles.FollowerWord}>팔로워</p>
+                            <p id={styles.FollowerCountWord}>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
+                        </div>
+                    </div>
+                    <div className={styles.SearchFollow}>
+                        {!isFollowing ? (
+                            <div className={styles.FollowButton}>
+                                <Button onClick={handleFollow}>팔로우</Button>
+                            </div>
+                        ) : (
+                            <div className={styles.FollowButton}>
+                                <Button id={styles.buttonDelete} $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
+                            </div>
+                        )}
                     </div>
                 </div>
-                <div className={styles.SearchFollow}>
-                    {!isFollowing ? (
-                        <div className={styles.FollowButton}>
-                            <Button onClick={handleFollow}>팔로우</Button>
-                        </div>
-                    ) : (
-                        <div className={styles.FollowButton}>
-                            <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
-                        </div>
-                    )}
+
+                <div className={styles.SearchRelRes}>
+                    <p className={styles.RelResWord}>Top Followee</p>
+                    <p className={styles.grayP}>인기 셀럽</p>
+
+                    <div className={styles.SearchRelChannel}>
+                        <Channel />
+                        <div className={styles.paddingWidth}></div>
+                        <Channel />
+                        <div className={styles.paddingWidth}></div>
+                        <Channel />
+                        <div className={styles.paddingWidth}></div>
+                        <Channel />
+                        <div className={styles.paddingWidth}></div>
+                        <Channel />
+                    </div>
+                    <div className={styles.paddingHeight}></div>
                 </div>
             </div>
-
-            <div className={styles.SearchRelRes}>
-                <p className={styles.RelResWord}>연관 검색 결과</p>
-
-                <div className={styles.SearchRelChannel}>
-                    <Channel />
-                    {/* <div className={styles.paddingWidth}></div>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel /> */}
-                </div>
-                <div className={styles.paddingHeight}></div>
-
-                {/* <div className={styles.SearchRelChannel}>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel />
-                    <div className={styles.paddingWidth}></div>
-                    <Channel />
-                </div> */}
-            </div>
+            {popupVisible && selectedUser && (
+                <FeedPopup user={selectedUser} onClose={closePopup}/>
+            )}
+            <Footer />
         </div>
     );
 }

@@ -10,6 +10,7 @@ export default function MypageDefault() {
 
     const [followings, setFollowings] = useState([]);
     const [likes, setLikes] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
@@ -42,6 +43,7 @@ export default function MypageDefault() {
                 const { following_list } = response.data;
                 setTotalFollowings(following_list.length);
                 setFollowings(following_list.slice(0, 5));
+                setLoading(true);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -67,18 +69,17 @@ export default function MypageDefault() {
 
     // Back 다 되면 해야함 followings, request
     const likeURLs = likes.map(like => like.itemUrl);
-    // const brandNames = likes.map(like => like.brandName);
+    const brand = likes.map(like => like.brand);
     const itemNames = likes.map(like => like.name);
-    // const itemOptions = likes.map(like => like.itemOption);
+    const itemOption = likes.map(like => like.itemOption);
     const itemPrices = likes.map(like => like.price);
     const likeCounts = likes.map(like => like.likeCount);
 
-    return (
+    if(loading){return (
         <MypageDefaultForm
             displayName={displayName}
             bio={bio}
             profilePictureUrl={profilePictureUrl}
-
 
             followingNum={totalFollowings}
             followingURLs={followingURLs}
@@ -86,14 +87,13 @@ export default function MypageDefault() {
 
             // Back 다 되면 해야함
             imgUrls={likeURLs}
-            // brandNames={brandNames}
-            brandNames={"dkdkdk"}
+            brandNames={brand}
             itemNames={itemNames}
-            // itemOptions={itemOptions}
-            itemOptions={"black"}
+            itemOptions={itemOption}
             itemPrices={itemPrices}
             likeCounts={likeCounts}
 
         />
-    );
+    );}
+    
 }

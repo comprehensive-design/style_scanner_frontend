@@ -125,7 +125,7 @@ export default function FeedPopup({ user, onClose }) {
                             )}
                             {isFollowing && (
                                 <div className={styles.FollowButton}>
-                                    <Button id={styles.buttonDelete} BackColor="#d9d9d9" txtColor="black" hovColor="black" hovTxtColor="white" onClick={() => handleUnfollow(user.profileName)}>언팔로우</Button>
+                                    <Button id={styles.buttonDelete} $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={() => handleUnfollow(user.profileName)}>언팔로우</Button>
                                 </div>
                             )}
 

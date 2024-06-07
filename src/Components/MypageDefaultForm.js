@@ -2,6 +2,7 @@
 import styles from "../css/MypageDefault.module.css";
 import Sidebar from './Sidebar';
 import { NavLink } from "react-router-dom";
+import Footer from "./Footer"
 
 function CelebrityInfo({ imgUrl, celebID }) {
     return (
@@ -18,10 +19,12 @@ function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCoun
             <img className={styles.likeComponent} id='itemImg' src={imgUrl} style={{ width: "100px", height: "100px" }} />
             <p className={styles.likeComponent} id={styles.brandName}>{brandName}</p>
             <div className={styles.item}>
-                <p id={styles.itemName}>{itemName}</p>&nbsp;-&nbsp;
-                <p id={styles.itemOption}>{itemOption}</p>
+                <p id={styles.itemName}>{itemName}</p>
+                {itemOption && (
+                    <p id={styles.itemOption}>&nbsp;-&nbsp;{itemOption}</p>
+                )}
             </div>
-            <p className={styles.likeComponent} id={styles.itemPrice}>{itemPrice} 원</p>
+            <p className={styles.likeComponent} id={styles.itemPrice}>{itemPrice} ₩</p>
             <div className={styles.heartBox}>
                 <img src="img/fullHeart.png" />
                 <p id='likeCount'>&nbsp;{likeCount}</p>
@@ -32,23 +35,21 @@ function LikeInfo({ imgUrl, brandName, itemName, itemOption, itemPrice, likeCoun
 
 export default function MypageDefaultForm({ displayName, bio, profilePictureUrl, followingNum, followingURLs = [], followingIDs = [], imgUrls = [], brandNames = [], itemNames = [], itemOptions = [], itemPrices = [], likeCounts = [] }) {
 
-    if(profilePictureUrl=="")
-        profilePictureUrl="/img/whiteBox.png"
+    if (profilePictureUrl == "")
+        profilePictureUrl = "/img/whiteBox.png"
     return (
-        <body>
-            <div className={styles.wrap}>
-
-                <Sidebar></Sidebar>
-
+        <>
+            <div className={styles.total}>
+                <Sidebar />
                 <div className={styles.content}>
                     <div className={styles.profileBox}>
                         <img className={styles.profileImg} src={profilePictureUrl}></img>
                         <div className={styles.nameBox}>
                             <div style={{ display: "flex" }}>
-                                <p className={styles.bigFont}>@&nbsp;</p>
+                                <p className={styles.bigFont}>@</p>
                                 <p className={styles.bigFont}>{displayName}</p>
                             </div>
-                            <p style={{ marginTop:"3px",fontSize: "14px", color: "gray" }}>{bio}</p>
+                            <p style={{ marginTop: "3px", fontSize: "14px", color: "gray" }}>{bio}</p>
                         </div>
                         <div>
                             <p id='followNum' className={styles.bigFont}>{followingNum}</p>
@@ -88,19 +89,12 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
                                 likeCount={likeCounts[index]}
                             />
                         ))}
-
-                        {/* <LikeInfo
-                            imgUrl="http://via.placeholder.com/100X100"
-                            brandName="브랜드이름"
-                            itemName="아이템이름"
-                            itemOption="옵션명"
-                            itemPrice="가격"
-                            likeCount="좋아요수"
-                        /> */}
                     </div>
 
                 </div>
-            </div></body>
+            </div>
+            <Footer />
+        </>
 
     );
 }

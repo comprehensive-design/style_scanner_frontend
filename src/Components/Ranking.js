@@ -11,26 +11,43 @@ export default function Ranking({selectedCategory, selectedSubcategory}){
     const [itemsPerPage, setItemsPerPage] = useState(40); 
 
     useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/posts")
-            .then((response) => {
-                setItems(response.data);
+        console.log("Fetching data from API...");
+        axios.get("/api/item/ranking")
+            .then(async (response) => {
+                console.log("Data fetched successfully:", response.data);
+                const items = response.data;
+                
+                // Like status를 병렬로 가져오기
+                const likeStatusPromises = items.map(item => 
+                    axios.get(`/api/itemLike/${item.id}`)
+                        .then(response => ({ id: item.id, isLiked: response.data.isLiked }))
+                        .catch(() => ({ id: item.id, isLiked: false }))
+                );
+                
+                const likeStatuses = await Promise.all(likeStatusPromises);
+                
+                const itemsWithLikes = items.map(item => {
+                    const likeStatus = likeStatuses.find(status => status.id === item.id);
+                    return { ...item, isLiked: likeStatus ? likeStatus.isLiked : false };
+                });
+
+                setItems(itemsWithLikes);
             })
             .catch((error) => {
-                // 에러 처리
-                console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);
+                console.error('Error fetching data:', error);
             });
     }, []);
-
-    const renderItems = () => {
-        const items = [];
-        for (let i=0; i<4; i++){
-            items.push(
-                <RankingFeed key = {`feed${i}`}/>
-            );
-            items.push(<div key={`padding${i}`} className={styles.RankingPadding}></div>);
-        }
-        return items;
-    }
+    
+    // const renderItems = () => {
+    //     const items = [];
+    //     for (let i=0; i<4; i++){
+    //         items.push(
+    //             <RankingFeed key = {`feed${i}`}/>
+    //         );
+    //         items.push(<div key={`padding${i}`} className={styles.RankingPadding}></div>);
+    //     }
+    //     return items;
+    // }
 
     return(
         <div className={styles.totalWrap}>
@@ -50,11 +67,11 @@ export default function Ranking({selectedCategory, selectedSubcategory}){
                     </div>
 
                     <div className={styles.RankingItems} style={{display:'flex'}}>
-                        {renderItems()}
+                        <RankingFeed list={items}/>
                         <div style={{height:"30px"}}></div>
                     </div>
                     
-                    <div className={styles.RankingItems} style={{display:'flex'}}>
+                    {/*<div className={styles.RankingItems} style={{display:'flex'}}>
                         {renderItems()}
                         <div style={{height:"30px"}}></div>
                     </div>
@@ -67,7 +84,7 @@ export default function Ranking({selectedCategory, selectedSubcategory}){
                     <div className={styles.RankingItems} style={{display:'flex'}}>
                         {renderItems()}
                         <div style={{height:"30px"}}></div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
