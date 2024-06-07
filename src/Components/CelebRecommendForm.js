@@ -2,8 +2,8 @@ import styles from '../css/CelebRecommend.module.css';
 import CelebBox from './CelebBox';
 import Footer from './Footer';
 
-export default function CelebRecommendForm({ name, imgUrls = [], displayNames = [], followers = [], picUrl1s = [], picUrl2s = [], picUrl3s = [] , onSave = () => {} }) {
-    
+export default function CelebRecommendForm({ isFollow, name, imgUrls = [], displayNames = [], followers = [], picUrl1s = [], picUrl2s = [], picUrl3s = [], follow = () => { }, unfollow = () => { } }) {
+
     return (
         <div>
             <div className={styles.content}>
@@ -21,7 +21,9 @@ export default function CelebRecommendForm({ name, imgUrls = [], displayNames = 
                             picUrl1={picUrl1s[index]}
                             picUrl2={picUrl2s[index]}
                             picUrl3={picUrl3s[index]}
-                            onSave={() => onSave(index)}
+                            isFollow={isFollow[index]}
+                            follow={() => follow(index)}
+                            unfollow={() => unfollow(index)}
                         />
                     ))}
                 </div>
