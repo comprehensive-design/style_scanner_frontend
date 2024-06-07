@@ -10,7 +10,6 @@ export default function CelebRecommend() {
     const [loading, setLoading] = useState(false);
     const [isFollow, setIsFollow] = useState([]);
 
-    // get
     useEffect(() => {
         if (!accessToken) {
             console.error('Access token is missing');
@@ -36,9 +35,8 @@ export default function CelebRecommend() {
         })
             .then((response) => {
                 setCelebs(response.data.slice(0, 6));
-                const length=response.data.length;
+                const length = response.data.length;
                 setIsFollow(Array(length).fill(false));
-                console.log(isFollow[0]);
                 setLoading(true);
             })
             .catch((error) => {
@@ -65,7 +63,6 @@ export default function CelebRecommend() {
 
     const handleFollow = (index) => {
         const followeeId = celebs[index].profileName;
-        console.log(followeeId);
         if (!accessToken) {
             console.error('Access token is missing');
             return;
@@ -77,11 +74,9 @@ export default function CelebRecommend() {
             }
         })
             .then(response => {
-                console.log('Followed successfully');
                 const newIsFollow = [...isFollow];
                 newIsFollow[index] = true;
                 setIsFollow(newIsFollow);
-                console.log(isFollow[index]);
             })
             .catch(error => {
                 console.error('Error while following:', error);
@@ -89,10 +84,9 @@ export default function CelebRecommend() {
     };
 
     const handleUnfollow = (index) => {
-
         const followeeId = celebs[index].profileName;
-        
-        if(!accessToken){
+
+        if (!accessToken) {
             console.error('Access token is missing');
             return;
         }
@@ -101,17 +95,14 @@ export default function CelebRecommend() {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
-        })
-        .then(response => {
-            const newIsFollow = [...isFollow];
-            newIsFollow[index] = false;
-            setIsFollow(newIsFollow);
-            console.log(isFollow[index]);
-        })
-        .catch(error => {
-            // Handle error
-            console.error('Error while unfollowing:', error);
-        });
+        }).then(response => {
+                const newIsFollow = [...isFollow];
+                newIsFollow[index] = false;
+                setIsFollow(newIsFollow);
+            }).catch(error => {
+                // Handle error
+                console.error('Error while unfollowing:', error);
+            });
     };
 
     if (loading) {
