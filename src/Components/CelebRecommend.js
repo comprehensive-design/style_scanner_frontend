@@ -35,6 +35,7 @@ export default function CelebRecommend() {
         })
             .then((response) => {
                 setCelebs(response.data.slice(0, 6));
+                console.log(celebs[0])
                 setLoading(true);
             })
             .catch((error) => {
@@ -45,7 +46,16 @@ export default function CelebRecommend() {
 
     const imgUrls = celebs.map(celeb => celeb.profilePictureUrl);
     const displayNames = celebs.map(celeb => celeb.profileName);
-    const followers = celebs.map(celeb => celeb.profileFollowerCount);
+    const formatFollowerCount = (count) => {
+        if (count >= 1000000) {
+            return (count / 1000000).toFixed(1) + 'M';
+        } else if (count >= 1000) {
+            return (count / 1000).toFixed(1) + 'K';
+        } else {
+            return count;
+        }
+    };
+    const followers = celebs.map(celeb => formatFollowerCount(celeb.profileFollowerCount));
     const picUrl1s = celebs.map(celeb => celeb.feed_3_list[0]);
     const picUrl2s = celebs.map(celeb => celeb.feed_3_list[1]);
     const picUrl3s = celebs.map(celeb => celeb.feed_3_list[2]);
