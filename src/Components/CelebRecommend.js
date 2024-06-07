@@ -5,10 +5,9 @@ import React, { useState, useEffect } from 'react';
 export default function CelebRecommend() {
 
     const [displayName, setDisplayName] = useState('');
-
     const [celebs, setCelebs] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
-
+    const [loading, setLoading] = useState(false);
 
     // get
     useEffect(() => {
@@ -36,6 +35,7 @@ export default function CelebRecommend() {
         })
             .then((response) => {
                 setCelebs(response.data.slice(0, 6));
+                setLoading(true);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -72,7 +72,8 @@ export default function CelebRecommend() {
     };
 
     
-    return (
+    if(loading){
+        return (
         <CelebRecommendForm
             name={displayName} 
             imgUrls={imgUrls}
@@ -84,5 +85,5 @@ export default function CelebRecommend() {
     
            onSave={handleFollow}
             />
-    );
+        );}
 }
