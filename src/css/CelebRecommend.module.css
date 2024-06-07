@@ -25,10 +25,10 @@ body {
 .title {
     min-width: 1000px;
     text-align: center;
-    margin: 50px 0 70px 0;
+    margin: 40px 0 60px 0;
 }
 .title > p{
-    color: #aaa;
+    color: gray;
     margin-top: 10px;
 }
 

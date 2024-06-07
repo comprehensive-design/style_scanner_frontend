@@ -57,7 +57,6 @@ export default function MypageDefault() {
         })
             .then((response) => {
                 setLikes(response.data.slice(0, 2));
-                console.log(likes);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
