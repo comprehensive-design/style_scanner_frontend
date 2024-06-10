@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../css/Search.module.css';
-import Channel from '../Components/channel';
+import Channel from '../Components/Channel';
 import Button from './Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -15,9 +15,10 @@ export default function Search() {
     const followeeId = searchResults?.profileName;
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [celebs, setCelebs] = useState([]);
 
     const openPopup = (user) => {
-        if (user && user.profileName) { // user 객체와 profileName이 있는지 확인
+        if (user && user.profileName) {
             setSelectedUser(user);
             setPopupVisible(true);
         } else {
@@ -53,7 +54,7 @@ export default function Search() {
         })
             .then(response => {
                 console.log('Followed successfully');
-                setIsFollowing(true); // 팔로우 상태 업데이트
+                setIsFollowing(true);
             })
             .catch(error => {
                 console.error('Error while following:', error);
@@ -73,7 +74,7 @@ export default function Search() {
         })
             .then(response => {
                 console.log('Unfollowed successfully');
-                setIsFollowing(false); // 언팔로우 상태 업데이트
+                setIsFollowing(false);
             })
             .catch(error => {
                 console.error('Error while unfollowing:', error);
@@ -93,7 +94,7 @@ export default function Search() {
         })
             .then(response => {
                 console.log(response.data);
-                setIsFollowing(response.data.isFollowing); // 올바르게 상태 설정
+                setIsFollowing(response.data.isFollowing);
             })
             .catch(error => {
                 console.error('Error while checking follow status:', error);
@@ -101,6 +102,18 @@ export default function Search() {
     };
 
     useEffect(() => {
+        axios.get(`/api/follow/ranking`)
+            .then(response => {
+                console.log(response.data);
+                if (response.data) {
+                    const profiles = response.data.map(item => item.profile);
+                    setCelebs(profiles);
+                }
+            })
+            .catch(error => {
+                console.error('Error while checking follow status:', error);
+            });
+
         if (searchResults && searchResults.profileName) {
             checkFollowingStatus();
         }
@@ -152,15 +165,8 @@ export default function Search() {
                     <p className={styles.grayP}>인기 셀럽</p>
 
                     <div className={styles.SearchRelChannel}>
-                        <Channel />
+                        <Channel list={celebs}/>
                         <div className={styles.paddingWidth}></div>
-                        <Channel />
-                        <div className={styles.paddingWidth}></div>
-                        <Channel />
-                        <div className={styles.paddingWidth}></div>
-                        <Channel />
-                        <div className={styles.paddingWidth}></div>
-                        <Channel />
                     </div>
                     <div className={styles.paddingHeight}></div>
                 </div>

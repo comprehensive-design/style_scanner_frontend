@@ -10,7 +10,7 @@ export default function UserFeed({ id, feed }) {
                     src={feed.media_url_list}
                     width={"300px"}
                     height={"300px"}
-                    style={{objectFit:"contain"}}
+                    style={{objectFit:"cover"}}
                 >
                 </img>
             </button>

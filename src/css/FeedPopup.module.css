@@ -43,10 +43,11 @@
     display: flex;
     margin : auto;
     width: 600px;
+    margin-bottom: 30px;
 }
 
 .userInfoWord{
-    margin-top : 30px;
+    margin-top : 50px;
     margin-left:50px;
 }
 
