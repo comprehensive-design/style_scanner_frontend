@@ -3,11 +3,12 @@ import Feed from './feed';
 import styles from "../css/HomeFeed.module.css";
 import axios from 'axios';
 import SlideBtn from './SlideButton'; 
+import { useNavigate } from 'react-router';
 
-const getFeeds = async () => {
+const getFeeds = async (navigate) => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
-        console.error("토큰이 없습니다.");
+        navigate("/Login");
         throw new Error("토큰이 없습니다.");
     }
 
@@ -24,9 +25,7 @@ const getFeeds = async () => {
         return response.data.feeds; 
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            console.error('Axios 에러: 게시물 가져오기 실패:', error.response?.data || error.message);
-            console.error('응답 상태:', error.response?.status); // 상태 코드 로그
-            console.error('응답 헤더:', error.response?.headers); // 헤더 로그
+            navigate("/Login");
         } else {
             console.error('예상치 못한 에러: 게시물 가져오기 실패:', error);
         }
@@ -35,6 +34,8 @@ const getFeeds = async () => {
 };
 
 function FeedList() {
+    const navigate = useNavigate();
+
     const [feeds, setFeeds] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -43,14 +44,12 @@ function FeedList() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-              const data = await getFeeds();
-              console.log(data);
+              const data = await getFeeds(navigate);
               setFeeds(data);
               setLoading(false); 
             } catch (error) {
               setError('포스트를 가져오는 중 에러 발생');
               setLoading(false);
-              console.error('Error fetching posts:', error);
             }
           };
       
