@@ -6,56 +6,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import CommunityWrite from './CommunityWrite.js';
 
-export const getItems = async (id) => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-        console.error("토큰이 없습니다.");
-        throw new Error("토큰이 없습니다.");
-    }
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
-    //아이템 정보 가져오기
-    try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
-            params: { id: id },
-            ...config,
-        });
-        return response.data;
-
-    } catch (error) {
-        console.error('Error', error);
-        throw error;
-    }
-
-};
-
-//버튼 누른 피드 정보 가져오기
-// export const getFeedPost = async () => {
-//     try {
-//         //수정
-//         const response = await axios.get('/api/insta/?');
-//         return response.data;
-//     } catch (error) {
-//         console.error('피드 데이터 가져오기 오류:', error);
-//         throw error;
-//     }
-// };
-
-//next버튼 누를 때마다 피드 정보 주기
 
 export default function HomeInfo() {
     const location = useLocation(); 
-    const { mediaUrls, feedUrl, media_id, username, profile_url } = location.state || {}; // 전달된 상태 받기
+    const { mediaUrls, feedUrl, media_id, username, profile_url ,similarImages: initialSimilarImages} = location.state || {}; // 전달된 상태 받기
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 4;
     const navigate = useNavigate();
-
+    const [similarImages, setSimilarImages] = useState(initialSimilarImages || []);
     const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 열림/닫힘 상태를 관리하는 상태 추가
 
     const openPopup = () => {
@@ -74,21 +34,8 @@ export default function HomeInfo() {
         setCurrentPage((prevPage) => (prevPage - 1 + Math.ceil(items.length / itemsPerPage)) % Math.ceil(items.length / itemsPerPage));
     };
 
-    useEffect(() => {
-        const fetchItems = async () => {
-            const id = 1;
-            try {
-                const data = await getItems(id);
-                setItems(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
 
-        fetchItems();
-    }, []);
-
-    const currentItems = items.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    const currentItems = similarImages.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
     return (
         <div className={styles.contents}>
@@ -106,9 +53,17 @@ export default function HomeInfo() {
                 <p className={styles.product}>Product</p>
                 <hr></hr>
                 <div className={styles.totalItem}>
+                <div className={styles.totalItem}>
                     {currentItems.map((item, index) => (
-                        <ItemInfo key={item.id} name={item.name} price={item.price} image={item.image} index={currentPage * itemsPerPage + index} />
+                        <ItemInfo 
+                            key={index} 
+                            name={`Similar Image ${index + 1}`} 
+                            price={null} // 가격 정보를 사용할 수 없는 경우 null로 설정
+                            image={item[0]} // 유사 이미지 URL을 ItemInfo 컴포넌트로 전달
+                            index={currentPage * itemsPerPage + index} 
+                        />
                     ))}
+                </div>
                 </div>
                 <div className={styles.carouselButtons}>
                     <button className={styles.prevBtn} onClick={prevPage}>{'<'}</button>

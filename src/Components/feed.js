@@ -9,6 +9,7 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [profileName, setProfileName] = useState(username);
+    const [similarImages, setSimilarImages] = useState([]);
     const [imageUrl, setImageUrl] = useState('');
 
     const images = media_url_list;
@@ -21,25 +22,41 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
         setIsPopupOpen(false);
     };
 
-    const uploadImage = async (imageFile, close) => {
-        if (!close) {
-            const formData = new FormData();
-            formData.append('image_file', imageFile);
+    const uploadImage = async (imageFile) => {
+        const formData = new FormData();
+        formData.append('image_file', imageFile);
 
-            try {
-                const response = await axios.post('http://127.0.0.1:8000/uploadSegImg', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                console.log('서버 응답:', response.data);
-                setImageUrl(response.data.image_url);  // 반환된 이미지 URL을 상태에 저장
-            } catch (error) {
-                console.error('이미지 전송 중 오류 발생:', error);
-            }
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/uploadSegImg', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('서버 응답:', response.data);
+            setImageUrl(response.data.image_url);  // 반환된 이미지 URL을 상태에 저장
+            return response.data.image_url;
+        } catch (error) {
+            console.error('이미지 전송 중 오류 발생:', error);
+            return null;
         }
     };
 
+    const fetchSimilarImages = async (seg_img_url) => {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/clip', {
+                params: {
+                    seg_img_url: seg_img_url,
+                    folder_name: 'items/'
+                },
+            });
+            console.log('유사 이미지 서버 응답:', response.data);
+            setSimilarImages(response.data.similar_images);
+            return response.data.similar_images;
+        } catch (error) {
+            console.error('유사 이미지 가져오기 중 오류 발생:', error);
+            return [];
+        }
+    };
     const postCurrentImage = async (imageUrl, images, coords = { x: 0, y: 0 }, close) => {
         if (!close) {
             console.log(close);
@@ -75,21 +92,34 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
             });
         }
     };
-
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         const { offsetX, offsetY } = event.nativeEvent;
         const coords = { x: offsetX, y: offsetY };
         const currentImageUrl = images[currentImageIndex];
 
         // 이미지 URL로부터 Blob을 생성하여 업로드
-        fetch(currentImageUrl)
-            .then(res => res.blob())
-            .then(blob => {
-                const file = new File([blob], 'image.jpg', { type: blob.type });
-                uploadImage(file, close);
-            });
-
-        postCurrentImage(currentImageUrl, images, coords, close);
+        try {
+            const response = await fetch(currentImageUrl);
+            const blob = await response.blob();
+            const file = new File([blob], 'image.jpg', { type: blob.type });
+            const uploadedImageUrl = await uploadImage(file);
+            if (uploadedImageUrl) {
+                const similarImages = await fetchSimilarImages(uploadedImageUrl);
+                navigate("/HomeInfo", {
+                    state: {
+                        mediaUrls: images,
+                        feedUrl: uploadedImageUrl,
+                        media_id: media_id,
+                        username: username,
+                        profile_url: profile_url,
+                        similarImages: similarImages
+                    }
+                });
+            }
+            postCurrentImage(currentImageUrl, images, coords, close);
+        } catch (error) {
+            console.error('이미지 처리 중 오류 발생:', error);
+        }
     };
 
     const goToNextImage = () => {
