@@ -9,6 +9,7 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [profileName, setProfileName] = useState(username);
+    const [imageUrl, setImageUrl] = useState('');
 
     const images = media_url_list;
 
@@ -20,14 +21,34 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
         setIsPopupOpen(false);
     };
 
+    const uploadImage = async (imageFile, close) => {
+        if (!close) {
+            const formData = new FormData();
+            formData.append('image_file', imageFile);
+
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/uploadSegImg', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log('서버 응답:', response.data);
+                setImageUrl(response.data.image_url);  // 반환된 이미지 URL을 상태에 저장
+            } catch (error) {
+                console.error('이미지 전송 중 오류 발생:', error);
+            }
+        }
+    };
+
     const postCurrentImage = async (imageUrl, images, coords = { x: 0, y: 0 }, close) => {
         if (!close) {
             console.log(close);
             console.log(`클릭된 이미지: ${imageUrl}`);
             console.log(`클릭된 좌표: X=${coords.x}, Y=${coords.y}`);
 
+            // 클릭한 이미지의 URL을 사용하여 업로드
             try {
-                const response = await axios.post(`http://127.0.0.1:8000/seg`, null, {
+                const response = await axios.post('http://127.0.0.1:8000/seg', null, {
                     params: {
                         x: coords.x,
                         y: coords.y,
@@ -41,6 +62,7 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
             } catch (error) {
                 console.error('이미지 전송 중 오류 발생:', error);
             }
+
         } else {
             navigate("/HomeInfo", {
                 state: {
@@ -57,7 +79,17 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
     const handleClick = (event) => {
         const { offsetX, offsetY } = event.nativeEvent;
         const coords = { x: offsetX, y: offsetY };
-        postCurrentImage(images[currentImageIndex], images, coords, close);
+        const currentImageUrl = images[currentImageIndex];
+
+        // 이미지 URL로부터 Blob을 생성하여 업로드
+        fetch(currentImageUrl)
+            .then(res => res.blob())
+            .then(blob => {
+                const file = new File([blob], 'image.jpg', { type: blob.type });
+                uploadImage(file, close);
+            });
+
+        postCurrentImage(currentImageUrl, images, coords, close);
     };
 
     const goToNextImage = () => {
