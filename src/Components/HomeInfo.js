@@ -7,7 +7,7 @@ import axios from 'axios';
 import CommunityWrite from './CommunityWrite.js';
 
 export default function HomeInfo() {
-    const location = useLocation(); 
+    const location = useLocation();
     const { mediaUrls, feedUrl, media_id, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
@@ -33,12 +33,40 @@ export default function HomeInfo() {
     };
 
     useEffect(() => {
+        const fetchItemData = async () => {
+
+            const token = localStorage.getItem('accessToken');
+            if (!token) {
+                alert('로그인이 필요합니다.');
+                return;
+            }
+
+            try {
+                const itemDataPromises = initialSimilarImages.map(async (item) => {
+                    const id = item[0]; // 첫 번째 요소로부터 id를 추출
+                    const response = await axios.get(`/api/item/${id}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+
+                    );
+                    return { ...response.data, image: item[0] };
+                });
+                const itemData = await Promise.all(itemDataPromises);
+                setItems(itemData);
+            } catch (error) {
+                console.error('Error fetching item data:', error);
+            }
+        };
+
         if (initialSimilarImages) {
-            setSimilarImages(initialSimilarImages);
+            fetchItemData();
         }
     }, [initialSimilarImages]);
 
-    const currentItems = similarImages.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    const currentItems = items.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
     return (
         <div className={styles.contents}>
@@ -57,13 +85,14 @@ export default function HomeInfo() {
                 <hr></hr>
                 <div className={styles.totalItem}>
                     {currentItems.map((item, index) => (
-                        <ItemInfo 
-                            key={index} 
-                            itemId={index} 
-                            name={`Similar Image ${index + 1}`} 
-                            price={0} 
-                            image={item[0]}
-                            index={currentPage * itemsPerPage + index} 
+                        <ItemInfo
+                            key={item.id}
+                            itemId={item.id}
+                            brand={item.brand}
+                            name={item.name || `Similar Image ${index + 1}`}
+                            price={item.price || 0}
+                            image={item.itemUrl}
+                            index={currentPage * itemsPerPage + index}
                         />
                     ))}
                 </div>

@@ -82,7 +82,7 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
             });
 
             const similarImages = similarImagesResponse.data.similar_images;
-
+            console.log(similarImages);
             navigate("/HomeInfo", {
                 state: {
                     mediaUrls: images,

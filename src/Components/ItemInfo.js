@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/ItemInfo.module.css';
 import axios from 'axios';
 
-export default function ItemInfo({ itemId, name, price, image, index }) {
+export default function ItemInfo({ key, itemId, brand, name, price, image,index }) {
     const [imageSrc, setImageSrc] = useState(image); // 초기 상태는 prop으로 받은 이미지로 설정
     const [heartSrc, setHeartSrc] = useState('img/heart.png'); // 하트 이미지 상태
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
@@ -59,7 +59,6 @@ export default function ItemInfo({ itemId, name, price, image, index }) {
     return (
         <div className={styles.infoBox}>
             <div className={styles.infoMain}>
-                <p>{`Item ${index}`}</p>
                 <img className={styles.item} src={imageSrc} alt={name}></img>
                 <div>
                     <img id={styles.itemHeart} src={heartSrc} onClick={handleHeartClick} alt="Like button"></img>
@@ -67,8 +66,8 @@ export default function ItemInfo({ itemId, name, price, image, index }) {
             </div>
 
             <div className={styles.infoText}>
-                <p id={styles.itemName}><b>{name}</b></p>
-                <p id={styles.itemDetail}>Vonzo01 - Black</p>
+                <p id={styles.itemName}><b>{brand}</b></p>
+                <p id={styles.itemDetail}>{name}</p>
             </div>
             <div className={styles.bottomCom}>
                 <hr className={styles.line}></hr>
