@@ -4,14 +4,18 @@ import RankingFeed from "./RankingFeed";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 
-export default function Ranking({ selectedCategory, selectedSubcategory }) {
+export default function Ranking({ selectedCategory = "ALL", selectedSubcategory = "" }) {
     const [items, setItems] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(40);
     const [rankingType, setRankingType] = useState(0);
 
     useEffect(() => {
         // Construct the category parameter
-        const categoryParam = selectedCategory === "ALL" ? "ALL" : `${selectedCategory}_${selectedSubcategory}`;
+        const categoryParam = selectedCategory === "ALL" ? "ALL" : `${selectedCategory}_${selectedSubcategory || "ALL"}`;
+        
+        // console.log('Selected Category:', selectedCategory);
+        // console.log('Selected Subcategory:', selectedSubcategory);
+        // console.log('Constructed Category Param:', categoryParam);
 
         // Fetch data from /api/item with constructed category parameter
         const fetchAllItems = async () => {
@@ -21,10 +25,10 @@ export default function Ranking({ selectedCategory, selectedSubcategory }) {
                         category: categoryParam
                     }
                 });
-                console.log('All Items Response:', response.data);
+                // console.log('All Items Response:', response.data);
                 setItems(response.data);
             } catch (error) {
-                console.error('Error fetching all items:', error);
+                // console.error('Error fetching all items:', error);
             }
         };
 
@@ -36,10 +40,10 @@ export default function Ranking({ selectedCategory, selectedSubcategory }) {
                         ranking: rankingType
                     }
                 });
-                console.log('Ranking Items Response:', response.data);
+                // console.log('Ranking Items Response:', response.data);
                 setItems(prevItems => [...prevItems, ...response.data]);
             } catch (error) {
-                console.error('Error fetching ranking items:', error);
+                // console.error('Error fetching ranking items:', error);
             }
         };
 
@@ -55,7 +59,7 @@ export default function Ranking({ selectedCategory, selectedSubcategory }) {
         <div className={styles.totalWrap}>
             <div className={styles.RankingWord}>
                 <h1 id={styles.rankingBest}>BEST</h1>
-                <p id={styles.rankingPopular}>인기 있는 피드</p>
+                <p id={styles.rankingPopular}>인기 있는 아이템</p>
             </div>
 
             <div className={styles.ContentWrap}>
