@@ -6,18 +6,11 @@ import axios from "axios";
 
 export default function Ranking({ selectedCategory = "ALL", selectedSubcategory = "" }) {
     const [items, setItems] = useState([]);
-    const [itemsPerPage, setItemsPerPage] = useState(40);
     const [rankingType, setRankingType] = useState(0);
 
     useEffect(() => {
-        // Construct the category parameter
         const categoryParam = selectedCategory === "ALL" ? "ALL" : `${selectedCategory}_${selectedSubcategory || "ALL"}`;
-        
-        // console.log('Selected Category:', selectedCategory);
-        // console.log('Selected Subcategory:', selectedSubcategory);
-        // console.log('Constructed Category Param:', categoryParam);
 
-        // Fetch data from /api/item with constructed category parameter
         const fetchAllItems = async () => {
             try {
                 const response = await axios.get('/api/item', {
@@ -25,14 +18,12 @@ export default function Ranking({ selectedCategory = "ALL", selectedSubcategory 
                         category: categoryParam
                     }
                 });
-                // console.log('All Items Response:', response.data);
                 setItems(response.data);
             } catch (error) {
-                // console.error('Error fetching all items:', error);
+                console.error('Error fetching all items:', error);
             }
         };
 
-        // Fetch data from /api/item/ranking with rankingType parameter
         const fetchRankingItems = async () => {
             try {
                 const response = await axios.get('/api/item/ranking', {
@@ -40,10 +31,9 @@ export default function Ranking({ selectedCategory = "ALL", selectedSubcategory 
                         ranking: rankingType
                     }
                 });
-                // console.log('Ranking Items Response:', response.data);
                 setItems(prevItems => [...prevItems, ...response.data]);
             } catch (error) {
-                // console.error('Error fetching ranking items:', error);
+                console.error('Error fetching ranking items:', error);
             }
         };
 

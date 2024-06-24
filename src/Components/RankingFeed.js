@@ -27,7 +27,7 @@ export default function RankingFeed({ list = [] }) {
         })));
     }, [list]);
 
-    console.log("list", list);
+    const token = localStorage.getItem('accessToken'); // LocalStorage에서 토큰 가져오기
 
     const handleClick = (id) => {
         setLikeStatuses(prevStatuses => 
@@ -37,8 +37,10 @@ export default function RankingFeed({ list = [] }) {
                     const newLikeCount = newIsLiked ? status.likeCount + 1 : status.likeCount - 1;
 
                     if (newIsLiked) {
-                        axios.post(`/api/itemLike`, null, {
-                            params: { id: id }
+                        axios.post(`/api/itemLike/${id}`, {}, {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
                         })
                         .then(response => {
                             console.log(`Liked item ${id}`);
@@ -47,8 +49,10 @@ export default function RankingFeed({ list = [] }) {
                             console.error(`Error liking item ${id}:`, error);
                         });
                     } else {
-                        axios.delete(`/api/itemLike`, {
-                            params: { id: id }
+                        axios.delete(`/api/itemLike/${id}`, {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
                         })
                         .then(response => {
                             console.log(`Unliked item ${id}`);

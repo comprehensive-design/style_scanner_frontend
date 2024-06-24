@@ -4,12 +4,14 @@ import React, { useState, useEffect } from 'react';
 
 export default function ItemsList({ list = [] }) {
     const [likeStatuses, setLikeStatuses] = useState(
-        list.map(item => ({ id: item.id, isLiked: item.isLiked, likeCount: item.likeCount }))
+        list.map(item => ({ id: item.id, isLiked: true, likeCount: item.likeCount }))
     );
 
     useEffect(() => {
-        setLikeStatuses(list.map(item => ({ id: item.id, isLiked: item.isLiked, likeCount: item.likeCount })));
+        setLikeStatuses(list.map(item => ({ id: item.id, isLiked: true, likeCount: item.likeCount })));
     }, [list]);
+
+    const token = localStorage.getItem('accessToken'); // LocalStorage에서 토큰 가져오기
 
     const handleClick = (id) => {
         setLikeStatuses(prevStatuses =>
@@ -21,27 +23,27 @@ export default function ItemsList({ list = [] }) {
                     if (newIsLiked) {
                         axios.post(`/api/itemLike/${id}`, {}, {
                             headers: {
-                                'Content-Type': 'application/json'
+                                Authorization: `Bearer ${token}`,
                             }
                         })
-                        .then(response => {
-                            console.log(`Liked item ${id}`);
-                        })
-                        .catch(error => {
-                            console.error(`Error liking item ${id}:`, error);
-                        });
+                            .then(response => {
+                                console.log(`Liked item ${id}`);
+                            })
+                            .catch(error => {
+                                console.error(`Error liking item ${id}:`, error);
+                            });
                     } else {
                         axios.delete(`/api/itemLike/${id}`, {
                             headers: {
-                                'Content-Type': 'application/json'
+                                Authorization: `Bearer ${token}`,
                             }
                         })
-                        .then(response => {
-                            console.log(`Unliked item ${id}`);
-                        })
-                        .catch(error => {
-                            console.error(`Error unliking item ${id}:`, error);
-                        });
+                            .then(response => {
+                                console.log(`Unliked item ${id}`);
+                            })
+                            .catch(error => {
+                                console.error(`Error unliking item ${id}:`, error);
+                            });
                     }
 
                     return { ...status, isLiked: newIsLiked, likeCount: newLikeCount };
@@ -51,19 +53,27 @@ export default function ItemsList({ list = [] }) {
         );
     };
 
+    const handleImageError = (e) => {
+        console.error(`Error loading image: ${e.target.src}`);
+        e.target.src = "https://via.placeholder.com/240x240/808080/FFFFFF/?text=";
+    };
+
     return (
         <div>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {list.map(item => {
-                    const { id, feedUrl, name, price, brand, itemOption } = item;
+                    const { id, feedUrl, name, price, brand, itemOption, itemUrl } = item;
                     const status = likeStatuses.find(status => status.id === id) || { isLiked: false, likeCount: 0 };
 
                     return (
                         <div key={id} style={{ flex: 1, margin: '5px' }} className={styles.ItemDiv}>
                             <img
                                 id={styles.LikeItemImg}
-                                src={feedUrl || "https://via.placeholder.com/200x200/808080/FFFFFF/?text=Grey+Image"}
+                                src={itemUrl}
+                                width="200px"
+                                height="200px"
                                 alt={name}
+                                onError={handleImageError}
                             />
                             <div className={styles.itemInfo}>
                                 <p style={{ fontWeight: "bold" }} className={styles.storeName}>{brand}</p>
