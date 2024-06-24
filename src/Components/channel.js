@@ -19,6 +19,8 @@ export default function Channel({ list = [] }) {
         setPopupVisible(false);
     }
 
+    console.log('Channel list:', list); // 추가된 콘솔 로그
+
     return (
         <div className={styles.channelDiv}>
             {list.length > 0 ? (
@@ -27,7 +29,11 @@ export default function Channel({ list = [] }) {
                         return null; // user 또는 profileName이 없으면 무시
                     }
 
-                    const profilePictureUrl = user.profilePictureUrl || "https://via.placeholder.com/240x320/808080/FFFFFF/?text=Grey+Image";
+                    console.log('Rendering user:', user); // 추가된 로그
+
+                    // feed_url에서 괄호 제거
+                    const feedUrl = user.feed_url.replace(/^\[|\]$/g, '');
+
                     const profileImgUrl = user.profilePictureUrl || "https://via.placeholder.com/50x50/808080/FFFFFF/?text=";
                     
                     return (
@@ -35,7 +41,7 @@ export default function Channel({ list = [] }) {
                             <div>
                                 <img
                                     id={styles.channelImg}
-                                    src={profilePictureUrl}
+                                    src={feedUrl}
                                     alt={user.profileName}
                                 />
                             </div>
@@ -51,7 +57,7 @@ export default function Channel({ list = [] }) {
                                     <p id={styles.channelId}>{user.profileName}</p>
                                 </div>
                             </div>
-                            {/* <div className={styles.widthPadding}></div> */}
+                            <div className={styles.widthPadding}></div>
                         </div>
                     );
                 })

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../css/Search.module.css';
-import Channel from '../Components/channel';
+import Channel from '../Components/Channel';
 import Button from './Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -87,31 +87,32 @@ export default function Search() {
             return;
         }
 
-        axios.get(`/api/follow/checkFollowing?keyword=${searchResults.profileName}`, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        })
-            .then(response => {
-                console.log(response.data);
-                setIsFollowing(response.data.isFollowing);
+        if (searchResults && searchResults.profileName) {
+            axios.get(`/api/follow/checkFollowing?keyword=${searchResults.profileName}`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
             })
-            .catch(error => {
-                console.error('Error while checking follow status:', error);
-            });
+                .then(response => {
+                    console.log(response.data);
+                    setIsFollowing(response.data.isFollowing);
+                })
+                .catch(error => {
+                    console.error('Error while checking follow status:', error);
+                });
+        }
     };
 
     useEffect(() => {
         axios.get(`/api/follow/ranking`)
             .then(response => {
-                console.log(response.data);
+                console.log('Ranking data:', response.data); // 추가된 콘솔 로그
                 if (response.data) {
-                    const profiles = response.data.map(item => item.profile);
-                    setCelebs(profiles);
+                    setCelebs(response.data); // 프로필 데이터 설정
                 }
             })
             .catch(error => {
-                console.error('Error while checking follow status:', error);
+                console.error('Error while fetching ranking data:', error);
             });
 
         if (searchResults && searchResults.profileName) {
@@ -119,9 +120,15 @@ export default function Search() {
         }
     }, [searchResults]);
 
+    useEffect(() => {
+        console.log('Celebs updated:', celebs); // 추가된 콘솔 로그
+    }, [celebs]);
+
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
     }
+
+    console.log('Celebs:', celebs); // 추가된 콘솔 로그
 
     return (
         <div>
@@ -165,14 +172,16 @@ export default function Search() {
                     <p className={styles.grayP}>인기 셀럽</p>
 
                     <div className={styles.SearchRelChannel}>
-                        <Channel list={celebs}/>
-                        <div className={styles.paddingWidth}></div>
+                        <div className={styles.channelCover}>
+                            <Channel list={celebs} />
+                            <div className={styles.paddingWidth}></div>
+                        </div>
                     </div>
                     <div className={styles.paddingHeight}></div>
                 </div>
             </div>
             {popupVisible && selectedUser && (
-                <FeedPopup user={selectedUser} onClose={closePopup}/>
+                <FeedPopup user={selectedUser} onClose={closePopup} />
             )}
             <Footer />
         </div>
