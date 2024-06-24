@@ -7,12 +7,13 @@
 .contents {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     float: left;
     height: fit-content;
     width: 100%;
     margin: auto auto;
     position: relative;
+    padding-top: 20px;
 }
 
 .totalItem {
@@ -23,6 +24,7 @@
     width: 1000px;
     float: left;
     overflow-x: hidden;
+    min-height: 300px;
 }
 
 .product {
@@ -30,6 +32,12 @@
     font-weight: 700;
     font-size: 20px;
     margin: auto 30px;
+    width: 100%;
+}
+
+hr {
+    width: calc(100% - 60px);
+    margin: 0 auto 10px auto;
 }
 
 .goComBtn {
@@ -38,6 +46,9 @@
     cursor: pointer;
     font-size: 15px;
     margin: auto 30px;
+    position: absolute; /* 위치 고정 */
+    bottom: 10px; /* 아래쪽에 고정 */
+    right: 30px; /* 오른쪽 마진 */
 }
 
 .goComBtn:hover {
@@ -46,8 +57,7 @@
     border: none;
 }
 
-
-.nextBtn{
+.nextBtn {
     position: absolute;
     top: 265px;
     width: 30px;
@@ -58,17 +68,17 @@
     background-color: rgba(0,0,0, 0.2);
     transition: opacity 0.3s ease;
     color: white;
-
     line-height: 30px;
     font-weight: 600;
     text-align: center;
-    
+
     &:hover {
         background-color: rgba(0,0,0,0.8);
         border: none;
-      }
+    }
 }
-.prevBtn{
+
+.prevBtn {
     position: absolute;
     top: 230px;
     width: 30px;
@@ -79,13 +89,12 @@
     background-color: rgba(0,0,0, 0.2);
     transition: opacity 0.3s ease;
     color: white;
-
     line-height: 30px;
     font-weight: 600;
     text-align: center;
-    
+
     &:hover {
         background-color: rgba(0,0,0,0.8);
         border: none;
-      }
+    }
 }

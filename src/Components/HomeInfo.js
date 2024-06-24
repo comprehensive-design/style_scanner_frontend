@@ -6,34 +6,37 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import CommunityWrite from './CommunityWrite.js';
 
-
-
 export default function HomeInfo() {
     const location = useLocation(); 
-    const { mediaUrls, feedUrl, media_id, username, profile_url ,similarImages: initialSimilarImages} = location.state || {}; // 전달된 상태 받기
+    const { mediaUrls, feedUrl, media_id, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 4;
     const navigate = useNavigate();
     const [similarImages, setSimilarImages] = useState(initialSimilarImages || []);
-    const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 열림/닫힘 상태를 관리하는 상태 추가
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
-        setIsPopupOpen(true); // 팝업 열기
+        setIsPopupOpen(true);
     };
 
     const closePopup = () => {
-        setIsPopupOpen(false); // 팝업 닫기
+        setIsPopupOpen(false);
     };
 
     const nextPage = () => {
-        setCurrentPage((prevPage) => (prevPage + 1) % Math.ceil(items.length / itemsPerPage));
+        setCurrentPage((prevPage) => (prevPage + 1) % Math.ceil(similarImages.length / itemsPerPage));
     };
 
     const prevPage = () => {
-        setCurrentPage((prevPage) => (prevPage - 1 + Math.ceil(items.length / itemsPerPage)) % Math.ceil(items.length / itemsPerPage));
+        setCurrentPage((prevPage) => (prevPage - 1 + Math.ceil(similarImages.length / itemsPerPage)) % Math.ceil(similarImages.length / itemsPerPage));
     };
 
+    useEffect(() => {
+        if (initialSimilarImages) {
+            setSimilarImages(initialSimilarImages);
+        }
+    }, [initialSimilarImages]);
 
     const currentItems = similarImages.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
@@ -53,17 +56,16 @@ export default function HomeInfo() {
                 <p className={styles.product}>Product</p>
                 <hr></hr>
                 <div className={styles.totalItem}>
-                <div className={styles.totalItem}>
                     {currentItems.map((item, index) => (
                         <ItemInfo 
                             key={index} 
+                            itemId={index} 
                             name={`Similar Image ${index + 1}`} 
-                            price={null} // 가격 정보를 사용할 수 없는 경우 null로 설정
-                            image={item[0]} // 유사 이미지 URL을 ItemInfo 컴포넌트로 전달
+                            price={0} 
+                            image={item[0]}
                             index={currentPage * itemsPerPage + index} 
                         />
                     ))}
-                </div>
                 </div>
                 <div className={styles.carouselButtons}>
                     <button className={styles.prevBtn} onClick={prevPage}>{'<'}</button>

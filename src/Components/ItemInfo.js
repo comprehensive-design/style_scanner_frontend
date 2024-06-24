@@ -1,50 +1,84 @@
-import React, { useState } from 'react';
-import styles from '../css/ItemInfo.module.css'
-import Button from './Button';
+import React, { useState, useEffect } from 'react';
+import styles from '../css/ItemInfo.module.css';
+import axios from 'axios';
 
-export default function ItemInfo({ key, name, price, image, index }) {
-    const [imageSrc, setImageSrc] = useState(`img/heart.png`); // 초기 상태는 선택이 되지 않은 상태를 나타내기 위함
+export default function ItemInfo({ itemId, name, price, image, index }) {
+    const [imageSrc, setImageSrc] = useState(image); // 초기 상태는 prop으로 받은 이미지로 설정
+    const [heartSrc, setHeartSrc] = useState('img/heart.png'); // 하트 이미지 상태
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
-   
+
     const shoppingClick = () => {
-        alert("shopping  link로 이동해야함")
-     };
-    const handleClick = () => {
-        if (isClicked) {
-            setImageSrc(`img/fullHeart.png`);
-            setIsClicked(false); // 초기 상태 false 일 땐 초기 상태 이미지 src
-        } else {
-            setImageSrc(`img/heart.png`);
-            setIsClicked(true); // true일 땐 변경될 이미지 src
+        alert("shopping link로 이동해야함");
+    };
+
+    const handleHeartClick = async (e) => {
+        e.preventDefault();
+
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
+        try {
+            if (isClicked) {
+                // 좋아요 요청
+                const response = await axios.post(`/api/itemLike/${itemId}`,  {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                if (response.status === 200) {
+                    setHeartSrc('img/fullHeart.png');
+                    setIsClicked(true);
+                }
+            } else {
+                // 좋아요 취소
+                const response = await axios.delete(`/api/itemLike/${itemId}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                if (response.status === 200) {
+                    setHeartSrc('img/heart.png');
+                    setIsClicked(false);
+                }
+            }
+        } catch (error) {
+            console.error('Error processing like/unlike:', error);
         }
     };
+
+    useEffect(() => {
+        // image prop이 변경될 때마다 이미지 소스를 업데이트합니다.
+        setImageSrc(image);
+    }, [image]);
 
     return (
         <div className={styles.infoBox}>
             <div className={styles.infoMain}>
                 <p>{`Item ${index}`}</p>
-                <img className={styles.item} src={image[index]}></img>
+                <img className={styles.item} src={imageSrc} alt={name}></img>
                 <div>
-                    <img  id={styles.itemHeart} src={imageSrc} onClick={handleClick}></img>
+                    <img id={styles.itemHeart} src={heartSrc} onClick={handleHeartClick} alt="Like button"></img>
                 </div>
             </div>
 
             <div className={styles.infoText}>
-
-                <p id={styles.itemName}><b>Gentle Monster</b></p>
+                <p id={styles.itemName}><b>{name}</b></p>
                 <p id={styles.itemDetail}>Vonzo01 - Black</p>
             </div>
             <div className={styles.bottomCom}>
                 <hr className={styles.line}></hr>
                 &nbsp;
-                <p id={styles.itemPrice}>price{'₩'}</p>
+                <p id={styles.itemPrice}>{price}{'₩'}</p>
             </div>
             <div onClick={shoppingClick} className={styles.goBtn}>
                 <span>&nbsp;SHOP</span>
                 <span id={styles.arrow}>→&nbsp;</span>
             </div>
-            
         </div>
-    )
-
+    );
 }
