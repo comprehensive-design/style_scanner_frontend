@@ -13,11 +13,13 @@
 
 .infoBox > .infoMain{
     position: relative; 
-    width: 180px;
+    
+    width: 200px;
     height: 240px;
 }
 .infoMain > .item {
-    width: 180px;
+    object-fit: cover;
+    width: 200px;
     height: 240px;
     
 }

@@ -1,45 +1,63 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styles from "../css/feed.module.css";
 import { useNavigate } from "react-router-dom";
 import FeedPopup from './FeedPopup';
 
-function Feed({ media_url_list, profile_url, username, media_id }) {
+function Feed({ media_url_list, profile_url, username, media_id, close }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [profileName, setProfileName] = useState(username);
-    
+
     const images = media_url_list;
 
     const openPopup = () => {
-        setIsPopupOpen(true); 
+        setIsPopupOpen(true);
     };
 
     const closePopup = () => {
         setIsPopupOpen(false);
     };
 
-    // 이미지 클릭 시 좌표를 서버로 전송하는 함수
-    const postCurrentImage = async (imageUrl, images, coords) => {
-        console.log(`클릭된 이미지: ${imageUrl}`);
-        console.log(`클릭된 좌표: X=${coords.x}, Y=${coords.y}`);
+    const postCurrentImage = async (imageUrl, images, coords = { x: 0, y: 0 }, close) => {
+        if (!close) {
+            console.log(close);
+            console.log(`클릭된 이미지: ${imageUrl}`);
+            console.log(`클릭된 좌표: X=${coords.x}, Y=${coords.y}`);
 
-        navigate("/HomeInfo", {
-            state: {
-                mediaUrls: images,
-                feedUrl: imageUrl,
-                media_id: media_id,
-                username: username,
-                profile_url: profile_url,
-                coords: coords,
+            try {
+                const response = await axios.post(`http://127.0.0.1:8000/seg`, null, {
+                    params: {
+                        x: coords.x,
+                        y: coords.y,
+                        img_url: imageUrl
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                });
+                console.log('서버 응답:', response.data);
+            } catch (error) {
+                console.error('이미지 전송 중 오류 발생:', error);
             }
-        });
+        } else {
+            navigate("/HomeInfo", {
+                state: {
+                    mediaUrls: images,
+                    feedUrl: imageUrl,
+                    media_id: media_id,
+                    username: username,
+                    profile_url: profile_url,
+                }
+            });
+        }
     };
 
     const handleClick = (event) => {
         const { offsetX, offsetY } = event.nativeEvent;
         const coords = { x: offsetX, y: offsetY };
-        postCurrentImage(images[currentImageIndex], images, coords);
+        postCurrentImage(images[currentImageIndex], images, coords, close);
     };
 
     const goToNextImage = () => {
@@ -62,17 +80,18 @@ function Feed({ media_url_list, profile_url, username, media_id }) {
         <div className={styles.completeFeed}>
             {/* header */}
             <div className={styles.profile} onClick={openPopup}>
-                {isPopupOpen && <FeedPopup onClose={closePopup} user={{profileName}}/>} 
+                {isPopupOpen && <FeedPopup onClose={closePopup} user={{ profileName }} />}
 
                 <div className={styles.ImageBox}>
                     {profile_url ? (
                         <img className={styles.profileImage2} src={profile_url} alt="Profile" />
-                    ) : <img id={styles.profileImage} src={`img/profile.png`} alt="Profile"></img>}
+                    ) : (
+                        <img id={styles.profileImage} src={`img/profile.png`} alt="Profile" />
+                    )}
                 </div>
                 <p className={styles.profileId} id={styles.name}>{username}</p>
             </div>
 
-            {/* carousel 구현 */}
             <div className={styles.feedMain}>
                 <div className={styles.imageWrapper} onClick={handleClick}>
                     <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />

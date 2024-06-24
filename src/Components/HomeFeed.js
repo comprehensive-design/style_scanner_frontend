@@ -76,6 +76,7 @@ function FeedList() {
                             profile_url={feed.profile_url} 
                             username={feed.username} 
                             media_id={feed.media_id} 
+                            close={true}
                         />
                     );
                 })}

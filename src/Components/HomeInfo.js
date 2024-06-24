@@ -99,6 +99,7 @@ export default function HomeInfo() {
                     profile_url={profile_url}
                     username={username}
                     media_id={media_id}
+                    close={false}
                 />
             )}
             <div>
