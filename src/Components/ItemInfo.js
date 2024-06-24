@@ -21,9 +21,9 @@ export default function ItemInfo({ key, itemId, brand, name, price, image,index 
         }
 
         try {
-            if (isClicked) {
+            if (!isClicked) {
                 // 좋아요 요청
-                const response = await axios.post(`/api/itemLike/${itemId}`,  {
+                const response = await axios.post(`/api/itemLike/${itemId}`, {}, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ export default function ItemInfo({ key, itemId, brand, name, price, image,index 
                 }
             }
         } catch (error) {
-            console.error('Error processing like/unlike:', error);
+            console.error('Error processing like/unlike:', error.response ? error.response.data : error.message);
         }
     };
 
