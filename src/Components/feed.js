@@ -10,7 +10,7 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const images = media_url_list;
     const imageWrapperRef = useRef(null);
-
+    
     const openPopup = () => {
         setIsPopupOpen(true);
     };
@@ -32,10 +32,10 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
             });
             return;
         }
-
+        console.log(profile_url);
         const imageElement = imageWrapperRef.current.querySelector('img');
         const imageRect = imageElement.getBoundingClientRect();
-
+        
         const offsetX = event.clientX - imageRect.left;
         const offsetY = event.clientY - imageRect.top;
 

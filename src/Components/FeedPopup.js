@@ -43,8 +43,6 @@ export default function FeedPopup({ user, onClose }) {
                 setFeeds(feedList);
 
                 checkFollowingStatus();
-                console.log(feeds);
-                
             })
             .catch((error) => {
                 console.error('데이터를 가져오는 중에 오류가 발생했습니다:', error);

@@ -1,6 +1,7 @@
 export default function UserFeed({ id, feed }) {
     const handleClick = () => {{
         console.log("Button clicked!");
+        console.log(feed);
     }}
 
     return (
