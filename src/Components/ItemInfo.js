@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/ItemInfo.module.css';
 import axios from 'axios';
 
-export default function ItemInfo({ key, itemId, brand, name, price, image, index }) {
+export default function ItemInfo({ key, itemId, brand, name, price, image, shoppingLink, index }) {
     const [imageSrc, setImageSrc] = useState(image); // 초기 상태는 prop으로 받은 이미지로 설정
     const [heartSrc, setHeartSrc] = useState('img/heart.png'); // 하트 이미지 상태
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리

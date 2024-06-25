@@ -92,6 +92,7 @@ export default function HomeInfo() {
                             name={item.name || `Similar Image ${index + 1}`}
                             price={item.price || 0}
                             image={item.itemUrl}
+                            shoppingLink={item.shoppingLink}
                             index={currentPage * itemsPerPage + index}
                         />
                     ))}
