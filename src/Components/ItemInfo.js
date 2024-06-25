@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../css/ItemInfo.module.css';
 import axios from 'axios';
 
-export default function ItemInfo({ key, itemId, brand, name, price, image,index }) {
+export default function ItemInfo({ key, itemId, brand, name, price, image, index }) {
     const [imageSrc, setImageSrc] = useState(image); // 초기 상태는 prop으로 받은 이미지로 설정
     const [heartSrc, setHeartSrc] = useState('img/heart.png'); // 하트 이미지 상태
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
@@ -50,6 +50,34 @@ export default function ItemInfo({ key, itemId, brand, name, price, image,index 
             console.error('Error processing like/unlike:', error.response ? error.response.data : error.message);
         }
     };
+
+    useEffect(() => {
+        // 좋아요 상태를 확인하는 함수
+        const checkLikeStatus = async () => {
+            const token = localStorage.getItem('accessToken');
+            if (!token) {
+                return;
+            }
+
+            try {
+                const response = await axios.get(`/api/itemLike/${itemId}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+
+                if (response.status === 200 && response.data.liked) {
+                    setHeartSrc('img/fullHeart.png');
+                    setIsClicked(true);
+                }
+            } catch (error) {
+                console.error('Error fetching like status:', error.response ? error.response.data : error.message);
+            }
+        };
+
+        checkLikeStatus();
+    }, [itemId]);
 
     useEffect(() => {
         // image prop이 변경될 때마다 이미지 소스를 업데이트합니다.
