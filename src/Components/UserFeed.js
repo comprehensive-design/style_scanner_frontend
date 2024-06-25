@@ -5,8 +5,8 @@ export default function UserFeed({ id, feed }) {
 
     const handleClick = async (imageUrl, images, coords) => {
         console.log("Button clicked!");
-
-        // coords 객체에서 필요한 값만 추출
+        
+      // coords 객체에서 필요한 값만 추출
         const { x, y } = coords;
 
         navigate("/HomeInfo", {
@@ -19,6 +19,7 @@ export default function UserFeed({ id, feed }) {
             }
         });
     }
+
 
     return (
         <div>

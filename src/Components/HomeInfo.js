@@ -6,87 +6,65 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import CommunityWrite from './CommunityWrite.js';
 
-export const getItems = async (id) => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-        console.error("토큰이 없습니다.");
-        throw new Error("토큰이 없습니다.");
-    }
-
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
-    //아이템 정보 가져오기
-    try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
-            params: { id: id },
-            ...config,
-        });
-        return response.data;
-
-    } catch (error) {
-        console.error('Error', error);
-        throw error;
-    }
-
-};
-
-//버튼 누른 피드 정보 가져오기
-// export const getFeedPost = async () => {
-//     try {
-//         //수정
-//         const response = await axios.get('/api/insta/?');
-//         return response.data;
-//     } catch (error) {
-//         console.error('피드 데이터 가져오기 오류:', error);
-//         throw error;
-//     }
-// };
-
-//next버튼 누를 때마다 피드 정보 주기
-
 export default function HomeInfo() {
-    const location = useLocation(); 
-    const { mediaUrls, feedUrl, media_id, username, profile_url } = location.state || {}; // 전달된 상태 받기
+    const location = useLocation();
+    const { mediaUrls, feedUrl, media_id, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
     const [items, setItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 4;
     const navigate = useNavigate();
-
-    const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 열림/닫힘 상태를 관리하는 상태 추가
+    const [similarImages, setSimilarImages] = useState(initialSimilarImages || []);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
-        setIsPopupOpen(true); // 팝업 열기
+        setIsPopupOpen(true);
     };
 
     const closePopup = () => {
-        setIsPopupOpen(false); // 팝업 닫기
+        setIsPopupOpen(false);
     };
 
     const nextPage = () => {
-        setCurrentPage((prevPage) => (prevPage + 1) % Math.ceil(items.length / itemsPerPage));
+        setCurrentPage((prevPage) => (prevPage + 1) % Math.ceil(similarImages.length / itemsPerPage));
     };
 
     const prevPage = () => {
-        setCurrentPage((prevPage) => (prevPage - 1 + Math.ceil(items.length / itemsPerPage)) % Math.ceil(items.length / itemsPerPage));
+        setCurrentPage((prevPage) => (prevPage - 1 + Math.ceil(similarImages.length / itemsPerPage)) % Math.ceil(similarImages.length / itemsPerPage));
     };
 
     useEffect(() => {
-        const fetchItems = async () => {
-            const id = 1;
+        const fetchItemData = async () => {
+
+            const token = localStorage.getItem('accessToken');
+            if (!token) {
+                alert('로그인이 필요합니다.');
+                return;
+            }
+
             try {
-                const data = await getItems(id);
-                setItems(data);
+                const itemDataPromises = initialSimilarImages.map(async (item) => {
+                    const id = item[0]; // 첫 번째 요소로부터 id를 추출
+                    const response = await axios.get(`/api/item/${id}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+
+                    );
+                    return { ...response.data, image: item[0] };
+                });
+                const itemData = await Promise.all(itemDataPromises);
+                setItems(itemData);
             } catch (error) {
-                console.error(error);
+                console.error('Error fetching item data:', error);
             }
         };
 
-        fetchItems();
-    }, []);
+        if (initialSimilarImages) {
+            fetchItemData();
+        }
+    }, [initialSimilarImages]);
 
     const currentItems = items.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
@@ -99,6 +77,7 @@ export default function HomeInfo() {
                     profile_url={profile_url}
                     username={username}
                     media_id={media_id}
+                    close={false}
                 />
             )}
             <div>
@@ -106,7 +85,16 @@ export default function HomeInfo() {
                 <hr></hr>
                 <div className={styles.totalItem}>
                     {currentItems.map((item, index) => (
-                        <ItemInfo key={item.id} name={item.name} price={item.price} image={item.image} index={currentPage * itemsPerPage + index} />
+                        <ItemInfo
+                            key={item.id}
+                            itemId={item.id}
+                            brand={item.brand}
+                            name={item.name || `Similar Image ${index + 1}`}
+                            price={item.price || 0}
+                            image={item.itemUrl}
+                            shoppingLink={item.shoppingLink}
+                            index={currentPage * itemsPerPage + index}
+                        />
                     ))}
                 </div>
                 <div className={styles.carouselButtons}>
