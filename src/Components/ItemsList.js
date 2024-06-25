@@ -69,8 +69,8 @@ export default function ItemsList({ list = [] }) {
                         <img
                             id={styles.LikeItemImg}
                             src={itemUrl}
-                            width="200px"
-                            height="200px"
+                            width="180px"
+                            height="180px"
                             alt={name}
                             onError={handleImageError}
                         />

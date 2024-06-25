@@ -31,11 +31,12 @@
     width: 180px; /* Ensure consistent width */
     height: 280px; /*Adjust height if necessary*/
     box-sizing: border-box;
+    /* background-color: blue; */
 }
 
 #LikeItemImg {
     width: 100%; /* Adjust to fill the grid item */
-    height: 200px;
+    aspect-ratio: 1/1;
     object-fit: cover;
     margin-bottom: 10px;
 }
@@ -73,8 +74,8 @@
 }
 
 .linkImg {
-    margin: auto 0;
-    margin-left: 10px;
+    /* margin: auto 0; */
+    margin-left: auto;
     float: right;
 }
 
@@ -86,6 +87,7 @@
 }
 
 .link {
+    margin-left: auto;
     float: right;
 }
 
