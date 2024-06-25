@@ -4,12 +4,14 @@ import RankingFeed from "./RankingFeed";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 
-export default function Ranking({ selectedCategory = "ALL", selectedSubcategory = "" }) {
+export default function Ranking({ selectedCategory = "ALL", selectedSubcategory = "ALL" }) {
     const [items, setItems] = useState([]);
     const [rankingType, setRankingType] = useState(0);
 
     useEffect(() => {
-        const categoryParam = selectedCategory === "ALL" ? "ALL" : `${selectedCategory}_${selectedSubcategory || "ALL"}`;
+        const categoryParam = selectedCategory === "ALL" && selectedSubcategory === "ALL" 
+            ? "ALL_ALL" 
+            : `${selectedCategory}_${selectedSubcategory || "ALL"}`;
 
         const fetchAllItems = async () => {
             try {
@@ -28,7 +30,9 @@ export default function Ranking({ selectedCategory = "ALL", selectedSubcategory 
             try {
                 const response = await axios.get('/api/item/ranking', {
                     params: {
-                        ranking: rankingType
+                        // ranking: rankingType
+                        category : categoryParam,
+                        timeFilter : rankingType
                     }
                 });
                 setItems(prevItems => [...prevItems, ...response.data]);

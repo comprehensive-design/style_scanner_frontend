@@ -59,55 +59,59 @@ export default function ItemsList({ list = [] }) {
     };
 
     return (
-        <div>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {list.map(item => {
-                    const { id, feedUrl, name, price, brand, itemOption, itemUrl } = item;
-                    const status = likeStatuses.find(status => status.id === id) || { isLiked: false, likeCount: 0 };
+        <div className={styles.gridContainer}>
+            {list.map(item => {
+                const { id, feedUrl, name, price, brand, itemOption, itemUrl } = item;
+                const status = likeStatuses.find(status => status.id === id) || { isLiked: false, likeCount: 0 };
 
-                    return (
-                        <div key={id} style={{ flex: 1, margin: '5px' }} className={styles.ItemDiv}>
-                            <img
-                                id={styles.LikeItemImg}
-                                src={itemUrl}
-                                width="200px"
-                                height="200px"
-                                alt={name}
-                                onError={handleImageError}
-                            />
-                            <div className={styles.itemInfo}>
-                                <p style={{ fontWeight: "bold" }} className={styles.storeName}>{brand}</p>
-                                <p className={styles.itemName}>{name}-{itemOption}</p>
-                            </div>
+                return (
+                    <div key={id} className={styles.gridItem}>
+                        <img
+                            id={styles.LikeItemImg}
+                            src={itemUrl}
+                            width="200px"
+                            height="200px"
+                            alt={name}
+                            onError={handleImageError}
+                        />
+                        <div className={styles.itemInfo}>
+                            <p style={{ fontWeight: "bold" }} className={styles.storeName}>{brand}</p>
+                            <p className={styles.itemName}>{name}-{itemOption}</p>
                             <p className={styles.itemPrice}>{price}</p>
-                            <div className={styles.itemProfile} style={{ display: 'flex', alignItems: 'center' }}>
+
+                        </div>
+                        {/* <p className={styles.itemPrice}>{price}</p> */}
+                        <div className={styles.itemProfile} style={{ display: 'flex', alignItems: 'center' }}>
+                            <img
+                                id={styles.rankingHeart}
+                                src={status.isLiked ? 'img/fullHeart.png' : 'img/heart.png'}
+                                alt="Heart Icon"
+                                onClick={() => handleClick(id)}
+                                style={{
+                                    margin: 5,
+                                    cursor: 'pointer'
+                                }}
+                            />
+                            <div className={styles.likeCountDiv}>
+                                <p className={styles.likeCount}>{status.likeCount}</p>
+                            </div>
+                            <div className={styles.linkImg}>
                                 <img
-                                    id={styles.rankingHeart}
-                                    src={status.isLiked ? 'img/fullHeart.png' : 'img/heart.png'}
-                                    alt="Heart Icon"
-                                    onClick={() => handleClick(id)}
-                                    style={{
-                                        margin: 5,
-                                        cursor: 'pointer'
-                                    }}
+                                    src={`img/link.png`}
+                                    width='13'
+                                    height='13'
+                                    className="link"
+                                    alt="Link Icon"
                                 />
-                                <div className={styles.likeCountDiv}>
-                                    <p className={styles.likeCount}>{status.likeCount}</p>
-                                </div>
-                                <div className={styles.linkImg}>
-                                    <img
-                                        src={`img/link.png`}
-                                        width='13'
-                                        height='13'
-                                        className="link"
-                                        alt="Link Icon"
-                                    />
-                                </div>
                             </div>
                         </div>
-                    );
-                })}
-            </div>
+                    </div>
+                );
+            })}
+            {/* Ensure the grid always has 5 columns by adding placeholders with display none */}
+            {Array.from({ length: 5 - (list.length % 5) }).map((_, index) => (
+                <div key={`placeholder-${index}`} className={styles.gridItem} style={{ display: 'none', border : 'none'}}></div>
+            ))}
         </div>
     );
 }

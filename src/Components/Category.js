@@ -6,7 +6,7 @@ import Footer from './Footer';
 
 export default function Category() {
     const [selectedCategory, setSelectedCategory] = useState('ALL');
-    const [selectedSubcategory, setSelectedSubcategory] = useState('');
+    const [selectedSubcategory, setSelectedSubcategory] = useState('ALL');
     const [activeSortButton, setActiveSortButton] = useState('');
 
     const categories = {
@@ -40,11 +40,7 @@ export default function Category() {
     const handleCategoryClick = (category) => {
         const mappedCategory = categoryMap[category];
         setSelectedCategory(mappedCategory);
-        if (category === '여성' || category === '남성') {
-            setSelectedSubcategory('ALL'); // 하위 카테고리를 'ALL'로 설정
-        } else {
-            setSelectedSubcategory(''); // 하위 카테고리를 리셋
-        }
+        setSelectedSubcategory('ALL'); // 모든 상위 카테고리 선택 시 하위 카테고리를 'ALL'로 설정
         setActiveSortButton(''); // 활성화된 버튼 리셋
     };
 
