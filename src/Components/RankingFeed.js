@@ -4,12 +4,30 @@ import axios from 'axios';
 
 export default function RankingFeed({ list = [] }) {
     const [likeStatuses, setLikeStatuses] = useState(
-        list.map(item => ({ id: item.id, isLiked: item.isLiked, likeCount: item.likeCount }))
+        list.map(item => ({ 
+            id: item.id, 
+            isLiked: item.isLiked, 
+            likeCount: item.likeCount,
+            itemUrl: item.itemUrl,
+            username: item.name,
+            brand: item.brand,
+            price: item.price
+        }))
     );
 
     useEffect(() => {
-        setLikeStatuses(list.map(item => ({ id: item.id, isLiked: item.isLiked, likeCount: item.likeCount })));
+        setLikeStatuses(list.map(item => ({ 
+            id: item.id, 
+            isLiked: item.isLiked, 
+            likeCount: item.likeCount,
+            itemUrl: item.itemUrl,
+            username: item.name,
+            brand: item.brand,
+            price: item.price
+        })));
     }, [list]);
+
+    const token = localStorage.getItem('accessToken'); // LocalStorage에서 토큰 가져오기
 
     const handleClick = (id) => {
         setLikeStatuses(prevStatuses => 
@@ -18,11 +36,10 @@ export default function RankingFeed({ list = [] }) {
                     const newIsLiked = !status.isLiked;
                     const newLikeCount = newIsLiked ? status.likeCount + 1 : status.likeCount - 1;
 
-                    // 좋아요 상태가 변경될 때 API 호출
                     if (newIsLiked) {
                         axios.post(`/api/itemLike/${id}`, {}, {
                             headers: {
-                                'Content-Type': 'application/json'
+                                Authorization: `Bearer ${token}`,
                             }
                         })
                         .then(response => {
@@ -32,10 +49,9 @@ export default function RankingFeed({ list = [] }) {
                             console.error(`Error liking item ${id}:`, error);
                         });
                     } else {
-                        // 좋아요 취소 API 호출 (필요한 경우)
                         axios.delete(`/api/itemLike/${id}`, {
                             headers: {
-                                'Content-Type': 'application/json'
+                                Authorization: `Bearer ${token}`,
                             }
                         })
                         .then(response => {
@@ -53,22 +69,30 @@ export default function RankingFeed({ list = [] }) {
         );
     };
 
+    const handleImageError = (e) => {
+        console.error(`Error loading image: ${e.target.src}`);
+        e.target.src = "https://via.placeholder.com/240x240/808080/FFFFFF/?text=";
+    };
+
     return (
         <div className={styles.RankingFeed}>
             {likeStatuses.length > 0 ? (
-                likeStatuses.map((item, index) => (
-                    <div key={index}>
+                likeStatuses.map((item) => (
+                    <div key={item.id} className={styles.gridItem}>
                         <img
-                            id={styles.bestFeed} src={item.feedUrl}
-                            width="240px"
-                            height="320px"
+                            id={styles.bestFeed} 
+                            src={item.itemUrl}
+                            width="200px"
+                            height="200px"
                             alt="Best Feed"
+                            onError={handleImageError}
                         />
 
                         <div className={styles.RankingUserInfo}>
+                            <p className={styles.brandName}>{item.brand}</p>
                             <p className={styles.rankingId}>{item.username}</p>
-
-                            <div style={{ display: 'flex' }} className={styles.RankingUserHeart}>
+                            <p className={styles.itemPrice}>{item.price}</p>
+                            <div className={styles.RankingUserHeart}>
                                 <img
                                     id={styles.rankingHeart}
                                     src={item.isLiked ? 'img/fullHeart.png' : 'img/heart.png'}
@@ -83,6 +107,7 @@ export default function RankingFeed({ list = [] }) {
             ) : (
                 <p>No items to display</p>
             )}
+            <div className={styles.RankingFeedPadding}></div>
         </div>
-    )
+    );
 }

@@ -102,6 +102,11 @@ body {
     
 }
 
+.channelCover{
+    /* width : 120%; */
+    margin-left: 40px;
+}
+
 .SearchRelRes{
     margin: 0;
     padding: 0;
@@ -115,6 +120,7 @@ body {
     justify-content: center;
     align-content: center;
     margin: 0 auto;
+    width: 1000px;
 }
 
 .RelResWord{

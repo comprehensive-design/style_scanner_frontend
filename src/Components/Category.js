@@ -3,12 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Ranking from './Ranking';
 import styled from 'styled-components';
 import Footer from './Footer';
-export default function Category() {
-    const activeStyle = {
-        color: 'black'
-    };
 
-    const [selectedCategory, setSelectedCategory] = useState('전체');
+export default function Category() {
+    const [selectedCategory, setSelectedCategory] = useState('ALL');
     const [selectedSubcategory, setSelectedSubcategory] = useState('');
     const [activeSortButton, setActiveSortButton] = useState('');
 
@@ -18,60 +15,80 @@ export default function Category() {
         '남성': ['아우터', '상의', '팬츠', '신발', '가방', '악세사리', '기타']
     };
 
+    const categoryMap = {
+        '전체': 'ALL',
+        '여성': 'WOMEN',
+        '남성': 'MEN'
+    };
+
+    const subcategoryMap = {
+        '아우터': 'OUTER',
+        '상의': 'TOP',
+        '팬츠': 'PANTS',
+        '스커트': 'SKIRT',
+        '원피스': 'ONE_PIECE',
+        '신발': 'SHOES',
+        '가방': 'BAG',
+        '악세사리': 'ACC',
+        '기타': 'ETC'
+    };
+
     useEffect(() => {
         // selectedCategory나 selectedSubcategory가 변경될 때마다 호출되는 부분
     }, [selectedCategory, selectedSubcategory]);
 
     const handleCategoryClick = (category) => {
-        setSelectedCategory(category);
-        setSelectedSubcategory(''); // 상위 카테고리를 클릭했을 때 하위 카테고리 리셋
+        const mappedCategory = categoryMap[category];
+        setSelectedCategory(mappedCategory);
+        if (category === '여성' || category === '남성') {
+            setSelectedSubcategory('ALL'); // 하위 카테고리를 'ALL'로 설정
+        } else {
+            setSelectedSubcategory(''); // 하위 카테고리를 리셋
+        }
+        setActiveSortButton(''); // 활성화된 버튼 리셋
     };
 
     const handleSubcategoryClick = (subcategory) => {
-        setSelectedSubcategory(subcategory);
-        //   setActiveSortButton(subcategory); // 활성화된 버튼으로 설정
+        setSelectedSubcategory(subcategoryMap[subcategory]);
+        setActiveSortButton(subcategory); // 활성화된 버튼으로 설정
     };
 
     const SortButton = styled.button`
-    // color: ${props => (props.active ? 'black' : 'rgb(153, 153, 153)')};
-    color : black;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-weight: ${props => (props.active ? 'bold' : 'normal')};
-    text-decoration: ${props => (props.active ? 'underline' : 'none')};
-
+        color: ${props => (props.active ? 'black' : 'rgb(153, 153, 153)')};
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-weight: ${props => (props.active ? 'bold' : 'normal')};
+        text-decoration: ${props => (props.active ? 'underline' : 'none')};
     `;
 
     return (
-        <>
+        <div className={styles.pageWrap}>
             <div className={styles.totalWrap}>
                 <div className={styles.contentWrap}>
                     <div className={styles.categoryWrap}>
                         <p id={styles.categoryNa}>카테고리</p>
-                        <HorizonLine></HorizonLine>
+                        <HorizonLine />
 
                         <div className={styles.categoryList}>
                             <ul className={styles.categoryUl}>
                                 {Object.keys(categories).map((category, index) => (
                                     <li key={index} className={styles.suplists}>
-                                        <SortButton onClick={() => {
-                                            handleCategoryClick(category);
-                                            setActiveSortButton('');
-                                        }}
-                                            active={selectedCategory === category}
-                                            className={`${selectedCategory === category ? 'itemLinkOn' : 'itemLink'}  ${styles.supcateButton}`}>{category}</SortButton>
-                                        {selectedCategory === category &&
+                                        <SortButton onClick={() => handleCategoryClick(category)}
+                                            active={selectedCategory === categoryMap[category]}
+                                            className={`${selectedCategory === categoryMap[category] ? 'itemLinkOn' : 'itemLink'}  ${styles.supcateButton}`}>
+                                            {category}
+                                        </SortButton>
+                                        {selectedCategory === categoryMap[category] && categories[category].length > 0 &&
                                             <ul className={styles.subcategoryUl}>
                                                 {categories[category].map((subcategory, subIndex) => (
                                                     <li key={subIndex} className={styles.sublists}>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <SortButton onClick={() => {
-                                                            handleSubcategoryClick(subcategory);
-                                                            setActiveSortButton(subcategory);
-                                                        }}
-                                                            active={selectedSubcategory === subcategory}
-                                                            className={`${selectedSubcategory === subcategory ? 'itemLinkOn' : 'itemLink'} ${styles.subcateButton}`}>{subcategory}</SortButton>
+                                                        <SortButton onClick={() => handleSubcategoryClick(subcategory)}
+                                                            active={selectedSubcategory === subcategoryMap[subcategory]}
+                                                            className={`${selectedSubcategory === subcategoryMap[subcategory] ? 'itemLinkOn' : 'itemLink'} ${styles.subcateButton}`}>
+                                                            {subcategory}
+                                                        </SortButton>
                                                     </li>
                                                 ))}
                                             </ul>
@@ -82,14 +99,18 @@ export default function Category() {
                         </div>
                     </div>
                     <div className={styles.rankingWrap}>
-                        {selectedCategory && <Ranking selectedCategory={selectedCategory} selectedSubcategory={selectedSubcategory} />}
+                        {selectedCategory && (
+                            <Ranking
+                                selectedCategory={selectedCategory}
+                                selectedSubcategory={selectedSubcategory}
+                            />
+                        )}
                     </div>
                 </div>
-                {/* <Footer></Footer> */}
             </div>
-            <Footer></Footer>
-        </>
-    )
+            <Footer />
+        </div>
+    );
 }
 
 const HorizonLine = () => {
