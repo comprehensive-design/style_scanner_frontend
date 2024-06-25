@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../css/Search.module.css';
-import Channel from '../Components/channel';
+import Channel from '../Components/Channel';
 import Button from './Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';

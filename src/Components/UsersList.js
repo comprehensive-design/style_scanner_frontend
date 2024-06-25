@@ -42,22 +42,19 @@ export default function UsersList({ list }) {
         })
             .then(response => {
                 console.log('Unfollowed successfully');
-                // setIsFollowing(false)/; // 언팔로우 상태 업데이트
-                
+                window.location.reload(); // 페이지 새로고침
             })
             .catch(error => {
                 console.error('Error while unfollowing:', error);
             });
     };
 
-
-
     return (
         <div className={styles.usersListContainer}>
             <div style={{ height: '10px' }}></div>
             {list.map((user, index) => (
                 <div key={user.profileName}> {/* 고유한 key prop 추가 */}
-                    <div className={styles.userInfo} onClick={() => openPopup(user)} >
+                    <div className={styles.userInfo} >
                         <img
                             id={styles.profileImage}
                             src={user.profilePictureUrl}
@@ -65,7 +62,7 @@ export default function UsersList({ list }) {
                             height={120}
                             alt={`${user.profileName}의 프로필 사진`}
                         />
-                        <div className={styles.userInfoWord}>
+                        <div className={styles.userInfoWord} onClick={() => openPopup(user)}>
                             <h4 className={styles.FollowigId}>{user.profileName}</h4>
                             <div style={{ display: "flex" }} className={styles.userFollowerInfo}>
                                 <p id={styles.FollowerWord}>팔로워</p>
