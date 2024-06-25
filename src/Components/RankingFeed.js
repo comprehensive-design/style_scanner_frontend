@@ -1,82 +1,105 @@
-import styles from "../css/RankingFeed.module.css";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styles from '../css/RankingFeed.module.css';
 
 export default function RankingFeed({ list = [] }) {
     const [likeStatuses, setLikeStatuses] = useState([]);
 
     useEffect(() => {
-        // Initialize like statuses based on list prop
-        setLikeStatuses(list.map(item => ({
-            id: item.id,
-            isLiked: item.isLiked, // Assuming you have isLiked property in your item objects
-            likeCount: item.likeCount,
-            itemUrl: item.itemUrl,
-            username: item.name,
-            brand: item.brand,
-            price: item.price
-        })));
+        const fetchLikeStatuses = async () => {
+            try {
+                const token = localStorage.getItem('accessToken');
+                if (!token) {
+                    console.error('Access token not found');
+                    return;
+                }
+
+                const updatedLikeStatuses = await Promise.all(
+                    list.map(async item => {
+                        try {
+                            const response = await axios.get(`/api/itemLike/${item.id}`, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                },
+                            });
+
+                            const isLiked = response.data === true; // Assuming server returns true/false
+                            return {
+                                id: item.id,
+                                isLiked: isLiked,
+                                likeCount: item.likeCount,
+                                itemUrl: item.itemUrl,
+                                username: item.name,
+                                brand: item.brand,
+                                price: item.price,
+                            };
+                        } catch (error) {
+                            console.error(`Error fetching like status for item ${item.id}:`, error);
+                            return {
+                                id: item.id,
+                                isLiked: false,
+                                likeCount: item.likeCount,
+                                itemUrl: item.itemUrl,
+                                username: item.name,
+                                brand: item.brand,
+                                price: item.price,
+                            };
+                        }
+                    })
+                );
+
+                setLikeStatuses(updatedLikeStatuses);
+            } catch (error) {
+                console.error('Error fetching like statuses:', error);
+            }
+        };
+
+        fetchLikeStatuses();
     }, [list]);
 
-    const token = localStorage.getItem('accessToken'); // LocalStorage에서 토큰 가져오기
+    const handleClick = async (id) => {
+        try {
+            const token = localStorage.getItem('accessToken');
+            if (!token) {
+                console.error('Access token not found');
+                return;
+            }
 
-    const handleClick = (id) => {
-        setLikeStatuses(prevStatuses =>
-            prevStatuses.map(status => {
-                if (status.id === id) {
-                    const newIsLiked = !status.isLiked;
-                    const newLikeCount = newIsLiked ? status.likeCount + 1 : status.likeCount - 1;
+            const statusIndex = likeStatuses.findIndex(item => item.id === id);
+            if (statusIndex === -1) {
+                console.error(`Item with id ${id} not found in likeStatuses`);
+                return;
+            }
 
-                    // Update like status on the server
-                    if (newIsLiked) {
-                        axios.post(`/api/itemLike/${id}`, {}, {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            }
-                        })
-                            .then(response => {
-                                console.log(`Liked item ${id}`);
-                                // Update local state after successful like
-                                setLikeStatuses(prevStatuses =>
-                                    prevStatuses.map(item => item.id === id ? { ...item, isLiked: true, likeCount: newLikeCount } : item)
-                                );
-                            })
-                            .catch(error => {
-                                console.error(`Error liking item ${id}:`, error);
-                            });
-                    } else {
-                        axios.delete(`/api/itemLike/${id}`, {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            }
-                        })
-                            .then(response => {
-                                console.log(`Unliked item ${id}`);
-                                // Update local state after successful unlike
-                                setLikeStatuses(prevStatuses =>
-                                    prevStatuses.map(item => item.id === id ? { ...item, isLiked: false, likeCount: newLikeCount } : item)
-                                );
-                            })
-                            .catch(error => {
-                                console.error(`Error unliking item ${id}:`, error);
-                            });
-                    }
+            const currentStatus = likeStatuses[statusIndex];
+            const newIsLiked = !currentStatus.isLiked;
+            const newLikeCount = newIsLiked ? currentStatus.likeCount + 1 : currentStatus.likeCount - 1;
 
-                    return { ...status, isLiked: newIsLiked, likeCount: newLikeCount };
-                }
-                return status;
-            })
-        );
+            const response = newIsLiked
+                ? await axios.post(`/api/itemLike/${id}`, {}, { headers: { Authorization: `Bearer ${token}` } })
+                : await axios.delete(`/api/itemLike/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+
+            if (response.status === 200) {
+                setLikeStatuses(prevStatuses => {
+                    const updatedStatuses = [...prevStatuses];
+                    updatedStatuses[statusIndex] = { ...currentStatus, isLiked: newIsLiked, likeCount: newLikeCount };
+                    return updatedStatuses;
+                });
+            } else {
+                console.error(`Failed to update like status for item ${id}`);
+            }
+        } catch (error) {
+            console.error(`Error toggling like status for item ${id}:`, error);
+        }
     };
 
     const handleImageError = (e) => {
         console.error(`Error loading image: ${e.target.src}`);
-        e.target.src = "https://via.placeholder.com/240x240/808080/FFFFFF/?text=";
+        e.target.src = 'https://via.placeholder.com/240x240/808080/FFFFFF/?text=Image+not+found';
     };
 
     return (
         <div className={styles.RankingFeed}>
-            {/* Render grid items with fixed 5 columns */}
             {likeStatuses.map(item => (
                 <div key={item.id} className={styles.gridItem}>
                     <img
@@ -87,13 +110,11 @@ export default function RankingFeed({ list = [] }) {
                         alt="Best Feed"
                         onError={handleImageError}
                     />
-
                     <div className={styles.RankingUserInfo}>
                         <p className={styles.brandName}>{item.brand}</p>
                         <p className={styles.rankingId}>{item.username}</p>
                         <p className={styles.itemPrice}>{item.price}</p>
                     </div>
-
                     <div className={styles.RankingUserHeart}>
                         <img
                             className={styles.rankingHeart}
@@ -107,8 +128,6 @@ export default function RankingFeed({ list = [] }) {
                     </div>
                 </div>
             ))}
-
-            <div className={styles.RankingFeedPadding}></div>
         </div>
     );
 }
