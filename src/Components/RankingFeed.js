@@ -76,38 +76,37 @@ export default function RankingFeed({ list = [] }) {
 
     return (
         <div className={styles.RankingFeed}>
-            {likeStatuses.length > 0 ? (
-                likeStatuses.map((item, index) => ( // index를 key로 사용
-                    <div key={index} className={styles.gridItem}>
-                        <img
-                            id={styles.bestFeed}
-                            src={item.itemUrl}
-                            width="200px"
-                            height="200px"
-                            alt="Best Feed"
-                            onError={handleImageError}
-                        />
+            {/* Render grid items with fixed 5 columns */}
+            {likeStatuses.map(item => (
+                <div key={item.id} className={styles.gridItem}>
+                    <img
+                        className={styles.bestFeed}
+                        src={item.itemUrl}
+                        width="200px"
+                        height="200px"
+                        alt="Best Feed"
+                        onError={handleImageError}
+                    />
 
-                        <div className={styles.RankingUserInfo}>
-                            <p className={styles.brandName}>{item.brand}</p>
-                            <p className={styles.rankingId}>{item.username}</p>
-                            <p className={styles.itemPrice}>{item.price}</p>
-                            <div className={styles.RankingUserHeart}>
-                                <img
-                                    id={styles.rankingHeart}
-                                    src={item.isLiked ? '/img/fullHeart.png' : '/img/heart.png'}
-                                    alt="Heart Icon"
-                                    onClick={() => handleClick(item.id)}
-                                />
-                                <p className={styles.rankingHeartCount}>{item.likeCount}</p>
-                            </div>
-                        </div>
+                    <div className={styles.RankingUserInfo}>
+                        <p className={styles.brandName}>{item.brand}</p>
+                        <p className={styles.rankingId}>{item.username}</p>
+                        <p className={styles.itemPrice}>{item.price}</p>
                     </div>
-                ))
-            ) : (
-                <p>No items to display</p>
-            )}
 
+                    <div className={styles.RankingUserHeart}>
+                        <img
+                            className={styles.rankingHeart}
+                            src={item.isLiked ? '/img/fullHeart.png' : '/img/heart.png'}
+                            alt="Heart Icon"
+                            width="15px"
+                            height="15px"
+                            onClick={() => handleClick(item.id)}
+                        />
+                        <p className={styles.rankingHeartCount}>{item.likeCount}</p>
+                    </div>
+                </div>
+            ))}
 
             <div className={styles.RankingFeedPadding}></div>
         </div>

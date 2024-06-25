@@ -57,6 +57,7 @@ export default function Ranking({ selectedCategory = "ALL", selectedSubcategory 
                 }
         
                 setItems(sortedItems);
+                console.log(sortedItems);
             } catch (error) {
                 console.error('Error fetching ranking items:', error);
             }

@@ -29,7 +29,7 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 180px; /* Ensure consistent width */
-    height: 320px; /* Adjust height if necessary */
+    height: 280px; /*Adjust height if necessary*/
     box-sizing: border-box;
 }
 
