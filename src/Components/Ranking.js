@@ -13,35 +13,56 @@ export default function Ranking({ selectedCategory = "ALL", selectedSubcategory 
             ? "ALL_ALL" 
             : `${selectedCategory}_${selectedSubcategory || "ALL"}`;
 
-        const fetchAllItems = async () => {
-            try {
-                const response = await axios.get('/api/item', {
-                    params: {
-                        category: categoryParam
-                    }
-                });
-                setItems(response.data);
-            } catch (error) {
-                console.error('Error fetching all items:', error);
-            }
-        };
+        // const fetchAllItems = async () => {
+        //     try {
+        //         const response = await axios.get('/api/item', {
+        //             params: {
+        //                 category: categoryParam
+        //             }
+        //         });
+        //         setItems(response.data);
+        //     } catch (error) {
+        //         console.error('Error fetching all items:', error);
+        //     }
+        // };
 
         const fetchRankingItems = async () => {
             try {
                 const response = await axios.get('/api/item/ranking', {
                     params: {
-                        // ranking: rankingType
-                        category : categoryParam,
-                        timeFilter : rankingType
+                        category: categoryParam,
+                        timeFilter: rankingType
                     }
                 });
-                setItems(prevItems => [...prevItems, ...response.data]);
+        
+                let sortedItems = response.data;
+        
+                // 클라이언트에서 정렬하기
+                switch (rankingType) {
+                    case 0:
+                        // 실시간 순으로 정렬 (예시: id를 기준으로 오름차순 정렬)
+                        sortedItems.sort((a, b) => a.id - b.id);
+                        break;
+                    case 1:
+                        // 일간 순으로 정렬 (예시: likeCount를 기준으로 내림차순 정렬)
+                        sortedItems.sort((a, b) => b.likeCount - a.likeCount);
+                        break;
+                    case 2:
+                        // 주간 순으로 정렬 (예시: price를 기준으로 오름차순 정렬)
+                        sortedItems.sort((a, b) => a.price - b.price);
+                        break;
+                    default:
+                        // 기본적으로 서버에서 보내준 순서 그대로 유지
+                        break;
+                }
+        
+                setItems(sortedItems);
             } catch (error) {
                 console.error('Error fetching ranking items:', error);
             }
         };
-
-        fetchAllItems();
+        
+        // fetchAllItems();
         fetchRankingItems();
     }, [selectedCategory, selectedSubcategory, rankingType]);
 

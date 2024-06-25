@@ -9,7 +9,7 @@ export default function RankingFeed({ list = [] }) {
         // Initialize like statuses based on list prop
         setLikeStatuses(list.map(item => ({
             id: item.id,
-            isLiked: item.isLiked,
+            isLiked: item.isLiked, // Assuming you have isLiked property in your item objects
             likeCount: item.likeCount,
             itemUrl: item.itemUrl,
             username: item.name,
@@ -18,43 +18,10 @@ export default function RankingFeed({ list = [] }) {
         })));
     }, [list]);
 
-    useEffect(() => {
-        // Check like status for each item
-        const checkLikeStatus = async () => {
-            const token = localStorage.getItem('accessToken');
-            if (!token) {
-                return;
-            }
-
-            try {
-                const updatedLikeStatuses = await Promise.all(
-                    likeStatuses.map(async item => {
-                        const response = await axios.get(`/api/itemLike/${item.id}`, {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            }
-                        });
-
-                        return {
-                            ...item,
-                            isLiked: response.data
-                        };
-                    })
-                );
-
-                setLikeStatuses(updatedLikeStatuses);
-            } catch (error) {
-                console.error('Error checking like status:', error);
-            }
-        };
-
-        checkLikeStatus();
-    }, [likeStatuses]);
-
     const token = localStorage.getItem('accessToken'); // LocalStorage에서 토큰 가져오기
 
     const handleClick = (id) => {
-        setLikeStatuses(prevStatuses => 
+        setLikeStatuses(prevStatuses =>
             prevStatuses.map(status => {
                 if (status.id === id) {
                     const newIsLiked = !status.isLiked;
@@ -67,32 +34,32 @@ export default function RankingFeed({ list = [] }) {
                                 Authorization: `Bearer ${token}`,
                             }
                         })
-                        .then(response => {
-                            console.log(`Liked item ${id}`);
-                            // Update local state after successful like
-                            setLikeStatuses(prevStatuses =>
-                                prevStatuses.map(item => item.id === id ? { ...item, isLiked: true, likeCount: newLikeCount } : item)
-                            );
-                        })
-                        .catch(error => {
-                            console.error(`Error liking item ${id}:`, error);
-                        });
+                            .then(response => {
+                                console.log(`Liked item ${id}`);
+                                // Update local state after successful like
+                                setLikeStatuses(prevStatuses =>
+                                    prevStatuses.map(item => item.id === id ? { ...item, isLiked: true, likeCount: newLikeCount } : item)
+                                );
+                            })
+                            .catch(error => {
+                                console.error(`Error liking item ${id}:`, error);
+                            });
                     } else {
                         axios.delete(`/api/itemLike/${id}`, {
                             headers: {
                                 Authorization: `Bearer ${token}`,
                             }
                         })
-                        .then(response => {
-                            console.log(`Unliked item ${id}`);
-                            // Update local state after successful unlike
-                            setLikeStatuses(prevStatuses =>
-                                prevStatuses.map(item => item.id === id ? { ...item, isLiked: false, likeCount: newLikeCount } : item)
-                            );
-                        })
-                        .catch(error => {
-                            console.error(`Error unliking item ${id}:`, error);
-                        });
+                            .then(response => {
+                                console.log(`Unliked item ${id}`);
+                                // Update local state after successful unlike
+                                setLikeStatuses(prevStatuses =>
+                                    prevStatuses.map(item => item.id === id ? { ...item, isLiked: false, likeCount: newLikeCount } : item)
+                                );
+                            })
+                            .catch(error => {
+                                console.error(`Error unliking item ${id}:`, error);
+                            });
                     }
 
                     return { ...status, isLiked: newIsLiked, likeCount: newLikeCount };
@@ -110,10 +77,10 @@ export default function RankingFeed({ list = [] }) {
     return (
         <div className={styles.RankingFeed}>
             {likeStatuses.length > 0 ? (
-                likeStatuses.map((item) => (
-                    <div key={item.id} className={styles.gridItem}>
+                likeStatuses.map((item, index) => ( // index를 key로 사용
+                    <div key={index} className={styles.gridItem}>
                         <img
-                            id={styles.bestFeed} 
+                            id={styles.bestFeed}
                             src={item.itemUrl}
                             width="200px"
                             height="200px"
@@ -140,6 +107,8 @@ export default function RankingFeed({ list = [] }) {
             ) : (
                 <p>No items to display</p>
             )}
+
+
             <div className={styles.RankingFeedPadding}></div>
         </div>
     );
