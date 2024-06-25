@@ -32,7 +32,7 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
             });
             return;
         }
-        console.log(profile_url);
+        
         const imageElement = imageWrapperRef.current.querySelector('img');
         const imageRect = imageElement.getBoundingClientRect();
         
@@ -61,7 +61,7 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
 
         const currentImageUrl = images[currentImageIndex];
         console.log(coords.x, coords.y);  // 좌표 확인
-
+        alert("click!");
         try {
             // 1. Segmentation 요청
             const segResponse = await axios.post('http://127.0.0.1:8000/seg', null, {
