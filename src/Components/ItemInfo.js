@@ -8,15 +8,16 @@ export default function ItemInfo({ key, itemId, brand, name, price, image, shopp
     const [isClicked, setIsClicked] = useState(false); // 클릭 여부를 state로 관리
 
     const shoppingClick = () => {
-        if (shoppingLink) {
-            window.location.href = shoppingLink;
-        } else {
-            alert("Shopping link가 없습니다.");
-        }
+        window.location.href = "https://nomanual-shop.com/product/detail.html?product_no=2251&cate_no=46&display_group=1";
+        // if (shoppingLink) {
+        //     window.location.href = shoppingLink;
+        // } else {
+        //     alert("Shopping link가 없습니다.");
+        // }
     };
     // 가격 포맷 함수
     const formatPrice = (price) => {
-        return new Intl.NumberFormat('ko-KR').format(price);
+        return price.toLocaleString('ko-KR');
     };
     const handleHeartClick = async (e) => {
         e.preventDefault();
@@ -73,8 +74,8 @@ export default function ItemInfo({ key, itemId, brand, name, price, image, shopp
                         Authorization: `Bearer ${token}`,
                     }
                 });
-
-                if (response.status === 200 && response.data.liked) {
+                console.log(response.data);
+                if (response.status === 200 && response.data==true) {
                     setHeartSrc('img/fullHeart.png');
                     setIsClicked(true);
                 }

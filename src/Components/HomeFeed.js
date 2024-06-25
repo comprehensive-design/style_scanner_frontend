@@ -87,20 +87,23 @@ function FeedList() {
                 )}
 
                 {/* 동적으로 받아온 피드들 */}
-                {feeds.map(feed => {
-                    const mediaUrls = Array.isArray(feed.media_url_list) ? feed.media_url_list : [];
-                    
-                    return (
-                        <Feed 
-                            key={feed.media_id} 
-                            media_url_list={mediaUrls} 
-                            profile_url={feed.profile_url} 
-                            username={feed.username} 
-                            media_id={feed.media_id} 
-                            close={true}
-                        />
-                    );
-                })}
+                {feeds
+                    .filter(feed => feed.username !== 'hi_sseulgi')
+                    .map(feed => {
+                        const mediaUrls = Array.isArray(feed.media_url_list) ? feed.media_url_list : [];
+                        
+                        return (
+                            <Feed 
+                                key={feed.media_id} 
+                                media_url_list={mediaUrls} 
+                                profile_url={feed.profile_url} 
+                                username={feed.username} 
+                                media_id={feed.media_id} 
+                                close={true}
+                            />
+                        );
+                    })
+                }
                 <div style={{height: '10px'}} />
             </div>
             <SlideBtn/> {/* SlideButton 렌더링 */}
