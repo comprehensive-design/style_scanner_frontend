@@ -4,97 +4,110 @@
     font-family: 'Pretendard';
 }
 
-.contents {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    float: left;
-    height: fit-content;
+/* 메인 */
+.top {
     width: 100%;
-    margin: auto auto;
-    position: relative;
-    padding-top: 20px;
+    display: flex;
+    float: left;
+    
+}
+
+.titleDiv {
+    text-align: left;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.subTitle {
+    font-size: 20px;
+}
+
+.feedContainer{
+    margin: 0 auto;
+
+    display: flex;
+    float: left;
+}
+
+/* 서브피드 */
+.feedSub {
+    width: 79px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 20px;
+}
+.thumbnail {
+    width: 79px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+}
+
+/* 아이템정보 제목 */
+.itemTitleDiv {
+    display: flex;
+    float: left;
+    width: 100%;
+}
+
+.boxIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.itemTitle {
+    font-weight: bold;
+    font-size: 24px;
 }
 
 .totalItem {
+    width: 100%;
     margin: auto 30px;
+
     display: flex;
     align-items: center;
-    justify-content: left;
-    width: 1000px;
     float: left;
-    overflow-x: hidden;
-    min-height: 300px;
 }
 
-.product {
-    text-align: left;
-    font-weight: 700;
-    font-size: 20px;
-    margin: auto 30px;
+.btnDiv {
     width: 100%;
+    float: left;
 }
 
-hr {
-    width: calc(100% - 60px);
-    margin: 0 auto 10px auto;
+/* 더보기 버튼 */
+.moreBtn {
+    margin: 0 auto;
+    width: 80px;
+    height: 40px;
+
+    border: 1px solid #808080;
+    border-radius: 10px;
+    background-color: white;
+    color: #808080;
+    font-size: 16px;
+
+    line-height: 40px;
+    text-align: center;
+
+    cursor: pointer;
+
 }
 
+/* 커뮤니티 버튼 */
 .goComBtn {
     float: right;
-    color: #ddd;
+    color: #808080;
+
     cursor: pointer;
-    font-size: 15px;
-    margin: auto 30px;
-    position: absolute; /* 위치 고정 */
-    bottom: 10px; /* 아래쪽에 고정 */
-    right: 30px; /* 오른쪽 마진 */
-}
-
-.goComBtn:hover {
-    border: 1px solid black;
-    color: black;
-    border: none;
-}
-
-.nextBtn {
-    position: absolute;
-    top: 265px;
-    width: 30px;
-    height: 30px;
-    right: 10px;
-    border: none;
-    border-radius: 50px;
-    background-color: rgba(0,0,0, 0.2);
-    transition: opacity 0.3s ease;
-    color: white;
-    line-height: 30px;
-    font-weight: 600;
-    text-align: center;
+    font-size: 16px;
 
     &:hover {
-        background-color: rgba(0,0,0,0.8);
-        border: none;
-    }
-}
-
-.prevBtn {
-    position: absolute;
-    top: 230px;
-    width: 30px;
-    height: 30px;
-    right: 10px;
-    border: none;
-    border-radius: 50px;
-    background-color: rgba(0,0,0, 0.2);
-    transition: opacity 0.3s ease;
-    color: white;
-    line-height: 30px;
-    font-weight: 600;
-    text-align: center;
-
-    &:hover {
-        background-color: rgba(0,0,0,0.8);
+        color: black;
         border: none;
     }
 }
