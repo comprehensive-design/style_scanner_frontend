@@ -18,8 +18,6 @@ const getFeeds = async (navigate) => {
         },
     };
 
-    console.log("Access Token:", token); // 토큰 값 확인
-
     try {
         const response = await axios.get('/api/insta/home', config);
         return response.data.feeds;

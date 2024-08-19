@@ -134,28 +134,31 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
     };
 
     return (
-        <div className={styles.completeFeed}>
-            <div className={styles.profile} onClick={openPopup}>
+        <div className={styles.FeedDiv}>
+            <div className={styles.profileDiv} onClick={openPopup}>
+                {/* 셀럽 피드 팝업 */}
                 {isPopupOpen && <FeedPopup onClose={closePopup} user={{ profileName: username }} />}
-                <div className={styles.ImageBox}>
-                    {profile_url ? (
-                        <img className={styles.profileImage2} src={profile_url} alt="Profile" />
+                
+                {profile_url ? (
+                        <img className={styles.profileEllipse} src={profile_url} alt="Profile" />
                     ) : (
-                        <img id={styles.profileImage} src={`img/profile.png`} alt="Profile" />
+                        <img id={styles.profileEllipseDefault} src={`img/profile.png`} alt="Profile" />
                     )}
-                </div>
-                <p className={styles.profileId} id={styles.name}>{username}</p>
+                
+                <p className={styles.profileUserName}>{username}</p>
             </div>
 
             <div className={styles.feedMain}>
-                <div className={styles.imageWrapper} ref={imageWrapperRef} onClick={handleClick}>
+                <div ref={imageWrapperRef} onClick={handleClick}>
                     <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
                 </div>
-                <div className={styles.dirBtn}>
+                <div className={styles.layerDiv}>
                     {images.length > 1 && (
                         <>
-                            <button className={styles.prevBtn} onClick={goToPrevImage}>{'<'}</button>
-                            <button className={styles.nextBtn} onClick={goToNextImage}>{'>'}</button>
+                            {/* 한장 이상일때 layer 아이콘 첨부*/}
+                            <img className={styles.layer} src={`img/layer.png`} alt="layer"></img>
+                            {/* <button className={styles.prevBtn} onClick={goToPrevImage}>{'<'}</button>
+                            <button className={styles.nextBtn} onClick={goToNextImage}>{'>'}</button> */}
                         </>
                     )}
                 </div>
