@@ -56,31 +56,10 @@
 .dirBtnDiv{
     position: absolute;
     top: 50%;
-    
-}
-.nextBtn{
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    right: 10px;
 
-    border: none;
-    border-radius: 50px;
-    background-color: rgba(0,0,0, 0.2);
-    transition: opacity 0.3s ease;
-    color: white;
-
-    line-height: 25px;
-    font-weight: 600;
-    text-align: center;
-    
-    &:hover {
-        background-color: rgba(0,0,0,0.8);
-        border: none;
-      }
 }
+
 .prevBtn{
-    position: absolute;
     width: 30px;
     height: 30px;
     left:10px;
@@ -95,6 +74,26 @@
     font-weight: 600;
     text-align: center;
 
+    &:hover {
+        background-color: rgba(0,0,0,0.8);
+        border: none;
+      }
+}
+.nextBtn{
+    width: 30px;
+    height: 30px;
+    right: 10px;
+
+    border: none;
+    border-radius: 50px;
+    background-color: rgba(0,0,0, 0.2);
+    transition: opacity 0.3s ease;
+    color: white;
+
+    line-height: 25px;
+    font-weight: 600;
+    text-align: center;
+    
     &:hover {
         background-color: rgba(0,0,0,0.8);
         border: none;

@@ -157,11 +157,17 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
                         <>
                             {/* 한장 이상일때 layer 아이콘 첨부*/}
                             <img className={styles.layer} src={`img/layer.png`} alt="layer"></img>
-                            {/* <button className={styles.prevBtn} onClick={goToPrevImage}>{'<'}</button>
-                            <button className={styles.nextBtn} onClick={goToNextImage}>{'>'}</button> */}
                         </>
                     )}
                 </div>
+                {/* <div className={styles.dirBtnDiv}>
+                    {images.length > 1 && (
+                        <>
+                            <button className={styles.prevBtn} onClick={goToPrevImage}>{'<'}</button>
+                            <button className={styles.nextBtn} onClick={goToNextImage}>{'>'}</button>
+                        </>
+                    )}
+                </div> */}
             </div>
         </div>
     );
