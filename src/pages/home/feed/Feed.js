@@ -3,14 +3,15 @@ import axios from 'axios';
 import styles from "./Feed.module.css";
 import { useNavigate } from "react-router-dom";
 import FeedPopup from '../../../Components/FeedPopup';
+import NumberLabel from './numberLabel';
 
-function Feed({ media_url_list, profile_url, username, media_id, close }) {
+function Feed({ media_url_list, profile_url, username, media_id, home }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const images = media_url_list;
     const imageWrapperRef = useRef(null);
-    
+
     const openPopup = () => {
         setIsPopupOpen(true);
     };
@@ -19,8 +20,17 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
         setIsPopupOpen(false);
     };
 
+    const goToNextImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+
+    const goToPrevImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    };
+
     const handleClick = async (event) => {
-        if (close) {
+        //그냥 아이템창으로 이동
+        if (home) {
             navigate("/HomeInfo", {
                 state: {
                     mediaUrls: images,
@@ -32,10 +42,10 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
             });
             return;
         }
-        
+        //homeitem에서 클릭이벤트
         const imageElement = imageWrapperRef.current.querySelector('img');
         const imageRect = imageElement.getBoundingClientRect();
-        
+
         const offsetX = event.clientX - imageRect.left;
         const offsetY = event.clientY - imageRect.top;
 
@@ -45,9 +55,9 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
 
         let coords = { x: offsetX * xRatio, y: offsetY * yRatio };
 
-        // 리사이즈된 이미지의 크기(465, 370)에 맞게 좌표 변환
-        const resizedWidth = 465;
-        const resizedHeight = 370;
+        const resizedWidth = 350;
+        const resizedHeight = 542.5;
+
         coords = {
             x: Math.floor(coords.x * (resizedWidth / imageElement.naturalWidth)),
             y: Math.floor(coords.y * (resizedHeight / imageElement.naturalHeight))
@@ -62,89 +72,83 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
         const currentImageUrl = images[currentImageIndex];
         console.log(coords.x, coords.y);  // 좌표 확인
         alert("click!");
-        try {
-            // 1. Segmentation 요청
-            const segResponse = await axios.post('http://127.0.0.1:8000/seg', null, {
-                params: {
-                    x: coords.x,
-                    y: coords.y,
-                    img_url: currentImageUrl // 인코딩 하지 않음
-                },
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                responseType: 'blob'  // blob으로 응답 받기
-            });
 
-            const segmentedBlob = segResponse.data;
-            const segmentedFile = new File([segmentedBlob], 'segmented_image.jpg', { type: segmentedBlob.type });
+        // try {
+        //     // 1. Segmentation 요청
+        //     const segResponse = await axios.post('http://127.0.0.1:8000/seg', null, {
+        //         params: {
+        //             x: coords.x,
+        //             y: coords.y,
+        //             img_url: currentImageUrl // 인코딩 하지 않음
+        //         },
+        //         headers: {
+        //             'Content-Type': 'application/x-www-form-urlencoded',
+        //         },
+        //         responseType: 'blob'  // blob으로 응답 받기
+        //     });
 
-            // 2. Segmentation된 이미지 업로드
-            const formData = new FormData();
-            formData.append('image_file', segmentedFile);
+        //     const segmentedBlob = segResponse.data;
+        //     const segmentedFile = new File([segmentedBlob], 'segmented_image.jpg', { type: segmentedBlob.type });
 
-            const uploadResponse = await axios.post('http://127.0.0.1:8000/uploadSegImg', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
-            });
+        //     // 2. Segmentation된 이미지 업로드
+        //     const formData = new FormData();
+        //     formData.append('image_file', segmentedFile);
 
-            const uploadedImageUrl = uploadResponse.data.image_url;
+        //     const uploadResponse = await axios.post('http://127.0.0.1:8000/uploadSegImg', formData, {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data',
+        //         }
+        //     });
 
-            // 3. 유사 이미지 검색
-            const token = localStorage.getItem("accessToken");
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            };
+        //     const uploadedImageUrl = uploadResponse.data.image_url;
 
-            const similarImagesResponse = await axios.get('http://127.0.0.1:8000/clip', {
-                params: {
-                    seg_img_url: uploadedImageUrl,
-                    folder_name: 'items/'
-                },
-                ...config
-            });
+        //     // 3. 유사 이미지 검색
+        //     const token = localStorage.getItem("accessToken");
+        //     const config = {
+        //         headers: {
+        //             Authorization: `Bearer ${token}`,
+        //         }
+        //     };
 
-            const similarImages = similarImagesResponse.data.similar_images;
-            console.log(similarImages);
-            navigate("/HomeInfo", {
-                state: {
-                    mediaUrls: images,
-                    feedUrl: currentImageUrl,
-                    media_id: media_id,
-                    username: username,
-                    profile_url: profile_url,
-                    coords: coords,
-                    similarImages: similarImages
-                }
-            });
-        } catch (error) {
-            console.error('Error processing the image:', error);
-        }
+        //     const similarImagesResponse = await axios.get('http://127.0.0.1:8000/clip', {
+        //         params: {
+        //             seg_img_url: uploadedImageUrl,
+        //             folder_name: 'items/'
+        //         },
+        //         ...config
+        //     });
+
+        //     const similarImages = similarImagesResponse.data.similar_images;
+        //     console.log(similarImages);
+
+        //     navigate("/HomeInfo", {
+        //         state: {
+        //             mediaUrls: images,
+        //             feedUrl: currentImageUrl,
+        //             media_id: media_id,
+        //             username: username,
+        //             profile_url: profile_url,
+        //             coords: coords,
+        //             similarImages: similarImages
+        //         }
+        //     });
+
+        // } catch (error) {
+        //     console.error('Error processing the image:', error);
+        // }
     };
-
-    const goToNextImage = () => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    };
-
-    const goToPrevImage = () => {
-        setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-    };
-
     return (
         <div className={styles.FeedDiv}>
             <div className={styles.profileDiv} onClick={openPopup}>
                 {/* 셀럽 피드 팝업 */}
                 {isPopupOpen && <FeedPopup onClose={closePopup} user={{ profileName: username }} />}
-                
+
                 {profile_url ? (
-                        <img className={styles.profileEllipse} src={profile_url} alt="Profile" />
-                    ) : (
-                        <img id={styles.profileEllipseDefault} src={`img/profile.png`} alt="Profile" />
-                    )}
-                
+                    <img className={styles.profileEllipse} src={profile_url} alt="Profile" />
+                ) : (
+                    <img id={styles.profileEllipseDefault} src={`img/profile.png`} alt="Profile" />
+                )}
+
                 <p className={styles.profileUserName}>{username}</p>
             </div>
 
@@ -153,12 +157,20 @@ function Feed({ media_url_list, profile_url, username, media_id, close }) {
                     <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
                 </div>
                 <div className={styles.layerDiv}>
-                    {images.length > 1 && (
+                    {images.length > 1 && home && (
                         <>
                             {/* 한장 이상일때 layer 아이콘 첨부*/}
                             <img className={styles.layer} src={`img/layer.png`} alt="layer"></img>
+                           
                         </>
                     )}
+                     {images.length > 1 && !home && (
+                        <>
+                            <NumberLabel>1/10</NumberLabel>
+                           
+                        </>
+                    )}
+                  
                 </div>
                 {/* <div className={styles.dirBtnDiv}>
                     {images.length > 1 && (
