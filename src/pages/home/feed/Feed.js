@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import FeedPopup from '../../../Components/FeedPopup';
 import NumberLabel from './numberLabel';
 
-function Feed({ media_url_list, profile_url, username, media_id, home }) {
+function Feed({ media_url_list, profile_url, currentIndex, username, media_id, home }) {
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -20,17 +20,10 @@ function Feed({ media_url_list, profile_url, username, media_id, home }) {
         setIsPopupOpen(false);
     };
 
-    const goToNextImage = () => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    };
-
-    const goToPrevImage = () => {
-        setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-    };
-
     const handleClick = async (event) => {
         //그냥 아이템창으로 이동
         if (home) {
+           
             navigate("/HomeInfo", {
                 state: {
                     mediaUrls: images,
@@ -38,6 +31,7 @@ function Feed({ media_url_list, profile_url, username, media_id, home }) {
                     media_id: media_id,
                     username: username,
                     profile_url: profile_url,
+                    
                 }
             });
             return;
@@ -154,7 +148,7 @@ function Feed({ media_url_list, profile_url, username, media_id, home }) {
 
             <div className={styles.feedMain}>
                 <div ref={imageWrapperRef} onClick={handleClick}>
-                    <img src={images[currentImageIndex]} alt={`Feed ${currentImageIndex}`} />
+                    <img src={images[currentIndex]} alt={`Feed ${currentIndex}`} />
                 </div>
                 <div className={styles.layerDiv}>
                     {images.length > 1 && home && (
@@ -166,20 +160,12 @@ function Feed({ media_url_list, profile_url, username, media_id, home }) {
                     )}
                      {images.length > 1 && !home && (
                         <>
-                            <NumberLabel>1/10</NumberLabel>
+                            <NumberLabel currentPage={currentIndex} pageLength={images.length}></NumberLabel>
                            
                         </>
                     )}
                   
                 </div>
-                {/* <div className={styles.dirBtnDiv}>
-                    {images.length > 1 && (
-                        <>
-                            <button className={styles.prevBtn} onClick={goToPrevImage}>{'<'}</button>
-                            <button className={styles.nextBtn} onClick={goToNextImage}>{'>'}</button>
-                        </>
-                    )}
-                </div> */}
             </div>
         </div>
     );

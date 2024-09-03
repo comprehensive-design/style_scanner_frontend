@@ -80,6 +80,7 @@ function FeedList() {
                                 profile_url={feed.profile_url}
                                 username={feed.username}
                                 media_id={feed.media_id}
+                                currentIndex={0}
                                 home={true}
                             />
                         );

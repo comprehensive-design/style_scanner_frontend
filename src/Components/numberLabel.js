@@ -13,9 +13,9 @@ const StyledNumberLabel = styled.p`
   opacity: 0.8;
 `;
 
-function NumberLabel({children}){
+function NumberLabel({currentPage, pageLength}){
   return (
-    <StyledNumberLabel>{children}
+    <StyledNumberLabel>{currentPage}/{pageLength}
     </StyledNumberLabel>
   );
 }

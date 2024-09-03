@@ -17,6 +17,7 @@ export default function HomeItem() {
 
     const [startIndex, setStartIndex] = useState(0);
     const thumbnailsToShow = 4;
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     //글쓰기 팝업인데, 나중에 navigate로 바꾸면 될듯
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -29,16 +30,21 @@ export default function HomeItem() {
         setIsPopupOpen(false);
     };
 
-    const morePage = () => {
-        setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
+    //썸네일 클릭
+    const thumbnailClick =(index) => {
+        setCurrentImageIndex(index);
     };
-
+    //다음 썸네일 사진 버튼
     const nextBtn = () => {
         if (startIndex + thumbnailsToShow < mediaUrls.length - 1) {
             setStartIndex((prevIndex) => prevIndex + 1);
         }
     };
-    
+    //아이템 더보기 버튼
+    const morePage = () => {
+        setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
+    };
+
     useEffect(() => {
         const fetchItemData = async () => {
 
@@ -92,21 +98,23 @@ export default function HomeItem() {
                                 profile_url={profile_url}
                                 username={username}
                                 media_id={media_id}
-                                close={false}
+                                home={false}
+                                currentIndex={currentImageIndex}
                             />
                         )}
                     </div>
                     {mediaUrls.length > 1 && (
                         <div className={styles.feedSub}>
-                         
-                            {mediaUrls.slice(1).map((url, index) => (
-                                    <img
-                                        key={index}
-                                        src={url}
-                                        alt={`Thumbnail ${index + 1}`}
-                                        className={styles.thumbnail}
-                                    />
-                                ))}
+
+                            {mediaUrls.map((url, index) => (
+                                <img
+                                    key={index}
+                                    src={url}
+                                    alt={`Thumbnail ${index + 1}`}
+                                    className={styles.thumbnail}
+                                    onClick={() => thumbnailClick(index)}
+                                />
+                            ))}
                             {startIndex + thumbnailsToShow < mediaUrls.length - 1 && (
                                 <button onClick={nextBtn} className={styles.arrowButton}>
                                     ▾
