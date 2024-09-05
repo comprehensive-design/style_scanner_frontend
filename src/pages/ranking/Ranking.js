@@ -1,6 +1,6 @@
-import styles from '../css/Ranking.module.css';
+import styles from './Ranking.module.css';
 import { Link } from "react-router-dom";
-import RankingFeed from "./RankingFeed";
+import RankingFeed from "./rankingFeed/RankingFeed";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 

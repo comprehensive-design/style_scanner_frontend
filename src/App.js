@@ -9,7 +9,7 @@ import MypageDefault from './Components/MypageDefault';
 import AccountManage from './Components/AccountManage';
 import FollowingList from './Components/FollowingList';
 import CommunityNoti from './Components/CommunityNoti';
-import Ranking from './Components/Ranking';
+import Ranking from './pages/ranking/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
 import ManageBox from './Components/ManageBox';
 import Search from './Components/Search';

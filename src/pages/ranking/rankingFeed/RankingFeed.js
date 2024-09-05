@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from '../css/RankingFeed.module.css';
+import styles from './RankingFeed.module.css';
 
 export default function RankingFeed({ list = [] }) {
     const [likeStatuses, setLikeStatuses] = useState([]);
