@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import styles from '../css/Main.module.css';
+import styles from './Main.module.css';
 import { Link } from "react-router-dom";
-import Footer from './Footer';
+import Footer from '../../Components/Footer';
 
 
 function Main() {
