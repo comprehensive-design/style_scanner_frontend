@@ -11,18 +11,16 @@ import FollowingList from './Components/FollowingList';
 import CommunityNoti from './Components/CommunityNoti';
 import Ranking from './pages/ranking/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
-import ManageBox from './Components/ManageBox';
 import Search from './Components/Search';
 import MyPageWritings from './Components/MyPageWritings';
 import MyPageComments from './Components/MyPageComments';
-import HomeFeed from './Components/HomeFeed';
+import HomeFeed from './pages/home/HomeFeed';
 import HomeInfo from './Components/HomeInfo';
 import CommunityFeed from './Components/CommunityFeed';
 import CommunityWrite from './Components/CommunityWrite';
 import LikeList from './Components/LikeList';
 import Category from './Components/Category';
 import CommunityInfo from './Components/CommunityInfo';
-import FeedPopup from './Components/FeedPopup';
 
 const App = () => {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Feed from './feed.js';
+import Feed from '../pages/home/feed/feed.js';
 import ItemInfo from './ItemInfo.js';
 import styles from '../css/HomeInfo.module.css';
 import { useNavigate, useLocation } from "react-router-dom";

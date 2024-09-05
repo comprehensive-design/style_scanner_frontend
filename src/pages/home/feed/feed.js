@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import styles from "../css/feed.module.css";
+import styles from "./feed.module.css";
 import { useNavigate } from "react-router-dom";
-import FeedPopup from './FeedPopup';
+import FeedPopup from '../../../Components/FeedPopup';
 
 function Feed({ media_url_list, profile_url, username, media_id, close }) {
     const navigate = useNavigate();

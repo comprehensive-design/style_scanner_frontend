@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Feed from './feed'; 
-import styles from "../css/HomeFeed.module.css";
+import styles from "./HomeFeed.module.css";
 import axios from 'axios';
-import SlideBtn from './SlideButton'; 
+import SlideBtn from '../../Components/SlideButton'; 
 import { useNavigate } from 'react-router';
 
 const getFeeds = async (navigate) => {
