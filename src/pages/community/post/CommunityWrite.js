@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./CommunityWrite.module.css";
 import axios from "axios";
-import Button from './Button';
+import Button from '../../../Components/Button';
 
 const getProfile = async () => {
   const token = localStorage.getItem("accessToken");

@@ -2,7 +2,7 @@ import styles from './Community.module.css';
 import React, { useState, useEffect, useRef } from 'react';
 import ComFeed from './feed/comfeed';
 import axios from 'axios';
-import SlideBtn from '../../Components/SlideButton';
+import SlideBtn from '../../../Components/SlideButton';
 
 export const getPosts = async () => {
   const token = localStorage.getItem("accessToken");

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import styles from "./CommunityInfo.module.css";
 import axios from "axios";
-import Button from './Button';
+import Button from '../../../Components/Button';
 import CommentInfo from "../../../Components/CommentInfo";
 
 
