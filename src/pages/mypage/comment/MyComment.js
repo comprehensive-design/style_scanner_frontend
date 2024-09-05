@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import styles from "../css/MyPageComments.module.css";
+import styles from "./MyComment.module.css";
 import Sidebar from './Sidebar';
-import CommentBox from './CommentBox';
-import Pagination from './Pagination';
+import CommentBox from '../../../Components/CommentBox';
+import Sidebar from '../../../Components/Sidebar';
+import Pagination from '../../../Components/Pagination';
 import axios from 'axios';
 import Footer from './Footer';
 
@@ -34,7 +35,7 @@ const getComments = async (currentPage, itemsPerPage) => {
     }
 };
 
-export default function MyPageComments() {
+export default function MyComment() {
     const [comments, setComments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);

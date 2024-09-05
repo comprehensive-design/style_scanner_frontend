@@ -7,13 +7,13 @@ import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import MypageDefault from './Components/MypageDefault';
 import AccountManage from './Components/AccountManage';
-import FollowingList from './Components/FollowingList';
+import FollowingList from './pages/mypage/follow/FollowingList';
 import CommunityNoti from './Components/CommunityNoti';
 import Ranking from './pages/ranking/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
 import Search from './Components/Search';
-import MyPageWritings from './Components/MyPageWritings';
-import MyPageComments from './Components/MyPageComments';
+import MyPost from './pages/mypage/post/MyPost';
+import MyComment from './pages/mypage/comment/MyComment';
 import HomeFeed from './pages/home/HomeFeed';
 import HomeItem from './pages/HomeItem/HomeItem';
 import Community from './pages/community/main/Community';
@@ -40,8 +40,8 @@ const App = () => {
           <Route path="/CelebRecommend" element={<CelebRecommend />} />
           <Route path="/Ranking" element={<Ranking />} />
           <Route path="/FollowingList" element={<FollowingList />} />
-          <Route path="/MyPageWritings" element={<MyPageWritings />} />
-          <Route path="/MyPageComments" element={<MyPageComments />} />
+          <Route path="/MyPost" element={<MyPost />} />
+          <Route path="/MyComment" element={<MyComment />} />
           <Route path="/HomeFeed" element={<HomeFeed />} />
           <Route path="/HomeItem" element={<HomeItem />} />
           <Route path="/Community" element={<Community />} />

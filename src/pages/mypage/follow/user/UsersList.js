@@ -1,8 +1,8 @@
-import styles from "../css/UsersList.module.css";
-import Button from './Button';
+import styles from "./UsersList.module.css";
+import Button from '../../../../Components/Button';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
-import FeedPopup from "./FeedPopup";
+import FeedPopup from "../../../../Components/FeedPopup";
 
 export default function UsersList({ list }) {
     const [popupVisible, setPopupVisible] = useState(false);

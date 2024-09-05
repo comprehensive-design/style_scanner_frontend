@@ -1,10 +1,10 @@
-import styles from '../css/FollowingList.module.css';
-import Sidebar from "./Sidebar"
+import styles from './FollowingList.module.css';
+import Sidebar from "../../../omponents/Sidebar"
 import React, { useState, useEffect, useRef } from 'react';
-import Pagination from './Pagination';
+import Pagination from '../../../Components/Pagination';
 import axios from "axios";
-import UsersList from './UsersList';
-import Footer from './Footer';
+import UsersList from './user/UsersList';
+import Footer from '../../../Components/Footer';
 
 export default function FollowingList() {
     const [followings, setFollowings] = useState([]);
