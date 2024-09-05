@@ -16,11 +16,11 @@ import MyComment from './pages/mypage/comment/MyComment';
 import AccountManage from './pages/mypage/account/AccountManage';
 import CommunityNoti from './pages/mypage/notification/CommunityNoti';
 import HomeFeed from './pages/home/HomeFeed';
-import HomeItem from './pages/HomeItem/HomeItem';
+import HomeItem from './pages/homeItem/HomeItem';
 import Community from './pages/community/main/Community';
 import CommunityWrite from './pages/community/post/CommunityWrite';
 import CommunityInfo from './pages/community/detail/CommunityInfo';
-import Category from './Components/Category';
+import Category from './pages/ranking/category/Category';
 
 const App = () => {
   return (

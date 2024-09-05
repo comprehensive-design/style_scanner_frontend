@@ -1,8 +1,8 @@
-import styles from '../css/Category.module.css';
+import styles from './Category.module.css';
 import React, { useEffect, useState } from 'react';
-import Ranking from './Ranking';
+import Ranking from '../Ranking';
 import styled from 'styled-components';
-import Footer from './Footer';
+import Footer from '../../../Components/Footer';
 
 export default function Category() {
     const [selectedCategory, setSelectedCategory] = useState('ALL');
