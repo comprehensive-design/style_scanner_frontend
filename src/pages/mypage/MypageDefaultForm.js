@@ -1,8 +1,7 @@
-
-import styles from "../css/MypageDefault.module.css";
-import Sidebar from './Sidebar';
+import styles from "./MypageDefault.module.css";
+import Sidebar from '../../Components/Sidebar';
 import { NavLink } from "react-router-dom";
-import Footer from "./Footer"
+import Footer from "../../Components/Footer"
 
 function CelebrityInfo({ imgUrl, celebID }) {
     return (

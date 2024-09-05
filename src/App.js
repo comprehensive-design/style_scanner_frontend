@@ -5,21 +5,21 @@ import { Route, Routes } from 'react-router-dom';
 import Main from './Components/Main';
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
-import MypageDefault from './Components/MypageDefault';
-import AccountManage from './pages/mypage/account/AccountManage';
-import FollowingList from './pages/mypage/follow/FollowingList';
-import CommunityNoti from './Components/CommunityNoti';
 import Ranking from './pages/ranking/Ranking';
 import CelebRecommend from './Components/CelebRecommend';
 import Search from './Components/Search';
+import MypageDefault from './pages/mypage/MypageDefault';
+import LikeList from './pages/mypage/like/LikeList';
+import FollowingList from './pages/mypage/follow/FollowingList';
 import MyPost from './pages/mypage/post/MyPost';
 import MyComment from './pages/mypage/comment/MyComment';
+import AccountManage from './pages/mypage/account/AccountManage';
+import CommunityNoti from './Components/CommunityNoti';
 import HomeFeed from './pages/home/HomeFeed';
 import HomeItem from './pages/HomeItem/HomeItem';
 import Community from './pages/community/main/Community';
 import CommunityWrite from './pages/community/post/CommunityWrite';
 import CommunityInfo from './pages/community/detail/CommunityInfo';
-import LikeList from './pages/mypage/like/LikeList';
 import Category from './Components/Category';
 
 const App = () => {
