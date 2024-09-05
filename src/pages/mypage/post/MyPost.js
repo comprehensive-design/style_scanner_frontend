@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
-import styles from "../css/MyPageWritings.module.css";
-import Sidebar from './Sidebar';
-import WritingBox from './WritingBox';
-import Pagination from './Pagination';
+import styles from "./MyPost.module.css";
+import Sidebar from '../../../Components/Sidebar';
+import WritingBox from '../../../Components/WritingBox';
+import Pagination from '../../../Components/Pagination';
 import axios from 'axios';
-import CommunityWrite from './CommunityWrite';
+import CommunityWrite from '../../community/post/CommunityWrite';
 import Footer from './Footer';
 
 const getPosts = async (currentPage, postsPerPage) => {
@@ -33,7 +33,7 @@ const getPosts = async (currentPage, postsPerPage) => {
   }
 };
 
-export default function MyPageWritings() {
+export default function MyPost() {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
