@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from "../css/Channel.module.css";
+import styles from "./Channel.module.css";
 
 export default function Channel({ list = [] }) {
     const [popupVisible, setPopupVisible] = useState(false);

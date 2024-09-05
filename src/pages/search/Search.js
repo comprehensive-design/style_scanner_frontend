@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../css/Search.module.css';
-import Channel from '../Components/channel';
-import Button from './Button';
+import styles from './Search.module.css';
+import Channel from './channel/channel';
+import Button from '../../Components/Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Footer from './Footer';
-import FeedPopup from './FeedPopup';
+import Footer from '../../Components/Footer';
+import FeedPopup from '../../Components/FeedPopup';
 
 export default function Search() {
     const location = useLocation();
