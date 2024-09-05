@@ -1,8 +1,8 @@
-import styles from '../css/CommunityNoti.module.css';
-import Sidebar from './Sidebar';
-import NotiBox from './NotiBox';
-import Pagination from './Pagination';
-import Footer from './Footer';
+import styles from './CommunityNoti.module.css';
+import Sidebar from '../../../Components/Sidebar';
+import NotiBox from '../../../Components/NotiBox';
+import Pagination from '../../../Components/Pagination';
+import Footer from '../../../Components/Footer';
 
 export default function CommunityNotiForm({ noti, itemsNum, itemsPerPage, setCurrentPage, currentPage }) {
     return (

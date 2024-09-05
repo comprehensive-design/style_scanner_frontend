@@ -14,7 +14,7 @@ import FollowingList from './pages/mypage/follow/FollowingList';
 import MyPost from './pages/mypage/post/MyPost';
 import MyComment from './pages/mypage/comment/MyComment';
 import AccountManage from './pages/mypage/account/AccountManage';
-import CommunityNoti from './Components/CommunityNoti';
+import CommunityNoti from './pages/mypage/notification/CommunityNoti';
 import HomeFeed from './pages/home/HomeFeed';
 import HomeItem from './pages/HomeItem/HomeItem';
 import Community from './pages/community/main/Community';
