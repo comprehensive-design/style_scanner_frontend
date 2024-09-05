@@ -1,9 +1,9 @@
-import styles from '../css/AccountManage.module.css';
+import styles from './AccountManage.module.css';
 import React, { useState } from "react";
-import Popup from './Popup';
-import Sidebar from './Sidebar';
-import ManageBox from './ManageBox';
-import Button from './Button';
+import Popup from '../../../Components/Popup';
+import Sidebar from '../../../Components/Sidebar';
+import ManageBox from '../../../Components/ManageBox';
+import Button from '../../../Components/Button';
 import axios from 'axios';
 import Footer from './Footer';
 

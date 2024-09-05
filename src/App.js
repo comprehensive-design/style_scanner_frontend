@@ -6,7 +6,7 @@ import Main from './Components/Main';
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import MypageDefault from './Components/MypageDefault';
-import AccountManage from './Components/AccountManage';
+import AccountManage from './pages/mypage/account/AccountManage';
 import FollowingList from './pages/mypage/follow/FollowingList';
 import CommunityNoti from './Components/CommunityNoti';
 import Ranking from './pages/ranking/Ranking';
