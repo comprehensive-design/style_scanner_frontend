@@ -1,4 +1,4 @@
-import styles from '../css/Login.module.css';
+import styles from './Login.module.css';
 import { NavLink } from "react-router-dom";
 
 
