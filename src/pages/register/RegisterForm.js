@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/Register.module.css';
+import styles from './Register.module.css';
 
 export default function RegisterForm({ email1, email2, password, password2, displayName, year, month, day, gender, setEmail1, setEmail2, setPassword, setPassword2, setDisplayName, setYear, setMonth, setDay, setGender, handleSubmit, handleCheckDuplicate, years, months, days }) {
 

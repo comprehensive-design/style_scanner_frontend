@@ -1,11 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import styles from "./MyComment.module.css";
-import Sidebar from './Sidebar';
 import CommentBox from '../../../Components/CommentBox';
 import Sidebar from '../../../Components/Sidebar';
 import Pagination from '../../../Components/Pagination';
 import axios from 'axios';
-import Footer from './Footer';
+import Footer from '../../../Components/Footer';
 
 const getComments = async (currentPage, itemsPerPage) => {
     const token = localStorage.getItem("accessToken");

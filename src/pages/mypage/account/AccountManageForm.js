@@ -5,7 +5,7 @@ import Sidebar from '../../../Components/Sidebar';
 import ManageBox from '../../../Components/ManageBox';
 import Button from '../../../Components/Button';
 import axios from 'axios';
-import Footer from './Footer';
+import Footer from '../../../Components/Footer';
 
 export default function AccountManageForm({ profilePictureUrl, displayName, bio, password, email, birthdate, gender }) {
     const [popupType, setPopupType] = useState(null);

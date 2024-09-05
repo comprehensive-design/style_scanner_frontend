@@ -1,5 +1,5 @@
 import styles from './FollowingList.module.css';
-import Sidebar from "../../../omponents/Sidebar"
+import Sidebar from "../../../Components/Sidebar"
 import React, { useState, useEffect, useRef } from 'react';
 import Pagination from '../../../Components/Pagination';
 import axios from "axios";

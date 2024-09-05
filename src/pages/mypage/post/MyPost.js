@@ -5,7 +5,7 @@ import WritingBox from '../../../Components/WritingBox';
 import Pagination from '../../../Components/Pagination';
 import axios from 'axios';
 import CommunityWrite from '../../community/post/CommunityWrite';
-import Footer from './Footer';
+import Footer from '../../../Components/Footer';
 
 const getPosts = async (currentPage, postsPerPage) => {
   const token = localStorage.getItem("accessToken");
