@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
-import styles from "../css/CommunityInfo.module.css";
+import styles from "./CommunityInfo.module.css";
 import axios from "axios";
 import Button from './Button';
-import CommentInfo from "./CommentInfo";
+import CommentInfo from "../../../Components/CommentInfo";
 
 
 // 댓글 get

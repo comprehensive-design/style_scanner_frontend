@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import styles from "../css/CommunityWrite.module.css";
+import styles from "./CommunityWrite.module.css";
 import axios from "axios";
 import Button from './Button';
 

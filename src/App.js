@@ -16,11 +16,11 @@ import MyPageWritings from './Components/MyPageWritings';
 import MyPageComments from './Components/MyPageComments';
 import HomeFeed from './pages/home/HomeFeed';
 import HomeInfo from './Components/HomeInfo';
-import CommunityFeed from './Components/CommunityFeed';
-import CommunityWrite from './Components/CommunityWrite';
+import Community from './pages/community/main/Community';
+import CommunityWrite from './pages/community/post/CommunityWrite';
+import CommunityInfo from './pages/community/detail/CommunityInfo';
 import LikeList from './Components/LikeList';
 import Category from './Components/Category';
-import CommunityInfo from './Components/CommunityInfo';
 
 const App = () => {
   return (
@@ -44,7 +44,7 @@ const App = () => {
           <Route path="/MyPageComments" element={<MyPageComments />} />
           <Route path="/HomeFeed" element={<HomeFeed />} />
           <Route path="/HomeInfo" element={<HomeInfo />} />
-          <Route path="/CommunityFeed" element={<CommunityFeed />} />
+          <Route path="/Community" element={<Community />} />
           <Route path="/CommunityWrite" element={<CommunityWrite />} />
           <Route path="/CommunityInfo" element={<CommunityInfo />} />
           <Route path="/LikeList" element={<LikeList />} />

@@ -1,7 +1,7 @@
-import styles from "../css/comfeed.module.css";
+import styles from "./comfeed.module.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
-import CommunityInfo from './CommunityInfo';
+import CommunityInfo from '../../detail/CommunityInfo';
 import FeedPopup from './FeedPopup';
 
 function ComFeed({ postId, feedUrl,content, displayName, profilePictureUrl, goDir }) {
