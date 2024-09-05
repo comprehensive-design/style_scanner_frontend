@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import styles from '../css/CelebBox.module.css';
-import Button from './Button';
+import styles from './CelebBox.module.css';
+import Button from '../../../Components/Button';
 import { useEffect, useState } from 'react';
-import FeedPopup from "./FeedPopup";
+import FeedPopup from "../../../Components/FeedPopup";
 
 function CelebBox({ isFollow, prifileImgUrl = "/img/whiteBox.png", displayName, follower, picUrl1 = "/img/whiteBox.png", picUrl2 = "/img/whiteBox.png", picUrl3 = "/img/whiteBox.png", follow, unfollow }) {
 

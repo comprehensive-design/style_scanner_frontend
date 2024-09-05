@@ -6,7 +6,7 @@ import Main from './Components/Main';
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import Ranking from './pages/ranking/Ranking';
-import CelebRecommend from './Components/CelebRecommend';
+import CelebRecommend from './pages/recommend/CelebRecommend';
 import Search from './pages/search/Search';
 import MypageDefault from './pages/mypage/MypageDefault';
 import LikeList from './pages/mypage/like/LikeList';

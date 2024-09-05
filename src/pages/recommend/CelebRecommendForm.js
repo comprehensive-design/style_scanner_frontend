@@ -1,6 +1,6 @@
-import styles from '../css/CelebRecommend.module.css';
-import CelebBox from './CelebBox';
-import Footer from './Footer';
+import styles from './CelebRecommend.module.css';
+import CelebBox from './celeb/CelebBox';
+import Footer from '../../Components/Footer';
 
 export default function CelebRecommendForm({ isFollow, name, imgUrls = [], displayNames = [], followers = [], picUrl1s = [], picUrl2s = [], picUrl3s = [], follow = () => { }, unfollow = () => { } }) {
 
