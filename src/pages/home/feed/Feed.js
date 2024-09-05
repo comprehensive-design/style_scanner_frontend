@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import styles from "./feed.module.css";
+import styles from "./Feed.module.css";
 import { useNavigate } from "react-router-dom";
 import FeedPopup from '../../../Components/FeedPopup';
 

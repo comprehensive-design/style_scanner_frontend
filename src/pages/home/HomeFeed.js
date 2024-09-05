@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Feed from './feed/feed'; 
+import Feed from './feed/Feed'; 
 import styles from "./HomeFeed.module.css";
 import axios from 'axios';
 import SlideBtn from '../../Components/SlideButton'; 

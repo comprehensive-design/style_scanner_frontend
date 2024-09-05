@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Feed from '../pages/home/feed/feed.js';
-import ItemInfo from './ItemInfo.js';
-import styles from '../css/HomeInfo.module.css';
+import Item from './item/Item.js';
+import styles from './HomeItem.module.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
-import CommunityWrite from './CommunityWrite.js';
+import CommunityWrite from '../community/post/CommunityWrite.js';
 
-export default function HomeInfo() {
+export default function HomeItem() {
     const location = useLocation();
     const { mediaUrls, feedUrl, media_id, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
     const [items, setItems] = useState([]);
@@ -85,7 +85,7 @@ export default function HomeInfo() {
                 <hr></hr>
                 <div className={styles.totalItem}>
                     {currentItems.map((item, index) => (
-                        <ItemInfo
+                        <Item
                             key={item.id}
                             itemId={item.id}
                             brand={item.brand}

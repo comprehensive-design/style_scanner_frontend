@@ -15,7 +15,7 @@ import Search from './Components/Search';
 import MyPageWritings from './Components/MyPageWritings';
 import MyPageComments from './Components/MyPageComments';
 import HomeFeed from './pages/home/HomeFeed';
-import HomeInfo from './Components/HomeInfo';
+import HomeItem from './pages/HomeItem/HomeItem';
 import Community from './pages/community/main/Community';
 import CommunityWrite from './pages/community/post/CommunityWrite';
 import CommunityInfo from './pages/community/detail/CommunityInfo';
@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/MyPageWritings" element={<MyPageWritings />} />
           <Route path="/MyPageComments" element={<MyPageComments />} />
           <Route path="/HomeFeed" element={<HomeFeed />} />
-          <Route path="/HomeInfo" element={<HomeInfo />} />
+          <Route path="/HomeItem" element={<HomeItem />} />
           <Route path="/Community" element={<Community />} />
           <Route path="/CommunityWrite" element={<CommunityWrite />} />
           <Route path="/CommunityInfo" element={<CommunityInfo />} />
