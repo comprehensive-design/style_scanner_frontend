@@ -19,7 +19,7 @@ import HomeItem from './pages/HomeItem/HomeItem';
 import Community from './pages/community/main/Community';
 import CommunityWrite from './pages/community/post/CommunityWrite';
 import CommunityInfo from './pages/community/detail/CommunityInfo';
-import LikeList from './Components/LikeList';
+import LikeList from './pages/mypage/like/LikeList';
 import Category from './Components/Category';
 
 const App = () => {

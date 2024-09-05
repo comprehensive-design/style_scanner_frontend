@@ -1,10 +1,10 @@
 // https://codesandbox.io/p/sandbox/react-pagination-lcw6pw?file=%2Fsrc%2Fcomponents%2FFilterablePostList.jsx%3A18%2C9-18%2C23
-import styles from '../css/LikeList.module.css';
-import Sidebar from '../Components/Sidebar';
+import styles from './LikeList.module.css';
+import Sidebar from '../../../Components/Sidebar';
 import { useEffect, useState } from "react";
-import ItemsList from "./ItemsList";
-import Pagination from './Pagination';
-import Footer from './Footer';
+import ItemsList from "./item/ItemsList";
+import Pagination from '../../../Components/Pagination';
+import Footer from '../../../Components/Footer'
 import axios from "axios";
 
 export default function LikeList() {

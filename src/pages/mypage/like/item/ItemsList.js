@@ -1,5 +1,5 @@
 import axios from 'axios';
-import styles from '../css/ItemsList.module.css';
+import styles from './ItemsList.module.css';
 import React, { useState, useEffect } from 'react';
 
 export default function ItemsList({ list = [] }) {
