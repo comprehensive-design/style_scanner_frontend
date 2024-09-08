@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from "./HomeFeed.module.css";
 import axios from 'axios';
-import SlideBtn from '../../Components/SlideButton'; 
+import SlideBtn from '../../Components/SlideButton';
 import { useNavigate } from 'react-router';
 import Feed from '../../Components/feed/Feed'; // Feed 컴포넌트 import
 
@@ -82,6 +82,8 @@ function FeedList() {
                             media_id={feed.media_id}
                             currentIndex={0}
                             home={true}
+                            width="25em"   
+                            height="35em"
                         />
                     );
                 })}

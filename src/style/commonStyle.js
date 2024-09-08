@@ -1,27 +1,26 @@
 import styled, { css } from 'styled-components';
-import {theme} from './theme';
 
 // 공통 텍스트 스타일 정의
 const titleStyle = css`
-    font-size: 24px;
+    font-size: 2em;
     font-weight: 600;
 `;
 
 const subTitleStyle = css`
-    font-size: 20px;
+    font-size: 1.5em;
     font-weight: 400;
 `;
 
 const contentStyle = css`
-    font-size: 16px;
+    font-size: 1.2em;
     font-weight: 400;
 `;
 const userNameStyle = css`
-    font-size: 16px;
+    font-size: 1.1em;
     font-weight: 600;
 `;
 const captionStyle = css`
-    font-size: 14px;
+    font-size: 1em;
     font-weight: 400;
 `;
 
@@ -36,7 +35,8 @@ const profileEllipseDefaultStyle = css`
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background-color: theme.gray;
+    background-color: ${({ theme }) => theme.colors.gray};
+    margin: 10px;
   
 `;
 
