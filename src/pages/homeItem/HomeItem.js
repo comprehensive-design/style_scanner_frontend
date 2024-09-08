@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Feed from '../home/feed/Feed.js';
+import Feed from '../../Components/feed/Feed.js';
 import Item from './item/Item.js';
 import styles from './HomeItem.module.css';
 import { useNavigate, useLocation } from "react-router-dom";
@@ -83,12 +83,6 @@ export default function HomeItem() {
     return (
         <div>
             <div className={styles.top}>
-                <div className={styles.titleDiv}>
-                    <div className={styles.title}>아이템 스캔</div>
-                    <div className={styles.subtitle}>
-                        원하는 아이템을 클릭하여, <br />
-                        제품 정보를 찾아봐요</div>
-                </div>
                 <div className={styles.feedContainer}>
                     <div className={styles.feedMain}>
                         {mediaUrls && profile_url && username && media_id && (
@@ -132,7 +126,7 @@ export default function HomeItem() {
                     </div>
                     <div className={styles.totalItem}>
                         {currentItems.map((item, index) => (
-                            <ItemInfo
+                            <Item
                                 key={item.id}
                                 itemId={item.id}
                                 brand={item.brand}
