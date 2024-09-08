@@ -1,3 +1,19 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+.homeTitle{
+  font-size: 32px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+.homeSubTitme{
+  font-size: 20px;
+  font-weight: normal;
+}
+.homeFeedTitle{
+  width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  text-align: center;
+}
 .feedList{
     display: flex;
     align-items: center;
