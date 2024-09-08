@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import MainBar from './Components/MainBar';
 import { Route, Routes } from 'react-router-dom';
-import Main from './Components/Main';
+import Main from './pages/main//Main';
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import Ranking from './pages/ranking/Ranking';
