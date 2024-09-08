@@ -59,12 +59,12 @@ function Sidebar() {
             <b>커뮤니티</b>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact="true" to='/MyPageWritings' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact="true" to='/MyPost' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               내가 작성한 글
             </NavLink>
           </li>
           <li className={styles.sideList}>
-            <NavLink exact="true" to='/MyPageComments' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
+            <NavLink exact="true" to='/MyComment' style={({ isActive }) => (isActive ? activeStyle : unactiveStyle)}>
               내가 작성한 댓글
             </NavLink>
           </li>
