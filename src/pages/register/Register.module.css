@@ -10,11 +10,11 @@ body {
     margin: 0 auto;
     width: 40%;
 }
-
+/* 
 h1 {
     font-size: 32px;
     margin-bottom: 60px;
-}
+} common style이랑 겹쳐서 주석함..*/ 
 
 form {
     margin: 0 auto;

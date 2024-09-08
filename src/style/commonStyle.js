@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 // 공통 텍스트 스타일 정의
 const titleStyle = css`
-    font-size: 1.6em;
+    font-size: 1.8em;
     font-weight: 600;
 `;
 
@@ -25,21 +25,32 @@ const captionStyle = css`
 `;
 
 const profileEllipseStyle = css`
-    width: 48px;
-    height: 48px;
+    font-size: 10px;
+    width: 4.8em;
+    height: 4.8em;
     border-radius: 50%;
-    padding: 10px;
+    padding: 1em;
 `;
 
 const profileEllipseDefaultStyle = css`
-    width: 48px;
-    height: 48px;
+    font-size: 10px;
+    width: 4.8em;
+    height: 4.8em;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray};
-    margin: 10px;
+    margin: 1em;
   
 `;
 
+const homeTitleDivStyle = css`
+    font-size: 10px;
+    width: 100%;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    float: left;
+    margin:  2em 3em;
+`
 
 
 export const Title = styled.h1`
@@ -66,4 +77,13 @@ export const ProfileEllipse = styled.img`
 
 export const ProfileEllipseDefault = styled.div`
     ${profileEllipseDefaultStyle}
+`;
+export const HomeTitleDiv = styled.div`
+    ${homeTitleDivStyle}
+`;
+
+export const MainWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+   align-items: center;
 `;

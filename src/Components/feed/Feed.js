@@ -12,7 +12,6 @@ const FeedDiv = styled.div`
     height: ${({ height }) => height};
     border-radius: 20px;
     box-shadow: 2px 0px 20px rgba(0, 0, 0, 0.25);
-    margin: 20px 20px;
 `;
 
 const ProfileDiv = styled.div`

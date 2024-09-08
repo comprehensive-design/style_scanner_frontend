@@ -1,61 +1,38 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styles from "./HomeFeed.module.css";
-import axios from 'axios';
-import SlideBtn from '../../Components/SlideButton';
-import { useNavigate } from 'react-router';
+import React from 'react';
+import useHomeFeedLogic from '../../hooks/useHomeFeedLogic'; // Hook을 임포트
+import styled from 'styled-components';
 import Feed from '../../Components/feed/Feed';
-import Loading from '../../Components/loading/loading'
+import Loading from '../../Components/loading/loading';
+import { HomeTitleDiv, Title, MainWrapper } from '../../style/commonStyle';
+import { GoHomeFill } from "react-icons/go";
+import Pagination from '../../Components/Pagination';
+import Footer from '../../Components/Footer';
 
-const getFeeds = async (navigate) => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-        navigate("/Login");
-        throw new Error("토큰이 없습니다.");
-    }
+// UI 스타일 정의
+const HomeTitle = styled.h1`
+    ${Title}
+    line-height: 3em;
+    margin-left: 0.5em;
+`;
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
+const FeedScroll = styled.div`
+ overflow: hidden; /* 스크롤바 숨기기 */
+`;
 
-    try {
-        const response = await axios.get('/api/insta/home', config);
-        return response.data.feeds;
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            navigate("/Login");
-        } else {
-            console.error('예상치 못한 에러: 게시물 가져오기 실패:', error);
-        }
-        throw error;
-    }
-};
+const FeedList = styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 25em);
+    gap: 2em;
+    justify-content: center;
+    margin: 2em 0;
+`;
 
-function FeedList() {
-    const navigate = useNavigate();
-    const [feeds, setFeeds] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const feedListRef = useRef();
-
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const data = await getFeeds(navigate);
-                setFeeds(data);
-                setLoading(false);
-            } catch (error) {
-                setError('포스트를 가져오는 중 에러 발생');
-                setLoading(false);
-            }
-        };
-
-        fetchPosts();
-    }, [navigate]);
+const HomeFeed = () => {
+    const { feeds, loading, error, feedListRef } = useHomeFeedLogic();
 
     if (loading) {
-        return <Loading/>
+        return <Loading />;
     }
 
     if (error) {
@@ -63,21 +40,18 @@ function FeedList() {
     }
 
     return (
-        <div className={styles.feedScroll}>
-            <div className={styles.homeFeedTitle}>
-                <div className={styles.homeTitle}>팔로잉 스타일 모아보기</div>
-                <div className={styles.homeSubTitle}>
-                    팔로우한 사람들의 최신 스타일을 확인하세요.<br />
-                    마음에 드는 스타일을 클릭해 아이템 정보를 확인해보세요!
-                </div>
-            </div>
-            <div className={styles.feedList} ref={feedListRef}>
-                {feeds.map(feed => {
-                    const mediaUrls = Array.isArray(feed.media_url_list) ? feed.media_url_list : [];
-                    return (
+        <MainWrapper>
+            <FeedScroll>
+                <HomeTitleDiv>
+                    <GoHomeFill size="3em" />
+                    <HomeTitle>홈</HomeTitle>
+                </HomeTitleDiv>
+
+                <FeedList ref={feedListRef}>
+                    {feeds.map(feed => (
                         <Feed
                             key={feed.media_id}
-                            media_url_list={mediaUrls}
+                            media_url_list={feed.media_url_list}
                             profile_url={feed.profile_url}
                             username={feed.username}
                             media_id={feed.media_id}
@@ -86,13 +60,14 @@ function FeedList() {
                             width="25em"
                             height="35em"
                         />
-                    );
-                })}
-                <div style={{ height: '10px' }} />
-            </div>
-            <SlideBtn /> {/* SlideButton 렌더링 */}
-        </div>
+                    ))}
+                    <div style={{ height: '10px' }} />
+                </FeedList>
+            </FeedScroll>
+            <Pagination />
+            <Footer />
+        </MainWrapper>
     );
-}
+};
 
-export default FeedList;
+export default HomeFeed;
