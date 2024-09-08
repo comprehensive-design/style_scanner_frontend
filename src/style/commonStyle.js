@@ -2,12 +2,12 @@ import styled, { css } from 'styled-components';
 
 // 공통 텍스트 스타일 정의
 const titleStyle = css`
-    font-size: 2em;
+    font-size: 1.6em;
     font-weight: 600;
 `;
 
 const subTitleStyle = css`
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight: 400;
 `;
 
@@ -15,7 +15,7 @@ const contentStyle = css`
     font-size: 1.2em;
     font-weight: 400;
 `;
-const userNameStyle = css`
+const boldContentStyle = css`
     font-size: 1.1em;
     font-weight: 600;
 `;
@@ -41,6 +41,7 @@ const profileEllipseDefaultStyle = css`
 `;
 
 
+
 export const Title = styled.h1`
     ${titleStyle}
 `;
@@ -52,8 +53,8 @@ export const SubTitle = styled.h2`
 export const Content = styled.p`
     ${contentStyle}
 `;
-export const Username = styled.span`
-    ${userNameStyle}
+export const BoldContent = styled.span`
+    ${boldContentStyle}
 `;
 export const Caption = styled.span`
     ${captionStyle}
@@ -63,6 +64,6 @@ export const ProfileEllipse = styled.img`
     ${profileEllipseStyle}
 `;
 
-export const ProfileEllipseDefaultStyle = styled.div`
+export const ProfileEllipseDefault = styled.div`
     ${profileEllipseDefaultStyle}
 `;

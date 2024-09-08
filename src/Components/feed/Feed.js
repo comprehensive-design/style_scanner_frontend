@@ -5,7 +5,7 @@ import NumberLabel from '../numberLabel';
 import { useFeedLogic } from '../../hooks/useFeedLogic';
 
 // 공통 스타일과 텍스트 스타일을 가져옴
-import { Username, ProfileEllipse, ProfileEllipseDefaultStyle } from '../../style/commonStyle';
+import { BoldContent, ProfileEllipse, ProfileEllipseDefault } from '../../style/commonStyle';
 
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
@@ -54,9 +54,9 @@ function Feed({ media_url_list, profile_url, currentIndex, username, media_id, h
             {profile_url ? (
                 <ProfileEllipse src={profile_url} alt="Profile" />
             ) : (
-                <ProfileEllipseDefaultStyle />
+                <ProfileEllipseDefault />
             )}
-            <Username>@{username}</Username>
+            <BoldContent>@{username}</BoldContent>
         </ProfileDiv>
 
         <FeedMain ref={feedLogic.imageWrapperRef} onClick={feedLogic.handleClick} width={width}>

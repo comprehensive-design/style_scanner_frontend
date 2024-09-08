@@ -3,7 +3,8 @@ import styles from "./HomeFeed.module.css";
 import axios from 'axios';
 import SlideBtn from '../../Components/SlideButton';
 import { useNavigate } from 'react-router';
-import Feed from '../../Components/feed/Feed'; // Feed 컴포넌트 import
+import Feed from '../../Components/feed/Feed';
+import Loading from '../../Components/loading/loading'
 
 const getFeeds = async (navigate) => {
     const token = localStorage.getItem("accessToken");
@@ -54,7 +55,7 @@ function FeedList() {
     }, [navigate]);
 
     if (loading) {
-        return <div>로딩 중...</div>;
+        return <Loading/>
     }
 
     if (error) {
@@ -82,7 +83,7 @@ function FeedList() {
                             media_id={feed.media_id}
                             currentIndex={0}
                             home={true}
-                            width="25em"   
+                            width="25em"
                             height="35em"
                         />
                     );
