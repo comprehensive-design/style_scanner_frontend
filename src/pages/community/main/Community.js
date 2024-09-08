@@ -32,7 +32,7 @@ export const getPosts = async () => {
   }
 };
 
-export default function CommunityFeed() {
+export default function Community() {
   const [posts, setPosts] = useState([]); // 빈 배열로 초기화
   const [loading, setLoading] = useState(true); // 초기 로딩 상태를 true로 설정
   const [error, setError] = useState(null);
