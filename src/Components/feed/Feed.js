@@ -5,6 +5,7 @@ import NumberLabel from '../numberLabel';
 import { useFeedLogic } from '../../hooks/useFeedLogic';
 import  '../../style/style.css';
 
+//공통 컴포넌트 -> prop을 위해 styled component로
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
     height: ${({ height }) => `calc(${height} + 3em)`};
@@ -27,17 +28,6 @@ const FeedMain = styled.div`
     }
 `;
 
-const LayerDiv = styled.div`
-    position: absolute;
-    top: 1em;
-    right: 1.5em;
-    width: 1.5em;
-    height: 1.5em;
-    img {
-        width: 100%;
-        height: auto; 
-    }
-`;
 
 function Feed({ media_url_list, profile_url, currentIndex, username, media_id, home, width, height }) {
     const feedLogic = useFeedLogic({ media_url_list, profile_url, currentIndex, username, media_id, home });
@@ -46,23 +36,23 @@ function Feed({ media_url_list, profile_url, currentIndex, username, media_id, h
         <ProfileDiv onClick={feedLogic.openPopup}>
             {feedLogic.isPopupOpen && <FeedPopup onClose={feedLogic.closePopup} user={{ profileName: username }} />}
             {profile_url ? (
-                <img className='profileEllipse' src={profile_url} alt="Profile" />
+                <img className='feedProfile' src={profile_url} alt="Profile" />
             ) : (
-                <img className='ProfileEllipseDefault' />
+                <img className='feedProfileDefault'/>
             )}
             <p className='boldContent'>@{username}</p>
         </ProfileDiv>
 
         <FeedMain ref={feedLogic.imageWrapperRef} onClick={feedLogic.handleClick} width={width}>
             <img src={media_url_list[currentIndex]} alt={`Feed ${currentIndex}`} />
-            <LayerDiv>
+            <div className='feedLayerDiv'>
                 {media_url_list.length > 1 && home && (
                     <img src={`img/layer.png`} alt="layer" />
                 )}
                 {media_url_list.length > 1 && !home && (
                     <NumberLabel currentPage={currentIndex} pageLength={media_url_list.length} />
                 )}
-            </LayerDiv>
+            </div>
         </FeedMain>
     </FeedDiv>
     );

@@ -22,9 +22,9 @@ const HomeFeed = () => {
     return (
         <div className='mainWrapper'>
             <div className='feedScroll'>
-                <div className='pageTitleDiv mb3'>
+                <div className='pageTitleDiv mb3 ml3'>
                     <GoHomeFill size="2em" />
-                    <h1 className='title mb105'>홈</h1>
+                    <h1 className='title m103'>홈</h1>
                 </div>
 
                 <div className='feedList mb3' ref={feedListRef}>
