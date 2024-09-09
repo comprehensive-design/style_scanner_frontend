@@ -3,6 +3,7 @@ import { useItemLogic } from '../../hooks/useItemLogic';
 import '../../style/style.css';
 import styled from 'styled-components';
 import { FaHeart } from "react-icons/fa6";
+import { AiOutlineShopping } from "react-icons/ai";
 import { theme } from '../../style/theme';
 
 const ItemDiv = styled.div`
@@ -14,7 +15,9 @@ const ItemDiv = styled.div`
         width: 100%;
     }
     overflow: auto;
+    position: relative;
 `;
+
 const ItemInfoTopWrapper = styled.div`
   width: 100%;
   height: auto;
@@ -42,6 +45,7 @@ export default function Item({ itemId, brand, name, price, image, shoppingLink }
     return (
         <ItemDiv className='borderRad'>
             <img src={imageSrc} alt={name} />
+            <AiOutlineShopping className='feedLayerDiv textShadow' style={{ cursor: 'pointer' }} size='1.5em' color={theme.colors.white} onClick={shoppingClick}/>
             <ItemInfoTopWrapper className='p1'>
                 <p className='boldContent mb05'>{brand}</p>
                 <p className='content'>{name}</p>
@@ -55,6 +59,7 @@ export default function Item({ itemId, brand, name, price, image, shoppingLink }
                     </p>
                 </div>
             </ItemInfoBottomWrapper>
+
         </ItemDiv>
     );
 }

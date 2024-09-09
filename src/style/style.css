@@ -40,7 +40,9 @@ body {
   font-size: 1em;
   font-weight: 400;
 }
-
+.textShadow {
+  filter:drop-shadow(0.15em 0 0.15em rgba(0, 0, 0, 0.25))
+}
 .mb05 {
   margin-bottom: 0.5em;
 }
@@ -66,7 +68,7 @@ body {
 }
 
 .boxShadow {
-  box-shadow: 0.15em 0px 1.5em rgba(0, 0, 0, 0.25);
+  box-shadow: 0.15em 0 1.5em rgba(0, 0, 0, 0.25);
 }
 
 .grayText {
