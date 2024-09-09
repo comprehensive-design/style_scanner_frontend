@@ -184,20 +184,6 @@ body {
 }
 
 /* 아이템 */
-/* 아이템 브랜드,이름 wrap */
-.itemInfoTopWrapper {
-  width: 100%;
-  height: auto;
-  text-align: start;
-  margin-top: 1em;
-}
-/* 아이템 하단정보 wrap*/
-.itemInfoBottomWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1em;
-}
 /* 아이템 좋아요아이콘 + 좋아요개수*/
 .itemLikeWrapper {
   display: flex;

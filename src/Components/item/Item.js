@@ -15,9 +15,21 @@ const ItemDiv = styled.div`
     }
     overflow: auto;
 `;
+const ItemInfoTopWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  text-align: start;
+  margin-top: 1em;
+`;
 
+const ItemInfoBottomWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+`;
 export default function Item({ itemId, brand, name, price, image, shoppingLink }) {
-    const { imageSrc, heartSrc, handleHeartClick } = useItemLogic({ itemId, image });
+    const { imageSrc, handleHeartClick } = useItemLogic({ itemId, image });
 
     const shoppingClick = () => {
         window.location.href = shoppingLink;
@@ -30,17 +42,17 @@ export default function Item({ itemId, brand, name, price, image, shoppingLink }
     return (
         <ItemDiv className='borderRad'>
             <img src={imageSrc} alt={name}/>
-            <div className='itemInfoTopWrapper p1'>
-                <p className='boldContent mb05'>브랜드입니다.</p>
-                <p className='content'>아주 멋진제품입니다.</p>
-            </div>
-            <div className='itemInfoBottomWrapper boldContent p1'>
+            <ItemInfoTopWrapper className='p1'>
+                <p className='boldContent mb05'>{brand}</p>
+                <p className='content'>{name}</p>
+            </ItemInfoTopWrapper>
+            <ItemInfoBottomWrapper className='boldContent p1'>
                 <p>{formatPrice(price)}₩</p>
                 <div className='itemLikeWrapper'>
                     <FaHeart size='1.5em' onClick={handleHeartClick} alt="Like"></FaHeart>
                     <p className='m103 ellipsis'>{formatPrice(100000)}</p>
                 </div>
-            </div>
+            </ItemInfoBottomWrapper>
         </ItemDiv>
     );
 }
