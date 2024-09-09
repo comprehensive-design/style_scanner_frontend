@@ -1,5 +1,19 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
+:root {
+  --white: #ffffff;
+  --black: #171717;
+  --lightGray: #f9f8f8;
+  --gray: #d9d9d9;
+  --darkGray: #808080;
+  --red: #ff3535;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
 .title {
   font-size: 1.8em;
   font-weight: 600;
@@ -41,7 +55,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--darkGray);
   margin-bottom: 50px;
 }
 
@@ -53,15 +67,15 @@
   width: 100%;
   font-size: 1em;
   text-align: center;
-  background-color: #d9d9d9;
+  background-color: var(--gray);
   border: 1px;
   border-radius: 10px;
   height: 55px;
-  color: white;
+  color: var(--white);
 }
 
 .button:hover {
-  background-color: black;
+  background-color: var(--black);
 }
 /* 로그인 */
 .loginContent {
@@ -79,10 +93,10 @@
 .loginRegister > a {
   font-size: 1em;
   text-decoration-line: none;
-  color: black;
+  color: var(--black);
   margin-right: 0.5em;
 }
 
 .loginRegister > a:hover {
-  color: gray;
+  color: var(--darkGray);
 }
