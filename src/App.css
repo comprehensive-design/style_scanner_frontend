@@ -1,17 +1,10 @@
 
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
-.image{
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-}
 
-/* body{
-  font-family: 'Pretendard';
-} */
 body, html {
   font-family: 'Pretendard';
+  font-size: 14px;
   margin: 0;
   padding: 0;
 }

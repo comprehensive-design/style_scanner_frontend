@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Feed from '../home/feed/Feed.js';
+import Feed from '../../Components/feed/Feed.js';
 import Item from './item/Item.js';
 import styles from './HomeItem.module.css';
 import { useNavigate, useLocation } from "react-router-dom";
@@ -10,10 +10,16 @@ export default function HomeItem() {
     const location = useLocation();
     const { mediaUrls, feedUrl, media_id, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
     const [items, setItems] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 4;
+    const [itemsToShow, setItemsToShow] = useState(0);
+    const itemsPerPage = 3;
     const navigate = useNavigate();
     const [similarImages, setSimilarImages] = useState(initialSimilarImages || []);
+
+    const [startIndex, setStartIndex] = useState(0);
+    const thumbnailsToShow = 4;
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    //글쓰기 팝업인데, 나중에 navigate로 바꾸면 될듯
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
@@ -24,12 +30,19 @@ export default function HomeItem() {
         setIsPopupOpen(false);
     };
 
-    const nextPage = () => {
-        setCurrentPage((prevPage) => (prevPage + 1) % Math.ceil(similarImages.length / itemsPerPage));
+    //썸네일 클릭
+    const thumbnailClick =(index) => {
+        setCurrentImageIndex(index);
     };
-
-    const prevPage = () => {
-        setCurrentPage((prevPage) => (prevPage - 1 + Math.ceil(similarImages.length / itemsPerPage)) % Math.ceil(similarImages.length / itemsPerPage));
+    //다음 썸네일 사진 버튼
+    const nextBtn = () => {
+        if (startIndex + thumbnailsToShow < mediaUrls.length - 1) {
+            setStartIndex((prevIndex) => prevIndex + 1);
+        }
+    };
+    //아이템 더보기 버튼
+    const morePage = () => {
+        setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
     };
 
     useEffect(() => {
@@ -37,7 +50,6 @@ export default function HomeItem() {
 
             const token = localStorage.getItem('accessToken');
             if (!token) {
-                alert('로그인이 필요합니다.');
                 return;
             }
 
@@ -66,43 +78,72 @@ export default function HomeItem() {
         }
     }, [initialSimilarImages]);
 
-    const currentItems = items.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    const currentItems = items.slice(0, itemsToShow);
 
     return (
-        <div className={styles.contents}>
-            {mediaUrls && profile_url && username && media_id && (
-                <Feed
-                    key={media_id}
-                    media_url_list={mediaUrls}
-                    profile_url={profile_url}
-                    username={username}
-                    media_id={media_id}
-                    close={false}
-                />
-            )}
-            <div>
-                <p className={styles.product}>Product</p>
-                <hr></hr>
-                <div className={styles.totalItem}>
-                    {currentItems.map((item, index) => (
-                        <Item
-                            key={item.id}
-                            itemId={item.id}
-                            brand={item.brand}
-                            name={item.name || `Similar Image ${index + 1}`}
-                            price={item.price || 0}
-                            image={item.itemUrl}
-                            shoppingLink={item.shoppingLink}
-                            index={currentPage * itemsPerPage + index}
-                        />
-                    ))}
+        <div>
+            <div className={styles.top}>
+                <div className={styles.feedContainer}>
+                    <div className={styles.feedMain}>
+                        {mediaUrls && profile_url && username && media_id && (
+                            <Feed
+                                key={media_id}
+                                media_url_list={mediaUrls}
+                                profile_url={profile_url}
+                                username={username}
+                                media_id={media_id}
+                                home={false}
+                                currentIndex={currentImageIndex}
+                            />
+                        )}
+                    </div>
+                    {mediaUrls.length > 1 && (
+                        <div className={styles.feedSub}>
+
+                            {mediaUrls.map((url, index) => (
+                                <img
+                                    key={index}
+                                    src={url}
+                                    alt={`Thumbnail ${index + 1}`}
+                                    className={styles.thumbnail}
+                                    onClick={() => thumbnailClick(index)}
+                                />
+                            ))}
+                            {startIndex + thumbnailsToShow < mediaUrls.length - 1 && (
+                                <button onClick={nextBtn} className={styles.arrowButton}>
+                                    ▾
+                                </button>
+                            )}
+                        </div>
+                    )}
                 </div>
-                <div className={styles.carouselButtons}>
-                    <button className={styles.prevBtn} onClick={prevPage}>{'<'}</button>
-                    <button className={styles.nextBtn} onClick={nextPage}>{'>'}</button>
+            </div>
+            <div className={styles.contents}>
+                <div>
+                    <div className={styles.itemTitleDiv}>
+                        <img className={styles.boxIcon} src={`img/boxIcon.png`} />
+                        <div className={styles.itemTitle}>아이템 정보</div>
+                    </div>
+                    <div className={styles.totalItem}>
+                        {currentItems.map((item, index) => (
+                            <Item
+                                key={item.id}
+                                itemId={item.id}
+                                brand={item.brand}
+                                name={item.name || `Similar Image ${index + 1}`}
+                                price={item.price || 0}
+                                image={item.itemUrl}
+                                shoppingLink={item.shoppingLink}
+                                index={index}
+                            />
+                        ))}
+                    </div>
+                    <div className={styles.btnDiv}>
+                        <button className={styles.moreBtn} onClick={morePage}>더보기</button>
+                        <p className={styles.goComBtn} onClick={openPopup}>찾는 제품이 없으신가요?</p>
+                    </div>
+                    {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
                 </div>
-                <p className={styles.goComBtn} onClick={openPopup}>찾는 제품이 없으신가요?</p>
-                {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />} {/* 팝업 모달 조건부 렌더링 */}
             </div>
         </div>
     );

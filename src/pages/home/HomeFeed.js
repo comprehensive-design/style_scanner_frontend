@@ -1,114 +1,73 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Feed from './feed/Feed'; 
-import styles from "./HomeFeed.module.css";
-import axios from 'axios';
-import SlideBtn from '../../Components/SlideButton'; 
-import { useNavigate } from 'react-router';
+import React from 'react';
+import useHomeFeedLogic from '../../hooks/useHomeFeedLogic'; // Hook을 임포트
+import styled from 'styled-components';
+import Feed from '../../Components/feed/Feed';
+import Loading from '../../Components/loading/loading';
+import { HomeTitleDiv, Title, MainWrapper } from '../../style/commonStyle';
+import { GoHomeFill } from "react-icons/go";
+import Pagination from '../../Components/Pagination';
+import Footer from '../../Components/Footer';
 
-const getFeeds = async (navigate) => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-        navigate("/Login");
-        throw new Error("토큰이 없습니다.");
-    }
+// UI 스타일 정의
+const HomeTitle = styled.h1`
+    ${Title}
+    line-height: 3em;
+    margin-left: 0.5em;
+`;
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
+const FeedScroll = styled.div`
+ overflow: hidden; /* 스크롤바 숨기기 */
+`;
 
-    console.log("Access Token:", token); // 토큰 값 확인
+const FeedList = styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 25em);
+    gap: 2em;
+    justify-content: center;
+    margin: 2em 0;
+`;
 
-    try {
-        const response = await axios.get('/api/insta/home', config);
-        return response.data.feeds; 
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            navigate("/Login");
-        } else {
-            console.error('예상치 못한 에러: 게시물 가져오기 실패:', error);
-        }
-        throw error;
-    }
-};
-
-function FeedList() {
-    const navigate = useNavigate();
-
-    const [feeds, setFeeds] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const feedListRef = useRef(); 
-
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const data = await getFeeds(navigate);
-                setFeeds(data);
-                setLoading(false); 
-            } catch (error) {
-                setError('포스트를 가져오는 중 에러 발생');
-                setLoading(false);
-            }
-        };
-      
-        fetchPosts();
-    }, []);
+const HomeFeed = () => {
+    const { feeds, loading, error, feedListRef } = useHomeFeedLogic();
 
     if (loading) {
-        return <div>로딩 중...</div>;
+        return <Loading />;
     }
 
     if (error) {
         return <div>{error}</div>;
     }
 
-    // 고정된 첫 번째 피드
-    const fixedFeed = {
-        media_url_list: ["https://scontent-nrt1-2.cdninstagram.com/v/t51.29350-15/439848769_395624573344851_2731015584234275434_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=18de74&_nc_ohc=NI1rmZtDy2EQ7kNvgFSjxts&_nc_ht=scontent-nrt1-2.cdninstagram.com&edm=AL-3X8kEAAAA&oh=00_AYCh6OhaOb57p5fQfpJl4ya2A__NwKcAFUL5wHmlMIGUaA&oe=6680402C"],
-        media_id: "18000852455601872",
-        profile_url: "https://scontent-nrt1-2.xx.fbcdn.net/v/t51.2885-15/449154288_437185985893633_5661753391460383776_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=7d201b&_nc_ohc=9PQmmf-wspsQ7kNvgFrW5qG&_nc_ht=scontent-nrt1-2.xx&edm=AL-3X8kEAAAA&oh=00_AYCMbP0fEGo-LK_pixpWojzvOMoUPu14_HeDyxpOel1MxQ&oe=668018ED",
-        username: "hi_sseulgi"
-    };
-
     return (
-        <div className={styles.feedScroll}>
-            <div className={styles.feedList} ref={feedListRef}>
-                {feeds.length > 0 && (
-                    <Feed 
-                        key={fixedFeed.media_id} 
-                        media_url_list={fixedFeed.media_url_list} 
-                        profile_url={fixedFeed.profile_url} 
-                        username={fixedFeed.username} 
-                        media_id={fixedFeed.media_id} 
-                        close={true}
-                    />
-                )}
+        <MainWrapper>
+            <FeedScroll>
+                <HomeTitleDiv>
+                    <GoHomeFill size="3em" />
+                    <HomeTitle>홈</HomeTitle>
+                </HomeTitleDiv>
 
-                {/* 동적으로 받아온 피드들 */}
-                {feeds
-                    .filter(feed => feed.username !== 'hi_sseulgi')
-                    .map(feed => {
-                        const mediaUrls = Array.isArray(feed.media_url_list) ? feed.media_url_list : [];
-                        
-                        return (
-                            <Feed 
-                                key={feed.media_id} 
-                                media_url_list={mediaUrls} 
-                                profile_url={feed.profile_url} 
-                                username={feed.username} 
-                                media_id={feed.media_id} 
-                                close={true}
-                            />
-                        );
-                    })
-                }
-                <div style={{height: '10px'}} />
-            </div>
-            <SlideBtn/> {/* SlideButton 렌더링 */}
-        </div>
+                <FeedList ref={feedListRef}>
+                    {feeds.map(feed => (
+                        <Feed
+                            key={feed.media_id}
+                            media_url_list={feed.media_url_list}
+                            profile_url={feed.profile_url}
+                            username={feed.username}
+                            media_id={feed.media_id}
+                            currentIndex={0}
+                            home={true}
+                            width="25em"
+                            height="35em"
+                        />
+                    ))}
+                    <div style={{ height: '10px' }} />
+                </FeedList>
+            </FeedScroll>
+            <Pagination />
+            <Footer />
+        </MainWrapper>
     );
-}
+};
 
-export default FeedList;
+export default HomeFeed;
