@@ -137,7 +137,7 @@ body {
     width: 4.8em;
     height: 4.8em;
     border-radius: 50%;
-    background-color: gray;
+    background-color: var(--gray);
     margin: 1em;
 }
 
