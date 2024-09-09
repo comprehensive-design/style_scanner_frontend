@@ -19,18 +19,21 @@ body {
   font-weight: 600;
 }
 
-.subTitle {
+.subtitle {
   font-size: 1.4em;
   font-weight: 400;
 }
+
 .content {
   font-size: 1.2em;
   font-weight: 400;
 }
+
 .boldContent {
   font-size: 1.1em;
   font-weight: 600;
 }
+
 .caption {
   font-size: 1em;
   font-weight: 400;
@@ -45,7 +48,7 @@ body {
 }
 
 .grayText {
-  color: gray;
+  color: var(--darkGray);
 }
 
 .underLine {
@@ -77,6 +80,7 @@ body {
 .button:hover {
   background-color: var(--black);
 }
+
 /* 로그인 */
 .loginContent {
   margin: 0 auto;
