@@ -46,7 +46,15 @@ body {
 .mb3 {
   margin-bottom: 3em;
 }
-
+.mb105 {
+    margin-left: 0.3em;
+}
+.borderRad{
+    border-radius: 1.5em;
+}
+.boxShadow{
+    box-shadow: 0.15em 0px 1.5em rgba(0, 0, 0, 0.25);
+}
 .grayText {
   color: var(--darkGray);
 }
@@ -107,6 +115,7 @@ body {
 /* home - feed */
 /* 컴포넌트 최상단 wrapper */
 .mainWrapper {
+    font-size: 14px;
     width: 100%;
     height: 100%;
     align-items: center;

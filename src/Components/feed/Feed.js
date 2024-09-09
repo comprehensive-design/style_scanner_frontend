@@ -8,8 +8,6 @@ import  '../../style/style.css';
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
     height: ${({ height }) => `calc(${height} + 3em)`};
-    border-radius: 20px;
-    box-shadow: 2px 0px 20px rgba(0, 0, 0, 0.25);
 `;
 
 const ProfileDiv = styled.div`
@@ -31,10 +29,10 @@ const FeedMain = styled.div`
 
 const LayerDiv = styled.div`
     position: absolute;
-    top: 10px;
-    right: 20px;
-    width: 20px;
-    height: 20px;
+    top: 1em;
+    right: 1.5em;
+    width: 1.5em;
+    height: 1.5em;
     img {
         width: 100%;
         height: auto; 
@@ -44,7 +42,7 @@ const LayerDiv = styled.div`
 function Feed({ media_url_list, profile_url, currentIndex, username, media_id, home, width, height }) {
     const feedLogic = useFeedLogic({ media_url_list, profile_url, currentIndex, username, media_id, home });
     return (
-        <FeedDiv width={width} height={height}>
+        <FeedDiv className= 'borderRad boxShadow' width={width} height={height}>
         <ProfileDiv onClick={feedLogic.openPopup}>
             {feedLogic.isPopupOpen && <FeedPopup onClose={feedLogic.closePopup} user={{ profileName: username }} />}
             {profile_url ? (
