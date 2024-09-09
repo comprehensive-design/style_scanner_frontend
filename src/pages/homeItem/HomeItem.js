@@ -148,16 +148,6 @@ export default function HomeItem() {
                             shoppingLink={""}
                             index={0}
                         />
-                         {/* <Item
-                            key={0}
-                            itemId={0}
-                            brand={"wow"}
-                            name={"wow"}
-                            price={100000000}
-                            image={"https://via.placeholder.com/200"}
-                            shoppingLink={""}
-                            index={0}
-                        />
                          <Item
                             key={0}
                             itemId={0}
@@ -177,7 +167,17 @@ export default function HomeItem() {
                             image={"https://via.placeholder.com/200"}
                             shoppingLink={""}
                             index={0}
-                        /> */}
+                        />
+                         <Item
+                            key={0}
+                            itemId={0}
+                            brand={"wow"}
+                            name={"wow"}
+                            price={100000000}
+                            image={"https://via.placeholder.com/200"}
+                            shoppingLink={""}
+                            index={0}
+                        />
 
 
                     </div>

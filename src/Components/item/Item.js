@@ -16,6 +16,8 @@ const ItemDiv = styled.div`
     }
     overflow: auto;
     position: relative;
+    margin: 1em;
+    flex-shrink: 0;
 `;
 
 const ItemInfoTopWrapper = styled.div`
