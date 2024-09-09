@@ -3,8 +3,10 @@ import axios from 'axios';
 
 export const useItemLogic = ({ itemId, image }) => {
   const [imageSrc, setImageSrc] = useState(image);
-  const [heartSrc, setHeartSrc] = useState('img/heart.png');
   const [isClicked, setIsClicked] = useState(false);
+
+  // Token을 한 번만 가져오고 상태에 저장
+  const getToken = () => localStorage.getItem('accessToken');
 
   useEffect(() => {
     setImageSrc(image);
@@ -12,7 +14,7 @@ export const useItemLogic = ({ itemId, image }) => {
 
   const handleHeartClick = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('accessToken');
+    const token = getToken();
     if (!token) {
       alert('로그인이 필요합니다.');
       return;
@@ -27,7 +29,6 @@ export const useItemLogic = ({ itemId, image }) => {
           }
         });
         if (response.status === 200) {
-          setHeartSrc('img/fullHeart.png');
           setIsClicked(true);
         }
       } else {
@@ -38,7 +39,6 @@ export const useItemLogic = ({ itemId, image }) => {
           }
         });
         if (response.status === 200) {
-          setHeartSrc('img/heart.png');
           setIsClicked(false);
         }
       }
@@ -48,7 +48,7 @@ export const useItemLogic = ({ itemId, image }) => {
   };
 
   const checkLikeStatus = async () => {
-    const token = localStorage.getItem('accessToken');
+    const token = getToken();
     if (!token) return;
 
     try {
@@ -59,7 +59,6 @@ export const useItemLogic = ({ itemId, image }) => {
         }
       });
       if (response.status === 200 && response.data === true) {
-        setHeartSrc('img/fullHeart.png');
         setIsClicked(true);
       }
     } catch (error) {
@@ -71,5 +70,5 @@ export const useItemLogic = ({ itemId, image }) => {
     checkLikeStatus();
   }, [itemId]);
 
-  return { imageSrc, heartSrc, isClicked, handleHeartClick };
+  return { imageSrc, isClicked, handleHeartClick };
 };
