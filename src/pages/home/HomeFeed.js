@@ -27,7 +27,7 @@ const HomeFeed = () => {
                     <h1 className='title mb105'>홈</h1>
                 </div>
 
-                <div className='feedList' ref={feedListRef}>
+                <div className='feedList mb3' ref={feedListRef}>
                     {feeds.map(feed => (
                         <Feed
                             key={feed.media_id}
