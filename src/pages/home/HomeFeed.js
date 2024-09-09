@@ -20,7 +20,7 @@ const HomeFeed = () => {
     }
 
     return (
-        <div className='mainWrapper'>
+        <div className='body'>
             <div className='feedScroll'>
                 <div className='pageTitleDiv mb3 ml3'>
                     <GoHomeFill size="2em" />

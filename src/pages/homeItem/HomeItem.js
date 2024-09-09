@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Feed from '../../Components/feed/Feed.js';
-import Item from './item/Item.js';
+import Item from '../../Components/item/Item.js';
 import styles from './HomeItem.module.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
@@ -18,8 +18,6 @@ export default function HomeItem() {
     const [startIndex, setStartIndex] = useState(0);
     const thumbnailsToShow = 4;
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-    //글쓰기 팝업인데, 나중에 navigate로 바꾸면 될듯
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
@@ -31,7 +29,7 @@ export default function HomeItem() {
     };
 
     //썸네일 클릭
-    const thumbnailClick =(index) => {
+    const thumbnailClick = (index) => {
         setCurrentImageIndex(index);
     };
     //다음 썸네일 사진 버튼
@@ -78,7 +76,9 @@ export default function HomeItem() {
         }
     }, [initialSimilarImages]);
 
+
     const currentItems = items.slice(0, itemsToShow);
+
 
     return (
         <div>
@@ -125,7 +125,7 @@ export default function HomeItem() {
                         <div className={styles.itemTitle}>아이템 정보</div>
                     </div>
                     <div className={styles.totalItem}>
-                        {currentItems.map((item, index) => (
+                        {/* {currentItems.map((item, index) => (
                             <Item
                                 key={item.id}
                                 itemId={item.id}
@@ -136,7 +136,50 @@ export default function HomeItem() {
                                 shoppingLink={item.shoppingLink}
                                 index={index}
                             />
-                        ))}
+                        ))} */}
+
+                        <Item
+                            key={0}
+                            itemId={0}
+                            brand={"wow"}
+                            name={"wow"}
+                            price={100000000}
+                            image={"https://via.placeholder.com/200"}
+                            shoppingLink={""}
+                            index={0}
+                        />
+                         {/* <Item
+                            key={0}
+                            itemId={0}
+                            brand={"wow"}
+                            name={"wow"}
+                            price={100000000}
+                            image={"https://via.placeholder.com/200"}
+                            shoppingLink={""}
+                            index={0}
+                        />
+                         <Item
+                            key={0}
+                            itemId={0}
+                            brand={"wow"}
+                            name={"wow"}
+                            price={100000000}
+                            image={"https://via.placeholder.com/200"}
+                            shoppingLink={""}
+                            index={0}
+                        />
+                         <Item
+                            key={0}
+                            itemId={0}
+                            brand={"wow"}
+                            name={"wow"}
+                            price={100000000}
+                            image={"https://via.placeholder.com/200"}
+                            shoppingLink={""}
+                            index={0}
+                        /> */}
+
+
                     </div>
                     <div className={styles.btnDiv}>
                         <button className={styles.moreBtn} onClick={morePage}>더보기</button>

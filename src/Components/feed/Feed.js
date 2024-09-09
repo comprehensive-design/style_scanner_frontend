@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import FeedPopup from '../FeedPopup';
 import NumberLabel from '../numberLabel';
-import { useFeedLogic } from '../../hooks/useFeedLogic';
+import { useFeedLogic } from '../../hooks/feed/useFeedLogic';
 import  '../../style/style.css';
 
 //공통 컴포넌트 -> prop을 위해 styled component로
