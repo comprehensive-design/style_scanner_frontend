@@ -1,0 +1,106 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+:root {
+  --white: #ffffff;
+  --black: #171717;
+  --lightGray: #f9f8f8;
+  --gray: #d9d9d9;
+  --darkGray: #808080;
+  --red: #ff3535;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+.title {
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 1.4em;
+  font-weight: 400;
+}
+
+.content {
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
+.boldContent {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.caption {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.mb05 {
+  margin-bottom: 0.5em;
+}
+
+.mb3 {
+  margin-bottom: 3em;
+}
+
+.grayText {
+  color: var(--darkGray);
+}
+
+.underLine {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 16px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid var(--darkGray);
+  margin-bottom: 50px;
+}
+
+.button {
+  display: inline-block;
+  min-width: 40px;
+  cursor: pointer;
+  padding: 7px 14px;
+  width: 100%;
+  font-size: 1em;
+  text-align: center;
+  background-color: var(--gray);
+  border: 1px;
+  border-radius: 10px;
+  height: 55px;
+  color: var(--white);
+}
+
+.button:hover {
+  background-color: var(--black);
+}
+
+/* 로그인 */
+.loginContent {
+  margin: 0 auto;
+  width: 30%;
+  margin-top: 3em;
+}
+
+.loginForm {
+  margin: 0 auto;
+  text-align: left;
+  width: 70%;
+}
+
+.loginRegister > a {
+  font-size: 1em;
+  text-decoration-line: none;
+  color: var(--black);
+  margin-right: 0.5em;
+}
+
+.loginRegister > a:hover {
+  color: var(--darkGray);
+}
