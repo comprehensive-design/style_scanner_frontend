@@ -164,9 +164,10 @@ export default function HomeItem() {
                             brand={"wow"}
                             name={"wow"}
                             price={100000000}
-                            image={"https://via.placeholder.com/200"}
+                            image={`img/feed1.png`}
                             shoppingLink={""}
                             index={0}
+                            
                         />
                          <Item
                             key={0}
@@ -174,9 +175,10 @@ export default function HomeItem() {
                             brand={"wow"}
                             name={"wow"}
                             price={100000000}
-                            image={"https://via.placeholder.com/200"}
+                            image={"img/image1.png"}
                             shoppingLink={""}
                             index={0}
+                           
                         />
 
 

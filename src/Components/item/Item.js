@@ -8,32 +8,35 @@ import { theme } from '../../style/theme';
 
 const ItemDiv = styled.div`
     width: ${({ width }) => width || '20em'};
-    height: ${({ height }) => height || 'auto'};
     background-color: ${({ theme }) => theme.colors.lightGray};
     
-    img {
-        width: 100%;
-    }
-    overflow: auto;
+    overflow: auto; 
     position: relative;
     margin: 1em;
     flex-shrink: 0;
 `;
+const ItemImg = styled.img`
+    width: ${({ width }) => width || '20em'};
+    height: ${({ height }) => height || '20em'};
+    object-fit: cover;
 
+`;
 const ItemInfoTopWrapper = styled.div`
   width: 100%;
-  height: auto;
+  
+  height: 20%;
   text-align: start;
   margin-top: 1em;
 `;
 
 const ItemInfoBottomWrapper = styled.div`
   display: flex;
+  height: 20%;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1em;
 `;
-export default function Item({ itemId, brand, name, price, image, shoppingLink }) {
+export default function Item({ itemId, brand, name, price, image, shoppingLink, width, height }) {
     const { imageSrc, isClicked, handleHeartClick } = useItemLogic({ itemId, image });
 
     const shoppingClick = () => {
@@ -45,9 +48,9 @@ export default function Item({ itemId, brand, name, price, image, shoppingLink }
     };
 
     return (
-        <ItemDiv className='borderRad'>
-            <img src={imageSrc} alt={name} />
-            <AiOutlineShopping className='feedLayerDiv textShadow' style={{ cursor: 'pointer' }} size='1.5em' color={theme.colors.white} onClick={shoppingClick}/>
+        <ItemDiv className='borderRad' width={width} height={height}>
+            <ItemImg src={imageSrc} alt={name} width={width} height={height}/>
+            <AiOutlineShopping className='feedLayerDiv textShadow' style={{ cursor: 'pointer' }} size='1.5em' color={theme.colors.white} onClick={shoppingClick} />
             <ItemInfoTopWrapper className='p1'>
                 <p className='boldContent mb05'>{brand}</p>
                 <p className='content'>{name}</p>
