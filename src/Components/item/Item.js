@@ -23,15 +23,12 @@ const ItemImg = styled.img`
 `;
 const ItemInfoTopWrapper = styled.div`
   width: 100%;
-  
-  height: 20%;
   text-align: start;
   margin-top: 1em;
 `;
 
 const ItemInfoBottomWrapper = styled.div`
   display: flex;
-  height: 20%;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1em;
@@ -59,7 +56,7 @@ export default function Item({ itemId, brand, name, price, image, shoppingLink, 
                 <p>{formatPrice(price)}₩</p>
                 <div className='itemLikeWrapper'>
                     <FaHeart size='1.5em' style={{ cursor: 'pointer' }} onClick={handleHeartClick} color={isClicked ? theme.colors.red : theme.colors.black} alt="Like"></FaHeart>
-                    <p className='m103' style={{ color: isClicked ? theme.colors.red : theme.colors.black }}>
+                    <p className='ml03' style={{ color: isClicked ? theme.colors.red : theme.colors.black }}>
                         {formatPrice(100000)}
                     </p>
                 </div>

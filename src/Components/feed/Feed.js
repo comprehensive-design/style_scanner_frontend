@@ -9,6 +9,7 @@ import  '../../style/style.css';
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
     height: ${({ height }) => `calc(${height} + 3em)`};
+    overflow: auto;
 `;
 
 const ProfileDiv = styled.div`
