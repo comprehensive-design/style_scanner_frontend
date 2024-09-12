@@ -1,76 +1,15 @@
 import styled from 'styled-components';
 import Feed from '../../Components/feed/Feed.js';
 import Item from '../../Components/item/Item.js';
-import '../../style/style.css';
 import CommunityWrite from '../community/post/CommunityWrite.js';
 import { useHomeItemLogic } from '../../hooks/useHomeItemLogic';
 import { useState } from 'react';
 import { FaBoxArchive } from "react-icons/fa6";
 import Footer from '../../Components/Footer.js';
+import TopButton from '../../Components/button/TopButton.jsx';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import {theme} from  '../../style/theme.js'
 
-const FeedWrapper = styled.div`
-    margin: 0 auto;
-    display: flex;
-    height: 42em;
-    float: left;
-    margin-bottom: 5em;
-`;
-const ThumbnailScrollable = styled.div`
-  width: 5em;
-  height: 70%;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-`;
-const ThumbnailWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; 
-    height: 95%;
-    img {
-        width: 5em;
-        height: 7em;
-        object-fit: cover;
-        transform: translateY(-${props => props.offset}em); 
-        transition: transform 0.3s ease;
-    }
-`;
-const ItemWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    margin: 0 auto;
-`;
-const ItemList = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 30em; 
-    min-width: 88em;
-`;
-const ButtonList = styled.div`
-    position: relative;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 3em;
-`;
-const CommunityBtn = styled.p`
-    position: absolute;
-    right: 0;
-    color: ${({ theme }) => theme.colors.gray};
-    cursor: pointer;
-    &:hover {
-        color: ${({ theme }) => theme.colors.black};
-        border: none;
-    }
-`;
 export default function HomeItem() {
     const {
         mediaUrls,
@@ -138,17 +77,18 @@ export default function HomeItem() {
                         </ThumbnailWrapper>
                     )}
                     {showPrevBtn && (
-                        <div className="carouselUp  boxShadow">
+                        <div className="carousel  boxShadow"  style={{ position: 'absolute', top: 0}}>
                             <FaAngleUp onClick={prevBtn} color={theme.colors.gray}/>
                         </div>
                     )}
                     {showNextBtn && (
-                        <div className="carouselDown boxShadow">
+                        <div className="carousel boxShadow"  style={{ position: 'absolute', bottom: 0}}>
                             <FaAngleDown  onClick={nextBtn} color={theme.colors.gray} />
                         </div>
                     )}
                 </ThumbnailScrollable>
             </FeedWrapper>
+            
             <ItemWrapper>
                 <div className='pageTitleDiv'>
                     <FaBoxArchive size='1.5em' />
@@ -215,8 +155,71 @@ export default function HomeItem() {
                 </ButtonList>
                 {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />}
             </ItemWrapper>
+            
             <Footer />
         </div>
 
     );
 }
+
+const FeedWrapper = styled.div`
+    margin: 0 auto;
+    display: flex;
+    height: 42em;
+    float: left;
+    margin-bottom: 5em;
+`;
+const ThumbnailScrollable = styled.div`
+  width: 5em;
+  height: 70%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
+const ThumbnailWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+    height: 95%;
+    img {
+        width: 5em;
+        height: 7em;
+        object-fit: cover;
+        transform: translateY(-${props => props.offset}em); 
+        transition: transform 0.3s ease;
+    }
+`;
+const ItemWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 0 auto;
+`;
+const ItemList = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30em; 
+    min-width: 88em;
+`;
+const ButtonList = styled.div`
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3em;
+`;
+const CommunityBtn = styled.p`
+    position: absolute;
+    right: 0;
+    color: ${({ theme }) => theme.colors.gray};
+    cursor: pointer;
+    &:hover {
+        color: ${({ theme }) => theme.colors.black};
+        border: none;
+    }
+`;
