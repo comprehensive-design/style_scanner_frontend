@@ -41,9 +41,11 @@ export default function HomeItem() {
     const thumbnailClick = (index) => {
         setCurrentImageIndex(index);
     };
-    // const morePage = () => {
-    //     setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
-    // };
+    //더보기 api필요
+    const morePage = () => {
+        // setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
+        alert("더보기");
+    };
 
     return (
         <div className='mainWrapper'>
@@ -150,7 +152,7 @@ export default function HomeItem() {
                     />
                 </ItemList>
                 <ButtonList>
-                    <button className='button' style={{ width: '5em', height: ' 3em' }}>더보기</button>
+                    <button className='button' style={{ width: '5em', height: ' 3em' }} onClick={morePage}>더보기</button>
                     <CommunityBtn onClick={openPopup}>찾는 제품이 없으신가요?</CommunityBtn>
                 </ButtonList>
                 {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />}

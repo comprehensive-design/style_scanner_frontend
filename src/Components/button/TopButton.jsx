@@ -20,8 +20,6 @@ export default function TopButton() {
                 setShowButton(false)
             }
         }
-
-        console.log(window.scrollY)
         window.addEventListener("scroll", handleShowButton)
         return () => {
             window.removeEventListener("scroll", handleShowButton)
