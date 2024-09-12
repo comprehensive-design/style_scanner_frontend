@@ -206,3 +206,35 @@ body {
   display: flex;
   align-items: center;
 }
+
+/* homeItem 페이지 */
+.carouselDown{
+  position: absolute;
+  bottom: 0;
+  background-color: var(--white);
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: var(--black);
+    color: var(--white);
+  }
+}
+.carouselUp{
+  position: absolute;
+  top: 0;
+  background-color: var(--white);
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: var(--black);
+    color: var(--white);
+  }
+}

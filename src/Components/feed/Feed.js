@@ -8,7 +8,6 @@ import  '../../style/style.css';
 //공통 컴포넌트 -> prop을 위해 styled component로
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
-    height: ${({ height }) => `calc(${height} + 3em)`};
     overflow: auto;
 `;
 

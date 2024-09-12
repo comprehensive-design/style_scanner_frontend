@@ -11,8 +11,6 @@ export const useHomeItemLogic = () => {
     const navigate = useNavigate();
     const [similarImages, setSimilarImages] = useState(initialSimilarImages || []);
 
-    const [startIndex, setStartIndex] = useState(0);
-    const thumbnailsToShow = 4;
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -28,15 +26,6 @@ export const useHomeItemLogic = () => {
         setCurrentImageIndex(index);
     };
 
-    const nextBtn = () => {
-        if (startIndex + thumbnailsToShow < mediaUrls.length - 1) {
-            setStartIndex((prevIndex) => prevIndex + 1);
-        }
-    };
-
-    const morePage = () => {
-        setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
-    };
 
     useEffect(() => {
         const fetchItemData = async () => {
@@ -77,11 +66,8 @@ export const useHomeItemLogic = () => {
         isPopupOpen,
         items,
         itemsToShow,
-        startIndex,
         openPopup,
         closePopup,
-        thumbnailClick,
-        nextBtn,
-        morePage,
+        thumbnailClick
     };
 };

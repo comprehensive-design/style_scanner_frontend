@@ -4,22 +4,39 @@ import Item from '../../Components/item/Item.js';
 import '../../style/style.css';
 import CommunityWrite from '../community/post/CommunityWrite.js';
 import { useHomeItemLogic } from '../../hooks/useHomeItemLogic';
+import { useState } from 'react';
 import { FaBoxArchive } from "react-icons/fa6";
-import { theme } from '../../style/theme.js';
 import Footer from '../../Components/Footer.js';
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import {theme} from  '../../style/theme.js'
 
 const FeedWrapper = styled.div`
     margin: 0 auto;
     display: flex;
+    height: 42em;
     float: left;
     margin-bottom: 5em;
 `;
+const ThumbnailScrollable = styled.div`
+  width: 5em;
+  height: 70%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
 const ThumbnailWrapper = styled.div`
     display: flex;
-    flex:1;
-    flex-Direction: column; 
-    img{
+    flex-direction: column;
+    overflow: hidden; 
+    height: 95%;
+    img {
         width: 5em;
+        height: 7em;
+        object-fit: cover;
+        transform: translateY(-${props => props.offset}em); 
+        transition: transform 0.3s ease;
     }
 `;
 const ItemWrapper = styled.div`
@@ -63,13 +80,25 @@ export default function HomeItem() {
         profile_url,
         currentImageIndex,
         isPopupOpen,
-        startIndex,
+        slideEm,
         openPopup,
         closePopup,
         thumbnailClick,
-        nextBtn,
-        morePage
     } = useHomeItemLogic();
+
+    const [counter, setCounter] = useState(0);
+    let showPrevBtn = counter > 0;
+    let showNextBtn = counter !== mediaUrls.length - 4 && mediaUrls.length > 4;
+
+    const nextBtn = () => {
+        setCounter(counter + 1);
+    };
+    const prevBtn = () => {
+        setCounter(counter - 1);
+    };
+    // const morePage = () => {
+    //     setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
+    // };
 
     return (
         <div className='mainWrapper'>
@@ -86,25 +115,34 @@ export default function HomeItem() {
                         width={'30em'}
                     />
                 )}
-                {mediaUrls.length > 1 && (
-                    <ThumbnailWrapper className='ml3'>
+                <ThumbnailScrollable className='ml3'>
+                    {mediaUrls.length > 1 && (
+                        <ThumbnailWrapper
+                        >
 
-                        {mediaUrls.map((url, index) => (
-                            <img
-                                key={index}
-                                src={url}
-                                alt={`Thumbnail ${index + 1}`}
-                                onClick={() => thumbnailClick(index)}
-                                className='mb05'
-                            />
-                        ))}
-                        {startIndex + 4 < mediaUrls.length - 1 && (
-                            <button onClick={nextBtn} className='button'>
-                                ▾
-                            </button>
-                        )}
-                    </ThumbnailWrapper>
-                )}
+                            {mediaUrls.map((url, index) => (
+                                <img
+                                    slide={slideEm}
+                                    key={index}
+                                    src={url}
+                                    onClick={() => thumbnailClick(index)}
+                                    className='mb05 borderRad'
+                                    style={{ transform: `translateY(-${7 * counter}em)` }}
+                                />
+                            ))}
+                        </ThumbnailWrapper>
+                    )}
+                    {showPrevBtn && (
+                        <div className="carouselUp  boxShadow">
+                            <FaAngleUp onClick={prevBtn} color={theme.colors.gray}/>
+                        </div>
+                    )}
+                    {showNextBtn && (
+                        <div className="carouselDown boxShadow">
+                            <FaAngleDown  onClick={nextBtn} color={theme.colors.gray} />
+                        </div>
+                    )}
+                </ThumbnailScrollable>
             </FeedWrapper>
             <ItemWrapper>
                 <div className='pageTitleDiv'>
@@ -167,7 +205,7 @@ export default function HomeItem() {
                     />
                 </ItemList>
                 <ButtonList>
-                    <button className='button' onClick={morePage} style={{ width: '5em', height: ' 3em' }}>더보기</button>
+                    <button className='button' style={{ width: '5em', height: ' 3em' }}>더보기</button>
                     <CommunityBtn onClick={openPopup}>찾는 제품이 없으신가요?</CommunityBtn>
                 </ButtonList>
                 {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />}
