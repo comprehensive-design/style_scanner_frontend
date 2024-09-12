@@ -208,7 +208,7 @@ body {
 }
 
 /* homeItem 페이지 */
-/* 썸네일 스크롤 버튼 */
+/* 썸네일 스크롤 버튼 (동그라미 버튼) */
 .carousel{
   background-color: var(--white);
   border-radius: 50%;
@@ -217,9 +217,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
   &:hover {
     background-color: var(--black);
-    color: var(--white);
+    color: var(--white)
   }
 }
-

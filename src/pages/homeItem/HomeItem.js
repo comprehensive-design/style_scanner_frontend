@@ -77,13 +77,13 @@ export default function HomeItem() {
                         </ThumbnailWrapper>
                     )}
                     {showPrevBtn && (
-                        <div className="carousel  boxShadow"  style={{ position: 'absolute', top: 0}}>
+                        <div className="carousel boxShadow"  style={{ position: 'absolute', top: 0}}>
                             <FaAngleUp onClick={prevBtn} color={theme.colors.gray}/>
                         </div>
                     )}
                     {showNextBtn && (
                         <div className="carousel boxShadow"  style={{ position: 'absolute', bottom: 0}}>
-                            <FaAngleDown  onClick={nextBtn} color={theme.colors.gray} />
+                            <FaAngleDown  onClick={nextBtn} color={theme.colors.gray}/>
                         </div>
                     )}
                 </ThumbnailScrollable>
@@ -155,7 +155,7 @@ export default function HomeItem() {
                 </ButtonList>
                 {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />}
             </ItemWrapper>
-            
+            <TopButton/>
             <Footer />
         </div>
 
