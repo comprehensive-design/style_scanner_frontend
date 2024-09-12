@@ -11,20 +11,6 @@ export const useHomeItemLogic = () => {
     const navigate = useNavigate();
     const [similarImages, setSimilarImages] = useState(initialSimilarImages || []);
 
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-    const openPopup = () => {
-        setIsPopupOpen(true);
-    };
-
-    const closePopup = () => {
-        setIsPopupOpen(false);
-    };
-
-    const thumbnailClick = (index) => {
-        setCurrentImageIndex(index);
-    };
 
 
     useEffect(() => {
@@ -62,12 +48,7 @@ export const useHomeItemLogic = () => {
         media_id,
         username,
         profile_url,
-        currentImageIndex,
-        isPopupOpen,
         items,
-        itemsToShow,
-        openPopup,
-        closePopup,
-        thumbnailClick
+        itemsToShow
     };
 };

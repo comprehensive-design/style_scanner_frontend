@@ -50,7 +50,7 @@ function Feed({ media_url_list, profile_url, currentIndex, username, media_id, h
                     <img src={`img/layer.png`} alt="layer" />
                 )}
                 {media_url_list.length > 1 && !home && (
-                    <NumberLabel currentPage={currentIndex} pageLength={media_url_list.length} />
+                    <NumberLabel currentPage={currentIndex+1} pageLength={media_url_list.length} />
                 )}
             </div>
         </FeedMain>

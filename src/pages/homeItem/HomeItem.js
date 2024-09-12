@@ -77,16 +77,13 @@ export default function HomeItem() {
         feedUrl,
         media_id,
         username,
-        profile_url,
-        currentImageIndex,
-        isPopupOpen,
-        slideEm,
-        openPopup,
-        closePopup,
-        thumbnailClick,
+        profile_url
     } = useHomeItemLogic();
 
     const [counter, setCounter] = useState(0);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
     let showPrevBtn = counter > 0;
     let showNextBtn = counter !== mediaUrls.length - 4 && mediaUrls.length > 4;
 
@@ -95,6 +92,15 @@ export default function HomeItem() {
     };
     const prevBtn = () => {
         setCounter(counter - 1);
+    };
+    const openPopup = () => {
+        setIsPopupOpen(true);
+    };
+    const closePopup = () => {
+        setIsPopupOpen(false);
+    };
+    const thumbnailClick = (index) => {
+        setCurrentImageIndex(index);
     };
     // const morePage = () => {
     //     setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
@@ -122,12 +128,11 @@ export default function HomeItem() {
 
                             {mediaUrls.map((url, index) => (
                                 <img
-                                    slide={slideEm}
                                     key={index}
                                     src={url}
                                     onClick={() => thumbnailClick(index)}
                                     className='mb05 borderRad'
-                                    style={{ transform: `translateY(-${7 * counter}em)` }}
+                                    style={{ transform: `translateY(-${7.5 * counter}em)` }}
                                 />
                             ))}
                         </ThumbnailWrapper>
@@ -173,7 +178,7 @@ export default function HomeItem() {
                         index={0}
                     />
                     <Item
-                        key={0}
+                        key={1}
                         itemId={0}
                         brand={"wow"}
                         name={"wow"}
@@ -183,7 +188,7 @@ export default function HomeItem() {
                         index={0}
                     />
                     <Item
-                        key={0}
+                        key={2}
                         itemId={0}
                         brand={"wow"}
                         name={"wow"}
@@ -194,7 +199,7 @@ export default function HomeItem() {
 
                     />
                     <Item
-                        key={0}
+                        key={3}
                         itemId={0}
                         brand={"wow"}
                         name={"wow"}
