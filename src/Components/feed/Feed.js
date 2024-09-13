@@ -3,15 +3,12 @@ import styled from 'styled-components';
 import FeedPopup from '../FeedPopup';
 import NumberLabel from '../numberLabel';
 import { useFeedLogic } from '../../hooks/useFeedLogic';
+import  '../../style/style.css';
 
-// 공통 스타일과 텍스트 스타일을 가져옴
-import { BoldContent, ProfileEllipse, ProfileEllipseDefault } from '../../style/commonStyle';
-
+//공통 컴포넌트 -> prop을 위해 styled component로
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
-    height: ${({ height }) => height};
-    border-radius: 20px;
-    box-shadow: 2px 0px 20px rgba(0, 0, 0, 0.25);
+    height: ${({ height }) => `calc(${height} + 3em)`};
 `;
 
 const ProfileDiv = styled.div`
@@ -19,7 +16,6 @@ const ProfileDiv = styled.div`
     float: left;
     align-items: center;
 `;
-
 const FeedMain = styled.div`
     display: flex;
     position: relative;
@@ -32,42 +28,31 @@ const FeedMain = styled.div`
     }
 `;
 
-const LayerDiv = styled.div`
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    width: 20px;
-    height: 20px;
-    img {
-        width: 100%;
-        height: auto; 
-    }
-`;
 
 function Feed({ media_url_list, profile_url, currentIndex, username, media_id, home, width, height }) {
     const feedLogic = useFeedLogic({ media_url_list, profile_url, currentIndex, username, media_id, home });
     return (
-        <FeedDiv width={width} height={height}>
+        <FeedDiv className= 'borderRad boxShadow' width={width} height={height}>
         <ProfileDiv onClick={feedLogic.openPopup}>
             {feedLogic.isPopupOpen && <FeedPopup onClose={feedLogic.closePopup} user={{ profileName: username }} />}
             {profile_url ? (
-                <ProfileEllipse src={profile_url} alt="Profile" />
+                <img className='feedProfile' src={profile_url} alt="Profile" />
             ) : (
-                <ProfileEllipseDefault />
+                <img className='feedProfileDefault'/>
             )}
-            <BoldContent>@{username}</BoldContent>
+            <p className='boldContent'>@{username}</p>
         </ProfileDiv>
 
         <FeedMain ref={feedLogic.imageWrapperRef} onClick={feedLogic.handleClick} width={width}>
             <img src={media_url_list[currentIndex]} alt={`Feed ${currentIndex}`} />
-            <LayerDiv>
+            <div className='feedLayerDiv'>
                 {media_url_list.length > 1 && home && (
                     <img src={`img/layer.png`} alt="layer" />
                 )}
                 {media_url_list.length > 1 && !home && (
                     <NumberLabel currentPage={currentIndex} pageLength={media_url_list.length} />
                 )}
-            </LayerDiv>
+            </div>
         </FeedMain>
     </FeedDiv>
     );

@@ -1,7 +1,7 @@
 import React from "react";
 import { HashLoader } from "react-spinners";
-import { BoldContent } from '../../style/commonStyle';
 import styled from 'styled-components';
+import  '../../style/style.css';
 
 const LoadingDiv = styled.div`
     width: 100%;
@@ -14,7 +14,7 @@ const LoadingDiv = styled.div`
 const Loading = () => {
     return (
         <LoadingDiv>
-            <BoldContent>잠시만 기다려주세요!</BoldContent>
+            <p className="boldContent mb05">잠시만 기다려주세요!</p>
             <br></br>
             <HashLoader />
         </LoadingDiv>
