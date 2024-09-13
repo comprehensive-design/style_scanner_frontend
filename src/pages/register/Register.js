@@ -5,9 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [email1, setEmail1] = useState("");
-  const [email2, setEmail2] = useState("");
+  const [emailRes, setEmailRes] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordRes, setPasswordRes] = useState("");
+  const [validPassword, setValidPassword] = useState(true);
+  const [passwordValidRes, setPasswordValidRes] = useState(true);
   const [displayName, setDisplayName] = useState("");
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
@@ -16,28 +20,67 @@ export default function Register() {
   const [emailChecked, setEmailChecked] = useState(false);
   const navigate = useNavigate();
 
-  const handleCheckDuplicate = async (email1, email2) => {
+  const handleCheckDuplicate = async (email1) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     try {
-      if (email1 == "" || email2 == "") {
-        alert("이메일을 채워 주세요");
+      // 이메일 형식이 올바른지 확인
+      if (!emailRegex.test(email1)) {
+        setEmailRes("유효한 이메일 주소를 입력해 주세요.");
+        setEmailChecked(false);
+        return;
+      }
+
+      if (email1 === "") {
+        setEmailRes("이메일을 채워 주세요");
         setEmailChecked(false);
       } else {
-        const email = email1 + "@" + email2;
+        const email = email1;
         const response = await axios.get(`/api/user/emailcheck`, {
           params: {
             email: email,
           },
         });
+
         if (response.data) {
-          alert("이미 사용 중인 이메일입니다.");
+          setEmailRes("이미 사용 중인 이메일입니다."); // 이미 사용 중인 이메일인 경우
+          setEmailChecked(false);
         } else {
-          alert("사용 가능한 이메일입니다.");
+          setEmailRes("사용 가능한 이메일입니다."); // 사용 가능한 이메일인 경우
           setEmailChecked(true);
         }
       }
     } catch (error) {
-      alert("이메일 중복 확인 오류:", error);
+      setEmailRes(`이메일 중복 확인 오류: ${error.message}`);
       setEmailChecked(false);
+    }
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+  const handlePasswordCheck = () => {
+    if (!validatePassword(password)) {
+      setPasswordValidRes(
+        "비밀번호는 영문, 숫자, 특수문자를 포함한 8자리 이상이어야 합니다."
+      );
+      setValidPassword(false);
+      return;
+    } else {
+      setPasswordValidRes("");
+      setValidPassword(true);
+    }
+
+    if (password === "" || password2 === "") {
+      setPasswordRes("비밀번호를 입력해 주세요.");
+      setPasswordMatch(false);
+    } else if (password === password2) {
+      setPasswordRes("비밀번호가 일치합니다.");
+      setPasswordMatch(true);
+    } else {
+      setPasswordRes("비밀번호가 일치하지 않습니다.");
+      setPasswordMatch(false);
     }
   };
 
@@ -50,9 +93,9 @@ export default function Register() {
         String(month).padStart(2, "0") +
         "-" +
         String(day).padStart(2, "0");
-      const email = email1 + "@" + email2;
+      const email = email1;
 
-      if (password === password2 && emailChecked) {
+      if (passwordMatch && emailChecked) {
         const response = await axios.post("/api/user/signup", {
           email: email,
           displayName: displayName,
@@ -116,12 +159,16 @@ export default function Register() {
       <RegisterForm
         email1={email1}
         setEmail1={setEmail1}
-        email2={email2}
-        setEmail2={setEmail2}
+        emailChecked={emailChecked}
+        emailRes={emailRes}
         password={password}
         setPassword={setPassword}
+        passwordValidRes={passwordValidRes}
         password2={password2}
         setPassword2={setPassword2}
+        passwordRes={passwordRes}
+        passwordMatch={passwordMatch}
+        validPassword={validPassword}
         displayName={displayName}
         setDisplayName={setDisplayName}
         year={year}
@@ -134,6 +181,7 @@ export default function Register() {
         setGender={setGender}
         handleSubmit={handleSubmit}
         handleCheckDuplicate={handleCheckDuplicate}
+        handlePasswordCheck={handlePasswordCheck}
         years={years}
         months={months}
         days={days}

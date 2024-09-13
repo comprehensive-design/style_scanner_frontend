@@ -41,12 +41,19 @@ body {
   font-weight: 400;
 }
 
+.mt3 {
+  margin-top: 3em;
+}
 .mb05 {
   margin-bottom: 0.5em;
 }
 
 .mb3 {
   margin-bottom: 3em;
+}
+
+.mr2 {
+  margin-right: 2em;
 }
 
 .grayText {
@@ -62,6 +69,7 @@ body {
   font-size: 1.2em;
   margin-top: 0.5em;
   margin-bottom: 3em;
+  padding: 0 0 0.5em 0;
 }
 
 .button {
@@ -113,16 +121,33 @@ body {
   width: 40%;
 }
 
-.registerMailBox {
-  display: flex;
-  margin-top: 0.5em;
-  margin-bottom: 3em;
+.registersmallBox .caption {
+  margin-bottom: 2em;
 }
 
-.registerDuplCheckBtn {
-  width: 30%;
-  text-align: right;
-  cursor: pointer;
-  font-size: 14px;
-  color: gray;
+.registersmallBox .underLine {
+  margin-bottom: 0.5em;
+}
+.registerBirthBox {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.registerBirthBox select {
+  margin-top: 0.5em;
+  background-color: var(--gray);
+  border-radius: 10px;
+  border: none;
+  padding: 0.5em;
+}
+
+.registerBirthBox p {
+  margin-left: 0.5em;
+  margin-right: 2em;
+}
+
+.registerBirthBox input {
+  margin-right: 0.5em;
 }
