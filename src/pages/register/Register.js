@@ -8,10 +8,10 @@ export default function Register() {
   const [emailRes, setEmailRes] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordMatch, setPasswordMatch] = useState(false);
   const [passwordRes, setPasswordRes] = useState("");
-  const [validPassword, setValidPassword] = useState(true);
-  const [passwordValidRes, setPasswordValidRes] = useState(true);
+  const [validPassword, setValidPassword] = useState(false);
+  const [passwordValidRes, setPasswordValidRes] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
@@ -95,7 +95,7 @@ export default function Register() {
         String(day).padStart(2, "0");
       const email = email1;
 
-      if (passwordMatch && emailChecked) {
+      if (validPassword && passwordMatch && emailChecked) {
         const response = await axios.post("/api/user/signup", {
           email: email,
           displayName: displayName,
@@ -105,10 +105,20 @@ export default function Register() {
         });
         alert("가입되었습니다!");
         navigate("/Login");
-      } else if (password != password2) {
-        alert("비밀번호를 다시 확인해 주세요");
+      } else if (
+        !email1 ||
+        !password ||
+        !password2 ||
+        !displayName ||
+        !year ||
+        !month ||
+        !day
+      ) {
+        alert("모든 항목을 작성해 주세요");
       } else if (!emailChecked) {
-        alert("이메일 중복 여부를 확인해 주세요");
+        alert("이메일을 확인해 주세요");
+      } else if (!passwordMatch) {
+        alert("비밀번호를 확인해 주세요");
       }
     } catch (error) {
       alert(
