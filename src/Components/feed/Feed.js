@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import FeedPopup from '../FeedPopup';
 import NumberLabel from '../numberLabel';
-import { useFeedLogic } from '../../hooks/useFeedLogic';
+import { useFeedLogic } from '../../hooks/feed/useFeedLogic';
 import  '../../style/style.css';
 
 //공통 컴포넌트 -> prop을 위해 styled component로
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
-    height: ${({ height }) => `calc(${height} + 3em)`};
+    overflow: hidden;
 `;
 
 const ProfileDiv = styled.div`
@@ -50,7 +50,7 @@ function Feed({ media_url_list, profile_url, currentIndex, username, media_id, h
                     <img src={`img/layer.png`} alt="layer" />
                 )}
                 {media_url_list.length > 1 && !home && (
-                    <NumberLabel currentPage={currentIndex} pageLength={media_url_list.length} />
+                    <NumberLabel currentPage={currentIndex+1} pageLength={media_url_list.length} />
                 )}
             </div>
         </FeedMain>

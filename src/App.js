@@ -23,6 +23,7 @@ import CommunityInfo from './pages/community/detail/CommunityInfo';
 import Category from './pages/ranking/category/Category';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './style/theme';
+import './style/style.css'
 
 const App = () => {
   return (
