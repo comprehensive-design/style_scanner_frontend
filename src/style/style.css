@@ -14,6 +14,7 @@ body {
   width: 100%;
   height: 100%;
   align-items: center;
+  text-align: center;
 }
 
 .mainWrapper{
@@ -56,6 +57,9 @@ body {
 }
 .textShadow {
   filter:drop-shadow(0.15em 0 0.15em rgba(0, 0, 0, 0.25))
+
+.mt3 {
+  margin-top: 3em;
 }
 .mb05 {
   margin-bottom: 0.5em;
@@ -65,7 +69,12 @@ body {
   margin-bottom: 3em;
 }
 
-.ml03 {
+
+.mr2 {
+  margin-right: 2em;
+}
+
+.m103 {
   margin-left: 0.3em;
 }
 
@@ -83,21 +92,24 @@ body {
 
 .boxShadow {
   box-shadow: 0.15em 0 1.5em rgba(0, 0, 0, 0.25);
+  
+.borderRad {
+  border-radius: 1.5em;
 }
-
 .grayText {
   color: var(--darkGray);
 }
 
 .underLine {
   width: 100%;
-  margin-top: 10px;
-  font-size: 16px;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid var(--darkGray);
-  margin-bottom: 50px;
+  font-size: 1.2em;
+  margin-top: 0.5em;
+  margin-bottom: 3em;
+  padding: 0 0 0.5em 0;
 }
 
 .button {
@@ -119,8 +131,7 @@ body {
   background-color: var(--black);
 }
 
-
-
+  
 /* 로그인 */
 .loginContent {
   margin: 0 auto;
@@ -193,11 +204,47 @@ body {
   right: 1.5em;
   width: 1.5em;
   height: 1.5em;
-
   img {
     width: 100%;
     height: auto;
   }
+}
+
+/* 회원가입 */
+.registerMiddleDiv {
+  margin: 0 auto;
+  width: 40%;
+}
+
+.registersmallBox .caption {
+  margin-bottom: 2em;
+}
+
+.registersmallBox .underLine {
+  margin-bottom: 0.5em;
+}
+.registerBirthBox {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.registerBirthBox select {
+  margin-top: 0.5em;
+  background-color: var(--gray);
+  border-radius: 10px;
+  border: none;
+  padding: 0.5em;
+}
+
+.registerBirthBox p {
+  margin-left: 0.5em;
+  margin-right: 2em;
+}
+
+.registerBirthBox input {
+  margin-right: 0.5em;
 }
 
 /* 아이템 */
