@@ -1,24 +1,47 @@
-import React from 'react';
-import  '../../style/style.css';
-import useHomeFeedLogic from '../../hooks/useHomeFeedLogic'; // Hook을 임포트
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useHomeFeedLogic from '../../hooks/useHomeFeedLogic';
 import Feed from '../../Components/feed/Feed';
 import Loading from '../../Components/loading/loading';
 import { GoHomeFill } from "react-icons/go";
 import Pagination from '../../Components/Pagination';
 import Footer from '../../Components/Footer';
-
+import api from '../../utils/axios'
 
 const HomeFeed = () => {
-    const { feeds, loading, error, feedListRef } = useHomeFeedLogic();
+    const navigate = useNavigate();
+    const [page, setPage] = useState(0);
+    const size = 12;
+
+    const { feeds, loading, error, feedListRef } = useHomeFeedLogic(page, size);
 
     if (loading) {
-        return <Loading />;
+        return <Loading/>;
     }
 
     if (error) {
         return <div>{error}</div>;
     }
+    const handleImageClick = async (username, profile_url, feed_code) => {
+        try {
+            const response = await api.get('/api/insta/getCarouselMedia', {
+                params: {
+                    feed_code: feed_code
+                }
+            });
+            navigate("/HomeItem", {
+                state: {
+                    mediaUrls: response.data,
+                    username: username,
+                    profile_url: profile_url,
+                    feed_code: feed_code
+                }
+            });
 
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div className='body'>
             <div className='feedScroll'>
@@ -30,13 +53,13 @@ const HomeFeed = () => {
                 <div className='feedList mb3' ref={feedListRef}>
                     {feeds.map(feed => (
                         <Feed
-                            key={feed.media_id}
-                            media_url_list={feed.media_url_list}
-                            profile_url={feed.profile_url}
+                            key={feed.feed_code}
+                            thumbnail_url={feed.thumbnail_url} 
+                            profile_url={feed.profile_url} 
                             username={feed.username}
-                            media_id={feed.media_id}
+                            className={'homefeed'}
+                            handleImageClick={ () => handleImageClick(feed.profile_url, feed.username, feed.feed_code)}
                             currentIndex={0}
-                            home={true}
                             width="25em"
                             height="35em"
                         />
@@ -44,8 +67,8 @@ const HomeFeed = () => {
                     <div style={{ height: '10px' }} />
                 </div>
             </div>
-            <Pagination/>
-            <Footer/>
+            <Pagination />
+            <Footer />
         </div>
     );
 };
