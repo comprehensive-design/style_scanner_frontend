@@ -12,7 +12,6 @@ const HomeFeed = () => {
     const navigate = useNavigate();
     const [page, setPage] = useState(0);
     const size = 12;
-    const [images, setImages] = useState(null);
 
     const { feeds, loading, error, feedListRef } = useHomeFeedLogic(page, size);
 
@@ -30,20 +29,18 @@ const HomeFeed = () => {
                     feed_code: feed_code
                 }
             });
-            console.log(response.data);
-            setImages(response.data);
-            
+            navigate("/HomeItem", {
+                state: {
+                    mediaUrls: response.data,
+                    username: username,
+                    profile_url: profile_url,
+                    feed_code: feed_code
+                }
+            });
+
         } catch (error) {
             console.error(error);
         }
-        
-        navigate("/HomeItem", {
-            state: {
-                mediaUrls: images,
-                username: username,
-                profile_url: profile_url
-            }
-        });
     };
     return (
         <div className='body'>
@@ -60,7 +57,7 @@ const HomeFeed = () => {
                             thumbnail_url={feed.thumbnail_url} 
                             profile_url={feed.profile_url} 
                             username={feed.username}
-                            className={'home'}
+                            className={'homefeed'}
                             handleImageClick={ () => handleImageClick(feed.profile_url, feed.username, feed.feed_code)}
                             currentIndex={0}
                             width="25em"

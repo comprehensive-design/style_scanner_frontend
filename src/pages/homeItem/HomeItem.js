@@ -8,15 +8,14 @@ import { FaBoxArchive } from "react-icons/fa6";
 import Footer from '../../Components/Footer.js';
 import TopButton from '../../Components/button/TopButton.jsx';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-import {theme} from  '../../style/theme.js'
+import { theme } from '../../style/theme.js'
 
 export default function HomeItem() {
     const {
         mediaUrls,
-        feedUrl,
-        media_id,
         username,
-        profile_url
+        profile_url,
+        feed_code
     } = useHomeItemLogic();
 
     const [counter, setCounter] = useState(0);
@@ -46,27 +45,27 @@ export default function HomeItem() {
         // setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
         alert("더보기");
     };
+    const handleImageClick = async () => {
 
+    };
     return (
         <div className='mainWrapper'>
             <FeedWrapper className='p1'>
-                {mediaUrls && profile_url && username && media_id && (
+                {mediaUrls && profile_url && username && feed_code && (
                     <Feed
-                        key={media_id}
-                        media_url_list={mediaUrls}
+                        key={feed_code}
                         profile_url={profile_url}
                         username={username}
-                        media_id={media_id}
-                        home={false}
+                        className={'homeitem'}
                         currentIndex={currentImageIndex}
+                        thumbnail_url={mediaUrls[currentImageIndex]}
+                        handleImageClick={() => handleImageClick}
                         width={'30em'}
                     />
                 )}
                 <ThumbnailScrollable className='ml3'>
                     {mediaUrls.length > 1 && (
-                        <ThumbnailWrapper
-                        >
-
+                        <ThumbnailWrapper>
                             {mediaUrls.map((url, index) => (
                                 <img
                                     key={index}
@@ -79,18 +78,18 @@ export default function HomeItem() {
                         </ThumbnailWrapper>
                     )}
                     {showPrevBtn && (
-                        <div className="carousel boxShadow"  style={{ position: 'absolute', top: 0}}>
-                            <FaAngleUp onClick={prevBtn} color={theme.colors.gray}/>
+                        <div className="carousel boxShadow" style={{ position: 'absolute', top: 0 }}>
+                            <FaAngleUp onClick={prevBtn} color={theme.colors.gray} />
                         </div>
                     )}
                     {showNextBtn && (
-                        <div className="carousel boxShadow"  style={{ position: 'absolute', bottom: 0}}>
-                            <FaAngleDown  onClick={nextBtn} color={theme.colors.gray}/>
+                        <div className="carousel boxShadow" style={{ position: 'absolute', bottom: 0 }}>
+                            <FaAngleDown onClick={nextBtn} color={theme.colors.gray} />
                         </div>
                     )}
                 </ThumbnailScrollable>
             </FeedWrapper>
-            
+
             <ItemWrapper>
                 <div className='pageTitleDiv'>
                     <FaBoxArchive size='1.5em' />
@@ -155,9 +154,9 @@ export default function HomeItem() {
                     <button className='button' style={{ width: '5em', height: ' 3em' }} onClick={morePage}>더보기</button>
                     <CommunityBtn onClick={openPopup}>찾는 제품이 없으신가요?</CommunityBtn>
                 </ButtonList>
-                {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />}
+                {/* {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />} */}
             </ItemWrapper>
-            <TopButton/>
+            <TopButton />
             <Footer />
         </div>
 
