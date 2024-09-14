@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 import FeedPopup from '../FeedPopup';
 import NumberLabel from '../numberLabel';
@@ -29,12 +29,22 @@ const FeedMain = styled.div`
 `;
 
 
-function Feed({ media_url_list, profile_url, currentIndex, username, media_id, home, width, height }) {
-    const feedLogic = useFeedLogic({ media_url_list, profile_url, currentIndex, username, media_id, home });
+function Feed({ key, thumbnail_url, profile_url,  currentIndex, username, feed_code, home, width, height }) {
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => {
+        setIsPopupOpen(true);
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false);
+    };
+    // const feedLogic = useFeedLogic({thumbnail_url, currentIndex, username, key, home });
+
     return (
         <FeedDiv className= 'borderRad boxShadow' width={width} height={height}>
-        <ProfileDiv onClick={feedLogic.openPopup}>
-            {feedLogic.isPopupOpen && <FeedPopup onClose={feedLogic.closePopup} user={{ profileName: username }} />}
+        <ProfileDiv onClick={openPopup}>
+            {isPopupOpen && <FeedPopup onClose={closePopup} user={{ profileName: username }} />}
             {profile_url ? (
                 <img className='feedProfile' src={profile_url} alt="Profile" />
             ) : (
@@ -43,16 +53,16 @@ function Feed({ media_url_list, profile_url, currentIndex, username, media_id, h
             <p className='boldContent'>@{username}</p>
         </ProfileDiv>
 
-        <FeedMain ref={feedLogic.imageWrapperRef} onClick={feedLogic.handleClick} width={width}>
-            <img src={media_url_list[currentIndex]} alt={`Feed ${currentIndex}`} />
-            <div className='feedLayerDiv'>
+        <FeedMain  width={width}>
+            <img src={thumbnail_url} />
+            {/* <div className='feedLayerDiv'>
                 {media_url_list.length > 1 && home && (
                     <img src={`img/layer.png`} alt="layer" />
                 )}
                 {media_url_list.length > 1 && !home && (
                     <NumberLabel currentPage={currentIndex+1} pageLength={media_url_list.length} />
                 )}
-            </div>
+            </div> */}
         </FeedMain>
     </FeedDiv>
     );

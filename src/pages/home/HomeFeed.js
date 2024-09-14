@@ -1,6 +1,5 @@
-import React from 'react';
-import  '../../style/style.css';
-import useHomeFeedLogic from '../../hooks/useHomeFeedLogic'; // Hook을 임포트
+import React, { useState } from 'react';
+import useHomeFeedLogic from '../../hooks/useHomeFeedLogic';
 import Feed from '../../Components/feed/Feed';
 import Loading from '../../Components/loading/loading';
 import { GoHomeFill } from "react-icons/go";
@@ -9,7 +8,10 @@ import Footer from '../../Components/Footer';
 
 
 const HomeFeed = () => {
-    const { feeds, loading, error, feedListRef } = useHomeFeedLogic();
+    const [page, setPage] = useState(0);
+    const size = 12;
+
+    const { feeds, loading, error, feedListRef } = useHomeFeedLogic(page, size);
 
     if (loading) {
         return <Loading />;
@@ -30,13 +32,13 @@ const HomeFeed = () => {
                 <div className='feedList mb3' ref={feedListRef}>
                     {feeds.map(feed => (
                         <Feed
-                            key={feed.media_id}
-                            media_url_list={feed.media_url_list}
-                            profile_url={feed.profile_url}
+                            key={feed.feed_code}
+                            thumbnail_url={feed.thumbnail_url} 
+                            profile_url={feed.profile_url} 
                             username={feed.username}
-                            media_id={feed.media_id}
-                            currentIndex={0}
+                            feed_code={feed.feed_code}
                             home={true}
+                            currentIndex={0}
                             width="25em"
                             height="35em"
                         />
@@ -44,8 +46,8 @@ const HomeFeed = () => {
                     <div style={{ height: '10px' }} />
                 </div>
             </div>
-            <Pagination/>
-            <Footer/>
+            <Pagination />
+            <Footer />
         </div>
     );
 };

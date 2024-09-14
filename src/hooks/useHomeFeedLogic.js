@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const useHomeFeedLogic = () => {
+const useHomeFeedLogic = (page, size) => { 
     const navigate = useNavigate();
     const [feeds, setFeeds] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,8 +24,8 @@ const useHomeFeedLogic = () => {
                     },
                 };
 
-                const response = await axios.get('/api/insta/home', config);
-                setFeeds(response.data.feeds);
+                const response = await axios.get(`/api/insta/home?page=${page}&size=${size}`, config);
+                setFeeds(response.data);
                 setLoading(false);
             } catch (error) {
                 if (axios.isAxiosError(error)) {
@@ -39,7 +39,7 @@ const useHomeFeedLogic = () => {
         };
 
         fetchPosts();
-    }, [navigate]);
+    }, [navigate, page, size]);
 
     return {
         feeds,
