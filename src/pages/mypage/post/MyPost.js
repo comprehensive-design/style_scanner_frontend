@@ -3,7 +3,8 @@ import Sidebar from '../../../Components/Sidebar';
 import WritingBox from '../../../Components/WritingBox';
 import Pagination from '../../../Components/Pagination';
 import axios from 'axios';
-import CommunityWrite from '../../community/post/CommunityWrite';
+import WritePopup from '../../community/popup/WritePopup';
+import Footer from '../../../Components/Footer';
 
 const getPosts = async (currentPage, postsPerPage) => {
   const token = localStorage.getItem("accessToken");
@@ -140,7 +141,7 @@ export default function MyPost() {
       />
       </div>
       {isPopupOpen && (
-        <CommunityWrite post={currentPost} onSave={handleSave} onClose={closePopup} />
+        <WritePopup post={currentPost} onSave={handleSave} onClose={closePopup} />
       )}
     </div>
   );

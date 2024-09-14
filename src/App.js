@@ -18,7 +18,6 @@ import CommunityNoti from './pages/mypage/notification/CommunityNoti';
 import HomeFeed from './pages/home/HomeFeed';
 import HomeItem from './pages/homeItem/HomeItem';
 import Community from './pages/community/main/Community';
-import CommunityWrite from './pages/community/post/CommunityWrite';
 import CommunityInfo from './pages/community/detail/CommunityInfo';
 import Category from './pages/ranking/category/Category';
 import Empty from './pages/empty/Empty';

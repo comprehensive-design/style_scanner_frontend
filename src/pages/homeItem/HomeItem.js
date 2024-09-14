@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Feed from '../../Components/feed/Feed.js';
 import Item from '../../Components/item/Item.js';
-import CommunityWrite from '../community/post/CommunityWrite.js';
+import WritePopup from '../community/popup/WritePopup.js';
 import { useHomeItemLogic } from '../../hooks/useHomeItemLogic';
 import { useFeedClickLogic } from '../../hooks/useFeedClickLogic';
 import { useState, useRef } from 'react';
@@ -170,7 +170,7 @@ export default function HomeItem() {
                     <button className="whiteButton" onClick={morePage}>더보기</button>
                     <CommunityBtn onClick={openPopup}>찾는 제품이 없으신가요?</CommunityBtn>
                 </ButtonList>
-                {/* {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />} */}
+                {isPopupOpen && <WritePopup feedUrl={mediaUrls[currentImageIndex]} profile_url={profile_url} onClose={closePopup} />}
             </ItemWrapper>
             <TopButton />
         </div>
