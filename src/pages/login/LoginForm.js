@@ -36,7 +36,7 @@ export default function Register({
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <input className="button mb05" type="submit" value="로그인"></input>
+          <input className="button mb05" type="submit" value="로그인" style={{width:"100%"}}></input>
         </form>
 
         <div
