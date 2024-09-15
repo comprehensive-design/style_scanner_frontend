@@ -8,15 +8,15 @@ import Pagination from '../../Components/Pagination';
 import Footer from '../../Components/Footer';
 import api from '../../utils/axios'
 
+
 const HomeFeed = () => {
     const navigate = useNavigate();
     const [page, setPage] = useState(0);
     const size = 12;
-
-    const { feeds, loading, error, feedListRef } = useHomeFeedLogic(page, size);
-
-    if (loading) {
-        return <Loading/>;
+    const { feeds, loading, error, feedListRef, proxyImageUrls, imagesLoaded } = useHomeFeedLogic(page, size);
+    
+    if (loading || !imagesLoaded ) {
+        return <Loading />;
     }
 
     if (error) {
@@ -42,6 +42,7 @@ const HomeFeed = () => {
             console.error(error);
         }
     };
+
     return (
         <div className='body'>
             <div className='feedScroll'>
@@ -51,14 +52,14 @@ const HomeFeed = () => {
                 </div>
 
                 <div className='feedList mb3' ref={feedListRef}>
-                    {feeds.map(feed => (
+                    {feeds.map((feed, index)=> (
                         <Feed
                             key={feed.feed_code}
-                            thumbnail_url={feed.thumbnail_url} 
-                            profile_url={feed.profile_url} 
+                            thumbnail_url={proxyImageUrls[index]} 
+                            profile_url={feed.profile_url}
                             username={feed.username}
                             className={'homefeed'}
-                            handleImageClick={ () => handleImageClick(feed.profile_url, feed.username, feed.feed_code)}
+                            handleImageClick={() => handleImageClick(feed.username, feed.profile_url, feed.feed_code)}
                             currentIndex={0}
                             width="25em"
                             height="35em"
