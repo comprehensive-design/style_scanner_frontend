@@ -6,13 +6,15 @@ import { useHomeItemLogic } from '../../hooks/useHomeItemLogic';
 import { useState } from 'react';
 import { FaBoxArchive } from "react-icons/fa6";
 import Footer from '../../Components/Footer.js';
+import Loading from '../../Components/loading/loading';
 import TopButton from '../../Components/button/TopButton.jsx';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { theme } from '../../style/theme.js'
 
 export default function HomeItem() {
     const {
-        mediaUrls,
+        proxyImageUrls,
+        imagesLoaded,
         username,
         profile_url,
         feed_code
@@ -23,8 +25,11 @@ export default function HomeItem() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     let showPrevBtn = counter > 0;
-    let showNextBtn = counter !== mediaUrls.length - 4 && mediaUrls.length > 4;
+    let showNextBtn = counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
 
+    if (!imagesLoaded) {
+        return <Loading />;
+    }
     const nextBtn = () => {
         setCounter(counter + 1);
     };
@@ -51,22 +56,22 @@ export default function HomeItem() {
     return (
         <div className='mainWrapper'>
             <FeedWrapper className='p1'>
-                {mediaUrls && profile_url && username && feed_code && (
+                {proxyImageUrls && profile_url && username && feed_code && (
                     <Feed
                         key={feed_code}
                         profile_url={profile_url}
                         username={username}
                         className={'homeitem'}
                         currentIndex={currentImageIndex}
-                        thumbnail_url={mediaUrls[currentImageIndex]}
+                        thumbnail_url={proxyImageUrls[currentImageIndex]}
                         handleImageClick={() => handleImageClick}
                         width={'30em'}
                     />
                 )}
                 <ThumbnailScrollable className='ml3'>
-                    {mediaUrls.length > 1 && (
+                    {proxyImageUrls.length > 1 && (
                         <ThumbnailWrapper>
-                            {mediaUrls.map((url, index) => (
+                            {proxyImageUrls.map((url, index) => (
                                 <img
                                     key={index}
                                     src={url}

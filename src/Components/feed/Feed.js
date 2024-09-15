@@ -62,6 +62,7 @@ const FeedMain = styled.div`
     img {
         width: 100%;
         height: auto;
+        cursor: pointer;
     }
 `;
 export default Feed;
