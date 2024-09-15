@@ -319,6 +319,14 @@ body {
   align-items: center;
 }
 
+.gridColumns3{
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.gridColumns4{
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+}
+
 
 .mpdprofileBox img {
   width: 100px;

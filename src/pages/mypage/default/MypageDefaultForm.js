@@ -43,7 +43,7 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
         <div className="mypageWrapper">
             <Sidebar />
             <div className="mypageMain">
-                <div className="mpdprofileBox">
+                <div className="mpdprofileBox gridColumns4">
                     <img src={profilePictureUrl}></img>
                     <div>
                         <p className="content">@{displayName}</p>
@@ -54,8 +54,12 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
                         <p className="caption grayText">팔로잉</p>
                     </div>
                     <div>
-                        <input className="button mb05" type="submit" value="프로필 관리" 
-                        style={{ backgroundColor: "white", border: "1px solid gray", color: "gray" }}></input>
+                        <button
+                            className="button mb05"
+                            style={{ backgroundColor: "white", border: "1px solid gray", color: "gray" }}
+                            onClick={() => window.location.href = '/AccountManage'}>
+                            프로필 관리
+                        </button>
                     </div>
                 </div>
 
