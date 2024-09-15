@@ -6,6 +6,10 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // 로그인 화면으로 오면 토큰들 삭제 -> 로그아웃
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -16,7 +20,11 @@ export default function Register() {
                     "password": password
                 });
                 const accessToken = response.data.access_token;
+                const refreshToken = response.data.refresh_token;
+                
                 localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
+
                 window.location.replace("/homefeed");
             }
             else {

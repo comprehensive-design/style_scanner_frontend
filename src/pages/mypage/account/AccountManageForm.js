@@ -47,6 +47,7 @@ export default function AccountManageForm({ profilePictureUrl, displayName, bio,
                 break;
             case "logout":
                 localStorage.removeItem('accessToken');
+                localStorage.removeItem('refreshToken');
                 break;
 
             default:
