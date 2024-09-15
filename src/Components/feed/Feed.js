@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import FeedPopup from '../FeedPopup';
 import NumberLabel from '../numberLabel';
 
-function Feed({ thumbnail_url, profile_url, currentIndex, username, className, handleImageClick, width, height }) {
+function Feed({ thumbnail_url, profile_url, currentIndex, username, className, handleImageClick,carousel_count, width, height }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
@@ -30,15 +30,14 @@ function Feed({ thumbnail_url, profile_url, currentIndex, username, className, h
             <FeedMain width={width}>
                 <img src={thumbnail_url} onClick={handleImageClick} />
 
-                {/* api수정 후 다시 작성 */}
-                {/* <div className='feedLayerDiv'>
+                <div className='feedLayerDiv'>
                 {carousel_count > 1 && className==='homefeed' && (
                     <img src={`img/layer.png`} alt="layer" />
                 )}
                 {carousel_count > 1 && className==='homeitem' && (
                     <NumberLabel currentPage={currentIndex+1} pageLength={carousel_count} />
                 )}
-            </div> */}
+            </div>
             </FeedMain>
         </FeedDiv>
     );

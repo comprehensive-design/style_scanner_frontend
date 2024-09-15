@@ -60,6 +60,7 @@ const HomeFeed = () => {
                             username={feed.username}
                             className={'homefeed'}
                             handleImageClick={() => handleImageClick(feed.username, feed.profile_url, feed.feed_code)}
+                            carousel_count={feed.carousel_count}
                             currentIndex={0}
                             width="25em"
                             height="35em"
