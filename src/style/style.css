@@ -17,7 +17,7 @@ body {
   text-align: center;
 }
 
-.mainWrapper{
+.mainWrapper {
   font-size: 14px;
   width: 100%;
   height: 100%;
@@ -55,12 +55,15 @@ body {
   font-size: 1em;
   font-weight: 400;
 }
+
 .textShadow {
-  filter:drop-shadow(0.15em 0 0.15em rgba(0, 0, 0, 0.25))
+  filter: drop-shadow(0.15em 0 0.15em rgba(0, 0, 0, 0.25))
 }
+
 .mt3 {
   margin-top: 3em;
 }
+
 .mb05 {
   margin-bottom: 0.5em;
 }
@@ -93,9 +96,11 @@ body {
 .boxShadow {
   box-shadow: 0.15em 0 1.5em rgba(0, 0, 0, 0.25);
 }
+
 .borderRad {
   border-radius: 1.5em;
 }
+
 .grayText {
   color: var(--darkGray);
 }
@@ -131,7 +136,7 @@ body {
   background-color: var(--black);
 }
 
-  
+
 /* 로그인 */
 .loginContent {
   margin: 0 auto;
@@ -204,10 +209,11 @@ body {
   right: 1.5em;
   width: 1.5em;
   height: 1.5em;
-  img {
-    width: 100%;
-    height: auto;
-  }
+}
+
+.feedLayerDiv>img {
+  width: 100%;
+  height: auto;
 }
 
 /* 회원가입 */
@@ -223,6 +229,7 @@ body {
 .registersmallBox .underLine {
   margin-bottom: 0.5em;
 }
+
 .registerBirthBox {
   display: flex;
   width: 100%;
@@ -256,7 +263,7 @@ body {
 
 /* homeItem 페이지 */
 /* 썸네일 스크롤 버튼 (동그라미 버튼) */
-.carousel{
+.carousel {
   background-color: var(--white);
   border-radius: 50%;
   width: 1.5em;
@@ -265,8 +272,10 @@ body {
   align-items: center;
   justify-content: center;
   border: none;
-  &:hover {
-    background-color: var(--black);
-    color: var(--white)
-  }
+
+}
+
+.carousel:hover {
+  background-color: var(--black);
+  color: var(--white)
 }
