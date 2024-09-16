@@ -10,7 +10,7 @@ const ItemDiv = styled.div`
     width: ${({ width }) => width || '20em'};
     background-color: ${({ theme }) => theme.colors.lightGray};
     
-    overflow: auto; 
+    overflow: hidden; 
     position: relative;
     margin: 1em;
     flex-shrink: 0;
@@ -24,14 +24,12 @@ const ItemImg = styled.img`
 const ItemInfoTopWrapper = styled.div`
   width: 100%;
   text-align: start;
-  margin-top: 1em;
 `;
 
 const ItemInfoBottomWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1em;
 `;
 export default function Item({ itemId, brand, name, price, itemImage, shoppingLink, likeCount, width, height }) {
     const {isClicked, counter, handleHeartClick } = useItemLogic({itemId, likeCount});
