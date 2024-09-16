@@ -41,6 +41,15 @@ export default function Item({ itemId, brand, name, price, itemImage, shoppingLi
     const formatPrice = (price) => {
         return price.toLocaleString('ko-KR');
     };
+    const formatLikeCount = (counter) => {
+        if (counter >= 1000000) {
+            return Math.floor(counter / 1000000) + 'M'; // 1M, 2M, etc.
+        } else if (counter >= 1000) {
+            return Math.floor(counter / 1000) + 'K'; // 1K, 2K, etc.
+        } else {
+            return counter.toString();
+        }
+    };
 
     return (
         <ItemDiv className='borderRad' width={width} height={height}>
@@ -53,9 +62,9 @@ export default function Item({ itemId, brand, name, price, itemImage, shoppingLi
             <ItemInfoBottomWrapper className='boldContent p1'>
                 <p>{formatPrice(price)}₩</p>
                 <div className='itemLikeWrapper'>
-                    <FaHeart size='1.5em' style={{ cursor: 'pointer' }} onClick={handleHeartClick} color={isClicked ? theme.colors.red : theme.colors.black} alt="Like"></FaHeart>
-                    <p className='ml03' style={{ color: isClicked ? theme.colors.red : theme.colors.black }}>
-                        {counter}
+                    <FaHeart size='1.5em' style={{ cursor: 'pointer' ,  minWidth: '1.8em'}} onClick={handleHeartClick} color={isClicked ? theme.colors.red : theme.colors.black} alt="Like"></FaHeart>
+                    <p className='ml03' style={{textAlign:'left', color: isClicked ? theme.colors.red : theme.colors.black }}>
+                        {formatLikeCount(counter)}
                     </p>
                 </div>
             </ItemInfoBottomWrapper>

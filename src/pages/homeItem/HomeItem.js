@@ -128,7 +128,7 @@ export default function HomeItem() {
                         price={100000000}
                         itemImage={"https://via.placeholder.com/200"}
                         shoppingLink={""}
-                        likeCount={0}
+                        likeCount={9999999}
                         index={0}
                     />
                     <Item
@@ -139,7 +139,7 @@ export default function HomeItem() {
                         price={100000000}
                         itemImage={"https://via.placeholder.com/200"}
                         shoppingLink={""}
-                        likeCount={1000}
+                        likeCount={999}
                         index={0}
                     />
                     <Item
@@ -150,7 +150,7 @@ export default function HomeItem() {
                         price={100000000}
                         itemImage={`img/feed1.png`}
                         shoppingLink={""}
-                        likeCount={800}
+                        likeCount={999999}
                         index={0}
 
                     />
