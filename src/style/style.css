@@ -87,6 +87,10 @@ body {
   margin-left: 0.3em;
 }
 
+.ml1 {
+  margin-left: 1em;
+}
+
 .ml3 {
   margin-left: 3em;
 }
@@ -454,4 +458,42 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 1em;
   justify-items: center;
+}
+
+/* 마이페이지 내가 작성한 글 */
+.mppWritingBox{
+  display:flex;
+  position: relative;
+  float: left;
+  border-bottom: 1px solid #aaa;
+  width: 100%;
+}
+.mppFeedImage{
+  width: 13em;
+    height: 16em;
+    text-align: center;
+    margin-bottom: 3em;
+    object-fit: cover;
+}
+.mppCommentDiv{
+  display: flex;
+    float: left;
+    margin: 8em 0em 0em 3em;
+}
+.mppCommentImage{
+  width: 20px;
+  height:20px;
+}
+.mppDateDiv {
+  position: absolute;
+  right: 0;
+  padding: 1rem;
+}
+.mppButtonDiv{
+  position: absolute;
+  right: 0;
+  top: 13em;
+  display: flex;
+  float: left;
+  gap: 1em;
 }
