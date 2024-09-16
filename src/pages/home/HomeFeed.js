@@ -24,6 +24,7 @@ const HomeFeed = () => {
                     feed_code: feed_code
                 }
             });
+            alert("click");
             navigate("/HomeItem", {
                 state: {
                     mediaUrls: response.data,

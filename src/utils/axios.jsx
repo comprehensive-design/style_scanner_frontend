@@ -25,7 +25,7 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    if (error.response && error.response.data.error === "INVALID_TOKEN") {
+    if (error.response && error.response.data.code === 500) {
       try {
         const newAccessToken = await refreshToken();
         localStorage.setItem("accessToken", newAccessToken);

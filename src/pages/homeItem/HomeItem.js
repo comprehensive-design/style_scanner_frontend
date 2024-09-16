@@ -3,9 +3,9 @@ import Feed from '../../Components/feed/Feed.js';
 import Item from '../../Components/item/Item.js';
 import CommunityWrite from '../community/post/CommunityWrite.js';
 import { useHomeItemLogic } from '../../hooks/useHomeItemLogic';
-import { useState } from 'react';
+import { useFeedClickLogic } from '../../hooks/useFeedClickLogic';
+import { useState, useRef } from 'react';
 import { FaBoxArchive } from "react-icons/fa6";
-import Footer from '../../Components/Footer.js';
 import Loading from '../../Components/loading/loading';
 import TopButton from '../../Components/button/TopButton.jsx';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
@@ -23,6 +23,10 @@ export default function HomeItem() {
     const [counter, setCounter] = useState(0);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const imgRef = useRef(null);
+    // imgRef를 useFeedClickLogic에 전달
+    const { handleClick } = useFeedClickLogic(imgRef);
 
     let showPrevBtn = counter > 0;
     let showNextBtn = counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
@@ -50,8 +54,8 @@ export default function HomeItem() {
         // setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
         alert("더보기");
     };
-    const handleImageClick = async () => {
-
+    const handleImageClick = (event) => {
+        handleClick(event);
     };
     return (
         <div className='mainWrapper'>
@@ -64,8 +68,11 @@ export default function HomeItem() {
                         className={'homeitem'}
                         currentIndex={currentImageIndex}
                         thumbnail_url={proxyImageUrls[currentImageIndex]}
-                        handleImageClick={() => handleImageClick}
-                        width={'30em'}
+                        handleImageClick={handleImageClick}
+                        width='30em'
+                        height='36em'
+                        carousel_count={proxyImageUrls.length}
+                        imgRef={imgRef}
                     />
                 )}
                 <ThumbnailScrollable className='ml3'>
@@ -166,7 +173,6 @@ export default function HomeItem() {
 
     );
 }
-
 const FeedWrapper = styled.div`
     margin: 0 auto;
     display: flex;
