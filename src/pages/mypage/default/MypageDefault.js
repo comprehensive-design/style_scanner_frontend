@@ -34,22 +34,40 @@ export default function MypageDefault() {
                 console.error('Error fetching data:', error);
             });
 
-        axios.get("/api/follow/followingList", {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        })
-            .then((response) => {
-                const { following_list } = response.data;
-                setTotalFollowings(following_list.length);
-                setFollowings(following_list.slice(0, 5));
-                setLoading(true);
+            axios.get("/api/follow/followingList", {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
             })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
-
-
+                .then(async (response) => {
+                    const { following_list } = response.data;
+             
+                    const updatedFollowings = await Promise.all(
+                        following_list.map(async (following) => {
+                            try { 
+                                const proxyResponse = await axios.get('/api/insta/proxyImage', {
+                                    params: {
+                                        imageUrl: following.profilePictureUrl
+                                    },
+                                    responseType: 'blob'
+                                });
+                                const imageUrl = URL.createObjectURL(proxyResponse.data);
+                                following.profilePictureUrl = imageUrl;
+                            } catch (error) {
+                                console.error('Error proxying image:', error);
+                            }
+                            return following;
+                        })
+                    );
+            
+                    setTotalFollowings(updatedFollowings.length);
+                    setFollowings(updatedFollowings.slice(0, 5));
+                    setLoading(true);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+                
         axios.get("/api/itemLike/me", {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
@@ -66,8 +84,6 @@ export default function MypageDefault() {
     const followingURLs = followings.map(following => following.profilePictureUrl);
     const followingIDs = followings.map(following => following.profileName);
 
-
-    // Back 다 되면 해야함 followings, request
     const likeURLs = likes.map(like => like.itemUrl);
     const brand = likes.map(like => like.brand);
     const itemNames = likes.map(like => like.name);
@@ -75,25 +91,26 @@ export default function MypageDefault() {
     const itemPrices = likes.map(like => like.price.toLocaleString());
     const likeCounts = likes.map(like => like.likeCount.toLocaleString());
 
-    if(loading){return (
-        <MypageDefaultForm
-            displayName={displayName}
-            bio={bio}
-            profilePictureUrl={profilePictureUrl}
+    if (loading) {
+        return (
+            <MypageDefaultForm
+                displayName={displayName}
+                bio={bio}
+                profilePictureUrl={profilePictureUrl}
 
-            followingNum={totalFollowings}
-            followingURLs={followingURLs}
-            followingIDs={followingIDs}
+                followingNum={totalFollowings}
+                followingURLs={followingURLs}
+                followingIDs={followingIDs}
+ 
+                imgUrls={likeURLs}
+                brandNames={brand}
+                itemNames={itemNames}
+                itemOptions={itemOption}
+                itemPrices={itemPrices}
+                likeCounts={likeCounts}
 
-            // Back 다 되면 해야함
-            imgUrls={likeURLs}
-            brandNames={brand}
-            itemNames={itemNames}
-            itemOptions={itemOption}
-            itemPrices={itemPrices}
-            likeCounts={likeCounts}
+            />
+        );
+    }
 
-        />
-    );}
-    
 }
