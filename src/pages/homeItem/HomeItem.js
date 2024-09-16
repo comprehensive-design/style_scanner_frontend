@@ -126,8 +126,9 @@ export default function HomeItem() {
                         brand={"wow"}
                         name={"wow"}
                         price={100000000}
-                        image={"https://via.placeholder.com/200"}
+                        itemImage={"https://via.placeholder.com/200"}
                         shoppingLink={""}
+                        likeCount={0}
                         index={0}
                     />
                     <Item
@@ -136,8 +137,9 @@ export default function HomeItem() {
                         brand={"wow"}
                         name={"wow"}
                         price={100000000}
-                        image={"https://via.placeholder.com/200"}
+                        itemImage={"https://via.placeholder.com/200"}
                         shoppingLink={""}
+                        likeCount={1000}
                         index={0}
                     />
                     <Item
@@ -146,8 +148,9 @@ export default function HomeItem() {
                         brand={"wow"}
                         name={"wow"}
                         price={100000000}
-                        image={`img/feed1.png`}
+                        itemImage={`img/feed1.png`}
                         shoppingLink={""}
+                        likeCount={800}
                         index={0}
 
                     />
@@ -157,8 +160,9 @@ export default function HomeItem() {
                         brand={"wow"}
                         name={"wow"}
                         price={100000000}
-                        image={"img/image1.png"}
+                        itemImage={"img/image1.png"}
                         shoppingLink={""}
+                        likeCount={10}
                         index={0}
                     />
                 </ItemList>

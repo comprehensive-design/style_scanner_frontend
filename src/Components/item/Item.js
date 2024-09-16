@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useItemLogic } from '../../hooks/useItemLogic';
 import '../../style/style.css';
 import styled from 'styled-components';
@@ -33,8 +33,8 @@ const ItemInfoBottomWrapper = styled.div`
   align-items: center;
   margin-bottom: 1em;
 `;
-export default function Item({ itemId, brand, name, price, image, shoppingLink, width, height }) {
-    const { imageSrc, isClicked, handleHeartClick } = useItemLogic({ itemId, image });
+export default function Item({ itemId, brand, name, price, itemImage, shoppingLink, likeCount, width, height }) {
+    const {isClicked, counter, handleHeartClick } = useItemLogic({itemId, likeCount});
 
     const shoppingClick = () => {
         window.location.href = shoppingLink;
@@ -46,7 +46,7 @@ export default function Item({ itemId, brand, name, price, image, shoppingLink, 
 
     return (
         <ItemDiv className='borderRad' width={width} height={height}>
-            <ItemImg src={imageSrc} alt={name} width={width} height={height}/>
+            <ItemImg src={itemImage} alt={name} width={width} height={height}/>
             <AiOutlineShopping className='feedLayerDiv textShadow' style={{ cursor: 'pointer' }} size='1.5em' color={theme.colors.white} onClick={shoppingClick} />
             <ItemInfoTopWrapper className='p1'>
                 <p className='boldContent mb05'>{brand}</p>
@@ -57,7 +57,7 @@ export default function Item({ itemId, brand, name, price, image, shoppingLink, 
                 <div className='itemLikeWrapper'>
                     <FaHeart size='1.5em' style={{ cursor: 'pointer' }} onClick={handleHeartClick} color={isClicked ? theme.colors.red : theme.colors.black} alt="Like"></FaHeart>
                     <p className='ml03' style={{ color: isClicked ? theme.colors.red : theme.colors.black }}>
-                        {formatPrice(100000)}
+                        {counter}
                     </p>
                 </div>
             </ItemInfoBottomWrapper>
