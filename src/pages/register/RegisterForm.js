@@ -178,7 +178,7 @@ export default function RegisterForm({
             </div>
           </div>
         </div>
-        <input className="button mt3" type="submit" value="가입하기"></input>
+        <input className="button mt3" type="submit" value="가입하기" style={{width:"100%"}}></input>
       </form>
     </div>
   );

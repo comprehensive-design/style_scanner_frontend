@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const useHomeItemLogic = () => {
     const location = useLocation();
-    const { mediaUrls, feedUrl, media_id, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
+    const { mediaUrls, feed_code, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
     const [items, setItems] = useState([]);
     const [itemsToShow, setItemsToShow] = useState(0);
     const itemsPerPage = 4;
@@ -44,8 +44,7 @@ export const useHomeItemLogic = () => {
 
     return {
         mediaUrls,
-        feedUrl,
-        media_id,
+        feed_code,
         username,
         profile_url,
         items,

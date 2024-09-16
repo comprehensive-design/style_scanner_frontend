@@ -72,8 +72,8 @@ export default function MypageDefault() {
     const brand = likes.map(like => like.brand);
     const itemNames = likes.map(like => like.name);
     const itemOption = likes.map(like => like.itemOption);
-    const itemPrices = likes.map(like => like.price);
-    const likeCounts = likes.map(like => like.likeCount);
+    const itemPrices = likes.map(like => like.price.toLocaleString());
+    const likeCounts = likes.map(like => like.likeCount.toLocaleString());
 
     if(loading){return (
         <MypageDefaultForm

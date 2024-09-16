@@ -1,8 +1,9 @@
-import React, { useState, useCallback, useEffect, Component } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import SearchBar from './SearchBar';
-import styles from '../css/MainBar.module.css';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import MainBarDefault from './mainHeader/mainBarDefault';
+import MainBarLogin from './mainHeader/mainBarLogin';
+import SearchBar from './SearchBar';
 
 function MainBar() {
     const [searchText, setSearchText] = useState("");
@@ -10,8 +11,6 @@ function MainBar() {
     const navigate = useNavigate();
 
     const fetchSearchResults = useCallback(async (keyword) => {
-        console.log(`Fetching results for: ${keyword}`);
-
         try {
             const response = await axios.get(`/api/follow/search?keyword=${keyword}`);
             if (response.data) {
@@ -27,9 +26,7 @@ function MainBar() {
     }, []);
 
     useEffect(() => {
-        // console.log('Updated search results in useEffect:', searchResults);
         if (searchResults !== null) {
-            // console.log('Navigating to Search with results:', searchResults);
             navigate(`/Search`, { state: { results: searchResults } });
             setSearchResults(null);
         }
@@ -52,51 +49,28 @@ function MainBar() {
     const isLoggedIn = localStorage.getItem('accessToken') !== null;
 
     return (
-        <header className={styles.header}>
-            <div style={{ display: 'flex' }} className={styles.parent}>
-
-                {isLoggedIn ? (<div><Link to="/HomeFeed" onChange={handleLogoClick}>
-                    <img
-                        src={`img/logo.png`}
-                        width='130'
-                        height='48.75'
-                        alt="Logo"
-                    />
-                </Link></div>) : (
-                    <div>
-                        <Link to="" onChange={handleLogoClick}>
-                            <img
-                                src={`img/logo.png`}
-                                width='130'
-                                height='48.75'
-                                alt="Logo"
-                            />
-                        </Link></div>
-                )}
-                <SearchBar value={searchText} onChange={handleSearchChange} onKeyPress={handleKeyPress} />
-                <nav className={styles.navigation}>
-                    <ul className={styles.mainUl}>
-                        {isLoggedIn ? (<div>
-                            <li className={styles.mainLists}><Link to="/HomeFeed">홈</Link></li>
-                            <li className={styles.mainLists}><Link to="/Category">랭킹</Link></li>
-                            <li className={styles.mainLists}><Link to="/CelebRecommend">추천</Link></li>
-                            <li className={styles.mainLists}><Link to="/Community">커뮤니티</Link></li>
-                            <li className={styles.mainLists}><Link to="/MypageDefault">마이페이지</Link></li>
-                        </div>
-                        ) : (
-                            <div>
-                                <li className={styles.mainLists}><Link to="/Login">홈</Link></li>
-                                <li className={styles.mainLists}><Link to="/Login">랭킹</Link></li>
-                                <li className={styles.mainLists}><Link to="/Login">추천</Link></li>
-                                <li className={styles.mainLists}><Link to="/Login">커뮤니티</Link></li>
-                                <li className={styles.mainLists}><Link to="/Login">로그인</Link></li>
-                            </div>
-                        )}
-                    </ul>
+        <header className='header'>
+                <div>
+                    <Link to={isLoggedIn ? "/HomeFeed" : ""} onClick={handleLogoClick}>
+                        <img src={`img/logo.png`} width='130' height='48.75' alt="Logo" />
+                    </Link>
+                </div>
+                <nav className='body flex' style={{ width: '100%' }}>
+                    {isLoggedIn ? (
+                        <MainBarLogin 
+                            searchText={searchText} 
+                            handleSearchChange={handleSearchChange} 
+                            handleKeyPress={handleKeyPress} 
+                        />
+                    ) : (
+                        <MainBarDefault 
+                            searchText={searchText} 
+                            handleSearchChange={handleSearchChange} 
+                            handleKeyPress={handleKeyPress} 
+                        />
+                    )}
                 </nav>
-
-            </div>
-        </header >
+        </header>
     );
 }
 

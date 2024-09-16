@@ -8,7 +8,7 @@ import Login from './pages/login/Login';
 import Ranking from './pages/ranking/Ranking';
 import CelebRecommend from './pages/recommend/CelebRecommend';
 import Search from './pages/search/Search';
-import MypageDefault from './pages/mypage/MypageDefault';
+import MypageDefault from './pages/mypage/default/MypageDefault';
 import LikeList from './pages/mypage/like/LikeList';
 import FollowingList from './pages/mypage/follow/FollowingList';
 import MyPost from './pages/mypage/post/MyPost';
@@ -23,6 +23,7 @@ import CommunityInfo from './pages/community/detail/CommunityInfo';
 import Category from './pages/ranking/category/Category';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './style/theme';
+import Footer from "./Components/Footer"
 import './style/style.css'
 
 const App = () => {
@@ -55,6 +56,7 @@ const App = () => {
             <Route path="/Category" element={<Category />} />
           </Routes>
         </main>
+        <Footer/>
       </div>
     </ThemeProvider>
   );
