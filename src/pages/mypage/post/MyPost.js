@@ -1,11 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
-import styles from "./MyPost.module.css";
+import { useState, useEffect, useCallback } from 'react'; 
 import Sidebar from '../../../Components/Sidebar';
 import WritingBox from '../../../Components/WritingBox';
 import Pagination from '../../../Components/Pagination';
 import axios from 'axios';
 import CommunityWrite from '../../community/post/CommunityWrite';
-import Footer from '../../../Components/Footer';
 
 const getPosts = async (currentPage, postsPerPage) => {
   const token = localStorage.getItem("accessToken");
@@ -109,49 +107,41 @@ export default function MyPost() {
 
 
   return (
-    <body>
-      <div className={styles.total}>
-        <Sidebar />
-        <div className={styles.content}>
-          <div className={styles.title}>
-            <h2>내가 작성한 글</h2>
-            <hr />
-          </div>
-          <div className={styles.writingList}>
-            {currentPosts.map(post => {
-              const commentdata = Array.isArray(post.comments) ? post.comments : [];
-              return (
-                <WritingBox
-                  key={post.id}
-                  postId={post.id}
-                  commentCnt={commentdata.length}
-                  feedImg={post.feedUrl}
-                  title={post.content}
-                  date={post.createdAt}
-                  onDelete={() => handleDelete(post.id)}
-                  onEdit={() => openPopup(post)}
-                />
-              );
-            })}
-          </div>
+    <div className="mypageWrapper">
+      <Sidebar />
+      <div className="mypageMain">
+        <div>
+          <p className="title left mb05 ml03">내가 작성한 글</p>
+          <hr />
         </div>
-      </div>
-      <div className={styles.heightPadding}></div>
-      <div className={styles.footerBox}>
-        <div className={styles.leftBtween} />
-        <div className={styles.footer}>
-          <Pagination
-            itemsNum={posts.length}
-            itemsPerPage={postsPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
+        <p className='content left mt1 mb1 ml03'>전체 </p>
+        <div className='ml03 mb3'>
+          {currentPosts.map(post => {
+            const commentdata = Array.isArray(post.comments) ? post.comments : [];
+            return (
+              <WritingBox
+                key={post.id}
+                postId={post.id}
+                commentCnt={commentdata.length}
+                feedImg={post.feedUrl}
+                title={post.content}
+                date={post.createdAt}
+                onDelete={() => handleDelete(post.id)}
+                onEdit={() => openPopup(post)}
+              />
+            );
+          })}
         </div>
+      <Pagination
+        itemsNum={posts.length}
+        itemsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
       </div>
       {isPopupOpen && (
         <CommunityWrite post={currentPost} onSave={handleSave} onClose={closePopup} />
       )}
-      <Footer></Footer>
-    </body>
+    </div>
   );
 }

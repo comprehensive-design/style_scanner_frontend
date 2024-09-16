@@ -39,17 +39,17 @@ const App = () => {
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Search" element={<Search />} />
+            <Route path="/Ranking" element={<Ranking />} />
+            <Route path="/Community" element={<Community />} />
             <Route path="/MypageDefault" element={<MypageDefault />} />
             <Route path="/AccountManage" element={<AccountManage />} />
             <Route path="/CommunityNoti" element={<CommunityNoti />} />
             <Route path="/CelebRecommend" element={<CelebRecommend />} />
-            <Route path="/Ranking" element={<Ranking />} />
             <Route path="/FollowingList" element={<FollowingList />} />
             <Route path="/MyPost" element={<MyPost />} />
             <Route path="/MyComment" element={<MyComment />} />
             <Route path="/HomeFeed" element={<HomeFeed />} />
             <Route path="/HomeItem" element={<HomeItem />} />
-            <Route path="/Community" element={<Community />} />
             <Route path="/CommunityWrite" element={<CommunityWrite />} />
             <Route path="/CommunityInfo" element={<CommunityInfo />} />
             <Route path="/LikeList" element={<LikeList />} />

@@ -1,51 +1,62 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/axios';
+import {fetchProxyImages} from '../utils/ConvertProxyImage'
 
 const useHomeFeedLogic = (page, size) => { 
-    const navigate = useNavigate();
     const [feeds, setFeeds] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const feedListRef = useRef();
 
+    const [proxyImageUrls, setProxyImageUrls] = useState([]);
+    const [proxyProfileImageUrl, setProxyProfileImageUrl] = useState([]);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const token = localStorage.getItem("accessToken");
-                if (!token) {
-                    navigate("/Login");
-                    throw new Error("토큰이 없습니다.");
-                }
-
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                };
-
-                const response = await axios.get(`/api/insta/home?page=${page}&size=${size}`, config);
+                const response = await api.get(`/api/insta/home?page=${page}&size=${size}`);
                 setFeeds(response.data);
                 setLoading(false);
             } catch (error) {
-                if (axios.isAxiosError(error)) {
-                    navigate("/Login");
-                } else {
-                    console.error('예상치 못한 에러: 게시물 가져오기 실패:', error);
-                }
                 setError('포스트를 가져오는 중 에러 발생');
                 setLoading(false);
             }
         };
 
         fetchPosts();
-    }, [navigate, page, size]);
+    }, [page, size]);
+
+    useEffect(() => {
+        const loadImages = async () => {
+            if (feeds.length > 0) {
+                try {
+                    const thumbnailUrls = feeds.map(feed => feed.thumbnail_url);
+                    const profileUrls = feeds.map(feed => feed.profile_url);
+
+                    const urls = await fetchProxyImages(thumbnailUrls);
+                    const pUrls= await fetchProxyImages(profileUrls);
+                    setProxyImageUrls(urls);
+                    setProxyProfileImageUrl(pUrls);
+
+                    setImagesLoaded(true);
+                } catch (error) {
+                    console.error('Error loading images:', error);
+                }
+            }
+        };
+
+        loadImages();
+    }, [feeds]);
 
     return {
         feeds,
         loading,
         error,
         feedListRef,
+        proxyImageUrls,
+        proxyProfileImageUrl,
+        imagesLoaded
     };
 };
 

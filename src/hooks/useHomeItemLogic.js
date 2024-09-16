@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from 'axios';
+import api from '../utils/axios';
+import { fetchProxyImages } from '../utils/ConvertProxyImage'
 
 export const useHomeItemLogic = () => {
     const location = useLocation();
@@ -11,22 +12,31 @@ export const useHomeItemLogic = () => {
     const navigate = useNavigate();
     const [similarImages, setSimilarImages] = useState(initialSimilarImages || []);
 
+    const [proxyImageUrls, setProxyImageUrls] = useState(mediaUrls || []);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
 
+    // 썸네일 이미지 변환
+    useEffect(() => {
+        const loadImages = async () => {
+            if (mediaUrls.length > 0) {
+                try {
+                    const urls = await fetchProxyImages(mediaUrls);
+                    setProxyImageUrls(urls);
+                    setImagesLoaded(true);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        };
+        loadImages();
+    }, [mediaUrls]);
 
     useEffect(() => {
         const fetchItemData = async () => {
-            const token = localStorage.getItem('accessToken');
-            if (!token) return;
-
             try {
                 const itemDataPromises = initialSimilarImages.map(async (item) => {
                     const id = item[0];
-                    const response = await axios.get(`/api/item/${id}`, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`,
-                        },
-                    });
+                    const response = await api.get(`/api/item/${id}`);
                     return { ...response.data, image: item[0] };
                 });
 
@@ -42,8 +52,10 @@ export const useHomeItemLogic = () => {
         }
     }, [initialSimilarImages]);
 
+
     return {
-        mediaUrls,
+        proxyImageUrls,
+        imagesLoaded,
         feed_code,
         username,
         profile_url,

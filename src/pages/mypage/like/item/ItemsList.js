@@ -11,7 +11,7 @@ export default function ItemsList({ list = [] }) {
         setLikeStatuses(list.map(item => ({ id: item.id, isLiked: true, likeCount: item.likeCount })));
     }, [list]);
 
-    const token = localStorage.getItem('accessToken'); // LocalStorage에서 토큰 가져오기
+    const token = localStorage.getItem('accessToken');
 
     const handleClick = (id) => {
         setLikeStatuses(prevStatuses =>
@@ -59,7 +59,7 @@ export default function ItemsList({ list = [] }) {
     };
 
     return (
-        <div className={styles.gridContainer}>
+        <div className="mplGrid">
             {list.map(item => {
                 const { id, feedUrl, name, price, brand, itemOption, itemUrl } = item;
                 const status = likeStatuses.find(status => status.id === id) || { isLiked: false, likeCount: 0 };
@@ -79,8 +79,7 @@ export default function ItemsList({ list = [] }) {
                             <p className={styles.itemName}>{name}-{itemOption}</p>
                             <p className={styles.itemPrice}>{price}</p>
 
-                        </div>
-                        {/* <p className={styles.itemPrice}>{price}</p> */}
+                        </div> 
                         <div className={styles.itemProfile} style={{ display: 'flex', alignItems: 'center' }}>
                             <img
                                 id={styles.rankingHeart}
@@ -109,7 +108,7 @@ export default function ItemsList({ list = [] }) {
                 );
             })}
             {/* Ensure the grid always has 5 columns by adding placeholders with display none */}
-            {Array.from({ length: 5 - (list.length % 5) }).map((_, index) => (
+            {Array.from({ length: 3 - (list.length % 3) }).map((_, index) => (
                 <div key={`placeholder-${index}`} className={styles.gridItem} style={{ display: 'none', border : 'none'}}></div>
             ))}
         </div>
