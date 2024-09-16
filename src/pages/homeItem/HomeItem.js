@@ -167,7 +167,7 @@ export default function HomeItem() {
                     />
                 </ItemList>
                 <ButtonList>
-                    <button className='button' style={{ width: '5em', height: ' 3em' , padding: '1rem'}} onClick={morePage}>더보기</button>
+                    <button className="whiteButton" onClick={morePage}>더보기</button>
                     <CommunityBtn onClick={openPopup}>찾는 제품이 없으신가요?</CommunityBtn>
                 </ButtonList>
                 {/* {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />} */}

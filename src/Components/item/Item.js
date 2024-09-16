@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useItemLogic } from '../../hooks/useItemLogic';
-import '../../style/style.css';
 import styled from 'styled-components';
 import { FaHeart } from "react-icons/fa6";
 import { AiOutlineShopping } from "react-icons/ai";
