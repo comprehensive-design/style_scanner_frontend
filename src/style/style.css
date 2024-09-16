@@ -519,3 +519,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.profileImg{
+  width: 3em;
+  height: 3em;
+  border : none;
+  border-radius: 50%;
+  cursor:pointer;
+}
