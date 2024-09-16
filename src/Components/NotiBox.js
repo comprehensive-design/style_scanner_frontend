@@ -1,22 +1,22 @@
 import React from 'react';
-import styles from '../css/NotiBox.module.css';
 
 function NotiBox({ noti }) {
     return (
         <>
             {noti.map((user, index) => (
                 <div key={index}>
-                    <div className={styles.box}>
-                        <div className={styles.NBox}>
-                            <div>
-                                <a href={formLink(user.postId)} className={styles.Qtext} >Q {user.postContent}</a>
+                    <div className='mpnBox'>
+                        <div>
+                            <div className='flex mb1'>
+                                <p className="title">Q.&nbsp;</p>
+                                <a href={formLink(user.postId)} className="subtitle blackText rowCenter ml03" >{user.postContent}</a>
                             </div>
-                            <div>
-                                <p className={styles.A}>A.&nbsp;</p>
-                                <p className={styles.Atext}>{user.commentContent}</p>
+                            <div className='flex'>
+                                <p className="title grayText">A.&nbsp;</p>
+                                <p className="content rowCenter ml1">{user.commentContent}</p>
                             </div>
                         </div>
-                        <div className={styles.DBox}>
+                        <div className='grayText caption'>
                             {formatDate(user.createdAt)}
                         </div>
                     </div>
