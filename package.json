@@ -43,5 +43,13 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://54.180.208.255:9000"
+  "proxy": "http://54.180.208.255:9000",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {
+    "json-server": "^1.0.0-beta.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
