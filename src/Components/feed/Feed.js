@@ -42,7 +42,7 @@ function Feed({ thumbnail_url, profile_url, currentIndex, username, className, h
         </FeedDiv>
     );
 }
-////css수정 해라.
+
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
     overflow: hidden;
