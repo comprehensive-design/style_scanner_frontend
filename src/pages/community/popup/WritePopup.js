@@ -6,8 +6,8 @@ export default function WritePopup({ post, feedUrl, profile_url, onSave, onClose
   const [question, setQuestion] = useState(post ? post.content : "");
   const textarea = useRef();
   return (
-    <div className="popupWrapper">
-      <div className="popupContent boxShadow borderRad">
+    <div className="communityPopupWrapper">
+      <div className="communityPopupContent boxShadow borderRad">
         <img src={`img/feed1.png`}/>
         <div className='feedLayerDiv' style={{ left: '1em' }}>
           <IoIosClose className='textShadow' size='2em' color='white' onClick={onClose} style={{ cursor: 'pointer' }} />
@@ -25,7 +25,7 @@ export default function WritePopup({ post, feedUrl, profile_url, onSave, onClose
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
-          <button className="button" style={{width: '90%', height: '25%' , marginBottom:'1em'}}>제출하기</button>
+          <button className="button" style={{width: '90%', height: '30%' , marginBottom:'1em'}}>제출하기</button>
         </WriteBoxWrapper>
         
       </div>
@@ -41,7 +41,6 @@ const WriteBoxWrapper = styled.div`
   height: 30%;
   align-items: center;
   justify-content: flex-start;
-  border: 1px solid black;
 `;
 
 const ProfileWrapper = styled.div`

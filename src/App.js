@@ -53,7 +53,6 @@ const App = () => {
               <Route path="/MyComment" element={<MyComment />} />
               <Route path="/HomeFeed" element={<HomeFeed />} />
               <Route path="/HomeItem" element={<HomeItem />} />
-              <Route path="/CommunityWrite" element={<CommunityWrite />} />
               <Route path="/CommunityInfo" element={<CommunityInfo />} />
               <Route path="/LikeList" element={<LikeList />} />
               <Route path="/Category" element={<Category />} />

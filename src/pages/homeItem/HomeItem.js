@@ -170,7 +170,7 @@ export default function HomeItem() {
                     <button className="whiteButton" onClick={morePage}>더보기</button>
                     <CommunityBtn onClick={openPopup}>찾는 제품이 없으신가요?</CommunityBtn>
                 </ButtonList>
-                {isPopupOpen && <WritePopup feedUrl={mediaUrls[currentImageIndex]} profile_url={profile_url} onClose={closePopup} />}
+                {isPopupOpen && <WritePopup feedUrl={proxyImageUrls[currentImageIndex]} profile_url={profile_url} onClose={closePopup} />}
             </ItemWrapper>
             <TopButton />
         </div>
