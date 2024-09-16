@@ -44,26 +44,7 @@ const HomeFeed = () => {
     if (error) {
         return <div>{error}</div>;
     }
-    const handleImageClick = async (username, profile_url, feed_code) => {
-        try {
-            const response = await api.get('/api/insta/getCarouselMedia', {
-                params: {
-                    feed_code: feed_code
-                }
-            });
-            navigate("/HomeItem", {
-                state: {
-                    mediaUrls: response.data,
-                    username: username,
-                    profile_url: profile_url,
-                    feed_code: feed_code
-                }
-            });
-
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    
     return (
         <div className='body'>
             <div className='feedScroll'>
