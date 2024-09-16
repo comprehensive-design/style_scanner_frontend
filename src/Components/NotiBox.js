@@ -9,7 +9,9 @@ function NotiBox({ noti }) {
                         <div>
                             <div className='flex mb1'>
                                 <p className="title">Q.&nbsp;</p>
-                                <a href={formLink(user.postId)} className="subtitle blackText rowCenter ml03" >{user.postContent}</a>
+                                <a href={formLink(user.postId)} className="subtitle blackText rowCenter ml03" 
+                                style={{textDecoration:"none"}}
+                                >{user.postContent}</a>
                             </div>
                             <div className='flex'>
                                 <p className="title grayText">A.&nbsp;</p>
@@ -20,7 +22,7 @@ function NotiBox({ noti }) {
                             {formatDate(user.createdAt)}
                         </div>
                     </div>
-                    <hr></hr>
+                    <hr className='grayhr'></hr>
                 </div>
             ))}
         </>

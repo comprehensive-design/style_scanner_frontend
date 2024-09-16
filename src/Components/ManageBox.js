@@ -18,7 +18,7 @@ const ChangeBox = styled.div`
     `;
 const Horizon = styled.div`
         width: 100%;
-        border-Bottom: 2px solid #aaa;
+        border-Bottom: 2px solid #d9d9d9;
         line-height: 0.1em;
         margin: 10px 0 20px;
 `;
@@ -27,9 +27,9 @@ function ManageBox({ onClick, title, content, visible = true, $top = '0px', $lef
 
     return (
         <StyledDiv $top={$top} $left={$left}>
-            <p>{title}</p>
+            <p className='left boldContent'>{title}</p>
             <ChangeBox>
-                <p>{content}</p>
+                <p className='caption'>{content}</p>
                 {visible && <input type="image" src="/img/fix.png" onClick={onClick}></input>}
             </ChangeBox>
             <Horizon></Horizon>

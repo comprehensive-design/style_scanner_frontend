@@ -79,6 +79,9 @@ body {
 .mb1 {
   margin-bottom: 1em;
 }
+.mb2 {
+  margin-bottom: 2em;
+}
 .mb3 {
   margin-bottom: 3em;
 }
@@ -186,7 +189,17 @@ body {
 .rowCenter{
   margin: auto 0;
 }
-  
+
+hr{
+  background-color: var(--black);
+  height: 1px;
+}
+
+.grayhr{
+
+  background-color: var(--gray);
+  height: 1px;
+}
 /* 로그인 */
 .loginContent {
   margin: 0 auto;
@@ -1011,4 +1024,50 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 2em;
+}
+
+/* 마이페이지 계정 관리 */
+
+.mpmManagingBox {
+  position: relative;
+  height: 15em;
+  margin-top: 3em;
+}
+
+.mpmManagingBox input {
+  position: absolute;
+  right: 0;
+}
+
+.mpmBlur{
+  position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+}
+
+.mpmPopup{
+  z-index: 1000;
+  padding: 3em 5em;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mpmFix{
+  width: 1em;
+  height: 1em;
+}
+
+.mpmBtnBox {
+  display: flex;
+  justify-content: center;
+  gap: 2em;
 }
