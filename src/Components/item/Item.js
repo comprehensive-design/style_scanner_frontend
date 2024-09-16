@@ -52,7 +52,7 @@ export default function Item({ itemId, brand, name, price, itemImage, shoppingLi
     };
 
     return (
-        <ItemDiv className='borderRad' width={width} height={height}>
+        <ItemDiv className='borderRad' width={width}>
             <ItemImg src={itemImage} alt={name} width={width} height={height}/>
             <AiOutlineShopping className='feedLayerDiv textShadow' style={{ cursor: 'pointer' }} size='1.5em' color={theme.colors.white} onClick={shoppingClick} />
             <ItemInfoTopWrapper className='p1'>
