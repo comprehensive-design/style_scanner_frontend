@@ -47,14 +47,15 @@ api.interceptors.response.use(
   }
 );
 
+//나중에 연결
 const refreshToken = async () => {
-  const refreshToken = localStorage.getItem("refreshToken");
-  if (!refreshToken) {
-    throw new Error("No refresh token available");
-  }
+  // const refreshToken = localStorage.getItem("refreshToken");
+  // if (!refreshToken) {
+  //   throw new Error("No refresh token available");
+  // }
 
-  const response = await api.post("/refresh-token", { token: refreshToken });
-  return response.data.accessToken;
+  // const response = await api.post("/refresh-token", { token: refreshToken });
+  // return response.data.accessToken;
 };
 
 export default api;
