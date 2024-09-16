@@ -35,14 +35,14 @@ export const useItemLogic = ({ itemId, likeCount}) => {
 
   //좋아요 했는 지 확인
   const checkLikeStatus = async () => {
-    try {
-      const response = await api.get(`/api/itemLike/${itemId}`);
-      if (response.status === 200 && response.data === true) {
-        setIsClicked(true);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   const response = await api.get(`/api/itemLike/${itemId}`);
+    //   if (response.status === 200 && response.data === true) {
+    //     setIsClicked(true);
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return {isClicked, counter, handleHeartClick };
