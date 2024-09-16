@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/axios';
 import LoginForm from './LoginForm';
 
 export default function Register() {
@@ -15,7 +15,7 @@ export default function Register() {
         try {
 
             if (email != '' && password != '') {
-                const response = await axios.post('/api/user/login', {
+                const response = await api.post('/api/user/login', {
                     "email": email,
                     "password": password
                 });
