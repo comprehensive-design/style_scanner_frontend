@@ -16,6 +16,9 @@ export default function Search() {
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [celebs, setCelebs] = useState([]);
+    const [userDatas, setUserDatas] = useState(null);
+
+    console.log("searchResults : ", searchResults);
 
     const openPopup = (user) => {
         if (user && user.profileName) {
@@ -103,12 +106,37 @@ export default function Search() {
         }
     };
 
+    // JSON 서버에 searchResults를 중복 확인 후 POST하는 useEffect
+    useEffect(() => {
+        if (searchResults && typeof searchResults === 'object') {
+            // JSON 서버에서 profileName 중복 확인
+            axios.get(`http://localhost:3000/searchUsers?profileName=${searchResults.profileName}`)
+                .then(response => {
+                    if (response.data.length === 0) {
+                        // 데이터가 없으면 POST 요청
+                        axios.post('http://localhost:3000/searchUsers', searchResults)
+                            .then(postResponse => {
+                                console.log('Search results posted to JSON server:', postResponse.data);
+                            })
+                            .catch(postError => {
+                                console.error('Error posting search results:', postError);
+                            });
+                    } else {
+                        console.log('Profile already exists in JSON server:', searchResults.profileName);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking profile existence:', error);
+                });
+        }
+    }, [searchResults]);
+
     useEffect(() => {
         axios.get(`/api/follow/ranking`)
             .then(response => {
-                console.log('Ranking data:', response.data); // 추가된 콘솔 로그
+                console.log('Ranking data:', response.data);
                 if (response.data) {
-                    setCelebs(response.data); // 프로필 데이터 설정
+                    setCelebs(response.data);
                 }
             })
             .catch(error => {
@@ -120,15 +148,10 @@ export default function Search() {
         }
     }, [searchResults]);
 
-    useEffect(() => {
-        console.log('Celebs updated:', celebs); // 추가된 콘솔 로그
-    }, [celebs]);
-
+    // 검색 결과가 없는 경우 조기 반환
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
     }
-
-    console.log('Celebs:', celebs); // 추가된 콘솔 로그
 
     return (
         <div>
@@ -180,6 +203,7 @@ export default function Search() {
                     <div className={styles.paddingHeight}></div>
                 </div>
             </div>
+
             {popupVisible && selectedUser && (
                 <FeedPopup user={selectedUser} onClose={closePopup} />
             )}
