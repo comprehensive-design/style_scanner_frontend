@@ -15,7 +15,7 @@ const HomeFeed = () => {
     const [page, setPage] = useState(0);
     const size = 12;    
 
-    const { feeds, loading, error, feedListRef, proxyImageUrls, imagesLoaded} = useHomeFeedLogic(page, size);
+    const { feeds, loading, error, feedListRef, proxyImageUrls, proxyProfileImageUrl, imagesLoaded} = useHomeFeedLogic(page, size);
 
     const handleImageClick = async (username, profile_url, feed_code) => {
         try {
@@ -58,14 +58,14 @@ const HomeFeed = () => {
                         <Feed
                             key={feed.feed_code}
                             thumbnail_url={proxyImageUrls[index]} 
-                            profile_url={feed.profile_url}
+                            profile_url={proxyProfileImageUrl[index]}
                             username={feed.username}
                             className={'homefeed'}
-                            handleImageClick={() => handleImageClick(feed.username, feed.profile_url, feed.feed_code)}
+                            handleImageClick={() => handleImageClick(feed.username, proxyProfileImageUrl[index], feed.feed_code)}
                             carousel_count={feed.carousel_count}
                             currentIndex={0}
-                            width="25em"
-                            height="35em"
+                            width='25em'
+                            height='30em'
                         />
                     ))}
                     <div style={{ height: '10px' }} />

@@ -9,6 +9,7 @@ const useHomeFeedLogic = (page, size) => {
     const feedListRef = useRef();
 
     const [proxyImageUrls, setProxyImageUrls] = useState([]);
+    const [proxyProfileImageUrl, setProxyProfileImageUrl] = useState([]);
     const [imagesLoaded, setImagesLoaded] = useState(false);
 
     useEffect(() => {
@@ -31,8 +32,13 @@ const useHomeFeedLogic = (page, size) => {
             if (feeds.length > 0) {
                 try {
                     const thumbnailUrls = feeds.map(feed => feed.thumbnail_url);
+                    const profileUrls = feeds.map(feed => feed.profile_url);
+
                     const urls = await fetchProxyImages(thumbnailUrls);
+                    const pUrls= await fetchProxyImages(profileUrls);
                     setProxyImageUrls(urls);
+                    setProxyProfileImageUrl(pUrls);
+
                     setImagesLoaded(true);
                 } catch (error) {
                     console.error('Error loading images:', error);
@@ -49,6 +55,7 @@ const useHomeFeedLogic = (page, size) => {
         error,
         feedListRef,
         proxyImageUrls,
+        proxyProfileImageUrl,
         imagesLoaded
     };
 };
