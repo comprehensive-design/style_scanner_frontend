@@ -496,14 +496,26 @@ body {
 
 .search_bar {
   width: 95%;
-  height: 50px;
+  height: 40px;
   border: none;
   border-radius: 13px;
   outline: none;
   font-size: 1.1rem;
-  padding: 5px;
+  padding: 5px 10px 5px 10px;;
   background : #e9ecef;
   display : flex;
   justify-content: center;
   align-items: center;
+}
+
+/* 검색 버튼 */
+.search_button {
+  position: absolute;
+  right: 10px; /* 입력 필드 오른쪽에 버튼 위치 */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import styles from '../css/SearchBar.module.css';
+import { IoSearch } from "react-icons/io5";
+
 
 function SearchBar({ value, onChange, onKeyPress }) {
     const handleSubmit = (e) => {
@@ -11,8 +12,7 @@ function SearchBar({ value, onChange, onKeyPress }) {
         <form className="search" onSubmit={handleSubmit}>
             <input
                 type="text"
-                // placeholder='  @ 셀럽을 검색해보세요'
-                className='search_bar'
+                className="search_bar"
                 name="searchText"
                 id="input"
                 onChange={(e) => {
@@ -23,7 +23,11 @@ function SearchBar({ value, onChange, onKeyPress }) {
                 }}
                 value={value}
             />
+            <button type="submit" className="search_button">
+                <IoSearch size={24} />
+            </button>
         </form>
+
     );
 }
 
