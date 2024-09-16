@@ -25,15 +25,15 @@ export default function WritePopup({ post, feed_url, onSave, onClose }) {
           <ProfileWrapper>
             <img className='feedProfile' src={profilePictureUrl} style={{ width: '3em', height: '3em'}} />
           </ProfileWrapper>
-          <WriteBoxTextArea
+          <WriteBoxTextArea 
             ref={textarea}
-            className="content p1 mb05"
+            className="content mt1 p1 mb05"
             rows={1}
             placeholder="질문을 작성해주세요!"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
-          <button className="button" type='submit' style={{width: '90%', height: '30%' , marginBottom:'1em'}} onClick={onSubmit}>제출하기</button>
+          <button className="button mb1" type='submit' style={{width: '90%', height: '30%'}} onClick={onSubmit}>제출하기</button>
         </WriteBoxWrapper>
         
       </div>
@@ -67,7 +67,6 @@ const ProfileWrapper = styled.div`
 const WriteBoxTextArea = styled.textarea`
   width: 80%;
   height: 20%;
-  margin-top: 2em;
   display: flex;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.black};
