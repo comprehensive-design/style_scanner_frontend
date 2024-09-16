@@ -15,8 +15,6 @@ const LoadingDiv = styled.div`
 const Loading = () => {
     return (
         <LoadingDiv>
-            <p className="subTitle mb05">잠시만 기다려주세요!</p>
-            <br></br>
             <HashLoader />
         </LoadingDiv>
     );
