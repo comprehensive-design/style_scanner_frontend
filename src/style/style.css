@@ -447,3 +447,11 @@ body {
 .mpdLikeInfo .last p {
   margin: auto 0;
 }
+
+/* 마이페이지 좋아요 */
+.mplGrid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  justify-items: center;
+}
