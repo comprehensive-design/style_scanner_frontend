@@ -136,6 +136,7 @@ body {
   border: 1px;
   border-radius: 1rem;
   color: var(--white);
+  /* white-space: nowrap; */
 }
 
 .button:hover {

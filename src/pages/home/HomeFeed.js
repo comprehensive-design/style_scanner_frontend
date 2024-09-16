@@ -72,7 +72,6 @@ const HomeFeed = () => {
                 </div>
             </div>
             <Pagination />
-            <Footer />
         </div>
     );
 };
