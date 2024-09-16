@@ -81,6 +81,10 @@ body {
   margin-right: 2em;
 }
 
+.mr3 {
+  margin-right: 3em;
+}
+
 .ml03 {
   margin-left: 0.3em;
 }
@@ -462,18 +466,44 @@ body {
   color : black;
 }
 
-.headerWrapper .headerRight{
-  float:right;
+.headerRight{
+  /* float:right; */
+  display:flex;
+  align-items:center;
+  /* margin-left : auto; */
 }
 
 .headerWrapper{
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .middleAlign{
   margin : auto;
 }
 
+/* 검색창 */
+.search{
+  display: flex;
+  position: relative;
+  /* width: 50%; */
+  margin : 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.search_bar {
+  width: 95%;
+  height: 50px;
+  border: none;
+  border-radius: 13px;
+  outline: none;
+  font-size: 1.1rem;
+  padding: 5px;
+  background : #e9ecef;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+}

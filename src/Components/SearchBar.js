@@ -11,8 +11,8 @@ function SearchBar({ value, onChange, onKeyPress }) {
         <form className="search" onSubmit={handleSubmit}>
             <input
                 type="text"
-                placeholder='  @ 셀럽을 검색해보세요'
-                className={styles.search_bar}
+                // placeholder='  @ 셀럽을 검색해보세요'
+                className='search_bar'
                 name="searchText"
                 id="input"
                 onChange={(e) => {
