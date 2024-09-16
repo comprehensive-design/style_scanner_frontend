@@ -5,7 +5,6 @@ import Feed from '../../Components/feed/Feed';
 import Loading from '../../Components/loading/loading';
 import { GoHomeFill } from "react-icons/go";
 import Pagination from '../../Components/Pagination';
-import Footer from '../../Components/Footer';
 import api from '../../utils/axios';
 
 
@@ -18,13 +17,13 @@ const HomeFeed = () => {
     const { feeds, loading, error, feedListRef, proxyImageUrls, proxyProfileImageUrl, imagesLoaded} = useHomeFeedLogic(page, size);
 
     const handleImageClick = async (username, profile_url, feed_code) => {
+        alert("click");
         try {
             const response = await api.get('/api/insta/getCarouselMedia', {
                 params: {
                     feed_code: feed_code
                 }
             });
-            alert("click");
             navigate("/HomeItem", {
                 state: {
                     mediaUrls: response.data,
