@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/axios';
 import LoginForm from './LoginForm';
 
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // 로그인 화면으로 오면 토큰들 삭제 -> 로그아웃
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
 
             if (email != '' && password != '') {
-                const response = await axios.post('/api/user/login', {
+                const response = await api.post('/api/user/login', {
                     "email": email,
                     "password": password
                 });
                 const accessToken = response.data.access_token;
+                const refreshToken = response.data.refresh_token;
+                
                 localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
+
                 window.location.replace("/homefeed");
             }
             else {
