@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import FeedPopup from '../FeedPopup';
 import NumberLabel from '../numberLabel';
 
-function Feed({ thumbnail_url, profile_url, currentIndex, username, className, handleImageClick,carousel_count, width, height }) {
+function Feed({ thumbnail_url, profile_url, currentIndex, username, className, handleImageClick, carousel_count, width, height, imgRef }) {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
@@ -16,7 +16,7 @@ function Feed({ thumbnail_url, profile_url, currentIndex, username, className, h
     
 
     return (
-        <FeedDiv className='borderRad boxShadow' width={width} height={height}>
+        <FeedDiv className='borderRad boxShadow' width={width}>
             <ProfileDiv onClick={openPopup}>
                 {isPopupOpen && <FeedPopup onClose={closePopup} user={{ profileName: username }} />}
                 {profile_url ? (
@@ -27,8 +27,8 @@ function Feed({ thumbnail_url, profile_url, currentIndex, username, className, h
                 <p className='boldContent'>@{username}</p>
             </ProfileDiv>
 
-            <FeedMain width={width}>
-                <img src={thumbnail_url} onClick={handleImageClick} />
+            <FeedMain ref={imgRef} width={width} height={height}>
+                <img id='feedImage' src={thumbnail_url} onClick={handleImageClick} />
 
                 <div className='feedLayerDiv'>
                 {carousel_count > 1 && className==='homefeed' && (
@@ -42,7 +42,7 @@ function Feed({ thumbnail_url, profile_url, currentIndex, username, className, h
         </FeedDiv>
     );
 }
-//공통 컴포넌트 -> prop을 위해 styled component로
+
 const FeedDiv = styled.div`
     width: ${({ width }) => width};
     overflow: hidden;
@@ -56,13 +56,17 @@ const ProfileDiv = styled.div`
 const FeedMain = styled.div`
     display: flex;
     position: relative;
-    width: ${({ width }) => width || '25em'};   
-    height: ${({ height }) => height || 'auto'}; 
-
+    width: ${({ width }) => width};   
+    height: ${({ height }) => height}; 
+    align-items: center;
+    justify-content: center;
+    
     img {
         width: 100%;
-        height: auto;
+        height: 100%; 
+        object-fit: cover;
         cursor: pointer;
     }
 `;
+
 export default Feed;
