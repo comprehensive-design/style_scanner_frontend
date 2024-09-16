@@ -411,6 +411,7 @@ hr {
   border-radius: 50%;
   background-color: white;
   margin: auto;
+  object-fit: cover;
 }
 
 .mpdprofileBox div:nth-child(2) {
@@ -1114,7 +1115,6 @@ hr {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1133,5 +1133,5 @@ hr {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.8);
+  filter: brightness(0.7);
 }

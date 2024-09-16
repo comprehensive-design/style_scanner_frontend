@@ -1,21 +1,29 @@
 import React, { useRef, useState, useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
 import styled from 'styled-components'
+import useWritePost from "../../../hooks/useWritePost";
 
-export default function WritePopup({ post, feedUrl, profile_url, onSave, onClose }) {
+export default function WritePopup({ post, feed_url, onSave, onClose }) {
   const [question, setQuestion] = useState(post ? post.content : "");
+  const { profilePictureUrl, handleSubmit } = useWritePost(post, feed_url, onSave);
+
   const textarea = useRef();
+
+  const onSubmit = (e) => {
+    handleSubmit(e, question); 
+    setQuestion(""); 
+  };
   return (
     <div className="communityPopupWrapper">
       <div className="communityPopupContent boxShadow borderRad">
-        <img src={`img/feed1.png`}/>
+        <img src={feed_url}/>
         <div className='feedLayerDiv' style={{ left: '1em' }}>
           <IoIosClose className='textShadow' size='2em' color='white' onClick={onClose} style={{ cursor: 'pointer' }} />
         </div>
         {/* 질문창 */}
         <WriteBoxWrapper className="borderRad">
           <ProfileWrapper>
-            <img className='feedProfile' src={`img/profile.png`} style={{ width: '3em', height: '3em'}} />
+            <img className='feedProfile' src={profilePictureUrl} style={{ width: '3em', height: '3em'}} />
           </ProfileWrapper>
           <WriteBoxTextArea
             ref={textarea}
@@ -25,7 +33,7 @@ export default function WritePopup({ post, feedUrl, profile_url, onSave, onClose
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
-          <button className="button" style={{width: '90%', height: '30%' , marginBottom:'1em'}}>제출하기</button>
+          <button className="button" type='submit' style={{width: '90%', height: '30%' , marginBottom:'1em'}} onClick={onSubmit}>제출하기</button>
         </WriteBoxWrapper>
         
       </div>
