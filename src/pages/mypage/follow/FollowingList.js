@@ -77,7 +77,7 @@ export default function FollowingList() {
                     <hr />
                 </div>
                 <p className='content left mt1 mb1 ml03'>전체 {totalFollowings}</p>
-                <div className='ml03'>
+                <div className='ml03 mb3'>
                     <UsersList list={currentItems} />
                 </div>
                 <Pagination
