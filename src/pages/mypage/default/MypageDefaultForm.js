@@ -55,8 +55,7 @@ export default function MypageDefaultForm({ displayName, bio, profilePictureUrl,
                     </div>
                     <div>
                         <button
-                            className="button mb05"
-                            style={{ backgroundColor: "white", border: "1px solid gray", color: "gray" }}
+                            className="whiteButton mb05"
                             onClick={() => window.location.href = '/AccountManage'}>
                             프로필 관리
                         </button>
