@@ -118,6 +118,9 @@ body {
   color: var(--darkGray);
 }
 
+.blackText {
+  color: var(--black);
+}
 .underLine {
   width: 100%;
   border-top: none;
@@ -165,6 +168,10 @@ body {
 
 .flex{
   display: flex;
+}
+
+.rowCenter{
+  margin: auto 0;
 }
   
 /* 로그인 */
@@ -496,4 +503,11 @@ body {
   display: flex;
   float: left;
   gap: 1em;
+}
+
+/* 마이페이지 알림 */
+.mpnBox{
+  display: flex;
+  justify-content: space-between;
+  padding: 2em;
 }
