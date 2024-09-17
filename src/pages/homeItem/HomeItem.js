@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Feed from '../../Components/feed/Feed.js';
 import Item from '../../Components/item/Item.js';
-import CommunityWrite from '../community/post/CommunityWrite.js';
+import WritePopup from '../community/popup/WritePopup.js';
 import { useHomeItemLogic } from '../../hooks/useHomeItemLogic';
 import { useFeedClickLogic } from '../../hooks/useFeedClickLogic';
 import { useState, useRef } from 'react';
@@ -126,8 +126,9 @@ export default function HomeItem() {
                         brand={"wow"}
                         name={"wow"}
                         price={100000000}
-                        image={"https://via.placeholder.com/200"}
+                        itemImage={"https://via.placeholder.com/200"}
                         shoppingLink={""}
+                        likeCount={9999999}
                         index={0}
                     />
                     <Item
@@ -136,8 +137,9 @@ export default function HomeItem() {
                         brand={"wow"}
                         name={"wow"}
                         price={100000000}
-                        image={"https://via.placeholder.com/200"}
+                        itemImage={"https://via.placeholder.com/200"}
                         shoppingLink={""}
+                        likeCount={999}
                         index={0}
                     />
                     <Item
@@ -146,8 +148,9 @@ export default function HomeItem() {
                         brand={"wow"}
                         name={"wow"}
                         price={100000000}
-                        image={`img/feed1.png`}
+                        itemImage={`img/feed1.png`}
                         shoppingLink={""}
+                        likeCount={999999}
                         index={0}
 
                     />
@@ -157,16 +160,17 @@ export default function HomeItem() {
                         brand={"wow"}
                         name={"wow"}
                         price={100000000}
-                        image={"img/image1.png"}
+                        itemImage={"img/image1.png"}
                         shoppingLink={""}
+                        likeCount={10}
                         index={0}
                     />
                 </ItemList>
                 <ButtonList>
-                    <button className='button' style={{ width: '5em', height: ' 3em' , padding: '1rem'}} onClick={morePage}>더보기</button>
+                    <button className="whiteButton" onClick={morePage}>더보기</button>
                     <CommunityBtn onClick={openPopup}>찾는 제품이 없으신가요?</CommunityBtn>
                 </ButtonList>
-                {/* {isPopupOpen && <CommunityWrite feedUrl={feedUrl} onClose={closePopup} />} */}
+                {isPopupOpen && <WritePopup feed_url={proxyImageUrls[currentImageIndex]} profile_url={profile_url} onClose={closePopup} />}
             </ItemWrapper>
             <TopButton />
         </div>

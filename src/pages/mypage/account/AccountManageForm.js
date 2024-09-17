@@ -1,11 +1,8 @@
-import styles from './AccountManage.module.css';
 import React, { useState } from "react";
 import Popup from '../../../Components/Popup';
 import Sidebar from '../../../Components/Sidebar';
 import ManageBox from '../../../Components/ManageBox';
-import Button from '../../../Components/Button';
-import axios from 'axios';
-import Footer from '../../../Components/Footer';
+import axios from 'axios'; 
 
 export default function AccountManageForm({ profilePictureUrl, displayName, bio, password, email, birthdate, gender }) {
     const [popupType, setPopupType] = useState(null);
@@ -47,6 +44,7 @@ export default function AccountManageForm({ profilePictureUrl, displayName, bio,
                 break;
             case "logout":
                 localStorage.removeItem('accessToken');
+                localStorage.removeItem('refreshToken');
                 break;
 
             default:
@@ -102,51 +100,49 @@ export default function AccountManageForm({ profilePictureUrl, displayName, bio,
         profilePictureUrl="/img/whiteBox.png"
         
     return (
-        <div>
-            <div className={styles.total}>
-                <Sidebar />
-                <div className={styles.content}>
-                    <div className={styles.title}>
-                        <h2>계정 관리</h2>
-                        <hr className={styles.horizon}></hr>
-                    </div>
+        <div className="mypageWrapper">
+            <Sidebar />
+            <div className="mypageMain">
+                <div>
+                    <p className="title left mb05 ml03">계정 관리</p>
+                    <hr />
+                </div>
 
-                    <div className={styles.profileBox}>
-                        <div className={styles.profileBox1}>
-                            <img id={styles.profileImg} src={profilePictureUrl}></img>
-                            <input type="image" id={styles.changeImg} onClick={() => openPopup("image")} src="/img/fix.png" ></input>
+                <div className="mpdprofileBox gridColumns3" style={{width:"90%", margin: "2em 0.3em"}}>
+                    <div className='flex'>
+                        <img src={profilePictureUrl} style={{margin: "0 0 0 3em"}}></img>
+                        <input type="image" className="mpmFix" style={{margin: "6em 0em 0em 0em"}} onClick={() => openPopup("image")} src="/img/fix.png" ></input>
+                    </div>
+                    <div className="ml2">
+                        <div className='flex mb1'>
+                            <p className="content">@{displayName}</p>
+                            <input className="mpmFix ml03" type="image" onClick={() => openPopup("name")} src="/img/fix.png"></input>
                         </div>
-                        <div className={styles.profileBox2}>
-                            <div>
-                                <p>@</p>
-                                <p id="userID">{displayName}</p>
-                                <input type="image" id={styles.changeName} onClick={() => openPopup("name")} src="/img/fix.png"></input>
-                            </div>
-                            <div>
-                                <p >{bio}</p>
-                                <input type="image" id={styles.changeMsg} onClick={() => openPopup("msg")} src="/img/fix.png"></input>
-                            </div>
+                        <div className='flex'>
+                            <p className="caption grayText">{bio}</p>
+                            <input className="mpmFix ml03" type="image" onClick={() => openPopup("msg")} src="/img/fix.png"></input>
                         </div>
                     </div>
-                    <hr className={styles.horizon}></hr>
-                    <div className={styles.managingBox}>
-                        <ManageBox title='이메일' content={email} visible={false}></ManageBox>
-                        <ManageBox title='생년월일' content={birthdate} $left='55%' onClick={() => openPopup("birth")}></ManageBox>
-                        <ManageBox title='비밀번호' content="****" $top='45%' onClick={() => openPopup("password")}></ManageBox>
-                        <ManageBox title='성별' content={gender} $left='55%' $top='45%' onClick={() => openPopup("gender")}></ManageBox>
-                    </div>
+                </div>
 
-                    <div className={styles.buttonBox}>
-                        <Button onClick={() => openPopup("logout")}>로그아웃</Button>
-                        <Button onClick={() => openPopup("delete")}>탈퇴</Button>
-                    </div>
+                <hr className="grayhr"/>
+                <div className="mpmManagingBox">
+                    <ManageBox title='이메일 주소' content={email} visible={false}></ManageBox>
+                    <ManageBox title='생년월일' content={birthdate} $left='55%' onClick={() => openPopup("birth")}></ManageBox>
+                    <ManageBox title='비밀번호' content="****" $top='45%' onClick={() => openPopup("password")}></ManageBox>
+                    <ManageBox title='성별' content={gender} $left='55%' $top='45%' onClick={() => openPopup("gender")}></ManageBox>
+                </div>
+
+                <div className="mpmBtnBox">
+                    <button className='button' onClick={() => openPopup("logout")}>로그아웃</button>
+                    <button className='button' onClick={() => openPopup("delete")}>탈퇴</button>
                 </div>
             </div>
 
             {/* 팝업 창 */}
             {popupType && (
                 <>
-                    <div className={styles.mask}></div>
+                    <div className="mpmBlur"></div>
                     <Popup
                         title={popupType === "image" ? "프로필 사진 변경" :
                             popupType === "name" ? "이름 수정" :
@@ -169,9 +165,7 @@ export default function AccountManageForm({ profilePictureUrl, displayName, bio,
                         onSave={onSave}
                     />
                 </>
-            )}
-            <div className={styles.heightPadding}></div>
-            <div className={styles.footer}><Footer /></div>
+            )} 
         </div>
     );
 }

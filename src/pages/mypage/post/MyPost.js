@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from 'react'; 
+import { useState, useEffect, useCallback } from 'react';
 import Sidebar from '../../../Components/Sidebar';
 import WritingBox from '../../../Components/WritingBox';
 import Pagination from '../../../Components/Pagination';
 import axios from 'axios';
-import CommunityWrite from '../../community/post/CommunityWrite';
+import WritePopup from '../../community/popup/WritePopup';
+import Footer from '../../../Components/Footer';
 
 const getPosts = async (currentPage, postsPerPage) => {
   const token = localStorage.getItem("accessToken");
@@ -37,6 +38,7 @@ export default function MyPost() {
   const [postsPerPage] = useState(5);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
+  const [feedUrl, setFeedUrl] = useState('');
   const [postSaved, setPostSaved] = useState(false);
 
   const firstPostIndex = (currentPage - 1) * postsPerPage;
@@ -60,8 +62,10 @@ export default function MyPost() {
     fetchPosts();
   }, [currentPage, postSaved]);
 
-  const openPopup = useCallback((post = null) => {
+  // 팝업 열기 함수
+  const openPopup = useCallback((post) => {
     setCurrentPost(post);
+    setFeedUrl(post.feedUrl);
     setIsPopupOpen(true);
   }, []);
 
@@ -132,15 +136,15 @@ export default function MyPost() {
             );
           })}
         </div>
-      <Pagination
-        itemsNum={posts.length}
-        itemsPerPage={postsPerPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
+        <Pagination
+          itemsNum={posts.length}
+          itemsPerPage={postsPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </div>
       {isPopupOpen && (
-        <CommunityWrite post={currentPost} onSave={handleSave} onClose={closePopup} />
+        <WritePopup post={currentPost} feed_url={feedUrl} onSave={handleSave} onClose={closePopup} />
       )}
     </div>
   );

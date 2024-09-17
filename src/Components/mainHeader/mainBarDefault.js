@@ -16,7 +16,7 @@ function MainBarDefault({ searchText, handleSearchChange, handleKeyPress }) {
                 <div className='mainUl headerRight'>
                     <div className='mr3'> 
                         <ul className='mainUl'>
-                            <li className='ml3 boldSubTitle mainNav'><Link to="/Ranking">Ranking</Link></li>
+                            <li className='ml3 boldSubTitle mainNav'><Link to="/Category">Ranking</Link></li>
                             <li className='ml1 boldSubTitle mainNav'><Link to="/Login">Recommend</Link></li>
                             <li className='ml1 boldSubTitle mainNav'><Link to="/Community">Community</Link></li>
                         </ul>
