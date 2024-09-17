@@ -46,7 +46,7 @@ function MainBarLogin({ searchText, handleSearchChange, handleKeyPress }) {
                 <div className='mainUl headerRight'>
                     <div className='mr3'>
                         <ul className='mainUl'>
-                            <li className='ml3 boldSubTitle mainNav'><Link to="/Ranking">Ranking</Link></li>
+                            <li className='ml3 boldSubTitle mainNav'><Link to="/Category">Ranking</Link></li>
                             <li className='ml1 boldSubTitle mainNav'><Link to="/Login">Recommend</Link></li>
                             <li className='ml1 boldSubTitle mainNav'><Link to="/Community">Community</Link></li>
                         </ul>
@@ -61,7 +61,7 @@ function MainBarLogin({ searchText, handleSearchChange, handleKeyPress }) {
                             <img className='profileImg' src={profilePictureUrl} alt="profileImg" />
                         </button>
 
-                        <h6 className='caption ml1'>@{userData ? userData.displayName : 'Loading...'}</h6>
+                        <p className='caption ml1'>@{userData ? userData.displayName : 'Loading...'}</p>
 
                         <></>
                     </div>
