@@ -68,6 +68,10 @@ body {
   margin-top: 3em;
 }
 
+.mt5 {
+  margin-top: 5em;
+}
+
 .mt1 {
   margin-top: 1em;
 }
@@ -101,6 +105,10 @@ body {
   margin-left: 0.3em;
 }
 
+.ml05 {
+  margin-left: 0.5em;
+}
+
 .ml1 {
   margin-left: 1em;
 }
@@ -115,6 +123,10 @@ body {
 
 .left {
   text-align: left;
+}
+
+.right{
+  text-align : right;
 }
 
 .p1 {
@@ -976,6 +988,7 @@ hr {
   margin: 0;
   list-style: none;
   text-decoration: none;
+
 }
 
 .headerFlex {
@@ -1131,4 +1144,62 @@ hr {
   height: 100%;
   object-fit: cover;
   filter: brightness(0.7);
+}
+
+/* 랭킹 카테고리 사이드바 */
+.categoryUl{
+  flex-direction: column;
+  text-align: left;
+  list-style: none;
+}
+
+.totalWrap{
+  margin : 2.5em;
+  display: flex;
+}
+
+.contentWrap{ 
+  width: 100%;
+  display : flex;
+}
+
+.categoryWrap{
+  width: 18rem; 
+  overflow-y: auto;
+  flex-shrink: 0; /* 너비가 줄어들지 않도록 설정 */
+}
+
+.suplists{
+  line-height: 200%;
+  color:black;
+  list-style: none;
+}
+.supcateButton{
+  background-color: white;
+  border-style: none;
+  color:black;
+  font-size: 16px;
+}
+
+.subcateButton{
+  background-color: white;
+  border-style: none;
+  font-size: 16px;
+  color:gray;
+}
+
+.sublists{
+  background-color: white;
+  line-height: 200%;
+  color:black;
+  list-style: none;
+}
+
+.rightAlign{
+  float :right;
+}
+
+.flexColumnn {
+  display: flex;
+  flex-direction: column;
 }

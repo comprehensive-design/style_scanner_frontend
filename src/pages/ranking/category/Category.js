@@ -1,4 +1,4 @@
-import styles from './Category.module.css';
+
 import React, { useEffect, useState } from 'react';
 import Ranking from '../Ranking';
 import styled from 'styled-components';
@@ -33,20 +33,17 @@ export default function Category() {
         '기타': 'ETC'
     };
 
-    useEffect(() => {
-        // selectedCategory나 selectedSubcategory가 변경될 때마다 호출되는 부분
-    }, [selectedCategory, selectedSubcategory]);
+    useEffect(() => { }, [selectedCategory, selectedSubcategory]);
 
     const handleCategoryClick = (category) => {
-        const mappedCategory = categoryMap[category];
-        setSelectedCategory(mappedCategory);
-        setSelectedSubcategory('ALL'); // 모든 상위 카테고리 선택 시 하위 카테고리를 'ALL'로 설정
-        setActiveSortButton(''); // 활성화된 버튼 리셋
+        setSelectedCategory(categoryMap[category]);
+        setSelectedSubcategory('ALL');
+        setActiveSortButton('');
     };
 
     const handleSubcategoryClick = (subcategory) => {
         setSelectedSubcategory(subcategoryMap[subcategory]);
-        setActiveSortButton(subcategory); // 활성화된 버튼으로 설정
+        setActiveSortButton(subcategory);
     };
 
     const SortButton = styled.button`
@@ -59,52 +56,48 @@ export default function Category() {
     `;
 
     return (
-        <div className={styles.pageWrap}>
-            <div className={styles.totalWrap}>
-                <div className={styles.contentWrap}>
-                    <div className={styles.categoryWrap}>
-                        <p id={styles.categoryNa}>카테고리</p>
-                        <HorizonLine />
-
-                        <div className={styles.categoryList}>
-                            <ul className={styles.categoryUl}>
-                                {Object.keys(categories).map((category, index) => (
-                                    <li key={index} className={styles.suplists}>
-                                        <SortButton onClick={() => handleCategoryClick(category)}
-                                            active={selectedCategory === categoryMap[category]}
-                                            className={`${selectedCategory === categoryMap[category] ? 'itemLinkOn' : 'itemLink'}  ${styles.supcateButton}`}>
-                                            {category}
-                                        </SortButton>
-                                        {selectedCategory === categoryMap[category] && categories[category].length > 0 &&
-                                            <ul className={styles.subcategoryUl}>
-                                                {categories[category].map((subcategory, subIndex) => (
-                                                    <li key={subIndex} className={styles.sublists}>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <SortButton onClick={() => handleSubcategoryClick(subcategory)}
-                                                            active={selectedSubcategory === subcategoryMap[subcategory]}
-                                                            className={`${selectedSubcategory === subcategoryMap[subcategory] ? 'itemLinkOn' : 'itemLink'} ${styles.subcateButton}`}>
-                                                            {subcategory}
-                                                        </SortButton>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        }
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                    <div className={styles.rankingWrap}>
-                        {selectedCategory && (
-                            <Ranking
-                                selectedCategory={selectedCategory}
-                                selectedSubcategory={selectedSubcategory}
-                            />
-                        )}
+        <div className='totalWrap'>
+            <div className='contentWrap'>
+                <div className='categoryWrap'>
+                    <p className='left boldSubTitle'>카테고리</p>
+                    <HorizonLine />
+                    <div>
+                        <ul className='categoryUl'>
+                            {Object.keys(categories).map((category, index) => (
+                                <li key={index} className='suplists'>
+                                    <SortButton
+                                        onClick={() => handleCategoryClick(category)}
+                                        active={selectedCategory === categoryMap[category]}
+                                        className={`${selectedCategory === categoryMap[category] ? 'itemLinkOn' : 'itemLink'} supcateButton`}>
+                                        {category}
+                                    </SortButton>
+                                    {selectedCategory === categoryMap[category] && categories[category].length > 0 && (
+                                        <ul >
+                                            {categories[category].map((subcategory, subIndex) => (
+                                                <li key={subIndex} className='sublists'>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <SortButton
+                                                        onClick={() => handleSubcategoryClick(subcategory)}
+                                                        active={selectedSubcategory === subcategoryMap[subcategory]}
+                                                        className={`${selectedSubcategory === subcategoryMap[subcategory] ? 'itemLinkOn' : 'itemLink'} subcateButton`}>
+                                                        {subcategory}
+                                                    </SortButton>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
+                {selectedCategory && (
+                    <Ranking
+                        selectedCategory={selectedCategory}
+                        selectedSubcategory={selectedSubcategory}
+                    />
+                )}
             </div>
-            <Footer />
         </div>
     );
 }
@@ -118,7 +111,6 @@ const HorizonLine = () => {
                 lineHeight: "0.1em",
                 margin: "10px 0 20px",
             }}
-        >
-        </div>
+        />
     );
 };
