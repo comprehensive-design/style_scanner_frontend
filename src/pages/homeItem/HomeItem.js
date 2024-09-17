@@ -20,6 +20,7 @@ export default function HomeItem() {
         feed_code
     } = useHomeItemLogic();
 
+    const [isClicked, setIsClicked] = useState(false);
     const [counter, setCounter] = useState(0);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -55,6 +56,7 @@ export default function HomeItem() {
         alert("더보기");
     };
     const handleImageClick = (event) => {
+        setIsClicked(true);
         handleClick(event);
     };
     return (
@@ -102,7 +104,7 @@ export default function HomeItem() {
                 </ThumbnailScrollable>
             </FeedWrapper>
 
-            <ItemWrapper>
+            <ItemWrapper  style={{ display: isClicked ? 'block' : 'none' }}>
                 <div className='pageTitleDiv'>
                     <FaBoxArchive size='1.5em' />
                     <p className='boldSubTitle ml03'>아이템 정보</p>
