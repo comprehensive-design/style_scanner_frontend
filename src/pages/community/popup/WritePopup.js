@@ -3,7 +3,7 @@ import { IoIosClose } from "react-icons/io";
 import styled from 'styled-components'
 import useWritePost from "../../../hooks/useWritePost";
 
-export default function WritePopup({ post, feed_url, onSave, onClose }) {
+export default function WritePopup({ post, proxy_url, feed_url, onSave, onClose }) {
   const [question, setQuestion] = useState(post ? post.content : "");
   const { profilePictureUrl, handleSubmit } = useWritePost(post, feed_url, onSave);
 
@@ -16,7 +16,7 @@ export default function WritePopup({ post, feed_url, onSave, onClose }) {
   return (
     <div className="communityPopupWrapper">
       <div className="communityPopupContent boxShadow borderRad">
-        <img src={feed_url}/>
+        <img src={proxy_url}/>
         <div className='feedLayerDiv' style={{ left: '1em' }}>
           <IoIosClose className='textShadow' size='2em' color='white' onClick={onClose} style={{ cursor: 'pointer' }} />
         </div>
