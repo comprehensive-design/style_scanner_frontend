@@ -120,7 +120,7 @@ export default function HomeItem() {
                             width={'30em'}
                         />
                     )} */}
-                    <Item
+                    {/* <Item
                         key={0}
                         itemId={0}
                         brand={"wow"}
@@ -168,7 +168,7 @@ export default function HomeItem() {
                         likeCount={10}
                         index={0}
                         width={'20em'}
-                    />
+                    /> */}
                 </ItemList>
                 <ButtonList>
                     <button className="whiteButton" onClick={morePage}>더보기</button>
