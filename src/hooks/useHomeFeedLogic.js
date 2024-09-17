@@ -18,6 +18,7 @@ const useHomeFeedLogic = (page, size) => {
                 const response = await api.get(`/api/insta/home?page=${page}&size=${size}`);
                 setFeeds(response.data);
                 setLoading(false);
+                console.log("또부름");
             } catch (error) {
                 setError('포스트를 가져오는 중 에러 발생');
                 setLoading(false);
