@@ -5,31 +5,6 @@ import { FaHeart } from "react-icons/fa6";
 import { AiOutlineShopping } from "react-icons/ai";
 import { theme } from '../../style/theme';
 
-const ItemDiv = styled.div`
-    width: ${({ width }) => width || '20em'};
-    background-color: ${({ theme }) => theme.colors.lightGray};
-    
-    overflow: hidden; 
-    position: relative;
-    margin: 1em;
-    flex-shrink: 0;
-`;
-const ItemImg = styled.img`
-    width: ${({ width }) => width || '20em'};
-    height: ${({ height }) => height || '20em'};
-    object-fit: cover;
-
-`;
-const ItemInfoTopWrapper = styled.div`
-  width: 100%;
-  text-align: start;
-`;
-
-const ItemInfoBottomWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 export default function Item({ itemId, brand, name, price, itemImage, shoppingLink, likeCount, width, height }) {
     const {isClicked, counter, handleHeartClick } = useItemLogic({itemId, likeCount});
 
@@ -55,8 +30,8 @@ export default function Item({ itemId, brand, name, price, itemImage, shoppingLi
             <ItemImg src={itemImage} alt={name} width={width} height={height}/>
             <AiOutlineShopping className='feedLayerDiv textShadow' style={{ cursor: 'pointer' }} size='1.5em' color={theme.colors.white} onClick={shoppingClick} />
             <ItemInfoTopWrapper className='p1'>
-                <p className='boldContent mb05'>{brand}</p>
-                <p className='content'>{name}</p>
+                <p className='boldContent mb05 ellipsis' style={{minHeight: '1em'}}>{brand}</p>
+                <p className='content ellipsis' style={{minHeight: '1em'}} >{name}</p>
             </ItemInfoTopWrapper>
             <ItemInfoBottomWrapper className='boldContent p1'>
                 <p>{formatPrice(price)}₩</p>
@@ -71,3 +46,28 @@ export default function Item({ itemId, brand, name, price, itemImage, shoppingLi
         </ItemDiv>
     );
 }
+const ItemDiv = styled.div`
+    width: ${({ width }) => width || '20em'};
+    background-color: ${({ theme }) => theme.colors.lightGray};
+    
+    overflow: hidden; 
+    position: relative;
+    margin: 1em;
+    flex-shrink: 0;
+`;
+const ItemImg = styled.img`
+    width: ${({ width }) => width || '20em'};
+    height: ${({ height }) => height || '20em'};
+    object-fit: cover;
+
+`;
+const ItemInfoTopWrapper = styled.div`
+  text-align: start;
+  align-items: center;
+`;
+
+const ItemInfoBottomWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

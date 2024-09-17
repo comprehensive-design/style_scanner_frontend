@@ -130,17 +130,19 @@ export default function HomeItem() {
                         shoppingLink={""}
                         likeCount={9999999}
                         index={0}
+                        width={'20em'}
                     />
                     <Item
                         key={1}
                         itemId={0}
-                        brand={"wow"}
-                        name={"wow"}
+                        brand={"이렇게 긴 이름의 브랜드가 있을까요?? 있다면 말 줄임표"}
+                        name={"이렇게 긴 이름의 제품명은 많겠죠? 있따면 말줄임표"}
                         price={100000000}
                         itemImage={"https://via.placeholder.com/200"}
                         shoppingLink={""}
                         likeCount={999}
                         index={0}
+                        width={'20em'}
                     />
                     <Item
                         key={2}
@@ -152,6 +154,7 @@ export default function HomeItem() {
                         shoppingLink={""}
                         likeCount={999999}
                         index={0}
+                        width={'20em'}
 
                     />
                     <Item
@@ -164,6 +167,7 @@ export default function HomeItem() {
                         shoppingLink={""}
                         likeCount={10}
                         index={0}
+                        width={'20em'}
                     />
                 </ItemList>
                 <ButtonList>
