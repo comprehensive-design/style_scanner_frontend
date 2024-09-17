@@ -20,6 +20,7 @@ export default function HomeItem() {
         feed_code
     } = useHomeItemLogic();
 
+    const [isClicked, setIsClicked] = useState(false);
     const [counter, setCounter] = useState(0);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -55,6 +56,7 @@ export default function HomeItem() {
         alert("더보기");
     };
     const handleImageClick = (event) => {
+        setIsClicked(true);
         handleClick(event);
     };
     return (
@@ -102,7 +104,7 @@ export default function HomeItem() {
                 </ThumbnailScrollable>
             </FeedWrapper>
 
-            <ItemWrapper>
+            <ItemWrapper  style={{ display: isClicked ? 'block' : 'none' }}>
                 <div className='pageTitleDiv'>
                     <FaBoxArchive size='1.5em' />
                     <p className='boldSubTitle ml03'>아이템 정보</p>
@@ -120,7 +122,7 @@ export default function HomeItem() {
                             width={'30em'}
                         />
                     )} */}
-                    <Item
+                    {/* <Item
                         key={0}
                         itemId={0}
                         brand={"wow"}
@@ -130,17 +132,19 @@ export default function HomeItem() {
                         shoppingLink={""}
                         likeCount={9999999}
                         index={0}
+                        width={'20em'}
                     />
                     <Item
                         key={1}
                         itemId={0}
-                        brand={"wow"}
-                        name={"wow"}
+                        brand={"이렇게 긴 이름의 브랜드가 있을까요?? 있다면 말 줄임표"}
+                        name={"이렇게 긴 이름의 제품명은 많겠죠? 있따면 말줄임표"}
                         price={100000000}
                         itemImage={"https://via.placeholder.com/200"}
                         shoppingLink={""}
                         likeCount={999}
                         index={0}
+                        width={'20em'}
                     />
                     <Item
                         key={2}
@@ -152,6 +156,7 @@ export default function HomeItem() {
                         shoppingLink={""}
                         likeCount={999999}
                         index={0}
+                        width={'20em'}
 
                     />
                     <Item
@@ -164,7 +169,8 @@ export default function HomeItem() {
                         shoppingLink={""}
                         likeCount={10}
                         index={0}
-                    />
+                        width={'20em'}
+                    /> */}
                 </ItemList>
                 <ButtonList>
                     <button className="whiteButton" onClick={morePage}>더보기</button>

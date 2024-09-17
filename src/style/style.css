@@ -47,7 +47,7 @@ body {
 }
 
 .boldContent {
-  font-size: 1.1em;
+  font-size: 1.2em;
   font-weight: 700;
 }
 
@@ -55,7 +55,12 @@ body {
   font-size: 1em;
   font-weight: 400;
 }
-
+.ellipsis {
+  width: 100%; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
 .textShadow {
   filter: drop-shadow(0.15em 0 0.15em rgba(0, 0, 0, 0.25))
 }
