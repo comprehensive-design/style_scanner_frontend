@@ -18,7 +18,7 @@ import CommunityNoti from './pages/mypage/notification/CommunityNoti';
 import HomeFeed from './pages/home/HomeFeed';
 import HomeItem from './pages/homeItem/HomeItem';
 import Community from './pages/community/home/Community';
-import CommunityInfo from './pages/community/detail/CommunityInfo';
+import CommunityComment from './pages/community/comment/CommunityComment';
 import Category from './pages/ranking/category/Category';
 import Empty from './pages/empty/Empty';
 import PrivateRoute from "./utils/PrivateRoute";
@@ -53,7 +53,7 @@ const App = () => {
               <Route path="/MyComment" element={<MyComment />} />
               <Route path="/HomeFeed" element={<HomeFeed />} />
               <Route path="/HomeItem" element={<HomeItem />} />
-              <Route path="/CommunityInfo" element={<CommunityInfo />} />
+              <Route path="/CommunityComment" element={<CommunityComment />} />
               <Route path="/LikeList" element={<LikeList />} />
               <Route path="/Category" element={<Category />} />
             </Route>
