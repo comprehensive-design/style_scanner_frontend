@@ -1,7 +1,7 @@
 import React , {useRef} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useComment } from '../../../hooks/useComment'; 
-import CommentInfo from "./Comment";
+import Comment from "./comment/Comment"
 
 export default function CommunityComment({ postId, feedUrl, displayName, profilePictureUrl }) {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function CommunityComment({ postId, feedUrl, displayName, profile
             {/* {comments.map(comment => (
               <CommentInfo key={comment.id} displayName={comment.displayName} content={comment.content} profilePictureUrl={comment.profilePictureUrl} />
             ))} */}
-            <CommentInfo></CommentInfo>
+            <Comment></Comment>
           </div>
       </div>
     // <div className={styles.popup}>

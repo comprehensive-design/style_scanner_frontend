@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaHeart } from "react-icons/fa6";
 import styled from 'styled-components';
-import {theme} from  '../../../style/theme'
+import {theme} from  '../../../../style/theme'
 
 export default function CommentInfo({ profilePictureUrl, displayName, content }) {
     const [isClicked, setIsClicked] = useState(false); 

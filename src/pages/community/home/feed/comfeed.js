@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../../../style/theme.js';
-import CommunityComment from '../../comment/CommunityComment';
+import CommunityDetail from '../../detail/CommunityDetail.js'
 import FeedPopup from '../../../../Components/FeedPopup';
 
 function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
@@ -19,7 +19,7 @@ function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
         setIsFeedPopupOpen(false);
     };
     const handleClick = () =>{
-        navigate("/CommunityComment")
+        navigate("/CommunityDetail")
     }
 
     return (
