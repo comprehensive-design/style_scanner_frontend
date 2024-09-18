@@ -48,8 +48,6 @@ export const useCommunity = () => {
           setProxyImageUrls(urls);
           setProxyProfileImageUrl(pUrls);
           setImagesLoaded(true);
-          console.log(urls);
-          console.log(pUrls)
 
         } catch (error) {
           console.error(error);
