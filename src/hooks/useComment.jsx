@@ -4,7 +4,7 @@ import api from "../utils/axios";
 export const useComment = (postId) => {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
-
+  const [error, setError] = useState(null);
   const getComments = async (postId) => {
     try {
       const response = await api.get(`/api/comment/${postId}`);
