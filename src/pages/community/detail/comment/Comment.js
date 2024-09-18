@@ -16,9 +16,9 @@ export default function CommentInfo({ profilePictureUrl, displayName, content })
     return (
         <div className='feedProfileDiv' style={{width: '100%', position: 'relative'}}>
             {profilePictureUrl ? (
-                <img className='feedProfile'src={profilePictureUrl} alt="Profile" style={{borderRadius:'1em'}}/>
+                <img className='feedProfile'src={profilePictureUrl} alt="Profile"/>
             ) : (
-                <img className='feedProfileDefault' src={`img/profile.png`} alt="Profile" style={{borderRadius:'1em'}}/>
+                <img className='feedProfile' src={`img/profile.png`} alt="Profile"/>
             )}
             <div className='flexColumnn left'>
                 <div className='feedProfileDiv mb05'>

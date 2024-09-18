@@ -1,7 +1,11 @@
 import { useState, useEffect} from "react";
+import { useLocation } from 'react-router-dom';
 import api from "../utils/axios";
 
-export const useComment = (postId) => {
+export const useComment = () => {
+  const location = useLocation();
+  const {postId, feedUrl, displayName, profilePictureUrl} = location.state || {};
+  
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
@@ -49,5 +53,5 @@ export const useComment = (postId) => {
     }
   };
 
-  return { comments, content, handleSubmit };
+  return { postId, feedUrl, displayName, profilePictureUrl, comments, content, setContent, handleSubmit };
 };

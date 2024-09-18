@@ -47,24 +47,5 @@ export default function Community() {
       </div>
       <Pagination/>
     </div>
-    // <div className={styles.ComFeedScroll}>
-    //   <div className={styles.ComFeedList} >
-    // {Array.isArray(posts) && posts.length > 0 ? (
-    //   posts.map((post, index) => (
-    //     <ComFeed
-    //       key={post.id}
-    //       postId={post.id}
-    //       feedUrl={proxyImageUrls[index]}
-    //       content={post.content}
-    //       displayName={post.displayName}
-    //       profilePictureUrl={proxyProfileImageUrl[index]}
-    //     />
-    //   ))
-    // ) : (
-    //   <div>포스트가 없습니다.</div>
-    // )}
-    //     <div style={{ height: '10px' }} />
-    //   </div>
-    // </div>
   );
 }
