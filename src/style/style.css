@@ -55,12 +55,14 @@ body {
   font-size: 1em;
   font-weight: 400;
 }
+
 .ellipsis {
-  width: 100%; 
-  white-space: nowrap; 
-  overflow: hidden; 
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .textShadow {
   filter: drop-shadow(0.15em 0 0.15em rgba(0, 0, 0, 0.25))
 }
@@ -130,8 +132,8 @@ body {
   text-align: left;
 }
 
-.right{
-  text-align : right;
+.right {
+  text-align: right;
 }
 
 .p1 {
@@ -245,11 +247,18 @@ hr {
 
 /* home-feed */
 /* 프로필 사진 */
+.feedProfileDiv {
+  display: flex;
+  float: left;
+  align-items: center;
+}
+
 .feedProfile {
   width: 3em;
   height: 3em;
   border-radius: 50%;
   padding: 1em;
+  object-fit: cover;
 }
 
 /* 기본 프로필 */
@@ -259,6 +268,7 @@ hr {
   border-radius: 50%;
   background-color: var(--gray);
   margin: 1em;
+  object-fit: cover;
 }
 
 /* 페이지 이모티콘+타이틀 */
@@ -1135,6 +1145,7 @@ hr {
   align-items: center;
   z-index: 1000;
 }
+
 .communityPopupContent {
   position: relative;
   width: 25em;
@@ -1144,7 +1155,8 @@ hr {
   justify-content: center;
   align-items: center;
 }
-.communityPopupContent> img{
+
+.communityPopupContent>img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1152,59 +1164,75 @@ hr {
 }
 
 /* 랭킹 카테고리 사이드바 */
-.categoryUl{
+.categoryUl {
   flex-direction: column;
   text-align: left;
   list-style: none;
 }
 
-.totalWrap{
-  margin : 2.5em;
+.totalWrap {
+  margin: 2.5em;
   display: flex;
 }
 
-.contentWrap{ 
+.contentWrap {
   width: 100%;
-  display : flex;
+  display: flex;
 }
 
-.categoryWrap{
-  width: 18rem; 
+.categoryWrap {
+  width: 18rem;
   overflow-y: auto;
-  flex-shrink: 0; /* 너비가 줄어들지 않도록 설정 */
+  flex-shrink: 0;
+  /* 너비가 줄어들지 않도록 설정 */
 }
 
-.suplists{
+.suplists {
   line-height: 200%;
-  color:black;
-  list-style: none;
-}
-.supcateButton{
-  background-color: white;
-  border-style: none;
-  color:black;
-  font-size: 16px;
-}
-
-.subcateButton{
-  background-color: white;
-  border-style: none;
-  font-size: 16px;
-  color:gray;
-}
-
-.sublists{
-  background-color: white;
-  line-height: 200%;
-  color:black;
+  color: black;
   list-style: none;
 }
 
-.rightAlign{
-  float :right;
+.supcateButton {
+  background-color: white;
+  border-style: none;
+  color: black;
+  font-size: 16px;
+}
+
+.subcateButton {
+  background-color: white;
+  border-style: none;
+  font-size: 16px;
+  color: gray;
+}
+
+.sublists {
+  background-color: white;
+  line-height: 200%;
+  color: black;
+  list-style: none;
+}
+
+.rightAlign {
+  float: right;
 }
 
 .flexColumnn {
   display: flex;
   flex-direction: column;
+}
+
+/* 커뮤니티 홈 */
+.cardWrapper {
+  width: 25em;
+  height: 30em;
+  overflow: hidden;
+}
+
+.cardWrapper > img{
+  width: 100%;
+  height: 90%;
+  object-fit: cover;
+  filter: brightness(0.7);
 }

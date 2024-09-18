@@ -17,7 +17,7 @@ function Feed({ thumbnail_url, profile_url, currentIndex, username, className, h
 
     return (
         <FeedDiv className='borderRad boxShadow' width={width}>
-            <ProfileDiv onClick={openPopup}>
+            <div className='feedProfileDiv'onClick={openPopup}>
                 {isPopupOpen && <FeedPopup onClose={closePopup} user={{ profileName: username }} />}
                 {profile_url ? (
                     <img className='feedProfile' src={profile_url} alt="Profile" />
@@ -25,7 +25,7 @@ function Feed({ thumbnail_url, profile_url, currentIndex, username, className, h
                     <img className='feedProfileDefault' />
                 )}
                 <p className='boldContent'>@{username}</p>
-            </ProfileDiv>
+            </div>
 
             <FeedMain ref={imgRef} width={width} height={height}>
                 <img id='feedImage' src={thumbnail_url} onClick={handleImageClick} />
@@ -48,11 +48,6 @@ const FeedDiv = styled.div`
     overflow: hidden;
 `;
 
-const ProfileDiv = styled.div`
-    display: flex;
-    float: left;
-    align-items: center;
-`;
 const FeedMain = styled.div`
     display: flex;
     position: relative;

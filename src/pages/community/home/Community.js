@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Community.module.css';
 import ComFeed from './feed/comfeed';
-import { useCommunity } from './hooks/useCommunityPosts'; 
+import { useCommunity } from '../../../hooks/useCommunity'; 
 import Loading from '../../../Components/loading/loading';
 
 export default function Community() {
