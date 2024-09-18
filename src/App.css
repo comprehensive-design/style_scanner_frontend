@@ -9,6 +9,10 @@ body, html {
   padding: 0;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 main {
   padding-top: 8%; /* Match this value to the height of your fixed header */
 }
