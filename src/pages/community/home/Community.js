@@ -1,14 +1,17 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styles from './Community.module.css';
 import ComFeed from './feed/comfeed';
-import { useCommunity } from '../../../hooks/useCommunity'; 
+import { useCommunity } from '../../../hooks/useCommunity';
 import Loading from '../../../Components/loading/loading';
 
 export default function Community() {
-  const { posts, loading, error} = useCommunity(); 
 
-  if (loading) {
-    return <Loading/>
+  const [page, setPage] = useState(0);
+  const size = 12;
+  const { posts, loading, error, proxyImageUrls, proxyProfileImageUrl, imagesLoaded } = useCommunity();
+
+  if (loading || !imagesLoaded) {
+    return <Loading />
   }
 
   if (error) {
@@ -19,16 +22,14 @@ export default function Community() {
     <div className={styles.ComFeedScroll}>
       <div className={styles.ComFeedList} >
         {Array.isArray(posts) && posts.length > 0 ? (
-          posts.map(post => (
-            <ComFeed 
-              key={post.id} // key 추가
-              postId={post.id} 
-              feedUrl={post.feedUrl} 
-              userId={post.userId} 
-              content={post.content} 
-              displayName={post.displayName} 
-              profilePictureUrl={post.profilePictureUrl} 
-              goDir={"navigateToCommunityComment"} 
+          posts.map((post, index) => (
+            <ComFeed
+              key={post.id}
+              postId={post.id}
+              feedUrl={proxyImageUrls[index]}
+              content={post.content}
+              displayName={post.displayName}
+              profilePictureUrl={proxyProfileImageUrl[index]}
             />
           ))
         ) : (

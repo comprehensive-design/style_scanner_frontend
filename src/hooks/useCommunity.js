@@ -1,57 +1,70 @@
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useState, useEffect} from 'react';
+import api from '../utils/axios';
+import {fetchProxyImages} from '../utils/ConvertProxyImage'
 
 export const useCommunity = () => {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const postListRef = useRef();
+  const [loading, setLoading] = useState(true);
 
-  // API 호출 함수
+  const [proxyImageUrls, setProxyImageUrls] = useState([]);
+  const [proxyProfileImageUrl, setProxyProfileImageUrl] = useState([]);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
   const getPosts = async () => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      console.error("토큰이 없습니다.");
-      throw new Error("토큰이 없습니다.");
-    }
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      const response = await axios.get('/api/post', config);
-      console.log('Full response:', response); // 전체 응답 로깅
-      console.log('Fetched posts:', response.data); // 데이터 로깅
-      return response.data || []; // data가 undefined인 경우 빈 배열 반환
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Axios 에러: 글 가져오기 실패:', error.response?.data || error.message);
-      } else {
-        console.error('예상치 못한 에러: 글 가져오기 실패:', error);
-      }
-      throw error;
-    }
+    const response = await api.get('/api/post');
+    return response.data;
   };
 
-  // useEffect로 API 호출 관리
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        setLoading(true); // 로딩 상태를 true로 설정
-        const data = await getPosts(); // API 호출 함수 사용
+        const data = await getPosts();
         setPosts(data);
+        setLoading(false);
+
       } catch (error) {
+        console.log(error);
         setError('포스트를 가져오는 중 에러 발생');
-      } finally {
-        setLoading(false); // 로딩 상태를 false로 설정
+        setLoading(false);
       }
     };
 
     fetchPosts();
   }, []);
 
-  return { posts, loading, error, postListRef };
+
+  //사진 프록시 변환
+  useEffect(() => {
+    const loadImages = async () => {
+      if (posts.length > 0) {
+        try {
+          const feedUrls = posts.map(post => post.feedUrl);
+          const profileUrls = posts.map(post => post.profilePictureUrl);
+
+          const urls = await fetchProxyImages(feedUrls);
+          const pUrls = await fetchProxyImages(profileUrls);
+
+          setProxyImageUrls(urls);
+          setProxyProfileImageUrl(pUrls);
+          setImagesLoaded(true);
+          console.log(urls);
+          console.log(pUrls)
+
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    loadImages();
+  }, [posts]);
+
+  return {
+    posts, 
+    error,
+    loading, 
+    proxyImageUrls,
+    proxyProfileImageUrl, 
+    imagesLoaded
+  };
 };
