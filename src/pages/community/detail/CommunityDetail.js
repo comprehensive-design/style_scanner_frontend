@@ -53,10 +53,8 @@ export default function CommunityDetail() {
             {postContent}
           </ContentDiv>
           <BottomDiv className='feedProfileDiv mt1'>
-            <FaHeart size={'1.5em'} />
-            <p className='content ml03'>3</p>
-            <IoChatbox size={'1.5em'} className='ml1' />
-            <p className='content ml03'>0</p>
+            <IoChatbox size={'1.5em'}/>
+            <p className='content ml03'>{comments.length}</p>
           </BottomDiv>
         </GridDiv>
 
