@@ -4,11 +4,12 @@ import api from "../utils/axios";
 
 export const useComment = () => {
   const location = useLocation();
-  const {postId, feedUrl, displayName, profilePictureUrl} = location.state || {};
+  const {postId, feedUrl, postContent, displayName, profilePictureUrl} = location.state || {};
   
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
+
   const getComments = async (postId) => {
     try {
       const response = await api.get(`/api/comment/${postId}`);
@@ -53,5 +54,5 @@ export const useComment = () => {
     }
   };
 
-  return { postId, feedUrl, displayName, profilePictureUrl, comments, content, setContent, handleSubmit };
+  return { feedUrl, displayName, profilePictureUrl, postContent, content, comments, setContent, handleSubmit };
 };

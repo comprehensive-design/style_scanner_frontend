@@ -4,12 +4,14 @@ import { useComment } from '../../../hooks/useComment';
 import styled from 'styled-components';
 import Comment from "./comment/Comment"
 import { theme } from '../../../style/theme'
+import { FaHeart } from "react-icons/fa6";
+import { IoChatbox } from "react-icons/io5";
 
 export default function CommunityDetail() {
   const navigate = useNavigate();
   const commentRef = useRef();
 
-  const { postId, feedUrl, displayName, profilePictureUrl, comments, content, handleSubmit, setContent } = useComment();
+  const { feedUrl, displayName, profilePictureUrl, comments, postContent, content, handleSubmit, setContent } = useComment();
   const [warning, setWarning] = useState("");
 
   const iconClick = (e) => {
@@ -36,13 +38,36 @@ export default function CommunityDetail() {
     <div className='body' style={{ backgroundColor: theme.colors.gray }}>
       <div className='communityGrid' >
         {/* 댓글 작성자 + 내용 */}
-        <div className='borderRad ml1 mt1 mb1'>
-
-        </div>
+        <GridDiv className='flexColumnn borderRad ml1 mt1 mb1 p1'>
+          <div className='feedProfileDiv mt05'>
+            {profilePictureUrl ? (
+              <img className='feedProfile' src={profilePictureUrl} alt="Profile" />
+            ) : (
+              <img className='feedProfile' src={`img/profile.png`} alt="Profile" />
+            )}
+            <div className='flexColumnn left'>
+              <p className='boldContent mb05'>@{displayName}</p>
+              <p className='caption'>1분 전</p>
+            </div>
+          </div>
+          <img src={feedUrl} className='borderRad mb1' style={{ width: '20em', height: "24em" }} />
+          <hr style={{ width: '100%', backgroundColor: theme.colors.lightGray }} />
+          <ContentDiv className='content mt1'>
+            {postContent}
+          </ContentDiv>
+          <BottomDiv className='feedProfileDiv mt1'>
+            <FaHeart size={'1.5em'} />
+            <p className='content ml03'>3</p>
+            <IoChatbox size={'1.5em'} className='ml1' />
+            <p className='content ml03'>0</p>
+          </BottomDiv>
+        </GridDiv>
+        
+        {/* 셀럽 프로필 */}
         <div className='borderRad mr1 mt1'>wow</div>
 
         {/* comments 그리드*/}
-        <CommentWrapper className=' flexColumnn borderRad mr1 mb1 p1'>
+        <GridDiv className=' flexColumnn borderRad mr1 mb1 p1'>
           <p className='boldSubTitle left mb05' style={{ width: '95%' }}>Comments</p>
           <CommentDiv className='p1' style={{ overflowY: 'scroll' }}>
             {comments.length > 0 ? (
@@ -53,7 +78,7 @@ export default function CommunityDetail() {
               <p className='content'>댓글을 작성해 보세요!</p>
             )}
           </CommentDiv>
-          <BottomDiv className='feedProfileDiv mt05'>
+          <BottomDiv className='feedProfileDiv mt05' style={{ width: '90%' }}>
             <img className='feedProfile' src={`img/profile.png`} />
             <div className='flexColumn' style={{ width: '75%', height: '70%' }}>
               <CommentTextArea
@@ -68,7 +93,7 @@ export default function CommunityDetail() {
               )}
             </div>
           </BottomDiv>
-        </CommentWrapper>
+        </GridDiv>
       </div>
     </div>
     // <div className={styles.popup}>
@@ -117,18 +142,29 @@ export default function CommunityDetail() {
     // </div>
   );
 }
-const CommentWrapper = styled.div`
-  align-items: center;
+
+const GridDiv = styled.div`
+  align-items: flex-start;
   justify-content: center;
 `;
+// 질문글 그리드
+const ContentDiv = styled.div`
+    width: 95%;
+    height: 70%;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow-y: scroll;
+    word-break: break-word;
+    white-space: pre-wrap;
+`;
+
+// 댓글 그리드
 const CommentDiv = styled.div`
     width: 90%;
     height: 70%;
-    align-items: flex-start;
-   
+    align-self: center;
 `;
 const BottomDiv = styled.div`
-  width: 95%;
   height: 30%;
   align-items: flex-start;
 `;
