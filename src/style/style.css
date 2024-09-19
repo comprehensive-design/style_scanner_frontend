@@ -569,6 +569,12 @@ hr {
   gap: 1em;
 }
 
+.mpcDate {
+  position: absolute;
+  right: 0;
+  top: 0em;
+}
+
 /* 메인바 헤더 */
 .header {
   display: flex;
