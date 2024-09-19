@@ -63,7 +63,6 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .textShadow {
   filter: drop-shadow(0.15em 0 0.15em rgba(0, 0, 0, 0.25));
 }
@@ -217,6 +216,7 @@ body {
 hr {
   background-color: var(--black);
   height: 1px;
+  border: none;
 }
 
 .grayhr {
@@ -815,6 +815,7 @@ hr {
 }
 
 .flexColumnn {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -850,4 +851,28 @@ hr {
 }
 .communityGrid > div {
   background-color: var(--white);
+}
+
+/* 댓글 작성 컴포넌트 그리드 */
+.commentGrid {
+  display: grid;
+  grid-template-columns: 2fr 10fr 1fr;
+  grid-template-rows: 8em 1.5em;
+}
+
+.commentGrid > div {
+  display: flex; 
+}
+
+.commentGrid > div:first-child {
+  align-items: flex-start;
+  grid-row: span 2; 
+}
+
+.commentGrid > div:nth-child(2) {
+  flex-direction: column; 
+}
+
+.commentGrid > div:nth-child(3) {
+  align-items: flex-end;
 }

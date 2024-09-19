@@ -24,7 +24,7 @@ function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
                 state: {
                     postId: postId,
                     feedUrl: feedUrl,
-                    content: content,
+                    postContent: content,
                     displayName: displayName,
                     profilePictureUrl: profilePictureUrl
                 }
