@@ -2,22 +2,13 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../../../style/theme.js';
-import CommunityInfo from '../../detail/CommunityInfo';
+import CommunityDetail from '../../detail/CommunityDetail.js'
 import FeedPopup from '../../../../Components/FeedPopup';
 
 function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
     const navigate = useNavigate();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isFeedPopupOpen, setIsFeedPopupOpen] = useState(false);
-
-    const openPopup = () => {
-        setIsPopupOpen(true);
-    };
-
-    const closePopup = () => {
-        console.log("Closing CommunityInfo popup");
-        setIsPopupOpen(false);
-    };
 
     const openFeedPopup = () => {
         setIsFeedPopupOpen(true);
@@ -27,13 +18,25 @@ function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
         console.log("Closing FeedPopup");
         setIsFeedPopupOpen(false);
     };
+    const handleClick = () =>{
+        navigate("/CommunityDetail",
+            {
+                state: {
+                    postId: postId,
+                    feedUrl: feedUrl,
+                    content: content,
+                    displayName: displayName,
+                    profilePictureUrl: profilePictureUrl
+                }
+            }
+        );
+    }
 
     return (
         <div className="communityPopupContent borderRad boxShadow m1">
-            <img src={feedUrl} style={{backgroundColor: theme.colors.white}}/>
+            <img src={feedUrl} style={{backgroundColor: theme.colors.white}} onClick={handleClick}/>
             <div className="feedProfileDiv" style={{ position: 'absolute', top: '1em', left: '1.5em' }} onClick={openFeedPopup}>
                 {profilePictureUrl ? (
-                    //profilePictureUrl (proxy해야함)
                     <img className="feedProfile" src={profilePictureUrl} />
                 ) : (
                     <img className="feedProfile" src={`img/profile.png`} />
@@ -44,9 +47,7 @@ function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
 
             <QuestionWrapper className="borderRad boxShadow">
                 <TextDiv className="p1">
-                    <p className="content" >
-                        {content}
-                    </p>
+                    <p className="content" >{content}</p>
                 </TextDiv>
             </QuestionWrapper>
         </div>
