@@ -4,12 +4,10 @@ import { useComment } from '../../../hooks/useComment';
 import styled from 'styled-components';
 import Comment from "./comment/Comment"
 import { theme } from '../../../style/theme'
-import { FaHeart } from "react-icons/fa6";
 import { IoChatbox } from "react-icons/io5";
 import { FiSend } from "react-icons/fi";
 
 export default function CommunityDetail() {
-  const navigate = useNavigate();
   const commentRef = useRef();
 
   const { feedUrl, displayName, profilePictureUrl, comments, postContent, content, handleSubmit, setContent } = useComment();
@@ -53,30 +51,44 @@ export default function CommunityDetail() {
             {postContent}
           </ContentDiv>
           <BottomDiv className='feedProfileDiv mt1'>
-            <IoChatbox size={'1.5em'}/>
+            <IoChatbox size={'1.5em'} />
             <p className='content ml03'>{comments.length}</p>
           </BottomDiv>
         </GridDiv>
 
         {/* 셀럽 프로필 */}
-        <div className='borderRad mr1 mt1'>wow</div>
+        <div className='feedProfileDiv borderRad mr1 mt1'>
+          {/* 셀럽사진으로 바꿔야함 */}
+          {profilePictureUrl ? (
+            <img className='feedProfile' src={profilePictureUrl} alt="celeb" style={{ width: '10em', height: '10em', borderRadius: '2em' }} />
+          ) : (
+            <img className='feedProfile' src={`img/profile.png`} alt="celeb" style={{ width: '10em', height: '10em', borderRadius: '2em' }} />
+          )}
+
+          <div className='communityCelebGrid'>
+            <p className='boldContent mb1'>@{displayName}</p>
+            <button className='button mb1' style={{ width: '5rem', height: '2rem', padding: 0 }}>팔로우</button>
+            <p className='content'>게시물</p>
+            <p className='content'>팔로워</p>
+            <p className='boldContent'>229</p>
+            <p className='boldContent'>1299M</p>
+          </div>
+        </div>
 
         {/* comments 그리드*/}
         <GridDiv className=' flexColumnn borderRad mr1 mb1 p1'>
           <p className='boldSubTitle left mb05'>Comments</p>
-          <CommentDiv className='p1' style={{ overflowY: 'scroll'}}>
-          <Comment></Comment>
-          <Comment></Comment>
+          <CommentDiv className='p1' style={{ overflowY: 'scroll' }}>
             {comments.length > 0 ? (
               comments.map(comment => (
                 <Comment key={comment.id} displayName={comment.displayName} content={comment.content} profilePictureUrl={comment.profilePictureUrl} />
               ))
-              
+
             ) : (
               <p className='content'>댓글을 작성해 보세요!</p>
             )}
           </CommentDiv>
-          <div className='commentGrid mt05' style={{height:'20%'}}>
+          <div className='commentGrid mt05' style={{ height: '20%' }}>
             <div><img className='feedProfile' src={`img/profile.png`} /></div>
             <div>
               <CommentTextArea
@@ -93,8 +105,8 @@ export default function CommunityDetail() {
               </div>
             </div>
             {warning && (
-                <p style={{ color: theme.colors.red }} className='caption left ml1'>{warning}</p>
-              )}
+              <p style={{ color: theme.colors.red }} className='caption left ml1'>{warning}</p>
+            )}
           </div>
         </GridDiv>
       </div>
