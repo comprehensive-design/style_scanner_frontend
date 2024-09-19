@@ -1,9 +1,8 @@
-
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
-
-body, html {
-  font-family: 'Pretendard';
+body,
+html {
+  font-family: "Pretendard";
   font-size: 14px;
   margin: 0;
   padding: 0;
@@ -14,10 +13,13 @@ body, html {
 }
 
 main {
-  padding-top: 8%; /* Match this value to the height of your fixed header */
+  /* padding-top: 8%; Match this value to the height of your fixed header */
+  height: auto;
+  min-height: 80vh;
+  padding-bottom: (150px);
 }
-header{
-  position: fixed;
+header {
+  /* position: fixed; */
   /* width: 100%; */
   z-index: 999;
 }

@@ -1,31 +1,31 @@
-import './App.css';
-import React from 'react';
-import MainBar from './Components/MainBar';
-import { Route, Routes } from 'react-router-dom';
-import Main from './pages/main//Main';
-import Register from './pages/register/Register';
-import Login from './pages/login/Login';
-import Ranking from './pages/ranking/Ranking';
-import CelebRecommend from './pages/recommend/CelebRecommend';
-import Search from './pages/search/Search';
-import MypageDefault from './pages/mypage/default/MypageDefault';
-import LikeList from './pages/mypage/like/LikeList';
-import FollowingList from './pages/mypage/follow/FollowingList';
-import MyPost from './pages/mypage/post/MyPost';
-import MyComment from './pages/mypage/comment/MyComment';
-import AccountManage from './pages/mypage/account/AccountManage';
-import CommunityNoti from './pages/mypage/notification/CommunityNoti';
-import HomeFeed from './pages/home/HomeFeed';
-import HomeItem from './pages/homeItem/HomeItem';
-import Community from './pages/community/home/Community';
-import CommunityInfo from './pages/community/detail/CommunityInfo';
-import Category from './pages/ranking/category/Category';
-import Empty from './pages/empty/Empty';
+import "./App.css";
+import React from "react";
+import MainBar from "./Components/MainBar";
+import { Route, Routes } from "react-router-dom";
+import Main from "./pages/main//Main";
+import Register from "./pages/register/Register";
+import Login from "./pages/login/Login";
+import Ranking from "./pages/ranking/Ranking";
+import CelebRecommend from "./pages/recommend/CelebRecommend";
+import Search from "./pages/search/Search";
+import MypageDefault from "./pages/mypage/default/MypageDefault";
+import LikeList from "./pages/mypage/like/LikeList";
+import FollowingList from "./pages/mypage/follow/FollowingList";
+import MyPost from "./pages/mypage/post/MyPost";
+import MyComment from "./pages/mypage/comment/MyComment";
+import AccountManage from "./pages/mypage/account/AccountManage";
+import CommunityNoti from "./pages/mypage/notification/CommunityNoti";
+import HomeFeed from "./pages/home/HomeFeed";
+import HomeItem from "./pages/homeItem/HomeItem";
+import Community from "./pages/community/home/Community";
+import CommunityInfo from "./pages/community/detail/CommunityInfo";
+import Category from "./pages/ranking/category/Category";
+import Empty from "./pages/empty/Empty";
 import PrivateRoute from "./utils/PrivateRoute";
-import { ThemeProvider } from 'styled-components';
-import { theme } from './style/theme';
-import Footer from "./Components/Footer"
-import './style/style.css'
+import { ThemeProvider } from "styled-components";
+import { theme } from "./style/theme";
+import Footer from "./Components/Footer";
+import "./style/style.css";
 
 const App = () => {
   return (
@@ -60,12 +60,13 @@ const App = () => {
             {/* 빈 페이지 */}
             <Route path="*" element={<Empty />} />
           </Routes>
-
         </main>
-        <Footer/>
+        <footer>
+          <Footer />
+        </footer>
       </div>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

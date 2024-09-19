@@ -164,7 +164,7 @@ export default function Register() {
   }, []);
 
   return (
-    <body>
+    <div className="mainWrapper">
       <h1>회원가입</h1>
       <RegisterForm
         email1={email1}
@@ -196,6 +196,6 @@ export default function Register() {
         months={months}
         days={days}
       />
-    </body>
+    </div>
   );
 }

@@ -8,7 +8,7 @@ export default function Register({
   handleSubmit,
 }) {
   return (
-    <body>
+    <div className="mainWrapper">
       <div className="loginContent mt3">
         <h1 className="title mb05">Style Scanner</h1>
         <p className="caption mb3"> 당신의 취향을 만들어 드릴게요! </p>
@@ -36,7 +36,12 @@ export default function Register({
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <input className="button mb05" type="submit" value="로그인" style={{width:"100%"}}></input>
+          <input
+            className="button mb05"
+            type="submit"
+            value="로그인"
+            style={{ width: "100%" }}
+          ></input>
         </form>
 
         <div
@@ -48,6 +53,6 @@ export default function Register({
           </NavLink>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
