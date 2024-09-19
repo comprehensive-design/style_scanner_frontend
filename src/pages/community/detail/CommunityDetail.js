@@ -30,10 +30,9 @@ export default function CommunityDetail() {
   };
 
   return (
-    <div className='body' style={{ backgroundColor: theme.colors.gray }}>
+    <div className='body'>
       <div className='communityGrid' >
-        {/* 댓글 작성자 + 내용 */}
-        <GridDiv className='flexColumnn borderRad ml1 mt1 mb1 p1'>
+        <div className='flexColumnn borderRad ml1 mt1 mb1 p1'>
           <div className='feedProfileDiv mt05'>
             {profilePictureUrl ? (
               <img className='feedProfile' src={profilePictureUrl} alt="Profile" />
@@ -46,15 +45,13 @@ export default function CommunityDetail() {
             </div>
           </div>
           <img src={feedUrl} className='borderRad mb1' style={{ width: '20em', height: "24em" }} />
-          <hr style={{ width: '100%', backgroundColor: theme.colors.lightGray }} />
-          <ContentDiv className='content mt1'>
-            {postContent}
-          </ContentDiv>
+          <hr style={{ width: '100%', backgroundColor: theme.colors.gray }} />
+          <ContentDiv className='content mt1'>{postContent}</ContentDiv>
           <BottomDiv className='feedProfileDiv mt1'>
             <IoChatbox size={'1.5em'} />
             <p className='content ml03'>{comments.length}</p>
           </BottomDiv>
-        </GridDiv>
+        </div>
 
         {/* 셀럽 프로필 */}
         <div className='feedProfileDiv borderRad mr1 mt1'>
@@ -76,9 +73,10 @@ export default function CommunityDetail() {
         </div>
 
         {/* comments 그리드*/}
-        <GridDiv className=' flexColumnn borderRad mr1 mb1 p1'>
+        <div className=' flexColumnn borderRad mr1 mb1 p1'>
           <p className='boldSubTitle left mb05'>Comments</p>
           <CommentDiv className='p1' style={{ overflowY: 'scroll' }}>
+           
             {comments.length > 0 ? (
               comments.map(comment => (
                 <Comment key={comment.id} displayName={comment.displayName} content={comment.content} profilePictureUrl={comment.profilePictureUrl} />
@@ -88,17 +86,15 @@ export default function CommunityDetail() {
               <p className='content'>댓글을 작성해 보세요!</p>
             )}
           </CommentDiv>
-          <div className='commentGrid mt05' style={{ height: '20%' }}>
+          <div className='commentGrid mt05 mb05' style={{ height: '20%' }}>
             <div><img className='feedProfile' src={`img/profile.png`} /></div>
-            <div>
-              <CommentTextArea
+            <CommentTextArea
                 ref={commentRef}
                 className='content borderRad p1'
                 rows={1}
                 value={content}
                 onChange={handleInputChange}
               />
-            </div>
             <div>
               <div className="carousel boxShadow ml05 mb05" style={{ cursor: 'pointer' }}>
                 <FiSend onClick={iconClick} color={theme.colors.gray} />
@@ -108,30 +104,25 @@ export default function CommunityDetail() {
               <p style={{ color: theme.colors.red }} className='caption left ml1'>{warning}</p>
             )}
           </div>
-        </GridDiv>
+        </div>
       </div>
     </div>
   );
 }
 
-const GridDiv = styled.div`
-  align-items: flex-start;
-  justify-content: center;
-`;
 const BottomDiv = styled.div`
-  height: 30%;
   align-items: flex-start;
   justify-content: flex-start;
 `;
 // 질문글 그리드
 const ContentDiv = styled.div`
     width: 95%;
-    height: 70%;
     text-align: left;
     text-overflow: ellipsis;
     overflow-y: scroll;
     word-break: break-word;
     white-space: pre-wrap;
+
 `;
 
 // 댓글 그리드

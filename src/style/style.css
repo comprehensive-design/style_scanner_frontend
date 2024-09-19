@@ -838,18 +838,17 @@ hr {
 .communityGrid{
   display: grid;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   font-size: 14px;
-
-  background-color: var(--blueGray);
   grid-template-columns: 1.8fr 1fr;
-  grid-template-rows: 1fr 1.8fr;
+  grid-template-rows: 15em 45em;
   gap: 1em;
 }
 .communityGrid > div:first-child {
   grid-row: span 2;
 }
 .communityGrid > div {
+  box-shadow: 0.15em 0 1em rgba(0, 0, 0, 0.1);
   background-color: var(--white);
 }
 
@@ -866,10 +865,7 @@ hr {
   align-items: flex-start;
   grid-row: span 2; 
 }
-.commentGrid > div:nth-child(2) {
-  flex-direction: column; 
-}
-.commentGrid > div:nth-child(3) {
+.commentGrid > div:nth-child(3){
   align-items: flex-end;
 }
 
