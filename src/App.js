@@ -22,10 +22,10 @@ import CommunityDetail from './pages/community/detail/CommunityDetail';
 import Category from './pages/ranking/category/Category';
 import Empty from './pages/empty/Empty';
 import PrivateRoute from "./utils/PrivateRoute";
-import { ThemeProvider } from 'styled-components';
-import { theme } from './style/theme';
-import Footer from "./Components/Footer"
-import './style/style.css'
+import { ThemeProvider } from "styled-components";
+import { theme } from "./style/theme";
+import Footer from "./Components/Footer";
+import "./style/style.css";
 
 const App = () => {
   return (
@@ -60,12 +60,13 @@ const App = () => {
             {/* 빈 페이지 */}
             <Route path="*" element={<Empty />} />
           </Routes>
-
         </main>
-        <Footer/>
+        <footer>
+          <Footer />
+        </footer>
       </div>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
