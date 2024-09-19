@@ -10,7 +10,7 @@ import { FiSend } from "react-icons/fi";
 export default function CommunityDetail() {
   const commentRef = useRef();
 
-  const { feedUrl, displayName, profilePictureUrl, comments, postContent, content, handleSubmit, setContent } = useComment();
+  const { proxyUrl, displayName, profilePictureUrl, comments, postContent, content, handleSubmit, setContent} = useComment();
   const [warning, setWarning] = useState("");
 
   const iconClick = (e) => {
@@ -44,7 +44,7 @@ export default function CommunityDetail() {
               <p className='caption'>1분 전</p>
             </div>
           </div>
-          <img src={feedUrl} className='borderRad mb1' style={{ width: '20em', height: "24em" }} />
+          <img src={proxyUrl} className='borderRad mb1' style={{ width: '20em', height: "24em" }} />
           <hr style={{ width: '100%', backgroundColor: theme.colors.gray }} />
           <ContentDiv className='content mt1'>{postContent}</ContentDiv>
           <BottomDiv className='feedProfileDiv mt1'>

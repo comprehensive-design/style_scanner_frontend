@@ -9,7 +9,7 @@ export default function Community() {
 
   const [page, setPage] = useState(0);
   const size = 12;
-  const { posts, loading, error, proxyImageUrls, proxyProfileImageUrl, imagesLoaded } = useCommunity();
+  const { posts, loading, error, proxyImageUrls, imagesLoaded } = useCommunity();
 
   if (loading || !imagesLoaded) {
     return <Loading />
@@ -33,10 +33,11 @@ export default function Community() {
               <ComFeed
                 key={post.id}
                 postId={post.id}
-                feedUrl={proxyImageUrls[index]}
+                proxyUrl={proxyImageUrls[index]}
+                feedUrl={post.feedUrl}
                 content={post.content}
                 displayName={post.displayName}
-                profilePictureUrl={proxyProfileImageUrl[index]}
+                profilePictureUrl={post.profilePictureUrl}
               />
             ))
           ) : (
