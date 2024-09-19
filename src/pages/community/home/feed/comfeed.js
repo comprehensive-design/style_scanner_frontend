@@ -5,7 +5,7 @@ import { theme } from '../../../../style/theme.js';
 import CommunityDetail from '../../detail/CommunityDetail.js'
 import FeedPopup from '../../../../Components/FeedPopup';
 
-function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
+function ComFeed({ postId, feedUrl, proxyUrl, content, displayName, profilePictureUrl }) {
     const navigate = useNavigate();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isFeedPopupOpen, setIsFeedPopupOpen] = useState(false);
@@ -24,6 +24,7 @@ function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
                 state: {
                     postId: postId,
                     feedUrl: feedUrl,
+                    proxyUrl: proxyUrl,
                     postContent: content,
                     displayName: displayName,
                     profilePictureUrl: profilePictureUrl
@@ -34,7 +35,7 @@ function ComFeed({ postId, feedUrl, content, displayName, profilePictureUrl }) {
 
     return (
         <div className="communityPopupContent borderRad boxShadow m1">
-            <img src={feedUrl} style={{backgroundColor: theme.colors.white}} onClick={handleClick}/>
+            <img src={proxyUrl} style={{backgroundColor: theme.colors.white}} onClick={handleClick}/>
             <div className="feedProfileDiv" style={{ position: 'absolute', top: '1em', left: '1.5em' }} onClick={openFeedPopup}>
                 {profilePictureUrl ? (
                     <img className="feedProfile" src={profilePictureUrl} />
