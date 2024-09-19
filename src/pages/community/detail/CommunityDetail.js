@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useComment } from '../../../hooks/useComment';
+import { useMe } from '../../../hooks/useMe';
 import styled from 'styled-components';
 import Comment from "./comment/Comment"
 import { theme } from '../../../style/theme'
@@ -10,7 +11,8 @@ import { FiSend } from "react-icons/fi";
 export default function CommunityDetail() {
   const commentRef = useRef();
 
-  const { proxyUrl, displayName, profilePictureUrl, comments, postContent, content, handleSubmit, setContent} = useComment();
+  const { proxyUrl, displayName, profilePictureUrl, comments, postContent, content, handleSubmit, setContent } = useComment();
+  const {myProfilePictureUrl} = useMe();
   const [warning, setWarning] = useState("");
 
   const iconClick = (e) => {
@@ -76,7 +78,7 @@ export default function CommunityDetail() {
         <div className=' flexColumnn borderRad mr1 mb1 p1'>
           <p className='boldSubTitle left mb05'>Comments</p>
           <CommentDiv className='p1' style={{ overflowY: 'scroll' }}>
-           
+
             {comments.length > 0 ? (
               comments.map(comment => (
                 <Comment key={comment.id} displayName={comment.displayName} content={comment.content} profilePictureUrl={comment.profilePictureUrl} />
@@ -87,14 +89,18 @@ export default function CommunityDetail() {
             )}
           </CommentDiv>
           <div className='commentGrid mt05 mb05' style={{ height: '20%' }}>
-            <div><img className='feedProfile' src={`img/profile.png`} /></div>
+            {myProfilePictureUrl ? (
+              <img className='feedProfile' src={myProfilePictureUrl} alt="myprofile"/>
+            ) : (
+              <img className='feedProfile' src={myProfilePictureUrl} alt="myprofile"/>
+            )}
             <CommentTextArea
-                ref={commentRef}
-                className='content borderRad p1'
-                rows={1}
-                value={content}
-                onChange={handleInputChange}
-              />
+              ref={commentRef}
+              className='content borderRad p1'
+              rows={1}
+              value={content}
+              onChange={handleInputChange}
+            />
             <div>
               <div className="carousel boxShadow ml05 mb05" style={{ cursor: 'pointer' }}>
                 <FiSend onClick={iconClick} color={theme.colors.gray} />
@@ -127,8 +133,9 @@ const ContentDiv = styled.div`
 
 // 댓글 그리드
 const CommentDiv = styled.div`
-    height: 70%;
-    align-self: center;
+  width: 100%;
+  height: 70%;
+  align-self: center;
 `;
 const CommentTextArea = styled.textarea`
   height: 100%;
