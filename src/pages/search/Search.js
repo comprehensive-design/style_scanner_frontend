@@ -4,7 +4,6 @@ import Channel from './channel/channel';
 import Button from '../../Components/Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Footer from '../../Components/Footer';
 import FeedPopup from '../../Components/FeedPopup';
 
 export default function Search() {
@@ -16,7 +15,8 @@ export default function Search() {
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [celebs, setCelebs] = useState([]);
-    const [userDatas, setUserDatas] = useState(null);
+    // const [userDatas, setUserDatas] = useState(null);
+    
 
     console.log("searchResults : ", searchResults);
 
@@ -207,7 +207,6 @@ export default function Search() {
             {popupVisible && selectedUser && (
                 <FeedPopup user={selectedUser} onClose={closePopup} />
             )}
-            <Footer />
         </div>
     );
 }
