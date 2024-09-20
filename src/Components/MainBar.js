@@ -5,6 +5,7 @@ import MainBarDefault from './mainHeader/mainBarDefault';
 import MainBarLogin from './mainHeader/mainBarLogin';
 import SearchBar from './SearchBar';
 
+
 function MainBar() {
     const [searchText, setSearchText] = useState("");
     const [searchResults, setSearchResults] = useState(null);
