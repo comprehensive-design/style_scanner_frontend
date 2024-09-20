@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
+import SearchResultItem from './SearchresultItem'; // import 추가
 
 function SearchBar({ value, onChange, onKeyPress }) {
-    const [users, setUsers] = useState([]); // 초기 상태를 배열로 설정
+    const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("http://localhost:3000/searchUsers");
+                const response = await fetch("http://localhost:5000/searchUsers");
                 const data = await response.json();
-                
-                // 데이터가 배열인지 확인
                 if (Array.isArray(data)) {
                     setUsers(data);
                 } else {
@@ -26,10 +25,15 @@ function SearchBar({ value, onChange, onKeyPress }) {
     }, []);
 
     useEffect(() => {
-        const results = users.filter(user =>
-            user.profileName.toLowerCase().includes(value.toLowerCase())
-        );
-        setFilteredUsers(results);
+        if (value) {
+            const results = users.filter(user =>
+                user.profileName.toLowerCase().includes(value.toLowerCase())
+            );
+            console.log("Filtered Users: ", results); // 추가
+            setFilteredUsers(results);
+        } else {
+            setFilteredUsers([]);
+        }
     }, [value, users]);
 
     const handleSubmit = (e) => {
@@ -37,8 +41,11 @@ function SearchBar({ value, onChange, onKeyPress }) {
     };
 
     return (
-        <div>
-            <form className="search" onSubmit={handleSubmit}>
+        <div className="search">
+            <button type="submit" className="search_button">
+                <IoSearch size={24} />
+            </button>
+            <form className="search-form" onSubmit={handleSubmit}>
                 <input
                     type="text"
                     className="search_bar"
@@ -48,17 +55,11 @@ function SearchBar({ value, onChange, onKeyPress }) {
                     onKeyPress={onKeyPress}
                     value={value}
                 />
-                <button type="submit" className="search_button">
-                    <IoSearch size={24} />
-                </button>
             </form>
             {filteredUsers.length > 0 && (
                 <ul className="search-results">
                     {filteredUsers.map(user => (
-                        <li key={user.id}>
-                            <img src={user.profilePictureUrl} alt={user.profileName} />
-                            <span>{user.profileName}</span>
-                        </li>
+                        <SearchResultItem key={user.id} user={user} />
                     ))}
                 </ul>
             )}
