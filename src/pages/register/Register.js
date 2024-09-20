@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/axios.jsx";
 import RegisterForm from "./RegisterForm";
 import { useNavigate } from "react-router-dom";
 
@@ -35,7 +35,7 @@ export default function Register() {
         setEmailChecked(false);
       } else {
         const email = email1;
-        const response = await axios.get(`/api/user/emailcheck`, {
+        const response = await api.get(`/api/user/emailcheck`, {
           params: {
             email: email,
           },
@@ -96,7 +96,7 @@ export default function Register() {
       const email = email1;
 
       if (validPassword && passwordMatch && emailChecked) {
-        const response = await axios.post("/api/user/signup", {
+        const response = await api.post("/api/user/signup", {
           email: email,
           displayName: displayName,
           password: password,

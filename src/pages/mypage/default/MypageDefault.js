@@ -1,5 +1,5 @@
 import MypageDefaultForm from "./MypageDefaultForm";
-import axios from "axios";
+import api from "../../../utils/axios.jsx";
 import React, { useState, useEffect } from "react";
 
 export default function MypageDefault() {
@@ -18,7 +18,7 @@ export default function MypageDefault() {
       console.error("Access token is missing");
       return;
     }
-    axios
+    api
       .get("/api/user/me", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -35,7 +35,7 @@ export default function MypageDefault() {
         console.error("Error fetching data:", error);
       });
 
-    axios
+    api
       .get("/api/follow/followingList", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -48,7 +48,7 @@ export default function MypageDefault() {
         const updatedFollowings = await Promise.all(
           following_list.map(async (following) => {
             try {
-              const proxyResponse = await axios.get("/api/insta/proxyImage", {
+              const proxyResponse = await api.get("/api/insta/proxyImage", {
                 params: {
                   imageUrl: following.profilePictureUrl,
                 },
@@ -68,7 +68,7 @@ export default function MypageDefault() {
         console.error("Error fetching data:", error);
       });
 
-    axios
+    api
       .get("/api/itemLike/me", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
