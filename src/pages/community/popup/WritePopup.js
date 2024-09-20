@@ -1,31 +1,51 @@
 import React, { useRef, useState, useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
-import styled from 'styled-components'
+import styled from "styled-components";
 import useWritePost from "../../../hooks/useWritePost";
 
-export default function WritePopup({ post, proxy_url, feed_url, onSave, onClose }) {
+export default function WritePopup({
+  post,
+  proxy_url,
+  feed_url,
+  onSave,
+  onClose,
+}) {
   const [question, setQuestion] = useState(post ? post.content : "");
-  const { profilePictureUrl, handleSubmit } = useWritePost(post, feed_url, onSave);
+  const { profilePictureUrl, handleSubmit } = useWritePost(
+    post,
+    feed_url,
+    onSave
+  );
 
   const textarea = useRef();
 
   const onSubmit = (e) => {
-    handleSubmit(e, question); 
-    setQuestion(""); 
+    handleSubmit(e, question);
+    setQuestion("");
   };
   return (
     <div className="communityPopupWrapper">
       <div className="communityPopupContent boxShadow borderRad">
-        <img src={proxy_url}/>
-        <div className='feedLayerDiv' style={{ left: '1em' }}>
-          <IoIosClose className='textShadow' size='2em' color='white' onClick={onClose} style={{ cursor: 'pointer' }} />
+        <img src={proxy_url} />
+        <div className="feedLayerDiv" style={{ left: "1rem" }}>
+          <IoIosClose
+            className="textShadow"
+            size="2rem"
+            color="white"
+            onClick={onClose}
+            style={{ cursor: "pointer" }}
+          />
         </div>
         {/* 질문창 */}
         <WriteBoxWrapper className="borderRad">
           <ProfileWrapper>
-            <img className='feedProfile' src={profilePictureUrl} style={{ width: '3em', height: '3em'}} />
+            <img
+              className="feedProfile"
+              src={profilePictureUrl}
+              style={{ width: "3rem", height: "3rem" }}
+            />
           </ProfileWrapper>
-          <WriteBoxTextArea 
+          <WriteBoxTextArea
             ref={textarea}
             className="content mt1 p1 mb05"
             rows={1}
@@ -33,9 +53,15 @@ export default function WritePopup({ post, proxy_url, feed_url, onSave, onClose 
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
-          <button className="button mb1" type='submit' style={{width: '90%', height: '30%'}} onClick={onSubmit}>제출하기</button>
+          <button
+            className="button mb1"
+            type="submit"
+            style={{ width: "90%", height: "30%" }}
+            onClick={onSubmit}
+          >
+            제출하기
+          </button>
         </WriteBoxWrapper>
-        
       </div>
     </div>
   );
@@ -53,10 +79,10 @@ const WriteBoxWrapper = styled.div`
 
 const ProfileWrapper = styled.div`
   position: absolute;
-  width: 3.5em;
-  height: 3.5em;
-  top: -1.25em; 
-  
+  width: 3.5rem;
+  height: 3.5rem;
+  top: -1.25rem;
+
   display: flex;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 50%;

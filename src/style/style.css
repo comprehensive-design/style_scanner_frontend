@@ -3,8 +3,8 @@
 :root {
   --white: #ffffff;
   --black: #171717;
-  --lightGray: #F4F2F2;
-  --blueGray: #F4F5FB;
+  --lightGray: #f4f2f2;
+  --blueGray: #f4f5fb;
   --gray: #d9d9d9;
   --darkGray: #808080;
   --red: #ff3535;
@@ -28,32 +28,32 @@ body {
 }
 
 .title {
-  font-size: 1.8em;
+  font-size: 1.8rem;
   font-weight: 700;
 }
 
 .subtitle {
-  font-size: 1.4em;
+  font-size: 1.4rem;
   font-weight: 400;
 }
 
 .boldSubTitle {
-  font-size: 1.4em;
+  font-size: 1.4rem;
   font-weight: 700;
 }
 
 .content {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: 400;
 }
 
 .boldContent {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
 .caption {
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: 400;
 }
 
@@ -64,72 +64,72 @@ body {
   text-overflow: ellipsis;
 }
 .textShadow {
-  filter: drop-shadow(0.15em 0 0.15em rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0.15rem 0 0.15rem rgba(0, 0, 0, 0.25));
 }
 .mt05 {
-  margin-top: 0.5em;
+  margin-top: 0.5rem;
 }
 .mt1 {
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 
 .mt3 {
-  margin-top: 3em;
+  margin-top: 3rem;
 }
 
 .mt5 {
-  margin-top: 5em;
+  margin-top: 5rem;
 }
 
 .mt1 {
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 
 .mb05 {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5rem;
 }
 
 .mb1 {
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 .mb2 {
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
 }
 
 .mb3 {
-  margin-bottom: 3em;
+  margin-bottom: 3rem;
 }
 
-.mr1{
-  margin-right: 1em;
+.mr1 {
+  margin-right: 1rem;
 }
 .mr2 {
-  margin-right: 2em;
+  margin-right: 2rem;
 }
 
 .mr3 {
-  margin-right: 3em;
+  margin-right: 3rem;
 }
 
 .ml03 {
-  margin-left: 0.3em;
+  margin-left: 0.3rem;
 }
 
 .ml05 {
-  margin-left: 0.5em;
+  margin-left: 0.5rem;
 }
 
 .ml1 {
-  margin-left: 1em;
+  margin-left: 1rem;
 }
 
 .ml3 {
-  margin-left: 3em;
+  margin-left: 3rem;
 }
 
 .ml1 {
-  margin-left: 1em;
+  margin-left: 1rem;
 }
 .left {
   text-align: left;
@@ -140,15 +140,15 @@ body {
 }
 
 .p1 {
-  padding: 1em;
+  padding: 1rem;
 }
 
 .borderRad {
-  border-radius: 1.5em;
+  border-radius: 1.5rem;
 }
 
 .boxShadow {
-  box-shadow: 0.15em 0 1.5em rgba(0, 0, 0, 0.25);
+  box-shadow: 0.15rem 0 1.5rem rgba(0, 0, 0, 0.25);
 }
 
 .grayText {
@@ -165,10 +165,10 @@ body {
   border-left: none;
   border-right: none;
   border-bottom: 1px solid var(--darkGray);
-  font-size: 1.2em;
-  margin-top: 0.5em;
-  margin-bottom: 3em;
-  padding: 0 0 0.5em 0;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
+  padding: 0 0 0.5rem 0;
 }
 
 .button {
@@ -228,7 +228,7 @@ hr {
 .loginContent {
   margin: 0 auto;
   width: 30%;
-  margin-top: 3em;
+  margin-top: 3rem;
 }
 
 .loginForm {
@@ -238,10 +238,10 @@ hr {
 }
 
 .loginRegister > a {
-  font-size: 1em;
+  font-size: 1rem;
   text-decoration-line: none;
   color: var(--black);
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 
 .loginRegister > a:hover {
@@ -257,20 +257,20 @@ hr {
 }
 
 .feedProfile {
-  width: 3em;
-  height: 3em;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
-  padding: 1em;
+  padding: 1rem;
   object-fit: cover;
 }
 
 /* 기본 프로필 */
 .feedProfileDefault {
-  width: 4.8em;
-  height: 4.8em;
+  width: 4.8rem;
+  height: 4.8rem;
   border-radius: 50%;
   background-color: var(--gray);
-  margin: 1em;
+  margin: 1rem;
   object-fit: cover;
 }
 
@@ -292,18 +292,18 @@ hr {
 .feedList {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 25em);
-  gap: 2em;
+  grid-template-columns: repeat(4, 25rem);
+  gap: 2rem;
   justify-content: center;
 }
 
 /* layer아이콘 */
 .feedLayerDiv {
   position: absolute;
-  top: 1em;
-  right: 1.5em;
-  width: 1.5em;
-  height: 1.5em;
+  top: 1rem;
+  right: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .feedLayerDiv > img {
@@ -318,11 +318,11 @@ hr {
 }
 
 .registersmallBox .caption {
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
 }
 
 .registersmallBox .underLine {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5rem;
 }
 
 .registerBirthBox {
@@ -333,20 +333,20 @@ hr {
 }
 
 .registerBirthBox select {
-  margin-top: 0.5em;
+  margin-top: 0.5rem;
   background-color: var(--gray);
-  border-radius: 1em;
+  border-radius: 1rem;
   border: none;
-  padding: 0.5em;
+  padding: 0.5rem;
 }
 
 .registerBirthBox p {
-  margin-left: 0.5em;
-  margin-right: 2em;
+  margin-left: 0.5rem;
+  margin-right: 2rem;
 }
 
 .registerBirthBox input {
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 
 /* 아이템 */
@@ -361,8 +361,8 @@ hr {
 .carousel {
   background-color: var(--white);
   border-radius: 50%;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.5rem;
+  height: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -384,7 +384,7 @@ hr {
 /* 사이드바 */
 .sidebarContent {
   text-align: left;
-  padding: 0 0 0 2em;
+  padding: 0 0 0 2rem;
   width: 15%;
 }
 
@@ -410,7 +410,7 @@ hr {
 
 .mpdprofileBox {
   width: 100%;
-  height: 12em;
+  height: 12rem;
   border-radius: 1rem;
   background-color: var(--lightGray);
   display: grid;
@@ -442,7 +442,7 @@ hr {
 .mpdtextBox {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 3em 0 1em;
+  margin: 3rem 0 1rem;
 }
 
 .mpdtextBox :nth-child(1) {
@@ -465,7 +465,7 @@ hr {
 .mpdFollowing div > img {
   width: 80%;
   border-radius: 50%;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5rem;
 }
 
 .mpdLike {
@@ -473,16 +473,16 @@ hr {
   grid-template-columns: 1fr 1fr;
   width: 95%;
   margin: auto auto;
-  gap: 1em;
+  gap: 1rem;
 }
 
 .mpdLike > div {
   background-color: var(--lightGray);
   display: grid;
   grid-template-columns: 1fr 2fr;
-  border-radius: 1em;
-  padding: 1em;
-  gap: 1em;
+  border-radius: 1rem;
+  padding: 1rem;
+  gap: 1rem;
   height: 9rem;
 }
 
@@ -491,7 +491,7 @@ hr {
 }
 
 .mpdLike > div :nth-child(1) > img {
-  border-radius: 1em;
+  border-radius: 1rem;
   width: 9rem;
   height: 9rem;
 }
@@ -514,8 +514,8 @@ hr {
 }
 
 .mpdLikeInfo .last img {
-  width: 1em;
-  height: 1em;
+  width: 1rem;
+  height: 1rem;
   margin: auto 0;
 }
 
@@ -526,8 +526,8 @@ hr {
 /* 마이페이지 좋아요 */
 .mplGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
-  gap: 1em;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 1rem;
   width: 100%;
   justify-items: center;
 }
@@ -542,17 +542,17 @@ hr {
 }
 
 .mppFeedImage {
-  width: 13em;
-  height: 16em;
+  width: 13rem;
+  height: 16rem;
   text-align: center;
-  margin-bottom: 3em;
+  margin-bottom: 3rem;
   object-fit: cover;
 }
 
 .mppCommentDiv {
   display: flex;
   float: left;
-  margin: 8em 0em 0em 3em;
+  margin: 8rem 0rem 0rem 3rem;
 }
 
 .mppCommentImage {
@@ -569,16 +569,16 @@ hr {
 .mppButtonDiv {
   position: absolute;
   right: 0;
-  top: 13em;
+  top: 13rem;
   display: flex;
   float: left;
-  gap: 1em;
+  gap: 1rem;
 }
 
 .mpcDate {
   position: absolute;
   right: 0;
-  top: 0em;
+  top: 0rem;
 }
 
 /* 메인바 헤더 */
@@ -669,8 +669,8 @@ hr {
 }
 
 .profileImg {
-  width: 3em;
-  height: 3em;
+  width: 3rem;
+  height: 3rem;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -681,14 +681,14 @@ hr {
 .mpnBox {
   display: flex;
   justify-content: space-between;
-  padding: 2em;
+  padding: 2rem;
 }
 
 /* 마이페이지 계정 관리 */
 .mpmManagingBox {
   position: relative;
-  height: 15em;
-  margin-top: 3em;
+  height: 15rem;
+  margin-top: 3rem;
 }
 
 .mpmManagingBox input {
@@ -708,7 +708,7 @@ hr {
 
 .mpmPopup {
   z-index: 1000;
-  padding: 3em 5em;
+  padding: 3rem 5rem;
   background-color: white;
   border-radius: 10px;
   border: 1px solid black;
@@ -719,14 +719,14 @@ hr {
 }
 
 .mpmFix {
-  width: 1em;
-  height: 1em;
+  width: 1rem;
+  height: 1rem;
 }
 
 .mpmBtnBox {
   display: flex;
   justify-content: center;
-  gap: 2em;
+  gap: 2rem;
 }
 
 /* 커뮤니티 팝업 */
@@ -744,8 +744,8 @@ hr {
 
 .communityPopupContent {
   position: relative;
-  width: 25em;
-  height: 35em;
+  width: 25rem;
+  height: 35rem;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -767,7 +767,7 @@ hr {
 }
 
 .totalWrap {
-  margin: 2.5em;
+  margin: 2.5rem;
   display: flex;
 }
 
@@ -822,8 +822,8 @@ hr {
 
 /* 커뮤니티 홈 */
 .cardWrapper {
-  width: 25em;
-  height: 30em;
+  width: 25rem;
+  height: 30rem;
   overflow: hidden;
 }
 
@@ -835,20 +835,20 @@ hr {
 }
 
 /* 커뮤니티 댓글 페이지 */
-.communityGrid{
+.communityGrid {
   display: grid;
   width: 100%;
   height: 100%;
   font-size: 14px;
   grid-template-columns: 1.8fr 1fr;
-  grid-template-rows: 15em 45em;
-  gap: 1em;
+  grid-template-rows: 15rem 45rem;
+  gap: 1rem;
 }
 .communityGrid > div:first-child {
   grid-row: span 2;
 }
 .communityGrid > div {
-  box-shadow: 0.15em 0 1em rgba(0, 0, 0, 0.1);
+  box-shadow: 0.15rem 0 1rem rgba(0, 0, 0, 0.1);
   background-color: var(--white);
 }
 
@@ -856,19 +856,18 @@ hr {
 .commentGrid {
   display: grid;
   grid-template-columns: 2fr 10fr 1fr;
-  grid-template-rows: 8em 1.5em;
+  grid-template-rows: 8rem 1.5rem;
 }
 .commentGrid > div {
-  display: flex; 
+  display: flex;
 }
 .commentGrid > div:first-child {
   align-items: flex-start;
-  grid-row: span 2; 
+  grid-row: span 2;
 }
-.commentGrid > div:nth-child(3){
+.commentGrid > div:nth-child(3) {
   align-items: flex-end;
 }
-
 
 /* 댓글 페이지 셀럽 정보 그리드 */
 .communityCelebGrid {
@@ -878,7 +877,6 @@ hr {
   grid-template-rows: 2fr 2fr 1fr;
   align-items: center;
 }
-.communityCelebGrid >button{
+.communityCelebGrid > button {
   justify-self: flex-end;
 }
-

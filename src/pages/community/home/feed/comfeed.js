@@ -1,58 +1,76 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { theme } from '../../../../style/theme.js';
-import CommunityDetail from '../../detail/CommunityDetail.js'
-import FeedPopup from '../../../../Components/FeedPopup';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { theme } from "../../../../style/theme.js";
+import CommunityDetail from "../../detail/CommunityDetail.js";
+import FeedPopup from "../../../../Components/FeedPopup";
 
-function ComFeed({ postId, feedUrl, proxyUrl, content, displayName, profilePictureUrl }) {
-    const navigate = useNavigate();
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [isFeedPopupOpen, setIsFeedPopupOpen] = useState(false);
+function ComFeed({
+  postId,
+  feedUrl,
+  proxyUrl,
+  content,
+  displayName,
+  profilePictureUrl,
+}) {
+  const navigate = useNavigate();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isFeedPopupOpen, setIsFeedPopupOpen] = useState(false);
 
-    const openFeedPopup = () => {
-        setIsFeedPopupOpen(true);
-    };
+  const openFeedPopup = () => {
+    setIsFeedPopupOpen(true);
+  };
 
-    const closeFeedPopup = () => {
-        console.log("Closing FeedPopup");
-        setIsFeedPopupOpen(false);
-    };
-    const handleClick = () =>{
-        navigate("/CommunityDetail",
-            {
-                state: {
-                    postId: postId,
-                    feedUrl: feedUrl,
-                    proxyUrl: proxyUrl,
-                    postContent: content,
-                    displayName: displayName,
-                    profilePictureUrl: profilePictureUrl
-                }
-            }
-        );
-    }
+  const closeFeedPopup = () => {
+    console.log("Closing FeedPopup");
+    setIsFeedPopupOpen(false);
+  };
+  const handleClick = () => {
+    navigate("/CommunityDetail", {
+      state: {
+        postId: postId,
+        feedUrl: feedUrl,
+        proxyUrl: proxyUrl,
+        postContent: content,
+        displayName: displayName,
+        profilePictureUrl: profilePictureUrl,
+      },
+    });
+  };
 
-    return (
-        <div className="communityPopupContent borderRad boxShadow m1">
-            <img src={proxyUrl} style={{backgroundColor: theme.colors.white}} onClick={handleClick}/>
-            <div className="feedProfileDiv" style={{ position: 'absolute', top: '1em', left: '1.5em' }} onClick={openFeedPopup}>
-                {profilePictureUrl ? (
-                    <img className="feedProfile" src={profilePictureUrl} />
-                ) : (
-                    <img className="feedProfile" src={`img/profile.png`} />
-                )}
-                <p className='boldContent textShadow' style={{ color: theme.colors.white }}>@{displayName}</p>
-            </div>
-            {isFeedPopupOpen && <FeedPopup onClose={closeFeedPopup} />}
+  return (
+    <div className="communityPopupContent borderRad boxShadow m1">
+      <img
+        src={proxyUrl}
+        style={{ backgroundColor: theme.colors.white }}
+        onClick={handleClick}
+      />
+      <div
+        className="feedProfileDiv"
+        style={{ position: "absolute", top: "1rem", left: "1.5rem" }}
+        onClick={openFeedPopup}
+      >
+        {profilePictureUrl ? (
+          <img className="feedProfile" src={profilePictureUrl} />
+        ) : (
+          <img className="feedProfile" src={`img/profile.png`} />
+        )}
+        <p
+          className="boldContent textShadow"
+          style={{ color: theme.colors.white }}
+        >
+          @{displayName}
+        </p>
+      </div>
+      {isFeedPopupOpen && <FeedPopup onClose={closeFeedPopup} />}
 
-            <QuestionWrapper className="borderRad boxShadow">
-                <TextDiv className="p1">
-                    <p className="content" >{content}</p>
-                </TextDiv>
-            </QuestionWrapper>
-        </div>
-    );
+      <QuestionWrapper className="borderRad boxShadow">
+        <TextDiv className="p1">
+          <p className="content">{content}</p>
+        </TextDiv>
+      </QuestionWrapper>
+    </div>
+  );
 }
 const QuestionWrapper = styled.div`
   position: absolute;
@@ -76,17 +94,17 @@ const TextDiv = styled.div`
   color: ${({ theme }) => theme.colors.black};
   align-items: center;
   justify-content: center;
-  white-space:pre-wrap;
+  white-space: pre-wrap;
 
-  p{
+  p {
     width: 90%;
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-word;
-        
+
     display: -webkit-box;
-    -webkit-line-clamp: 4; 
-    -webkit-box-orient: vertical
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
 `;
 export default ComFeed;

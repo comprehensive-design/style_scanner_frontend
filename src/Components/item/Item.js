@@ -44,15 +44,15 @@ export default function Item({
       <AiOutlineShopping
         className="feedLayerDiv textShadow"
         style={{ cursor: "pointer" }}
-        size="1.5em"
+        size="1.5rem"
         color={theme.colors.white}
         onClick={shoppingClick}
       />
       <ItemInfoTopWrapper className="p1">
-        <p className="boldContent mb05 ellipsis" style={{ minHeight: "1em" }}>
+        <p className="boldContent mb05 ellipsis" style={{ minHeight: "1rem" }}>
           {brand}
         </p>
-        <p className="content ellipsis" style={{ minHeight: "1em" }}>
+        <p className="content ellipsis" style={{ minHeight: "1rem" }}>
           {name}
         </p>
       </ItemInfoTopWrapper>
@@ -60,8 +60,8 @@ export default function Item({
         <p>{formatPrice(price)}₩</p>
         <div className="itemLikeWrapper">
           <FaHeart
-            size="1.5em"
-            style={{ cursor: "pointer", minWidth: "1.8em" }}
+            size="1.5rem"
+            style={{ cursor: "pointer", minWidth: "1.8rem" }}
             onClick={handleHeartClick}
             color={isClicked ? theme.colors.red : theme.colors.black}
             alt="Like"
@@ -81,17 +81,17 @@ export default function Item({
   );
 }
 const ItemDiv = styled.div`
-  width: ${({ width }) => width || "20em"};
+  width: ${({ width }) => width || "20rem"};
   background-color: ${({ theme }) => theme.colors.lightGray};
 
   overflow: hidden;
   position: relative;
-  margin: 1em;
+  margin: 1rem;
   flex-shrink: 0;
 `;
 const ItemImg = styled.img`
-  width: ${({ width }) => width || "20em"};
-  height: ${({ height }) => height || "20em"};
+  width: ${({ width }) => width || "20rem"};
+  height: ${({ height }) => height || "20rem"};
   object-fit: cover;
 `;
 const ItemInfoTopWrapper = styled.div`

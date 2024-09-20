@@ -7,7 +7,7 @@ const HorizonLine = () => {
         width: "70%",
         // textAlign: "center",
         borderBottom: "1px solid #aaa",
-        lineHeight: "0.1em",
+        lineHeight: "0.1rem",
         margin: "10px 0 20px",
       }}
     >
