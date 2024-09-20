@@ -32,7 +32,7 @@ const useWritePost = (post, feedUrl, onSave) => {
         alert(post ? "수정되었습니다." : "등록되었습니다.");
         if (post) onSave(response.data);
       } else {
-        console.log(response.statusText); // 오류 메시지
+        console.log(response.statusText); 
       }
     } catch (error) {
       console.error(error);

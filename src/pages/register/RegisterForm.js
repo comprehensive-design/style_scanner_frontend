@@ -102,7 +102,7 @@ export default function RegisterForm({
           </p>
         </div>
 
-        <div className="registersmallBox" style={{ marginBottom: "2em" }}>
+        <div className="registersmallBox" style={{ marginBottom: "2rem" }}>
           <label className="boldContent" htmlFor="id">
             닉네임
           </label>
@@ -178,7 +178,12 @@ export default function RegisterForm({
             </div>
           </div>
         </div>
-        <input className="button mt3" type="submit" value="가입하기" style={{width:"100%"}}></input>
+        <input
+          className="button mt3"
+          type="submit"
+          value="가입하기"
+          style={{ width: "100%" }}
+        ></input>
       </form>
     </div>
   );

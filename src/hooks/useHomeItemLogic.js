@@ -54,6 +54,7 @@ export const useHomeItemLogic = () => {
 
 
     return {
+        mediaUrls,
         proxyImageUrls,
         imagesLoaded,
         feed_code,
