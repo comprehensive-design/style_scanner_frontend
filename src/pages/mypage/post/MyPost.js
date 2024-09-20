@@ -1,10 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
-import Sidebar from '../../../Components/Sidebar';
-import WritingBox from '../../../Components/WritingBox';
-import Pagination from '../../../Components/Pagination';
-import axios from 'axios';
-import WritePopup from '../../community/popup/WritePopup';
-import Footer from '../../../Components/Footer';
+import { useState, useEffect, useCallback } from "react";
+import Sidebar from "../../../Components/Sidebar";
+import WritingBox from "../../../Components/WritingBox";
+import Pagination from "../../../Components/Pagination";
+import api from "../../../utils/axios.jsx";
+import WritePopup from "../../community/popup/WritePopup";
 
 const getPosts = async (currentPage, postsPerPage) => {
   const token = localStorage.getItem("accessToken");
@@ -20,13 +19,16 @@ const getPosts = async (currentPage, postsPerPage) => {
   };
 
   try {
-    const response = await axios.get('/api/post/me', config);
+    const response = await api.get("/api/post/me", config);
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Axios 에러: 글 가져오기 실패:', error.response?.data || error.message);
+    if (api.isAxiosError(error)) {
+      console.error(
+        "Axios 에러: 글 가져오기 실패:",
+        error.response?.data || error.message
+      );
     } else {
-      console.error('예상치 못한 에러: 게시물 가져오기 실패:', error);
+      console.error("예상치 못한 에러: 게시물 가져오기 실패:", error);
     }
     throw error;
   }
@@ -38,7 +40,7 @@ export default function MyPost() {
   const [postsPerPage] = useState(5);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
-  const [feedUrl, setFeedUrl] = useState('');
+  const [feedUrl, setFeedUrl] = useState("");
   const [postSaved, setPostSaved] = useState(false);
 
   const firstPostIndex = (currentPage - 1) * postsPerPage;
@@ -51,7 +53,7 @@ export default function MyPost() {
         const data = await getPosts(currentPage, postsPerPage);
         setPosts(data);
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error("Error fetching posts:", error);
       }
     };
     if (postSaved) {
@@ -75,40 +77,37 @@ export default function MyPost() {
   }, []);
 
   const handleDelete = async (postId) => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (!token) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       return;
     }
 
     try {
-      const response = await axios.delete(
-        `/api/post/delete/${postId}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          }
-        }
-      );
+      const response = await api.delete(`/api/post/delete/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
-        alert('삭제되었습니다.');
-        setPosts(posts.filter(post => post.id !== postId));
+        alert("삭제되었습니다.");
+        setPosts(posts.filter((post) => post.id !== postId));
       }
     } catch (error) {
-      alert('삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
-      console.error('삭제 오류:', error);
+      alert("삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+      console.error("삭제 오류:", error);
     }
   };
 
   const handleSave = (updatedPost) => {
     setPosts((prevPosts) => {
-      const newPosts = prevPosts.map(post => (post.id === updatedPost.id ? updatedPost : post));
+      const newPosts = prevPosts.map((post) =>
+        post.id === updatedPost.id ? updatedPost : post
+      );
       setPostSaved(true); // 상태가 업데이트되었음을 표시
       return newPosts;
     });
   };
-
-
 
   return (
     <div className="mypageWrapper">
@@ -118,10 +117,12 @@ export default function MyPost() {
           <p className="title left mb05 ml03">내가 작성한 글</p>
           <hr />
         </div>
-        <p className='content left mt1 mb1 ml03'>전체 </p>
-        <div className='ml03 mb3'>
-          {currentPosts.map(post => {
-            const commentdata = Array.isArray(post.comments) ? post.comments : [];
+        <p className="content left mt1 mb1 ml03">전체 </p>
+        <div className="ml03 mb3">
+          {currentPosts.map((post) => {
+            const commentdata = Array.isArray(post.comments)
+              ? post.comments
+              : [];
             return (
               <WritingBox
                 key={post.id}
@@ -144,7 +145,12 @@ export default function MyPost() {
         />
       </div>
       {isPopupOpen && (
-        <WritePopup post={currentPost} feed_url={feedUrl} onSave={handleSave} onClose={closePopup} />
+        <WritePopup
+          post={currentPost}
+          feed_url={feedUrl}
+          onSave={handleSave}
+          onClose={closePopup}
+        />
       )}
     </div>
   );

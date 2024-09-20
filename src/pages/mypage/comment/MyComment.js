@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import CommentBox from "../../../Components/CommentBox";
 import Sidebar from "../../../Components/Sidebar";
 import Pagination from "../../../Components/Pagination";
-import axios from "axios";
+import api from "../../../utils/axios.jsx";
 
 const getComments = async (currentPage, itemsPerPage) => {
   const token = localStorage.getItem("accessToken");
@@ -18,10 +18,10 @@ const getComments = async (currentPage, itemsPerPage) => {
   };
 
   try {
-    const response = await axios.get("/api/comment/me", config);
+    const response = await api.get("/api/comment/me", config);
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+    if (api.isAxiosError(error)) {
       console.error(
         "Axios 에러: 게시물 가져오기 실패:",
         error.response?.data || error.message
@@ -78,7 +78,7 @@ export default function MyComment() {
     }
 
     try {
-      const response = await axios.delete(`/api/comment/delete/${commentId}`, {
+      const response = await api.delete(`/api/comment/delete/${commentId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
