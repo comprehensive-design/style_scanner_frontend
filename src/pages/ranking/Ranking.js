@@ -109,6 +109,7 @@ export default function Ranking({
               likeCount={item.likeCount}
               width={"15rem"}
               height={"15rem"}
+              borderRad ={"0.5rem"}
             />
           ))}
         </div>
