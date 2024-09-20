@@ -1,5 +1,7 @@
 import Sidebar from "../../../Components/Sidebar";
 import { NavLink } from "react-router-dom";
+import { FaHeart } from "react-icons/fa6";
+import { theme } from "../../../style/theme";
 
 function CelebrityInfo({ imgUrl, celebID }) {
   return (
@@ -32,7 +34,13 @@ function LikeInfo({
         <div className="last">
           <p className="caption">{itemPrice}원</p>
           <div className="flex">
-            <img src="img/fullHeart.png" />
+            <FaHeart
+              size={"1.5rem"}
+              className=" rowCenter"
+              style={{ cursor: "pointer", minWidth: "1.5rem" }}
+              color={theme.colors.red}
+              alt="Like"
+            ></FaHeart>
             <p id="likeCount" className="caption">
               &nbsp;{likeCount}
             </p>
