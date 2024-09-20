@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import SearchResultItem from './SearchresultItem'; // import 추가
+import SearchResultItem from './SearchresultItem'; 
 
 function SearchBar({ value, onChange, onKeyPress }) {
     const [users, setUsers] = useState([]);
@@ -29,7 +29,7 @@ function SearchBar({ value, onChange, onKeyPress }) {
             const results = users.filter(user =>
                 user.profileName.toLowerCase().includes(value.toLowerCase())
             );
-            console.log("Filtered Users: ", results); // 추가
+            console.log("Filtered Users: ", results);
             setFilteredUsers(results);
         } else {
             setFilteredUsers([]);
@@ -38,6 +38,13 @@ function SearchBar({ value, onChange, onKeyPress }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+    };
+
+    const handleItemClick = (user) => {
+        // 아이템 선택 시 필터된 사용자 목록 초기화
+        setFilteredUsers([]);
+        onChange({ target: { value: '' } }); 
+        console.log('Selected user:', user); // 추가로 선택된 사용자 처리 가능
     };
 
     return (
@@ -59,7 +66,11 @@ function SearchBar({ value, onChange, onKeyPress }) {
             {filteredUsers.length > 0 && (
                 <ul className="search-results">
                     {filteredUsers.map(user => (
-                        <SearchResultItem key={user.id} user={user} />
+                        <SearchResultItem
+                            key={user.id}
+                            user={user}
+                            onClick={() => handleItemClick(user)}
+                        />
                     ))}
                 </ul>
             )}
