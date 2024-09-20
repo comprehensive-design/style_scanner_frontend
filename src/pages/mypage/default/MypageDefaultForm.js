@@ -59,10 +59,10 @@ export default function MypageDefaultForm({
 }) {
   if (profilePictureUrl == "") profilePictureUrl = "/img/whiteBox.png";
   return (
-    <div className="mypageWrapper">
+    <div className="mypageWrapper" >
       <Sidebar />
-      <div className="mypageMain">
-        <div className="mpdprofileBox gridColumns4">
+      <div className="mypageMain" style={{zIndex : "1",overflow : "visible"}}>
+        <div className="mpdprofileBox gridColumns4" >
           <img src={profilePictureUrl}></img>
           <div>
             <p className="content">@{displayName}</p>
