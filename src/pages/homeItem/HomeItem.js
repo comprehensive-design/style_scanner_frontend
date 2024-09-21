@@ -18,7 +18,7 @@ export default function HomeItem() {
     imagesLoaded,
     username,
     profile_url,
-    feed_code,
+    feedCodes,
   } = useHomeItemLogic();
 
   const [isClicked, setIsClicked] = useState(false);
@@ -31,8 +31,7 @@ export default function HomeItem() {
   const { handleClick } = useFeedClickLogic(imgRef);
 
   let showPrevBtn = counter > 0;
-  let showNextBtn =
-    counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
+  let showNextBtn =counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
 
   if (!imagesLoaded) {
     return <Loading />;
@@ -64,9 +63,9 @@ export default function HomeItem() {
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
-        {proxyImageUrls && profile_url && username && feed_code && (
+        {proxyImageUrls && profile_url && username && feedCodes && (
           <Feed
-            key={feed_code}
+            key={feedCodes[currentImageIndex]}
             profile_url={profile_url}
             username={username}
             className={"homeitem"}
