@@ -8,10 +8,9 @@ import Pagination from "../../../Components/Pagination";
 export default function Community() {
   const [page, setPage] = useState(0);
   const size = 12;
-  const { posts, loading, error, proxyImageUrls, imagesLoaded } =
-    useCommunity();
+  const { posts, feedImages, loading, error} = useCommunity();
 
-  if (loading || (!imagesLoaded && posts.length>0)) {
+  if (loading) {
     return <Loading />;
   }
 
@@ -28,16 +27,16 @@ export default function Community() {
         </div>
 
         <div className="feedList mb3">
-          {Array.isArray(posts) && posts.length > 0 ? (
+          {Array.isArray(posts) && posts.length > 0 && feedImages ? (
             posts.map((post, index) => (
               <ComFeed
                 key={post.id}
                 postId={post.id}
-                proxyUrl={proxyImageUrls[index]}
-                feedUrl={post.feedUrl}
+                feedUrl={feedImages[index]}
                 content={post.content}
                 displayName={post.displayName}
                 profilePictureUrl={post.profilePictureUrl}
+                username={post.username}
               />
             ))
           ) : (

@@ -8,10 +8,10 @@ import FeedPopup from "../../../../Components/FeedPopup";
 function ComFeed({
   postId,
   feedUrl,
-  proxyUrl,
   content,
   displayName,
   profilePictureUrl,
+  username,
 }) {
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -30,10 +30,10 @@ function ComFeed({
       state: {
         postId: postId,
         feedUrl: feedUrl,
-        proxyUrl: proxyUrl,
         postContent: content,
         displayName: displayName,
         profilePictureUrl: profilePictureUrl,
+        username: username,
       },
     });
   };
@@ -41,7 +41,7 @@ function ComFeed({
   return (
     <div className="communityPopupContent borderRad boxShadow m1">
       <img
-        src={proxyUrl}
+        src={feedUrl}
         style={{ backgroundColor: theme.colors.white }}
         onClick={handleClick}
       />

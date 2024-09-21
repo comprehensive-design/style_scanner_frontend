@@ -4,7 +4,7 @@ import api from "../utils/axios";
 
 export const useComment = () => {
   const location = useLocation();
-  const {postId, feedUrl, proxyUrl, postContent, displayName, profilePictureUrl} = location.state || {};
+  const {postId, feedUrl, proxyUrl, postContent, displayName, profilePictureUrl, username} = location.state || {};
   
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
@@ -54,5 +54,5 @@ export const useComment = () => {
     }
   };
 
-  return { feedUrl, proxyUrl, displayName, profilePictureUrl, postContent, content, comments, setContent, handleSubmit };
+  return { feedUrl, proxyUrl, displayName, profilePictureUrl, postContent, content, comments, username, setContent, handleSubmit };
 };

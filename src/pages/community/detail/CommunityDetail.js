@@ -12,15 +12,17 @@ export default function CommunityDetail() {
   const commentRef = useRef();
 
   const {
-    proxyUrl,
+    feedUrl,
     displayName,
     profilePictureUrl,
     comments,
     postContent,
     content,
+    username,
     handleSubmit,
     setContent,
   } = useComment();
+
   const { myProfilePictureUrl } = useMe();
   const [warning, setWarning] = useState("");
 
@@ -64,7 +66,7 @@ export default function CommunityDetail() {
             </div>
           </div>
           <img
-            src={proxyUrl}
+            src={feedUrl}
             className="borderRad mb1"
             style={{ width: "20rem", height: "24rem" }}
           />
