@@ -11,7 +11,7 @@ export default function Community() {
   const { posts, loading, error, proxyImageUrls, imagesLoaded } =
     useCommunity();
 
-  if (loading || !imagesLoaded) {
+  if (loading || (!imagesLoaded && posts.length>0)) {
     return <Loading />;
   }
 

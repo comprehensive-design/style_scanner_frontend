@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const api = axios.create({});
 
+// request 인터셉터
 api.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -11,34 +11,42 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
+let hasAlerted = false;
+
+// response 인터셉터
 api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    const navigate = useNavigate();
+    const msg = error?.response?.data?.message;
+    const status = error?.response?.status;
+    
+    if (status === 401 && msg === "Token has expired" && !originalRequest._retry) {
+      originalRequest._retry = true;
 
-    //나중에 수정
-    if (error.response && error.response.status === 500) {
       try {
-        const newAccessToken = await refreshToken();
+        console.log('refresh 성공~');
+        const { newAccessToken, newRefreshToken } = await refreshToken();
         localStorage.setItem("accessToken", newAccessToken);
-
+        localStorage.setItem("refreshToken", newRefreshToken);
+        console.log("2: ",newAccessToken, " " ,newRefreshToken);
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+
         return api(originalRequest);
+
       } catch (refreshError) {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
 
-        alert("토큰이 만료되었습니다. 다시 로그인해주세요.");
-        navigate("/Login", { replace: true });
-
+        if (!hasAlerted) {
+          hasAlerted = true; 
+          alert("다시 로그인해주세요");
+          window.location.replace('/Login');
+        }
+        
         return Promise.reject(refreshError);
       }
     }
@@ -47,15 +55,33 @@ api.interceptors.response.use(
   }
 );
 
-//나중에 연결
 const refreshToken = async () => {
-  // const refreshToken = localStorage.getItem("refreshToken");
-  // if (!refreshToken) {
-  //   throw new Error("No refresh token available");
-  // }
+  const refreshToken = localStorage.getItem("refreshToken");
+  if (!refreshToken) {
+    localStorage.removeItem("accessToken");
+    throw new Error("No refresh token available");
+  }
 
-  // const response = await api.post("/refresh-token", { token: refreshToken });
-  // return response.data.accessToken;
+  try {
+    const response = await axios.post(
+      "/api/auth/reissue",
+      {}, 
+      {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      }
+    );
+    const newAccessToken = response.data.access_token;
+    const newRefreshToken =  response.data.refresh_token;
+    console.log("1: ",newAccessToken, " " ,newRefreshToken);
+    return {
+      newAccessToken,newRefreshToken
+    };
+  } catch (error) {
+    console.error("리프레시 토큰 갱신 실패:", error.response ? error.response.data : error.message);
+    throw error;
+  }
 };
 
 export default api;
