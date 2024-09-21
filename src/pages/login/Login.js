@@ -14,7 +14,7 @@ export default function Register() {
         e.preventDefault();
         try {
 
-            if (email != '' && password != '') {
+            if (email !== '' && password !== '') {
                 const response = await api.post('/api/user/login', {
                     "email": email,
                     "password": password
@@ -25,7 +25,7 @@ export default function Register() {
                 localStorage.setItem("accessToken", accessToken);
                 localStorage.setItem("refreshToken", refreshToken);
 
-                window.location.replace("/homefeed");
+                window.location.replace("/");
             }
             else {
                 alert('이메일 혹은 비밀번호를 입력해 주세요.');
