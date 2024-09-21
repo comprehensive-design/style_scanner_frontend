@@ -3,7 +3,6 @@ import { useMe } from "../hooks/useMe";
 
 const useWritePost = (post, feed_code, onSave, username) => {
   const {myProfilePictureUrl} = useMe();
-  console.log(feed_code);
   const handleSubmit = async (e, question) => {
     e.preventDefault();
     try {
