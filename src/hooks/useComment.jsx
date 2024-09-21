@@ -5,7 +5,6 @@ import api from "../utils/axios";
 export const useComment = () => {
   const location = useLocation();
   const {postId, feedUrl, proxyUrl, postContent, displayName, profilePictureUrl, username} = location.state || {};
-  
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
@@ -33,7 +32,8 @@ export const useComment = () => {
     fetchComments();
   }, [postId]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e, content) => {
+    e.preventDefault();
     try {
       const response = await api.post(
         "/api/comment/create",

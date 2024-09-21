@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaHeart } from "react-icons/fa6";
-import styled from "styled-components";
 import { theme } from "../../../../style/theme";
 
 export default function CommentInfo({
@@ -47,4 +46,3 @@ export default function CommentInfo({
   );
 }
 
-const CommentWrapper = styled.div``;

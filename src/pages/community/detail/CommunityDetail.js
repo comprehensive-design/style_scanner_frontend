@@ -10,6 +10,7 @@ import { FiSend } from "react-icons/fi";
 
 export default function CommunityDetail() {
   const commentRef = useRef();
+  const contentRef = useRef("");
 
   const {
     feedUrl,
@@ -17,29 +18,31 @@ export default function CommunityDetail() {
     profilePictureUrl,
     comments,
     postContent,
-    content,
     username,
     handleSubmit,
-    setContent,
   } = useComment();
 
   const { myProfilePictureUrl } = useMe();
   const [warning, setWarning] = useState("");
 
-  const iconClick = (e) => {
-    e.preventDefault();
-    handleSubmit();
-  };
   const handleInputChange = (e) => {
-    const textarea = e.target;
+    const value = e.target.value; 
+    contentRef.current = value; 
+  
     const maxChars = 100;
-
-    if (textarea.value.length > maxChars) {
+    if (value.length > maxChars) {
       setWarning("100자 이하로 입력해주세요.");
     } else {
       setWarning("");
-      setContent(e.target.value);
     }
+  };
+  
+
+  const iconClick = (e) => {
+    e.preventDefault(); 
+    handleSubmit(e, contentRef.current); 
+    contentRef.current = ""; 
+    commentRef.current.value = ""; 
   };
 
   return (
@@ -147,7 +150,6 @@ export default function CommunityDetail() {
               ref={commentRef}
               className="content borderRad p1"
               rows={1}
-              value={content}
               onChange={handleInputChange}
             />
             <div>
