@@ -23,6 +23,5 @@ export const useMe = () => {
     };
     fetchProfile();
   }, []);
-  console.log(myProfilePictureUrl);
   return {myProfilePictureUrl};
 };

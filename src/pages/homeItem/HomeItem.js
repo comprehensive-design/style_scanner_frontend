@@ -20,7 +20,6 @@ export default function HomeItem() {
     profile_url,
     feedCodes,
   } = useHomeItemLogic();
-
   const [isClicked, setIsClicked] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -188,10 +187,11 @@ export default function HomeItem() {
           </CommunityBtn>
         </ButtonList>
         {isPopupOpen && (
+        
           <WritePopup
             proxy_url={proxyImageUrls[currentImageIndex]}
-            feed_url={mediaUrls[currentImageIndex]}
-            profile_url={profile_url}
+            feed_code={feedCodes[currentImageIndex]}
+            username ={username}
             onClose={closePopup}
           />
         )}

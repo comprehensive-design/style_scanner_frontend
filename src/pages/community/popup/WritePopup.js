@@ -6,15 +6,17 @@ import useWritePost from "../../../hooks/useWritePost";
 export default function WritePopup({
   post,
   proxy_url,
-  feed_url,
+  feed_code,
+  username,
   onSave,
   onClose,
 }) {
   const [question, setQuestion] = useState(post ? post.content : "");
-  const { profilePictureUrl, handleSubmit } = useWritePost(
+  const { myProfilePictureUrl, handleSubmit } = useWritePost(
     post,
-    feed_url,
-    onSave
+    feed_code,
+    onSave,
+    username
   );
 
   const textarea = useRef();
@@ -41,7 +43,7 @@ export default function WritePopup({
           <ProfileWrapper>
             <img
               className="feedProfile"
-              src={profilePictureUrl}
+              src={myProfilePictureUrl}
               style={{ width: "3rem", height: "3rem" }}
             />
           </ProfileWrapper>
