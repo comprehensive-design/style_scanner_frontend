@@ -32,7 +32,6 @@ api.interceptors.response.use(
         const { newAccessToken, newRefreshToken } = await refreshToken();
         localStorage.setItem("accessToken", newAccessToken);
         localStorage.setItem("refreshToken", newRefreshToken);
-        console.log("2: ",newAccessToken, " " ,newRefreshToken);
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 
         return api(originalRequest);
@@ -74,7 +73,6 @@ const refreshToken = async () => {
     );
     const newAccessToken = response.data.access_token;
     const newRefreshToken =  response.data.refresh_token;
-    console.log("1: ",newAccessToken, " " ,newRefreshToken);
     return {
       newAccessToken,newRefreshToken
     };
