@@ -2,10 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import api from '../utils/axios';
 import {fetchProxyImages} from '../utils/ConvertProxyImage'
 
-const useHomeFeedLogic = (page, size) => { 
+const useHomeLogic = (page, size) => { 
     const [feeds, setFeeds] = useState([]);
+    const [totalCount , setTotalCount]= useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
     const feedListRef = useRef();
 
     const [proxyImageUrls, setProxyImageUrls] = useState([]);
@@ -16,9 +18,11 @@ const useHomeFeedLogic = (page, size) => {
         const fetchPosts = async () => {
             try {
                 const response = await api.get(`/api/insta/home?page=${page}&size=${size}`);
-                setFeeds(response.data);
+                setFeeds(response.data.homeFeedList);
+                setTotalCount(response.data.total_count);
+
                 setLoading(false);
-                console.log("또부름");
+                console.log(page);
             } catch (error) {
                 setError('포스트를 가져오는 중 에러 발생');
                 setLoading(false);
@@ -26,7 +30,7 @@ const useHomeFeedLogic = (page, size) => {
         };
 
         fetchPosts();
-    }, [page, size]);
+    }, [page]);
 
     useEffect(() => {
         const loadImages = async () => {
@@ -57,8 +61,9 @@ const useHomeFeedLogic = (page, size) => {
         feedListRef,
         proxyImageUrls,
         proxyProfileImageUrl,
-        imagesLoaded
+        imagesLoaded,
+        totalCount
     };
 };
 
-export default useHomeFeedLogic;
+export default useHomeLogic;
