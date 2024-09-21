@@ -6,23 +6,27 @@ import useWritePost from "../../../hooks/useWritePost";
 export default function WritePopup({
   post,
   proxy_url,
-  feed_url,
+  feed_code,
+  username,
   onSave,
   onClose,
 }) {
-  const [question, setQuestion] = useState(post ? post.content : "");
-  const { profilePictureUrl, handleSubmit } = useWritePost(
-    post,
-    feed_url,
-    onSave
-  );
+  const { myProfilePictureUrl, handleSubmit } = useWritePost(post, feed_code, onSave, username);
 
-  const textarea = useRef();
+  const textarea = useRef(null);
+  const questionRef = useRef(post ? post.content : "");
+
+  const handleChange = (e) => {
+    questionRef.current = e.target.value; 
+  };
 
   const onSubmit = (e) => {
-    handleSubmit(e, question);
-    setQuestion("");
+    e.preventDefault(); 
+    handleSubmit(e, questionRef.current); 
+    questionRef.current = ""; 
+    textarea.current.value = ""; 
   };
+
   return (
     <div className="communityPopupWrapper">
       <div className="communityPopupContent boxShadow borderRad">
@@ -41,7 +45,7 @@ export default function WritePopup({
           <ProfileWrapper>
             <img
               className="feedProfile"
-              src={profilePictureUrl}
+              src={myProfilePictureUrl}
               style={{ width: "3rem", height: "3rem" }}
             />
           </ProfileWrapper>
@@ -50,8 +54,7 @@ export default function WritePopup({
             className="content mt1 p1 mb05"
             rows={1}
             placeholder="질문을 작성해주세요!"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            onChange={handleChange}
           />
           <button
             className="button mb1"

@@ -23,12 +23,14 @@ const HomeFeed = () => {
           feed_code: feed_code
         }
       });
+      const mediaUrls = response.data.map(selectFeed => selectFeed.feed_url);
+      const feedCodes = response.data.map(selectFeed => selectFeed.feedCode);
       navigate("/HomeItem", {
         state: {
-          mediaUrls: response.data,
+          mediaUrls: mediaUrls,
           username: username,
           profile_url: profile_url,
-          feed_code: feed_code
+          feedCodes: feedCodes
         }
       });
     } catch (error) {

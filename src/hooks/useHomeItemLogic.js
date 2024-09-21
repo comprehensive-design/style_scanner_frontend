@@ -5,7 +5,7 @@ import { fetchProxyImages } from '../utils/ConvertProxyImage'
 
 export const useHomeItemLogic = () => {
     const location = useLocation();
-    const { mediaUrls, feed_code, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
+    const { mediaUrls, feedCodes, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
     const [items, setItems] = useState([]);
     const [itemsToShow, setItemsToShow] = useState(0);
     const itemsPerPage = 4;
@@ -29,7 +29,7 @@ export const useHomeItemLogic = () => {
             }
         };
         loadImages();
-    }, [mediaUrls]);
+    }, []);
 
     useEffect(() => {
         const fetchItemData = async () => {
@@ -57,7 +57,7 @@ export const useHomeItemLogic = () => {
         mediaUrls,
         proxyImageUrls,
         imagesLoaded,
-        feed_code,
+        feedCodes,
         username,
         profile_url,
         items,
