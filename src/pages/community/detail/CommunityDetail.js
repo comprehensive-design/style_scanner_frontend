@@ -18,7 +18,7 @@ export default function CommunityDetail() {
     profilePictureUrl,
     comments,
     postContent,
-    username,
+    celebProfile,
     handleSubmit,
   } = useComment();
 
@@ -36,7 +36,15 @@ export default function CommunityDetail() {
       setWarning("");
     }
   };
-  
+  const formatFollowCount = (counter) => {
+    if (counter >= 1000000) {
+      return Math.floor(counter / 1000000) + "M"; 
+    } else if (counter >= 1000) {
+      return Math.floor(counter / 1000) + "K"; 
+    } else {
+      return counter.toString();
+    }
+  };
 
   const iconClick = (e) => {
     e.preventDefault(); 
@@ -81,13 +89,11 @@ export default function CommunityDetail() {
           </BottomDiv>
         </div>
 
-        {/* 셀럽 프로필 */}
         <div className="feedProfileDiv borderRad mr1 mt1">
-          {/* 셀럽사진으로 바꿔야함 */}
-          {profilePictureUrl ? (
+          {celebProfile.profilePictureUrl ? (
             <img
               className="feedProfile"
-              src={profilePictureUrl}
+              src={celebProfile.profilePictureUrl}
               alt="celeb"
               style={{ width: "10rem", height: "10rem", borderRadius: "2rem" }}
             />
@@ -101,17 +107,18 @@ export default function CommunityDetail() {
           )}
 
           <div className="communityCelebGrid">
-            <p className="boldContent mb1">@{displayName}</p>
+            <p className="boldContent mb1">@{celebProfile.profileName}</p>
             <button
               className="button mb1"
               style={{ width: "5rem", height: "2rem", padding: 0 }}
             >
               팔로우
             </button>
-            <p className="content">게시물</p>
             <p className="content">팔로워</p>
-            <p className="boldContent">229</p>
-            <p className="boldContent">1299M</p>
+            <p className="content">팔로잉</p>
+            <p className="boldContent">{formatFollowCount(celebProfile.profileFollowerCount)}</p>
+            <p className="boldContent">{formatFollowCount(celebProfile.profileFollowingCount)}</p>
+            
           </div>
         </div>
 

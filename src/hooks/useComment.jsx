@@ -4,14 +4,25 @@ import api from "../utils/axios";
 
 export const useComment = () => {
   const location = useLocation();
-  const {postId, feedUrl, proxyUrl, postContent, displayName, profilePictureUrl, username} = location.state || {};
+  const {postId, feedUrl, postContent, displayName, profilePictureUrl, username} = location.state || {};
   const [comments, setComments] = useState([]);
+  const [celebProfile, setCelebProfile] = useState(null);
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
 
   const getComments = async (postId) => {
     try {
       const response = await api.get(`/api/comment/${postId}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+  const getCelebProfile = async (username) => {
+    try {
+      const response = await api.get(`/api/follow/search?keyword=${username}`);
+      console.log(username, response.data);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -26,6 +37,9 @@ export const useComment = () => {
       try {
         const data = await getComments(postId); 
         setComments(data);
+
+        const celebData = await getCelebProfile(username);
+        setCelebProfile(celebData);
       } catch (error) {}
     };
 
@@ -54,5 +68,5 @@ export const useComment = () => {
     }
   };
 
-  return { feedUrl, proxyUrl, displayName, profilePictureUrl, postContent, content, comments, username, setContent, handleSubmit };
+  return { feedUrl, displayName, profilePictureUrl, postContent, content, comments, celebProfile, setContent, handleSubmit };
 };

@@ -878,7 +878,7 @@ hr {
   align-items: center;
 }
 .communityCelebGrid > button {
-  justify-self: flex-end;
+  justify-self: center;
 }
 
 /* 자동검색어 */
