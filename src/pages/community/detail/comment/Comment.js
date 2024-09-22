@@ -21,7 +21,6 @@ export default function CommentInfo({
   };
   const dateObject = new Date(commentCreatedAt); 
   const nowDate = DetailTime(dateObject); 
-  console.log(nowDate);
 
   return (
     <div

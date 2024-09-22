@@ -74,5 +74,5 @@ export const useComment = () => {
     }
   };
 
-  return { feedUrl, postCreatedAt, displayName, profilePictureUrl, postContent,comments, celebProfile, celebProfileUrl, handleSubmit };
+  return { feedUrl, postCreatedAt, displayName, profilePictureUrl, postContent ,comments, celebProfile, celebProfileUrl, handleSubmit };
 };

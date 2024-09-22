@@ -24,6 +24,7 @@ export default function CommunityDetail() {
     postCreatedAt,
     handleSubmit,
   } = useComment();
+
   const { myProfilePictureUrl } = useMe();
   const [warning, setWarning] = useState("");
 
@@ -36,17 +37,17 @@ export default function CommunityDetail() {
       setWarning("100자 이하로 입력해주세요.");
     } else {
       setWarning("");
-      setConent(e.target.value);
     }
   };
-
-  const iconClick = (e) => {
-    e.preventDefault();
-    handleSubmit(e, contentRef.current);
-    contentRef.current = "";
-    commentRef.current.value = "";
+  const formatFollowCount = (counter) => {
+    if (counter >= 1000000) {
+      return Math.floor(counter / 1000000) + "M";
+    } else if (counter >= 1000) {
+      return Math.floor(counter / 1000) + "K";
+    } else {
+      return counter.toString();
+    }
   };
-
   const dateObject = new Date(
     postCreatedAt[0], 
     postCreatedAt[1] - 1,
@@ -56,6 +57,13 @@ export default function CommunityDetail() {
     postCreatedAt[5] 
   );
   const nowDate = DetailTime(dateObject);
+
+  const iconClick = (e) => {
+    e.preventDefault();
+    handleSubmit(e, contentRef.current);
+    contentRef.current = "";
+    commentRef.current.value = "";
+  };
 
   return (
     <div className="body">
@@ -142,7 +150,7 @@ export default function CommunityDetail() {
                   displayName={comment.displayName}
                   content={comment.content}
                   profilePictureUrl={comment.profilePictureUrl}
-                  commentCreatedAt ={comment.createdAt}
+                  commentCreatedAt={comment.createdAt}
                 />
               ))
             ) : (
