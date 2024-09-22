@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useComment } from "../../../hooks/useComment";
 import { useMe } from "../../../hooks/useMe";
 import styled from "styled-components";
@@ -7,37 +6,52 @@ import Comment from "./comment/Comment";
 import { theme } from "../../../style/theme";
 import { IoChatbox } from "react-icons/io5";
 import { FiSend } from "react-icons/fi";
+import Loading from '../../../Components/loading/loading';
 
 export default function CommunityDetail() {
   const commentRef = useRef();
+  const contentRef = useRef("");
 
   const {
-    proxyUrl,
+    feedUrl,
     displayName,
     profilePictureUrl,
     comments,
     postContent,
-    content,
+    celebProfile,
+    celebProfileUrl,
     handleSubmit,
-    setContent,
   } = useComment();
+
   const { myProfilePictureUrl } = useMe();
   const [warning, setWarning] = useState("");
 
-  const iconClick = (e) => {
-    e.preventDefault();
-    handleSubmit();
-  };
   const handleInputChange = (e) => {
-    const textarea = e.target;
-    const maxChars = 100;
+    const value = e.target.value;
+    contentRef.current = value;
 
-    if (textarea.value.length > maxChars) {
+    const maxChars = 100;
+    if (value.length > maxChars) {
       setWarning("100자 이하로 입력해주세요.");
     } else {
       setWarning("");
-      setContent(e.target.value);
     }
+  };
+  const formatFollowCount = (counter) => {
+    if (counter >= 1000000) {
+      return Math.floor(counter / 1000000) + "M";
+    } else if (counter >= 1000) {
+      return Math.floor(counter / 1000) + "K";
+    } else {
+      return counter.toString();
+    }
+  };
+
+  const iconClick = (e) => {
+    e.preventDefault();
+    handleSubmit(e, contentRef.current);
+    contentRef.current = "";
+    commentRef.current.value = "";
   };
 
   return (
@@ -64,7 +78,7 @@ export default function CommunityDetail() {
             </div>
           </div>
           <img
-            src={proxyUrl}
+            src={feedUrl}
             className="borderRad mb1"
             style={{ width: "20rem", height: "24rem" }}
           />
@@ -76,13 +90,11 @@ export default function CommunityDetail() {
           </BottomDiv>
         </div>
 
-        {/* 셀럽 프로필 */}
         <div className="feedProfileDiv borderRad mr1 mt1">
-          {/* 셀럽사진으로 바꿔야함 */}
-          {profilePictureUrl ? (
+          {celebProfileUrl ? (
             <img
               className="feedProfile"
-              src={profilePictureUrl}
+              src={celebProfileUrl}
               alt="celeb"
               style={{ width: "10rem", height: "10rem", borderRadius: "2rem" }}
             />
@@ -96,17 +108,23 @@ export default function CommunityDetail() {
           )}
 
           <div className="communityCelebGrid">
-            <p className="boldContent mb1">@{displayName}</p>
-            <button
-              className="button mb1"
-              style={{ width: "5rem", height: "2rem", padding: 0 }}
-            >
-              팔로우
-            </button>
-            <p className="content">게시물</p>
-            <p className="content">팔로워</p>
-            <p className="boldContent">229</p>
-            <p className="boldContent">1299M</p>
+            {celebProfile ? (
+              <>
+                <p className="boldContent mb1">@{celebProfile.profileName}</p>
+                <button
+                  className="button mb1"
+                  style={{ width: "5rem", height: "2rem", padding: 0 }}
+                >
+                  팔로우
+                </button>
+                <p className="content">팔로워</p>
+                <p className="content">팔로잉</p>
+                <p className="boldContent">{formatFollowCount(celebProfile.profileFollowerCount)}</p>
+                <p className="boldContent">{formatFollowCount(celebProfile.profileFollowingCount)}</p>
+              </>
+            ) : (
+              <Loading/>
+            )}
           </div>
         </div>
 
@@ -145,7 +163,6 @@ export default function CommunityDetail() {
               ref={commentRef}
               className="content borderRad p1"
               rows={1}
-              value={content}
               onChange={handleInputChange}
             />
             <div>

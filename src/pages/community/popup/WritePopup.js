@@ -57,7 +57,7 @@ export default function WritePopup({
             onChange={handleChange}
           />
           <button
-            className="button mb1"
+            className="button mb05"
             type="submit"
             style={{ width: "90%", height: "30%" }}
             onClick={onSubmit}

@@ -1,18 +1,30 @@
 import { useState, useEffect} from "react";
 import { useLocation } from 'react-router-dom';
 import api from "../utils/axios";
+import { fetchProxyImages } from "../utils/ConvertProxyImage";
 
 export const useComment = () => {
   const location = useLocation();
-  const {postId, feedUrl, proxyUrl, postContent, displayName, profilePictureUrl} = location.state || {};
-  
+  const {postId, feedUrl, postContent, displayName, profilePictureUrl, username} = location.state || {};
   const [comments, setComments] = useState([]);
+  const [celebProfile, setCelebProfile] = useState(null);
+  const [celebProfileUrl, setCelebProfileUrl] = useState(null);
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getComments = async (postId) => {
     try {
       const response = await api.get(`/api/comment/${postId}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+  const getCelebProfile = async (username) => {
+    try {
+      const response = await api.get(`/api/follow/search?keyword=${username}`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -27,13 +39,22 @@ export const useComment = () => {
       try {
         const data = await getComments(postId); 
         setComments(data);
-      } catch (error) {}
+
+        const celebData = await getCelebProfile(username);
+        setCelebProfile(celebData);
+
+        const proxyImage = await fetchProxyImages(celebData.profilePictureUrl);
+        setCelebProfileUrl(proxyImage);
+
+      } catch (error) {
+      }
     };
 
     fetchComments();
   }, [postId]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e, content) => {
+    e.preventDefault();
     try {
       const response = await api.post(
         "/api/comment/create",
@@ -54,5 +75,5 @@ export const useComment = () => {
     }
   };
 
-  return { feedUrl, proxyUrl, displayName, profilePictureUrl, postContent, content, comments, setContent, handleSubmit };
+  return { feedUrl, displayName, profilePictureUrl, postContent, content, comments, celebProfile, celebProfileUrl,setContent, handleSubmit };
 };
