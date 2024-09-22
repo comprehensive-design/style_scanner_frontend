@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useComment } from "../../../hooks/useComment";
 import { useMe } from "../../../hooks/useMe";
 import styled from "styled-components";
@@ -7,6 +6,7 @@ import Comment from "./comment/Comment";
 import { theme } from "../../../style/theme";
 import { IoChatbox } from "react-icons/io5";
 import { FiSend } from "react-icons/fi";
+import Loading from '../../../Components/loading/loading';
 
 export default function CommunityDetail() {
   const commentRef = useRef();
@@ -19,6 +19,7 @@ export default function CommunityDetail() {
     comments,
     postContent,
     celebProfile,
+    celebProfileUrl,
     handleSubmit,
   } = useComment();
 
@@ -26,9 +27,9 @@ export default function CommunityDetail() {
   const [warning, setWarning] = useState("");
 
   const handleInputChange = (e) => {
-    const value = e.target.value; 
-    contentRef.current = value; 
-  
+    const value = e.target.value;
+    contentRef.current = value;
+
     const maxChars = 100;
     if (value.length > maxChars) {
       setWarning("100자 이하로 입력해주세요.");
@@ -38,19 +39,19 @@ export default function CommunityDetail() {
   };
   const formatFollowCount = (counter) => {
     if (counter >= 1000000) {
-      return Math.floor(counter / 1000000) + "M"; 
+      return Math.floor(counter / 1000000) + "M";
     } else if (counter >= 1000) {
-      return Math.floor(counter / 1000) + "K"; 
+      return Math.floor(counter / 1000) + "K";
     } else {
       return counter.toString();
     }
   };
 
   const iconClick = (e) => {
-    e.preventDefault(); 
-    handleSubmit(e, contentRef.current); 
-    contentRef.current = ""; 
-    commentRef.current.value = ""; 
+    e.preventDefault();
+    handleSubmit(e, contentRef.current);
+    contentRef.current = "";
+    commentRef.current.value = "";
   };
 
   return (
@@ -90,10 +91,10 @@ export default function CommunityDetail() {
         </div>
 
         <div className="feedProfileDiv borderRad mr1 mt1">
-          {celebProfile.profilePictureUrl ? (
+          {celebProfileUrl ? (
             <img
               className="feedProfile"
-              src={celebProfile.profilePictureUrl}
+              src={celebProfileUrl}
               alt="celeb"
               style={{ width: "10rem", height: "10rem", borderRadius: "2rem" }}
             />
@@ -107,18 +108,23 @@ export default function CommunityDetail() {
           )}
 
           <div className="communityCelebGrid">
-            <p className="boldContent mb1">@{celebProfile.profileName}</p>
-            <button
-              className="button mb1"
-              style={{ width: "5rem", height: "2rem", padding: 0 }}
-            >
-              팔로우
-            </button>
-            <p className="content">팔로워</p>
-            <p className="content">팔로잉</p>
-            <p className="boldContent">{formatFollowCount(celebProfile.profileFollowerCount)}</p>
-            <p className="boldContent">{formatFollowCount(celebProfile.profileFollowingCount)}</p>
-            
+            {celebProfile ? (
+              <>
+                <p className="boldContent mb1">@{celebProfile.profileName}</p>
+                <button
+                  className="button mb1"
+                  style={{ width: "5rem", height: "2rem", padding: 0 }}
+                >
+                  팔로우
+                </button>
+                <p className="content">팔로워</p>
+                <p className="content">팔로잉</p>
+                <p className="boldContent">{formatFollowCount(celebProfile.profileFollowerCount)}</p>
+                <p className="boldContent">{formatFollowCount(celebProfile.profileFollowingCount)}</p>
+              </>
+            ) : (
+              <Loading/>
+            )}
           </div>
         </div>
 
