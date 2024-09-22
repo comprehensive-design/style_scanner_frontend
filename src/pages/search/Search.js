@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Search.module.css';
-import Channel from './channel/channel';
 import Button from '../../Components/Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import FeedPopup from '../../Components/FeedPopup';
+import Feed from '../../Components/feed/Feed';
 
 export default function Search() {
     const location = useLocation();
@@ -15,8 +15,6 @@ export default function Search() {
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [celebs, setCelebs] = useState([]);
-    // const [userDatas, setUserDatas] = useState(null);
-    
 
     console.log("searchResults : ", searchResults);
 
@@ -106,14 +104,11 @@ export default function Search() {
         }
     };
 
-    // JSON 서버에 searchResults를 중복 확인 후 POST하는 useEffect
     useEffect(() => {
         if (searchResults && typeof searchResults === 'object') {
-            // JSON 서버에서 profileName 중복 확인
             axios.get(`http://localhost:5000/searchUsers?profileName=${searchResults.profileName}`)
                 .then(response => {
                     if (response.data.length === 0) {
-                        // 데이터가 없으면 POST 요청
                         axios.post('http://localhost:5000/searchUsers', searchResults)
                             .then(postResponse => {
                                 console.log('Search results posted to JSON server:', postResponse.data);
@@ -148,7 +143,6 @@ export default function Search() {
         }
     }, [searchResults]);
 
-    // 검색 결과가 없는 경우 조기 반환
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
     }
@@ -195,8 +189,17 @@ export default function Search() {
                     <p className={styles.grayP}>인기 셀럽</p>
 
                     <div className={styles.SearchRelChannel}>
-                        <div className={styles.channelCover}>
-                            <Channel list={celebs} />
+                        <div style={{display:'flex'}}>
+                            {celebs.map((celeb, index) => (
+                                <Feed
+                                    key={index}
+                                    thumbnail_url={celeb.feed_url}
+                                    profile_url={celeb.profilePictureUrl}
+                                    username={celeb.profileName}
+                                    width="13rem"
+                                    height="16rem"
+                                />
+                            ))}
                             <div className={styles.paddingWidth}></div>
                         </div>
                     </div>
