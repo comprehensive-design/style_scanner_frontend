@@ -67,7 +67,8 @@ export default function Ranking({
             <ul className="mainUl">
               <li>
                 <a
-                  className="blackText mainUl mainNav boldContent"
+                  className="blackText mainUl mainNav"
+                  style={{ fontWeight: rankingType === 0 ? "bold" : "normal" }}
                   href="#"
                   onClick={() => handleRankingTypeChange(0)}
                 >
@@ -76,7 +77,8 @@ export default function Ranking({
               </li>
               <li className="ml05">
                 <a
-                  className="blackText mainUl mainNav boldContent"
+                  className="blackText mainUl mainNav"
+                  style={{ fontWeight: rankingType === 1 ? "bold" : "normal" }}
                   href="#"
                   onClick={() => handleRankingTypeChange(1)}
                 >
@@ -85,31 +87,51 @@ export default function Ranking({
               </li>
               <li className="ml05">
                 <a
-                  className="blackText mainUl mainNav boldContent"
+                  className="blackText mainUl mainNav"
+                  style={{ fontWeight: rankingType === 2 ? "bold" : "normal" }}
                   href="#"
                   onClick={() => handleRankingTypeChange(2)}
                 >
                   주간
                 </a>
               </li>
+
             </ul>
           </ul>
         </div>
 
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {items.map((item) => (
-            <Item
-              key={item.id}
-              itemId={item.id}
-              brand={item.brand}
-              name={item.name}
-              price={item.price}
-              itemImage={item.itemUrl}
-              shoppingLink={item.shoppingLink}
-              likeCount={item.likeCount}
-              width={"15rem"}
-              height={"15rem"}
-            />
+          {items.map((item, index) => (
+            <div key={item.id} style={{ position: "relative" }}>
+              {/* 랭킹 순위 표시 */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "1rem",
+                  left: "1rem",
+                  backgroundColor: "rgba(0, 0, 0, 0.7)",
+                  color: "white",
+                  padding: "0.3rem",
+                  borderRadius: "0.3rem",
+                  zIndex: "9999",
+                  width: "1.5rem",
+                }}
+              >
+                {index + 1}
+              </div>
+              <Item
+                itemId={item.id}
+                brand={item.brand}
+                name={item.name}
+                price={item.price}
+                itemImage={item.itemUrl}
+                shoppingLink={item.shoppingLink}
+                likeCount={item.likeCount}
+                width={"15rem"}
+                height={"15rem"}
+                borderRad={"0.5rem"}
+              />
+            </div>
           ))}
         </div>
       </div>

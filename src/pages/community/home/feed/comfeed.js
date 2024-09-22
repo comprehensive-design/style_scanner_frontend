@@ -2,16 +2,16 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../../../style/theme.js";
-import CommunityDetail from "../../detail/CommunityDetail.js";
 import FeedPopup from "../../../../Components/FeedPopup";
 
 function ComFeed({
   postId,
   feedUrl,
-  proxyUrl,
   content,
   displayName,
   profilePictureUrl,
+  username,
+  postCreatedAt,
 }) {
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -25,15 +25,17 @@ function ComFeed({
     console.log("Closing FeedPopup");
     setIsFeedPopupOpen(false);
   };
+ 
   const handleClick = () => {
     navigate("/CommunityDetail", {
       state: {
         postId: postId,
         feedUrl: feedUrl,
-        proxyUrl: proxyUrl,
         postContent: content,
         displayName: displayName,
         profilePictureUrl: profilePictureUrl,
+        username: username,
+        postCreatedAt: postCreatedAt
       },
     });
   };
@@ -41,7 +43,7 @@ function ComFeed({
   return (
     <div className="communityPopupContent borderRad boxShadow m1">
       <img
-        src={proxyUrl}
+        src={feedUrl}
         style={{ backgroundColor: theme.colors.white }}
         onClick={handleClick}
       />

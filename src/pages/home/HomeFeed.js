@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useHomeFeedLogic from "../../hooks/useHomeFeedLogic";
+import useHomeLogic from "../../hooks/useHomeLogic";
 import Feed from "../../Components/feed/Feed";
 import Loading from "../../Components/loading/loading";
 import { GoHomeFill } from "react-icons/go";
@@ -13,35 +13,34 @@ const HomeFeed = () => {
   const [page, setPage] = useState(0);
   const size = 12;
 
-  const {
-    feeds,
-    loading,
-    error,
-    feedListRef,
-    proxyImageUrls,
-    proxyProfileImageUrl,
-    imagesLoaded,
-  } = useHomeFeedLogic(page, size);
+  const { feeds, loading, error, feedListRef, proxyImageUrls, proxyProfileImageUrl, imagesLoaded, totalCount } = useHomeLogic(page, size);
 
   const handleImageClick = async (username, profile_url, feed_code) => {
     alert("click");
     try {
-      const response = await api.get("/api/insta/getCarouselMedia", {
+      const response = await api.get('/api/insta/getCarouselMedia', {
         params: {
-          feed_code: feed_code,
-        },
+          feed_code: feed_code
+        }
       });
+      const mediaUrls = response.data.map(selectFeed => selectFeed.feed_url);
+      const feedCodes = response.data.map(selectFeed => selectFeed.feedCode);
       navigate("/HomeItem", {
         state: {
-          mediaUrls: response.data,
+          mediaUrls: mediaUrls,
           username: username,
           profile_url: profile_url,
-          feed_code: feed_code,
-        },
+          feedCodes: feedCodes
+        }
       });
     } catch (error) {
       console.error(error);
     }
+  };
+
+  // 페이지 변경 핸들러
+  const handlePageChange = (newPage) => {
+    setPage(newPage - 1);
   };
 
   if (loading || !imagesLoaded) {
@@ -53,38 +52,36 @@ const HomeFeed = () => {
   }
 
   return (
-    <div className="body">
-      <div className="feedScroll">
-        <div className="pageTitleDiv ml3 mb3">
-          <GoHomeFill size="2rem" />
-          <h1 className="title ml03">홈</h1>
+    <div className='body'>
+      <div className='feedScroll'>
+        <div className='pageTitleDiv ml3 mb3'>
+          <GoHomeFill size="2em" />
+          <h1 className='title ml03'>홈</h1>
         </div>
 
-        <div className="feedList mb3" ref={feedListRef}>
-          {feeds.map((feed, index) => (
-            <Feed
-              key={feed.feed_code}
-              thumbnail_url={proxyImageUrls[index]}
-              profile_url={proxyProfileImageUrl[index]}
-              username={feed.username}
-              className={"homefeed"}
-              handleImageClick={() =>
-                handleImageClick(
-                  feed.username,
-                  proxyProfileImageUrl[index],
-                  feed.feed_code
-                )
-              }
-              carousel_count={feed.carousel_count}
-              currentIndex={0}
-              width="25rem"
-              height="30rem"
-            />
-          ))}
-          <div style={{ height: "10px" }} />
+        <div className='feedList mb3' ref={feedListRef}>
+          {feeds && feeds.length > 0 ? (
+            feeds.map((feed, index) => (
+              <Feed
+                key={feed.feed_code}
+                thumbnail_url={proxyImageUrls[index]}
+                profile_url={proxyProfileImageUrl[index]}
+                username={feed.username}
+                className={"homefeed"}
+                handleImageClick={() => handleImageClick(feed.username, proxyProfileImageUrl[index], feed.feed_code)}
+                carousel_count={feed.carousel_count}
+                currentIndex={0}
+                width="25em"
+                height="30em"
+              />
+            ))
+          ) : (
+            <div>No feeds available</div>
+          )}
+          <div style={{ height: '10px' }} />
         </div>
       </div>
-      <Pagination />
+      <Pagination itemsNum={totalCount} itemsPerPage={size} currentPage={page + 1} setCurrentPage={handlePageChange} />
     </div>
   );
 };

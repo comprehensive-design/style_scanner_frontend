@@ -1,23 +1,8 @@
 import api from "../utils/axios";
-import { useState, useEffect } from "react";
+import { useMe } from "../hooks/useMe";
 
-const useWritePost = (post, feedUrl, onSave) => {
-  const [profilePictureUrl, setProfilePictureUrl] = useState("");
-
-  useEffect(() => {
-    getProfile();
-  }, []);
-
-  const getProfile = async () => {
-    try {
-      const profileResponse = await api.get('/api/user/me');
-      const profilePicUrl = profileResponse.data.profilePictureUrl || "/img/profile.png";
-      setProfilePictureUrl(profilePicUrl);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const useWritePost = (post, feed_code, onSave, username) => {
+  const {myProfilePictureUrl} = useMe();
   const handleSubmit = async (e, question) => {
     e.preventDefault();
     try {
@@ -25,7 +10,7 @@ const useWritePost = (post, feedUrl, onSave) => {
       if (post && post.id) {
         response = await api.post(`/api/post/update/${post.id}`, { content: question });
       } else {
-        response = await api.post("/api/post/create", { feedUrl, content: question });
+        response = await api.post("/api/post/create", { feedCode: feed_code, content: question, username: username});
       }
 
       if (response.status === 200) {
@@ -40,7 +25,7 @@ const useWritePost = (post, feedUrl, onSave) => {
   };
 
   return {
-    profilePictureUrl,
+    myProfilePictureUrl,
     handleSubmit
   };
 };

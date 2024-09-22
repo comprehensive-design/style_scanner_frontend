@@ -15,6 +15,7 @@ export default function Item({
   likeCount,
   width,
   height,
+  borderRad,
 }) {
   const { isClicked, counter, handleHeartClick } = useItemLogic({
     itemId,
@@ -39,7 +40,7 @@ export default function Item({
   };
 
   return (
-    <ItemDiv className="borderRad" width={width}>
+    <ItemDiv  width={width} borderRad ={borderRad}>
       <ItemImg src={itemImage} alt={name} width={width} height={height} />
       <AiOutlineShopping
         className="feedLayerDiv textShadow"
@@ -82,6 +83,7 @@ export default function Item({
 }
 const ItemDiv = styled.div`
   width: ${({ width }) => width || "20rem"};
+  border-radius : ${({borderRad}) => borderRad || '1.5rem'};
   background-color: ${({ theme }) => theme.colors.lightGray};
 
   overflow: hidden;

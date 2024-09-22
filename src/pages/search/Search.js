@@ -4,7 +4,6 @@ import Channel from './channel/channel';
 import Button from '../../Components/Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Footer from '../../Components/Footer';
 import FeedPopup from '../../Components/FeedPopup';
 
 export default function Search() {
@@ -16,7 +15,8 @@ export default function Search() {
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [celebs, setCelebs] = useState([]);
-    const [userDatas, setUserDatas] = useState(null);
+    // const [userDatas, setUserDatas] = useState(null);
+    
 
     console.log("searchResults : ", searchResults);
 
@@ -110,11 +110,11 @@ export default function Search() {
     useEffect(() => {
         if (searchResults && typeof searchResults === 'object') {
             // JSON 서버에서 profileName 중복 확인
-            axios.get(`http://localhost:3000/searchUsers?profileName=${searchResults.profileName}`)
+            axios.get(`http://localhost:5000/searchUsers?profileName=${searchResults.profileName}`)
                 .then(response => {
                     if (response.data.length === 0) {
                         // 데이터가 없으면 POST 요청
-                        axios.post('http://localhost:3000/searchUsers', searchResults)
+                        axios.post('http://localhost:5000/searchUsers', searchResults)
                             .then(postResponse => {
                                 console.log('Search results posted to JSON server:', postResponse.data);
                             })
@@ -207,7 +207,6 @@ export default function Search() {
             {popupVisible && selectedUser && (
                 <FeedPopup user={selectedUser} onClose={closePopup} />
             )}
-            <Footer />
         </div>
     );
 }

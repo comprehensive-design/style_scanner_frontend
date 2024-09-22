@@ -18,9 +18,8 @@ export default function HomeItem() {
     imagesLoaded,
     username,
     profile_url,
-    feed_code,
+    feedCodes,
   } = useHomeItemLogic();
-
   const [isClicked, setIsClicked] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -31,8 +30,7 @@ export default function HomeItem() {
   const { handleClick } = useFeedClickLogic(imgRef);
 
   let showPrevBtn = counter > 0;
-  let showNextBtn =
-    counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
+  let showNextBtn =counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
 
   if (!imagesLoaded) {
     return <Loading />;
@@ -64,9 +62,9 @@ export default function HomeItem() {
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
-        {proxyImageUrls && profile_url && username && feed_code && (
+        {proxyImageUrls && profile_url && username && feedCodes && (
           <Feed
-            key={feed_code}
+            key={feedCodes[currentImageIndex]}
             profile_url={profile_url}
             username={username}
             className={"homeitem"}
@@ -189,10 +187,11 @@ export default function HomeItem() {
           </CommunityBtn>
         </ButtonList>
         {isPopupOpen && (
+        
           <WritePopup
             proxy_url={proxyImageUrls[currentImageIndex]}
-            feed_url={mediaUrls[currentImageIndex]}
-            profile_url={profile_url}
+            feed_code={feedCodes[currentImageIndex]}
+            username ={username}
             onClose={closePopup}
           />
         )}
