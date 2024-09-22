@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../../../style/theme.js";
-import CommunityDetail from "../../detail/CommunityDetail.js";
 import FeedPopup from "../../../../Components/FeedPopup";
 
 function ComFeed({
@@ -12,6 +11,7 @@ function ComFeed({
   displayName,
   profilePictureUrl,
   username,
+  postCreatedAt,
 }) {
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -25,6 +25,7 @@ function ComFeed({
     console.log("Closing FeedPopup");
     setIsFeedPopupOpen(false);
   };
+ 
   const handleClick = () => {
     navigate("/CommunityDetail", {
       state: {
@@ -34,6 +35,7 @@ function ComFeed({
         displayName: displayName,
         profilePictureUrl: profilePictureUrl,
         username: username,
+        postCreatedAt: postCreatedAt
       },
     });
   };

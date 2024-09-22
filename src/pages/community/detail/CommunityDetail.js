@@ -7,6 +7,7 @@ import { theme } from "../../../style/theme";
 import { IoChatbox } from "react-icons/io5";
 import { FiSend } from "react-icons/fi";
 import Loading from '../../../Components/loading/loading';
+import { DetailTime } from "../../../utils/DetailTime";
 
 export default function CommunityDetail() {
   const commentRef = useRef();
@@ -20,6 +21,7 @@ export default function CommunityDetail() {
     postContent,
     celebProfile,
     celebProfileUrl,
+    postCreatedAt,
     handleSubmit,
   } = useComment();
 
@@ -46,6 +48,15 @@ export default function CommunityDetail() {
       return counter.toString();
     }
   };
+  const dateObject = new Date(
+    postCreatedAt[0], 
+    postCreatedAt[1] - 1,
+    postCreatedAt[2], 
+    postCreatedAt[3], 
+    postCreatedAt[4], 
+    postCreatedAt[5] 
+  );
+  const nowDate = DetailTime(dateObject);
 
   const iconClick = (e) => {
     e.preventDefault();
@@ -74,7 +85,7 @@ export default function CommunityDetail() {
             )}
             <div className="flexColumnn left">
               <p className="boldContent mb05">@{displayName}</p>
-              <p className="caption">1분 전</p>
+              <p className="caption">{nowDate}</p>
             </div>
           </div>
           <img
@@ -139,6 +150,7 @@ export default function CommunityDetail() {
                   displayName={comment.displayName}
                   content={comment.content}
                   profilePictureUrl={comment.profilePictureUrl}
+                  commentCreatedAt={comment.createdAt}
                 />
               ))
             ) : (

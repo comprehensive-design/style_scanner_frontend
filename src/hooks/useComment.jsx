@@ -5,11 +5,11 @@ import { fetchProxyImages } from "../utils/ConvertProxyImage";
 
 export const useComment = () => {
   const location = useLocation();
-  const {postId, feedUrl, postContent, displayName, profilePictureUrl, username} = location.state || {};
+  
+  const {postId, feedUrl, postContent, displayName, profilePictureUrl, username, postCreatedAt} = location.state || {};
   const [comments, setComments] = useState([]);
   const [celebProfile, setCelebProfile] = useState(null);
   const [celebProfileUrl, setCelebProfileUrl] = useState(null);
-  const [content, setContent] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -66,7 +66,6 @@ export const useComment = () => {
 
         const data = await getComments(postId);
         setComments(data);
-        setContent("");
       } else {
         console.error(error);
       }
@@ -75,5 +74,5 @@ export const useComment = () => {
     }
   };
 
-  return { feedUrl, displayName, profilePictureUrl, postContent, content, comments, celebProfile, celebProfileUrl,setContent, handleSubmit };
+  return { feedUrl, postCreatedAt, displayName, profilePictureUrl, postContent ,comments, celebProfile, celebProfileUrl, handleSubmit };
 };

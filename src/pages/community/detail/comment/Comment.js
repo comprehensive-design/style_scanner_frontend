@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { FaHeart } from "react-icons/fa6";
 import { theme } from "../../../../style/theme";
+import { DetailTime } from "../../../../utils/DetailTime";
+
 
 export default function CommentInfo({
   profilePictureUrl,
   displayName,
   content,
+  commentCreatedAt,
 }) {
   const [isClicked, setIsClicked] = useState(false);
+
   const handleClick = () => {
     if (isClicked) {
       setIsClicked(false);
@@ -15,6 +19,9 @@ export default function CommentInfo({
       setIsClicked(true);
     }
   };
+  const dateObject = new Date(commentCreatedAt); 
+  const nowDate = DetailTime(dateObject); 
+
   return (
     <div
       className="feedProfileDiv"
@@ -28,7 +35,7 @@ export default function CommentInfo({
       <div className="flexColumnn left">
         <div className="feedProfileDiv mb05">
           <p className="boldContent">@{displayName}</p>
-          <p className="caption ml05">1분 전</p>
+          <p className="caption ml05">{nowDate}</p>
         </div>
         <p className="content ellipsis">{content}</p>
       </div>

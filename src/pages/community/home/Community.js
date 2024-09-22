@@ -37,6 +37,7 @@ export default function Community() {
                 displayName={post.displayName}
                 profilePictureUrl={post.profilePictureUrl}
                 username={post.username}
+                postCreatedAt = {post.createdAt}
               />
             ))
           ) : (
