@@ -20,8 +20,8 @@ function LikeInfo({
 }) {
   return (
     <div>
-      <div>
-        <img id="itemImg" src={imgUrl} />
+      <div className="mpdImgBox">
+        <img className="rowCenter" src={imgUrl} />
       </div>
       <div className="mpdLikeInfo">
         <p className="boldContent">{brandName}</p>
@@ -29,9 +29,9 @@ function LikeInfo({
           <p className="caption">{itemName}</p>
           {itemOption && <p>&nbsp;-&nbsp;{itemOption}</p>}
         </div>
-        <div className="last">
+        <div className="crLast mt05">
           <p className="caption">{itemPrice}원</p>
-          <div className="flex">
+          <div className="flex mr3">
             <img src="img/fullHeart.png" />
             <p id="likeCount" className="caption">
               &nbsp;{likeCount}
@@ -61,7 +61,7 @@ export default function MypageDefaultForm({
   return (
     <div className="mypageWrapper" >
       <Sidebar />
-      <div className="mypageMain" style={{zIndex : "1",overflow : "visible"}}>
+      <div className="mypageMain" style={{ zIndex: "1", overflow: "visible" }}>
         <div className="mpdprofileBox gridColumns4" >
           <img src={profilePictureUrl}></img>
           <div>

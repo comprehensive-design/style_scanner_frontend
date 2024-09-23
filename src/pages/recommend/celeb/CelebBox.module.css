@@ -8,13 +8,7 @@
 .pBox {
     margin-bottom: 15px;
     display: flex;
-}
-
-.profileImg {
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-}
+} 
 
 .mPart {
     margin: auto 0 auto 20px;

@@ -1,7 +1,7 @@
 import styles from "../css/Footer.module.css";
 
-export default function Footer(){
-    return(
+export default function Footer() {
+    return (
         <div className={styles.totalWrap}>
             <div className={styles.mainInfo}>
                 <p className={styles.mainSerName}>@StyleScanner</p>
@@ -14,7 +14,7 @@ export default function Footer(){
                 <p className={styles.etcInfoWord}>yu cse</p>
                 <p className={styles.etcInfoWord}>graduation products</p>
                 <p className={styles.etcInfoWord}>https://github.com/comprehensive-design</p>
-                <p className={styles.etcInfoWord}>teamName 2024</p>
+                <p className={styles.etcInfoWord}>Stytle Scanner</p>
             </div>
         </div>
     )
