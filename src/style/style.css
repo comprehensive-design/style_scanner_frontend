@@ -888,7 +888,7 @@ hr {
 }
 
 .search-results {
-  width: 100%; /* 검색 바와 동일한 너비 */
+  width: 88%; /* 검색 바와 동일한 너비 */
   border: 0.1rem solid #ccc; /* 경계선 추가 */
   border-radius : 10%;
   position: absolute; /* 검색 바 아래에 위치하도록 설정 */
@@ -896,13 +896,14 @@ hr {
   background-color: white; /* 배경색 설정 */
   z-index: 10; /* 다른 요소 위에 표시되도록 설정 */
   max-height: 20rem; /* 최대 높이 설정 */
+  margin-left: 1rem;
   overflow-y: auto; /* 스크롤 가능하도록 설정 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
 
 .search-results li {
-  margin-left : 0.5rem;
+  /* margin-left : 0.5rem; */
   padding: 0.3rem; /* 항목 패딩 추가 */
   cursor: pointer; /* 포인터 모양으로 설정 */
   max-height: 3rem; /* 원하는 최대 높이로 설정 */
@@ -925,6 +926,7 @@ hr {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
+  /* float: left; */
   margin-right: 1rem; /* 이미지와 텍스트 사이의 간격 */
   /* fla */
 }
