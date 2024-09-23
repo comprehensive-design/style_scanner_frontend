@@ -28,7 +28,7 @@ function SearchresultItem({ user, onClick }) { // onClick prop 추가
     };
 
     return (
-        <li className='body flex' onClick={handleClick} style={{zIndex : "99999"}}>
+        <li className='' onClick={handleClick} style={{zIndex : "99999"}}>
             {imagesLoaded ? (
                 <img src={proxyImageUrls[0]} className='searchProfileImg' />
             ) : (

@@ -64,12 +64,13 @@ function SearchBar({ value, onChange, onKeyPress }) {
                 />
             </form>
             {filteredUsers.length > 0 && (
-                <ul className="search-results">
+                <ul className="search-results" >
                     {filteredUsers.map(user => (
                         <SearchResultItem
                             key={user.id}
                             user={user}
                             onClick={() => handleItemClick(user)}
+                            
                         />
                     ))}
                 </ul>

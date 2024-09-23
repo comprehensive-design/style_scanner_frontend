@@ -888,7 +888,7 @@ hr {
 }
 
 .search-results {
-  width: 88%; /* 검색 바와 동일한 너비 */
+  width: 100%; /* 검색 바와 동일한 너비 */
   border: 0.1rem solid #ccc; /* 경계선 추가 */
   border-radius : 10%;
   position: absolute; /* 검색 바 아래에 위치하도록 설정 */
@@ -899,17 +899,20 @@ hr {
   margin-left: 1rem;
   overflow-y: auto; /* 스크롤 가능하도록 설정 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  padding : 0;
 }
 
 
 .search-results li {
+  padding : 0;
   /* margin-left : 0.5rem; */
-  padding: 0.3rem; /* 항목 패딩 추가 */
+  padding: 0.3rem; 
+  margin : 0rem;
   cursor: pointer; /* 포인터 모양으로 설정 */
-  max-height: 3rem; /* 원하는 최대 높이로 설정 */
+  max-height: 3rem; /*원하는 최대 높이로 설정*/
   overflow: hidden; /*내용이 넘치면 숨김*/
   display: flex; /* Flexbox 사용 */
-  align-items: center; /* 수직 가운데 정렬 */
+  align-items: center;
 }
 
 .search-results li:hover {
@@ -926,9 +929,9 @@ hr {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
+  margin-left: 0.5rem;
   /* float: left; */
   margin-right: 1rem; /* 이미지와 텍스트 사이의 간격 */
-  /* fla */
 }
 
 /* 셀럽추천 */
