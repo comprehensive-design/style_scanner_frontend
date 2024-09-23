@@ -29,11 +29,12 @@
 
 .etcInfo {
   width: 400px;
-  margin: 30px;
+  /* margin: 30px; */
+  margin: 0 30px;
   /* float:left; */
   text-align: right;
   color: gray;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   font-size: 14px;
   /* background-color: white; */
   float: right;
