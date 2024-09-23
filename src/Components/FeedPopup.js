@@ -4,6 +4,7 @@ import axios from "axios";
 import Button from "./Button";
 import UserFeed from "./UserFeed";
 
+
 export default function FeedPopup({ user, onClose }) {
   const [feeds, setFeeds] = useState([]);
   const [followers, setFollowers] = useState(0);
@@ -105,10 +106,11 @@ export default function FeedPopup({ user, onClose }) {
   };
 
   return (
-    <div className={styles.totalWrap}>
-      <div className={styles.popupContent}>
-        <div className={styles.closeButtonDiv}>
-          <button className={styles.closeButton} onClick={onClose}>
+    // closebuttondiv
+    <div className='popupWrap'> 
+      <div className='popupContent'>
+        <div className='closeButtonDiv'>
+          <button className="closeButton" onClick={onClose} >
             X
           </button>
         </div>
@@ -127,7 +129,9 @@ export default function FeedPopup({ user, onClose }) {
               <p className={styles.userId}>{user.profileName}</p>
               {!isFollowing && (
                 <div className={styles.FollowButton}>
-                  <Button>팔로우</Button>
+                  <button
+                    // 팔로우핸들
+                  >팔로우</button>
                 </div>
               )}
               {isFollowing && (
@@ -138,6 +142,8 @@ export default function FeedPopup({ user, onClose }) {
                     $txtColor="black"
                     $hovColor="black"
                     $hovTxtColor="white"
+                    className="whiteButton"
+                    style={{width:"5rem"}}
                     onClick={() => handleUnfollow(user.profileName)}
                   >
                     언팔로우
@@ -146,25 +152,25 @@ export default function FeedPopup({ user, onClose }) {
               )}
             </div>
 
-            <div className={styles.followsInfo}>
+            <div className='flex'>
               <p>게시물</p>
-              <p>{totalFeeds}</p>
+              <p>&nbsp;{totalFeeds}</p>
 
-              <p className={styles.followsInfoWord}>팔로워</p>
-              <p>{formatFollowerCount(followers)}</p>
+              <p className='ml1'>팔로워</p>
+              <p>&nbsp;{formatFollowerCount(followers)}</p>
 
-              <p className={styles.followsInfoWord}>팔로우</p>
-              <p>{follows}</p>
+              <p className='ml1'>팔로우</p>
+              <p>&nbsp;{follows}</p>
             </div>
 
             <div>
-              <p className={styles.userbio}>{userbio}</p>
+              <p className='left zero mt1'>{userbio}</p>
             </div>
           </div>
         </div>
         <HorizonLine />
 
-        <div className={styles.feedGrid}>
+        <div className='feedGrid'>
           {feeds.map((feed) => (
             <UserFeed key={feed.id} feed={feed} />
           ))}
