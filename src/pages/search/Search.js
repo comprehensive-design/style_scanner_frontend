@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import FeedPopup from '../../Components/FeedPopup';
 import Feed from '../../Components/feed/Feed';
+import { fetchProxyImages } from '../../utils/ConvertProxyImage';
 
 export default function Search() {
     const location = useLocation();
@@ -14,8 +15,28 @@ export default function Search() {
     const followeeId = searchResults?.profileName;
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [celebs, setCelebs] = useState([]);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
 
+    const [celebs, setCelebs] = useState([]);
+    const [proxyImageUrls, setProxyImageUrls] = useState({
+        thumbnails: [],
+        profiles: []
+    });
+    const loadImages = async () => {
+        try {
+            const thumbnailUrls = await fetchProxyImages(celebs.map(celeb => celeb.feed_url));
+            const profileUrls = await fetchProxyImages(celebs.map(celeb => celeb.profilePictureUrl));
+    
+            setProxyImageUrls({
+                thumbnails: thumbnailUrls,
+                profiles: profileUrls
+            });
+            setImagesLoaded(true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
     console.log("searchResults : ", searchResults);
 
     const openPopup = (user) => {
@@ -111,17 +132,17 @@ export default function Search() {
                     if (response.data.length === 0) {
                         axios.post('http://localhost:5000/searchUsers', searchResults)
                             .then(postResponse => {
-                                console.log('Search results posted to JSON server:', postResponse.data);
+                                // console.log('Search results posted to JSON server:', postResponse.data);
                             })
                             .catch(postError => {
-                                console.error('Error posting search results:', postError);
+                                // console.error('Error posting search results:', postError);
                             });
                     } else {
-                        console.log('Profile already exists in JSON server:', searchResults.profileName);
+                        // console.log('Profile already exists in JSON server:', searchResults.profileName);
                     }
                 })
                 .catch(error => {
-                    console.error('Error checking profile existence:', error);
+                    // console.error('Error checking profile existence:', error);
                 });
         }
     }, [searchResults]);
@@ -135,13 +156,40 @@ export default function Search() {
                 }
             })
             .catch(error => {
-                console.error('Error while fetching ranking data:', error);
+                // console.error('Error while fetching ranking data:', error);
             });
 
         if (searchResults && searchResults.profileName) {
             checkFollowingStatus();
         }
     }, [searchResults]);
+
+    useEffect(() => {
+        const loadImages = async () => {
+            try {
+                const thumbnailUrls = await fetchProxyImages(celebs.map(celeb => celeb.feed_url));
+                const profileUrls = await fetchProxyImages(celebs.map(celeb => celeb.profilePictureUrl));
+    
+                if (thumbnailUrls.length === celebs.length && profileUrls.length === celebs.length) {
+                    setProxyImageUrls({
+                        thumbnails: thumbnailUrls,
+                        profiles: profileUrls
+                    });
+                    setImagesLoaded(true);
+                } else {
+                    console.error("Image loading error: Length mismatch between celebs and image URLs");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    
+        if (celebs.length > 0) {
+            loadImages();
+        }
+    }, [celebs]);
+    
+
 
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
@@ -155,7 +203,7 @@ export default function Search() {
                 </div>
 
                 <div className={styles.SearchUserRes} style={{ display: 'flex' }} onClick={() => openPopup(searchResults)}>
-                    <div className={styles.SearchprofileImg} >
+                    <div className={styles.SearchprofileImg}>
                         <img
                             id={styles.SearchUserImg}
                             src={searchResults.profilePictureUrl}
@@ -189,17 +237,21 @@ export default function Search() {
                     <p className={styles.grayP}>인기 셀럽</p>
 
                     <div className={styles.SearchRelChannel}>
-                        <div style={{display:'flex'}}>
-                            {celebs.map((celeb, index) => (
-                                <Feed
-                                    key={index}
-                                    thumbnail_url={celeb.feed_url}
-                                    profile_url={celeb.profilePictureUrl}
-                                    username={celeb.profileName}
-                                    width="13rem"
-                                    height="16rem"
-                                />
-                            ))}
+                        <div style={{ display: 'flex' }}>
+                            {imagesLoaded ? (
+                                celebs.map((celeb, index) => (
+                                    <Feed
+                                        key={index}
+                                        thumbnail_url={proxyImageUrls.thumbnails[index]}
+                                        profile_url={proxyImageUrls.profiles[index]}
+                                        username={celeb.profileName}
+                                        width="13rem"
+                                        height="16rem"
+                                    />
+                                ))
+                            ) : (
+                                <p>로딩 중...</p>
+                            )}
                             <div className={styles.paddingWidth}></div>
                         </div>
                     </div>
