@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import styles from './CelebBox.module.css';
-import Button from '../../../Components/Button';
 import { useEffect, useState } from 'react';
 import FeedPopup from "../../../Components/FeedPopup";
 
@@ -23,26 +21,26 @@ function CelebBox({ isFollow, prifileImgUrl = "/img/whiteBox.png", displayName, 
     };
 
     return (
-        <div className={styles.box}>
-            <div className={styles.pBox}>
-                <img className={styles.profileImg} src={prifileImgUrl} ></img>
-                <div className={styles.mPart}>
-                    <div className={styles.uText} onClick={() => openPopup(user)}  >@{displayName}</div>
-                    <div className={styles.fText}>{follower} follower</div>
+        <div>
+            <div className="crFirstLine mb1">
+                <div className='flex'>
+                    <img src={prifileImgUrl}></img>
+                    <div>
+                        <div className="boldContent" onClick={() => openPopup(user)}  >@{displayName}</div>
+                        <div className="caption">{follower} follower</div>
+                    </div>
                 </div>
-                <div className={styles.btn}>
-                    {
-                        isFollow
-                            ? <Button $borderRad='20px' $BackColor='#d9d9d9' $txtColor='black' $hovColor='black' $hovTxtColor='white' onClick={() => unfollow()}>팔로잉</Button>
-                            : <Button $borderRad='20px' onClick={() => follow()}>팔로우</Button>
-                    }
-                </div>
+                {
+                    isFollow
+                        ? <button className="button" onClick={() => unfollow()}>팔로잉</button>
+                        : <button className="button" onClick={() => follow()}>팔로우</button>
+                }
             </div>
 
-            <div className={styles.iBox}>
-                <img className={styles.fimage} src={picUrl1} ></img>
-                <img className={styles.fimage} src={picUrl2} ></img>
-                <img className={styles.fimage} src={picUrl3} ></img>
+            <div className="crSecondLine">
+                <img src={picUrl1} ></img>
+                <img src={picUrl2} ></img>
+                <img src={picUrl3} ></img>
             </div>
             {popupVisible && selectedUser && (
                 <FeedPopup user={selectedUser} onClose={closePopup} />
