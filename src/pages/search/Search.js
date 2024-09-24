@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Search.module.css';
-import Channel from './channel/channel';
 import Button from '../../Components/Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import FeedPopup from '../../Components/FeedPopup';
+import Feed from '../../Components/feed/Feed';
 
 export default function Search() {
     const location = useLocation();
@@ -14,11 +13,71 @@ export default function Search() {
     const followeeId = searchResults?.profileName;
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
     const [celebs, setCelebs] = useState([]);
-    // const [userDatas, setUserDatas] = useState(null);
-    
+    const [proxyImageUrls, setProxyImageUrls] = useState({
+        thumbnails: [],
+        profiles: [],
+        profileImage: ''
+    });
 
-    console.log("searchResults : ", searchResults);
+    const loadImages = async (imageUrls) => {
+        try {
+            const urls = await Promise.all(
+                imageUrls.map(async (imageUrl) => {
+                    const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+                    const response = await axios.get("/api/insta/proxyImage", {
+                        params: { imageUrl: cleanUrl }, // 수정된 URL 전달
+                        responseType: "blob",
+                    });
+                    return URL.createObjectURL(response.data);
+                })
+            );
+            return urls;
+        } catch (error) {
+            console.error("Error loading images:", error);
+            return [];
+        }
+    };
+
+    const loadProfileImage = async (imageUrl) => {
+        try {
+            const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+            const response = await axios.get("/api/insta/proxyImage", {
+                params: { imageUrl: cleanUrl }, // 수정된 URL 전달
+                responseType: "blob",
+            });
+            return URL.createObjectURL(response.data);
+        } catch (error) {
+            console.error("Error loading profile image:", error);
+            return '';
+        }
+    };
+
+    useEffect(() => {
+        const loadCelebImages = async () => {
+            const thumbnailUrls = celebs.map(celeb => celeb.feed_url);
+            const profileUrls = celebs.map(celeb => celeb.profilePictureUrl);
+
+            const [thumbnails, profiles] = await Promise.all([
+                loadImages(thumbnailUrls),
+                loadImages(profileUrls)
+            ]);
+
+            const profileImage = await loadProfileImage(searchResults.profilePictureUrl);
+
+            setProxyImageUrls({
+                thumbnails,
+                profiles,
+                profileImage
+            });
+            setImagesLoaded(true);
+        };
+
+        if (celebs.length > 0) {
+            loadCelebImages();
+        }
+    }, [celebs]);
 
     const openPopup = (user) => {
         if (user && user.profileName) {
@@ -27,12 +86,12 @@ export default function Search() {
         } else {
             console.error('유효하지 않은 사용자 데이터:', user);
         }
-    }
+    };
 
     const closePopup = () => {
         setSelectedUser(null);
         setPopupVisible(false);
-    }
+    };
 
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
@@ -55,7 +114,7 @@ export default function Search() {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-            .then(response => {
+            .then(() => {
                 console.log('Followed successfully');
                 setIsFollowing(true);
             })
@@ -75,7 +134,7 @@ export default function Search() {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-            .then(response => {
+            .then(() => {
                 console.log('Unfollowed successfully');
                 setIsFollowing(false);
             })
@@ -97,7 +156,6 @@ export default function Search() {
                 }
             })
                 .then(response => {
-                    console.log(response.data);
                     setIsFollowing(response.data.isFollowing);
                 })
                 .catch(error => {
@@ -106,23 +164,18 @@ export default function Search() {
         }
     };
 
-    // JSON 서버에 searchResults를 중복 확인 후 POST하는 useEffect
     useEffect(() => {
         if (searchResults && typeof searchResults === 'object') {
-            // JSON 서버에서 profileName 중복 확인
             axios.get(`http://localhost:5000/searchUsers?profileName=${searchResults.profileName}`)
                 .then(response => {
                     if (response.data.length === 0) {
-                        // 데이터가 없으면 POST 요청
                         axios.post('http://localhost:5000/searchUsers', searchResults)
-                            .then(postResponse => {
-                                console.log('Search results posted to JSON server:', postResponse.data);
+                            .then(() => {
+                                // Handle post response if needed
                             })
                             .catch(postError => {
                                 console.error('Error posting search results:', postError);
                             });
-                    } else {
-                        console.log('Profile already exists in JSON server:', searchResults.profileName);
                     }
                 })
                 .catch(error => {
@@ -134,9 +187,8 @@ export default function Search() {
     useEffect(() => {
         axios.get(`/api/follow/ranking`)
             .then(response => {
-                console.log('Ranking data:', response.data);
                 if (response.data) {
-                    setCelebs(response.data);
+                    setCelebs(response.data.slice(0, 4)); // 결과를 4개로 잘라서 저장
                 }
             })
             .catch(error => {
@@ -148,59 +200,78 @@ export default function Search() {
         }
     }, [searchResults]);
 
-    // 검색 결과가 없는 경우 조기 반환
+
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
     }
 
     return (
         <div>
-            <div className={styles.profileBox}>
+            <div className='profileBox'>
                 <div style={{ display: 'flex' }}>
-                    <p id={styles.Searchtotal}>검색 결과</p>
+                    <p className='boldSubTitle'>검색 결과</p>
                 </div>
 
-                <div className={styles.SearchUserRes} style={{ display: 'flex' }} onClick={() => openPopup(searchResults)}>
-                    <div className={styles.SearchprofileImg} >
+                <div className='SearchUserRes' onClick={() => openPopup(searchResults)}>
+                    <div className='ml3 SearchprofileImg'>
                         <img
-                            id={styles.SearchUserImg}
-                            src={searchResults.profilePictureUrl}
-                            alt="Profile"
+                            src={proxyImageUrls.profileImage}
+                            style={{borderRadius : "50%"}}
+                        // alt="Profile"
                         />
                     </div>
 
-                    <div className={styles.userInfoWord}>
-                        <p id={styles.SearchUserid}>{searchResults.profileName}</p>
-                        <p id={styles.profileBio}>{searchResults.profileBio}</p>
-                        <div style={{ display: 'flex' }} className={styles.userFollowerInfo}>
-                            <p id={styles.FollowerWord}>팔로워</p>
-                            <p id={styles.FollowerCountWord}>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
+                    <div className='ml3'>
+                        <p className='left boldContent'>{searchResults.profileName}</p>
+                        <p className='left content'>{searchResults.profileBio}</p>
+                        <div className='zero flex'>
+                            <p className='zero'>팔로워</p>
+                            <p className='zero'>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
                         </div>
                     </div>
-                    <div className={styles.SearchFollow}>
+                    <div className='SearchFollow'>
                         {!isFollowing ? (
-                            <div className={styles.FollowButton}>
+                            <div>
                                 <Button onClick={handleFollow}>팔로우</Button>
                             </div>
                         ) : (
-                            <div className={styles.FollowButton}>
-                                <Button id={styles.buttonDelete} $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
+                            <div>
+                                <Button $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div className={styles.SearchRelRes}>
-                    <p className={styles.RelResWord}>Top Followee</p>
-                    <p className={styles.grayP}>인기 셀럽</p>
+                <div className='SearchRelRes'>
+                    <p className='left boldSubTitle zero'>Top Followee</p>
+                    <p className='left grayText content mt05'>인기 셀럽</p>
 
-                    <div className={styles.SearchRelChannel}>
-                        <div className={styles.channelCover}>
-                            <Channel list={celebs} />
-                            <div className={styles.paddingWidth}></div>
+
+                    <div className='SearchRelChannel'>
+                        <div className='flex'>
+                            {imagesLoaded ? (
+                                <div className='flex'>
+                                    {celebs.map((celeb, index) => (
+                                        <div key={index} style={{ margin: '0 1rem' }}> {/* 좌우 margin 설정 */}
+                                            <Feed
+                                                thumbnail_url={proxyImageUrls.thumbnails[index]}
+                                                profile_url={proxyImageUrls.profiles[index]}
+                                                username={celeb.profileName}
+                                                width="17rem"
+                                                height="22rem"
+                                                className="mr1"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p>로딩 중...</p>
+                            )}
+
                         </div>
                     </div>
-                    <div className={styles.paddingHeight}></div>
+
+                    <div style={{height:"5rem"}}></div>
                 </div>
             </div>
 
