@@ -1066,3 +1066,43 @@ hr {
   padding : 0;
   margin:0;
 }
+
+.SearchUserRes{
+  margin-top: 20px;
+  display:flex;
+  border-style : solid;
+  border-color  : #e9ecef;
+  border-radius : 10px;
+  height: 200px;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profileBox{
+  width : 80%;
+  margin: 0 auto;
+}
+
+.SearchRelRes{
+  margin: 0;
+  padding: 0;
+  margin-top: 5rem;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.SearchRelChannel{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0 auto;
+  /* width:20rem; */
+}
+
+.SearchFollow{
+  margin-left: auto;
+  margin-right:50px;
+  
+}

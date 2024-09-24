@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Search.module.css';
 import Button from '../../Components/Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -40,7 +39,7 @@ export default function Search() {
             return [];
         }
     };
-    
+
     const loadProfileImage = async (imageUrl) => {
         try {
             const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
@@ -54,7 +53,7 @@ export default function Search() {
             return '';
         }
     };
-    
+
     useEffect(() => {
         const loadCelebImages = async () => {
             const thumbnailUrls = celebs.map(celeb => celeb.feed_url);
@@ -115,13 +114,13 @@ export default function Search() {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-        .then(() => {
-            console.log('Followed successfully');
-            setIsFollowing(true);
-        })
-        .catch(error => {
-            console.error('Error while following:', error);
-        });
+            .then(() => {
+                console.log('Followed successfully');
+                setIsFollowing(true);
+            })
+            .catch(error => {
+                console.error('Error while following:', error);
+            });
     };
 
     const handleUnfollow = () => {
@@ -135,13 +134,13 @@ export default function Search() {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-        .then(() => {
-            console.log('Unfollowed successfully');
-            setIsFollowing(false);
-        })
-        .catch(error => {
-            console.error('Error while unfollowing:', error);
-        });
+            .then(() => {
+                console.log('Unfollowed successfully');
+                setIsFollowing(false);
+            })
+            .catch(error => {
+                console.error('Error while unfollowing:', error);
+            });
     };
 
     const checkFollowingStatus = () => {
@@ -156,12 +155,12 @@ export default function Search() {
                     'Authorization': `Bearer ${accessToken}`
                 }
             })
-            .then(response => {
-                setIsFollowing(response.data.isFollowing);
-            })
-            .catch(error => {
-                console.error('Error while checking follow status:', error);
-            });
+                .then(response => {
+                    setIsFollowing(response.data.isFollowing);
+                })
+                .catch(error => {
+                    console.error('Error while checking follow status:', error);
+                });
         }
     };
 
@@ -189,7 +188,7 @@ export default function Search() {
         axios.get(`/api/follow/ranking`)
             .then(response => {
                 if (response.data) {
-                    setCelebs(response.data);
+                    setCelebs(response.data.slice(0, 4)); // 결과를 4개로 잘라서 저장
                 }
             })
             .catch(error => {
@@ -201,71 +200,78 @@ export default function Search() {
         }
     }, [searchResults]);
 
+
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
     }
 
     return (
         <div>
-            <div className={styles.profileBox}>
+            <div className='profileBox'>
                 <div style={{ display: 'flex' }}>
-                    <p id={styles.Searchtotal}>검색 결과</p>
+                    <p className='boldSubTitle'>검색 결과</p>
                 </div>
 
-                <div className={styles.SearchUserRes} style={{ display: 'flex' }} onClick={() => openPopup(searchResults)}>
-                    <div className={styles.SearchprofileImg}>
+                <div className='SearchUserRes' onClick={() => openPopup(searchResults)}>
+                    <div className='ml3 SearchprofileImg'>
                         <img
-                            id={styles.SearchUserImg}
                             src={proxyImageUrls.profileImage}
-                            // alt="Profile"
+                            style={{borderRadius : "50%"}}
+                        // alt="Profile"
                         />
                     </div>
 
-                    <div className={styles.userInfoWord}>
-                        <p id={styles.SearchUserid}>{searchResults.profileName}</p>
-                        <p id={styles.profileBio}>{searchResults.profileBio}</p>
-                        <div style={{ display: 'flex' }} className={styles.userFollowerInfo}>
-                            <p id={styles.FollowerWord}>팔로워</p>
-                            <p id={styles.FollowerCountWord}>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
+                    <div className='ml3'>
+                        <p className='left boldContent'>{searchResults.profileName}</p>
+                        <p className='left content'>{searchResults.profileBio}</p>
+                        <div className='zero flex'>
+                            <p className='zero'>팔로워</p>
+                            <p className='zero'>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
                         </div>
                     </div>
-                    <div className={styles.SearchFollow}>
+                    <div className='SearchFollow'>
                         {!isFollowing ? (
-                            <div className={styles.FollowButton}>
+                            <div>
                                 <Button onClick={handleFollow}>팔로우</Button>
                             </div>
                         ) : (
-                            <div className={styles.FollowButton}>
-                                <Button id={styles.buttonDelete} $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
+                            <div>
+                                <Button $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div className={styles.SearchRelRes}>
-                    <p className={styles.RelResWord}>Top Followee</p>
-                    <p className={styles.grayP}>인기 셀럽</p>
+                <div className='SearchRelRes'>
+                    <p className='left boldSubTitle zero'>Top Followee</p>
+                    <p className='left grayText content mt05'>인기 셀럽</p>
 
-                    <div className={styles.SearchRelChannel}>
-                        <div style={{ display: 'flex' }}>
+
+                    <div className='SearchRelChannel'>
+                        <div className='flex'>
                             {imagesLoaded ? (
-                                celebs.map((celeb, index) => (
-                                    <Feed
-                                        key={index}
-                                        thumbnail_url={proxyImageUrls.thumbnails[index]}
-                                        profile_url={proxyImageUrls.profiles[index]}
-                                        username={celeb.profileName}
-                                        width="13rem"
-                                        height="16rem"
-                                    />
-                                ))
+                                <div className='flex'>
+                                    {celebs.map((celeb, index) => (
+                                        <div key={index} style={{ margin: '0 1rem' }}> {/* 좌우 margin 설정 */}
+                                            <Feed
+                                                thumbnail_url={proxyImageUrls.thumbnails[index]}
+                                                profile_url={proxyImageUrls.profiles[index]}
+                                                username={celeb.profileName}
+                                                width="17rem"
+                                                height="22rem"
+                                                className="mr1"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
                             ) : (
                                 <p>로딩 중...</p>
                             )}
-                            <div className={styles.paddingWidth}></div>
+
                         </div>
                     </div>
-                    <div className={styles.paddingHeight}></div>
+
+                    <div style={{height:"5rem"}}></div>
                 </div>
             </div>
 
