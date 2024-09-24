@@ -887,12 +887,8 @@ hr {
   width: 50%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 2fr 2fr 1fr;
+  grid-template-rows: 1fr 0.5fr 0.5fr;
   align-items: center;
-}
-
-.communityCelebGrid>button {
-  justify-self: center;
 }
 
 /* 자동검색어 */
