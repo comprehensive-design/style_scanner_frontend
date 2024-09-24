@@ -8,7 +8,7 @@ export const fetchProxyImages = async (thumbnailUrls) => {
 
         return urls;
     } catch (error) {
-        console.error(error);
+        console.error('프록시 이미지 가져오기 실패:', error);
         return [];
     }
 };
@@ -17,12 +17,12 @@ const fetchImage = async (thumbnailUrl) => {
     try {
         const response = await api.get('/api/insta/proxyImage', {
             params: { imageUrl: thumbnailUrl },
-            responseType: 'arraybuffer',
+            responseType: 'blob',
         });
-        const blob = new Blob([response.data], { type: 'image/png' });
-        return URL.createObjectURL(blob);
+        const imageUrl = URL.createObjectURL(response.data);
+        return imageUrl;
     } catch (error) {
-        console.error(`Error fetching image from ${thumbnailUrl}:`, error);
+        console.error(`${thumbnailUrl}에서 이미지 가져오기 실패:`, error);
         return thumbnailUrl;
     }
 };
