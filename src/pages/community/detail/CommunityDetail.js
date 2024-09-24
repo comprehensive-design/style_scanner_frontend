@@ -68,8 +68,9 @@ export default function CommunityDetail() {
   return (
     <div className="body">
       <div className="communityGrid">
+        {/* post 그리드 */}
         <div className="flexColumnn borderRad ml1 mt1 mb1 p1">
-          <div className="feedProfileDiv mt05">
+          <div className="feedProfileDiv">
             {profilePictureUrl ? (
               <img
                 className="feedProfile"
@@ -83,24 +84,24 @@ export default function CommunityDetail() {
                 alt="Profile"
               />
             )}
-            <div className="flexColumnn left">
+            <div className="left">
               <p className="boldContent mb05">@{displayName}</p>
               <p className="caption">{nowDate}</p>
             </div>
           </div>
           <img
             src={feedUrl}
-            className="borderRad mb1"
+            className="borderRad mb1 mt1"
             style={{ width: "20rem", height: "24rem" }}
           />
           <hr style={{ width: "100%", backgroundColor: theme.colors.gray }} />
           <ContentDiv className="content mt1">{postContent}</ContentDiv>
-          <BottomDiv className="feedProfileDiv mt1">
+          <div className="feedProfileDiv mt1">
             <IoChatbox size={"1.5rem"} />
             <p className="content ml03">{comments.length}</p>
-          </BottomDiv>
+          </div>
         </div>
-
+        {/* celeb 그리드 */}
         <div className="feedProfileDiv borderRad mr1 mt1">
           {celebProfileUrl ? (
             <img
@@ -121,17 +122,12 @@ export default function CommunityDetail() {
           <div className="communityCelebGrid">
             {celebProfile ? (
               <>
-                <p className="boldContent mb1">@{celebProfile.profileName}</p>
-                <button
-                  className="button mb1"
-                  style={{ width: "5rem", height: "2rem", padding: 0 }}
-                >
-                  팔로우
-                </button>
-                <p className="content">팔로워</p>
-                <p className="content">팔로잉</p>
-                <p className="boldContent">{formatFollowCount(celebProfile.profileFollowerCount)}</p>
-                <p className="boldContent">{formatFollowCount(celebProfile.profileFollowingCount)}</p>
+                <div className="boldContent mb2">@{celebProfile.profileName}</div>
+                <div className="mb2">  <button className="button" style={{ width: "5rem", height: "2rem", padding: 0 }}> 팔로우</button></div>
+                <div className="content">팔로워</div>
+                <div className="content">팔로잉</div>
+                <div className="boldContent">{formatFollowCount(celebProfile.profileFollowerCount)}</div>
+                <div className="boldContent">{formatFollowCount(celebProfile.profileFollowingCount)}</div>
               </>
             ) : (
               <Loading/>
@@ -200,10 +196,7 @@ export default function CommunityDetail() {
   );
 }
 
-const BottomDiv = styled.div`
-  align-items: flex-start;
-  justify-content: flex-start;
-`;
+
 // 질문글 그리드
 const ContentDiv = styled.div`
   width: 95%;

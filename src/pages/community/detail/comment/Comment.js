@@ -24,16 +24,16 @@ export default function CommentInfo({
 
   return (
     <div
-      className="feedProfileDiv"
-      style={{ width: "100%", position: "relative" }}
+      className="feedProfileDiv" 
+      style={{ width: "100%", position: "relative"}}
     >
       {profilePictureUrl ? (
         <img className="feedProfile" src={profilePictureUrl} alt="Profile" />
       ) : (
         <img className="feedProfile" src={`img/profile.png`} alt="Profile" />
       )}
-      <div className="flexColumnn left">
-        <div className="feedProfileDiv mb05">
+      <div className="left" style={{width: "20rem"}}>
+        <div className="feedProfileDiv">
           <p className="boldContent">@{displayName}</p>
           <p className="caption ml05">{nowDate}</p>
         </div>
