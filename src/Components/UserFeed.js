@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
-import { fetchProxyImages } from '../utils/ConvertProxyImage';
+import axios from "axios";
 
 export default function UserFeed({ id, feed }) {
     const navigate = useNavigate();
@@ -11,11 +11,20 @@ export default function UserFeed({ id, feed }) {
         const loadImages = async () => {
             if (feed.media_url_list) {
                 try {
-                    const urls = await fetchProxyImages([feed.media_url_list]);
+                    const urls = await Promise.all(
+                        feed.media_url_list.map(async (imageUrl) => {
+                            const proxyResponse = await axios.get("/api/insta/proxyImage", {
+                                params: { imageUrl },
+                                responseType: "blob",
+                            });
+                            return URL.createObjectURL(proxyResponse.data);
+                        })
+                    );
+
                     setProxyImageUrls(urls);
                     setImagesLoaded(true);
                 } catch (error) {
-                    console.error(error);
+                    console.error("Error loading images:", error);
                 }
             }
         };
@@ -26,7 +35,6 @@ export default function UserFeed({ id, feed }) {
     const handleClick = async (imageUrl, images, coords) => {
         console.log("Button clicked!");
 
-        // coords 객체에서 필요한 값만 추출
         const { x, y } = coords;
 
         navigate("/HomeInfo", {
@@ -35,7 +43,7 @@ export default function UserFeed({ id, feed }) {
                 feedUrl: imageUrl,
                 media_id: feed.id,
                 profile_url: feed.profile_url,
-                coords: coords, // 필요한 값만 전달
+                coords: coords,
             }
         });
     };

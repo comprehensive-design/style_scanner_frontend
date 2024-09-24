@@ -45,6 +45,7 @@ export default function FeedPopup({ user, onClose }) {
         setFeeds(feedList);
 
         checkFollowingStatus();
+
       })
       .catch((error) => {
         console.error("데이터를 가져오는 중에 오류가 발생했습니다:", error);
@@ -118,8 +119,8 @@ export default function FeedPopup({ user, onClose }) {
           <div className={styles.userProfileImgDiv}>
             <img
               src={profileImage}
-              width={"200px"}
-              height={"200px"}
+              width={"210rem"}
+              height={"210rem"}
               className={styles.userProfileImg}
             />
           </div>

@@ -14,6 +14,7 @@ function MainBarLogin({ searchText, handleSearchChange, handleKeyPress }) {
         if (divRef.current) {
             console.log(divRef.current.offsetWidth); // 요소의 현재 너비를 측정하여 상태에 저장
         }
+        // console.log()
     }, []);
 
     useEffect(() => {
@@ -27,7 +28,7 @@ function MainBarLogin({ searchText, handleSearchChange, handleKeyPress }) {
                     setProfilePictureUrl("/img/profile.png");
 
             } catch (error) {
-                console.error('유저 데이터를 가져오는데 실패했습니다.', error);
+                // console.error('유저 데이터를 가져오는데 실패했습니다.', error);
             }
         };
 

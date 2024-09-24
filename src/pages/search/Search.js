@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import FeedPopup from '../../Components/FeedPopup';
 import Feed from '../../Components/feed/Feed';
-import { fetchProxyImages } from '../../utils/ConvertProxyImage';
 
 export default function Search() {
     const location = useLocation();
@@ -16,28 +15,70 @@ export default function Search() {
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [imagesLoaded, setImagesLoaded] = useState(false);
-
     const [celebs, setCelebs] = useState([]);
     const [proxyImageUrls, setProxyImageUrls] = useState({
         thumbnails: [],
-        profiles: []
+        profiles: [],
+        profileImage: ''
     });
-    const loadImages = async () => {
+
+    const loadImages = async (imageUrls) => {
         try {
-            const thumbnailUrls = await fetchProxyImages(celebs.map(celeb => celeb.feed_url));
-            const profileUrls = await fetchProxyImages(celebs.map(celeb => celeb.profilePictureUrl));
-    
-            setProxyImageUrls({
-                thumbnails: thumbnailUrls,
-                profiles: profileUrls
-            });
-            setImagesLoaded(true);
+            const urls = await Promise.all(
+                imageUrls.map(async (imageUrl) => {
+                    const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+                    const response = await axios.get("/api/insta/proxyImage", {
+                        params: { imageUrl: cleanUrl }, // 수정된 URL 전달
+                        responseType: "blob",
+                    });
+                    return URL.createObjectURL(response.data);
+                })
+            );
+            return urls;
         } catch (error) {
-            console.error(error);
+            console.error("Error loading images:", error);
+            return [];
         }
     };
     
-    console.log("searchResults : ", searchResults);
+    const loadProfileImage = async (imageUrl) => {
+        try {
+            const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+            const response = await axios.get("/api/insta/proxyImage", {
+                params: { imageUrl: cleanUrl }, // 수정된 URL 전달
+                responseType: "blob",
+            });
+            return URL.createObjectURL(response.data);
+        } catch (error) {
+            console.error("Error loading profile image:", error);
+            return '';
+        }
+    };
+    
+    useEffect(() => {
+        const loadCelebImages = async () => {
+            const thumbnailUrls = celebs.map(celeb => celeb.feed_url);
+            const profileUrls = celebs.map(celeb => celeb.profilePictureUrl);
+
+            const [thumbnails, profiles] = await Promise.all([
+                loadImages(thumbnailUrls),
+                loadImages(profileUrls)
+            ]);
+
+            const profileImage = await loadProfileImage(searchResults.profilePictureUrl);
+
+            setProxyImageUrls({
+                thumbnails,
+                profiles,
+                profileImage
+            });
+            setImagesLoaded(true);
+        };
+
+        if (celebs.length > 0) {
+            loadCelebImages();
+        }
+    }, [celebs]);
 
     const openPopup = (user) => {
         if (user && user.profileName) {
@@ -46,12 +87,12 @@ export default function Search() {
         } else {
             console.error('유효하지 않은 사용자 데이터:', user);
         }
-    }
+    };
 
     const closePopup = () => {
         setSelectedUser(null);
         setPopupVisible(false);
-    }
+    };
 
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
@@ -74,13 +115,13 @@ export default function Search() {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-            .then(response => {
-                console.log('Followed successfully');
-                setIsFollowing(true);
-            })
-            .catch(error => {
-                console.error('Error while following:', error);
-            });
+        .then(() => {
+            console.log('Followed successfully');
+            setIsFollowing(true);
+        })
+        .catch(error => {
+            console.error('Error while following:', error);
+        });
     };
 
     const handleUnfollow = () => {
@@ -94,13 +135,13 @@ export default function Search() {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-            .then(response => {
-                console.log('Unfollowed successfully');
-                setIsFollowing(false);
-            })
-            .catch(error => {
-                console.error('Error while unfollowing:', error);
-            });
+        .then(() => {
+            console.log('Unfollowed successfully');
+            setIsFollowing(false);
+        })
+        .catch(error => {
+            console.error('Error while unfollowing:', error);
+        });
     };
 
     const checkFollowingStatus = () => {
@@ -115,13 +156,12 @@ export default function Search() {
                     'Authorization': `Bearer ${accessToken}`
                 }
             })
-                .then(response => {
-                    console.log(response.data);
-                    setIsFollowing(response.data.isFollowing);
-                })
-                .catch(error => {
-                    console.error('Error while checking follow status:', error);
-                });
+            .then(response => {
+                setIsFollowing(response.data.isFollowing);
+            })
+            .catch(error => {
+                console.error('Error while checking follow status:', error);
+            });
         }
     };
 
@@ -131,18 +171,16 @@ export default function Search() {
                 .then(response => {
                     if (response.data.length === 0) {
                         axios.post('http://localhost:5000/searchUsers', searchResults)
-                            .then(postResponse => {
-                                // console.log('Search results posted to JSON server:', postResponse.data);
+                            .then(() => {
+                                // Handle post response if needed
                             })
                             .catch(postError => {
-                                // console.error('Error posting search results:', postError);
+                                console.error('Error posting search results:', postError);
                             });
-                    } else {
-                        // console.log('Profile already exists in JSON server:', searchResults.profileName);
                     }
                 })
                 .catch(error => {
-                    // console.error('Error checking profile existence:', error);
+                    console.error('Error checking profile existence:', error);
                 });
         }
     }, [searchResults]);
@@ -150,46 +188,18 @@ export default function Search() {
     useEffect(() => {
         axios.get(`/api/follow/ranking`)
             .then(response => {
-                console.log('Ranking data:', response.data);
                 if (response.data) {
                     setCelebs(response.data);
                 }
             })
             .catch(error => {
-                // console.error('Error while fetching ranking data:', error);
+                console.error('Error while fetching ranking data:', error);
             });
 
         if (searchResults && searchResults.profileName) {
             checkFollowingStatus();
         }
     }, [searchResults]);
-
-    useEffect(() => {
-        const loadImages = async () => {
-            try {
-                const thumbnailUrls = await fetchProxyImages(celebs.map(celeb => celeb.feed_url));
-                const profileUrls = await fetchProxyImages(celebs.map(celeb => celeb.profilePictureUrl));
-    
-                if (thumbnailUrls.length === celebs.length && profileUrls.length === celebs.length) {
-                    setProxyImageUrls({
-                        thumbnails: thumbnailUrls,
-                        profiles: profileUrls
-                    });
-                    setImagesLoaded(true);
-                } else {
-                    console.error("Image loading error: Length mismatch between celebs and image URLs");
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
-    
-        if (celebs.length > 0) {
-            loadImages();
-        }
-    }, [celebs]);
-    
-
 
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
@@ -206,8 +216,8 @@ export default function Search() {
                     <div className={styles.SearchprofileImg}>
                         <img
                             id={styles.SearchUserImg}
-                            src={searchResults.profilePictureUrl}
-                            alt="Profile"
+                            src={proxyImageUrls.profileImage}
+                            // alt="Profile"
                         />
                     </div>
 
