@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import Sidebar from "../../../Components/Sidebar";
 import WritingBox from "../../../Components/WritingBox";
 import Pagination from "../../../Components/Pagination";
-import api from "../../../utils/axios.jsx";
+import api from "../../../api/axios.jsx";
 import WritePopup from "../../community/popup/WritePopup";
 
 const getPosts = async (currentPage, postsPerPage) => {

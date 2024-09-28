@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
-import api from '../../utils/axios.jsx';
+import api from '../../api/axios.jsx';
 
 function MainBarLogin({ searchText, handleSearchChange, handleKeyPress }) {
 

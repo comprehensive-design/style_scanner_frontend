@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import CommentBox from "../../../Components/CommentBox";
 import Sidebar from "../../../Components/Sidebar";
 import Pagination from "../../../Components/Pagination";
-import api from "../../../utils/axios.jsx";
+import api from "../../../api/axios.jsx";
 
 const getComments = async (currentPage, itemsPerPage) => {
   const token = localStorage.getItem("accessToken");

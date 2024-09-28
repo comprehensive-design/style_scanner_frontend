@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../../../utils/axios.jsx";
+import api from "../../../api/axios.jsx";
 import CommunityNotiForm from "./CommunityNotiForm";
 
 export default function CommunityNoti() {

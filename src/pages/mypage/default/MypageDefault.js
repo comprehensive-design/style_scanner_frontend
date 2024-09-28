@@ -1,5 +1,5 @@
 import MypageDefaultForm from "./MypageDefaultForm";
-import api from "../../../utils/axios.jsx";
+import api from "../../../api/axios.jsx";
 import React, { useState, useEffect } from "react";
 
 export default function MypageDefault() {

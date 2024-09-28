@@ -1,6 +1,6 @@
 import { useState, useEffect} from "react";
 import { useLocation } from 'react-router-dom';
-import api from "../utils/axios";
+import api from "../api/axios";
 import { fetchProxyImages } from "../utils/ConvertProxyImage";
 
 export const useComment = () => {

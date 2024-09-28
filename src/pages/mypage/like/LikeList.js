@@ -3,7 +3,7 @@ import Sidebar from "../../../Components/Sidebar";
 import { useEffect, useState } from "react";
 import ItemsList from "./item/ItemsList";
 import Pagination from "../../../Components/Pagination";
-import api from "../../../utils/axios.jsx";
+import api from "../../../api/axios.jsx";
 
 export default function LikeList() {
   const [items, setItems] = useState([]);

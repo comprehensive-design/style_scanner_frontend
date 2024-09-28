@@ -5,7 +5,7 @@ import Feed from "../../Components/feed/Feed";
 import Loading from "../../Components/loading/loading";
 import { GoHomeFill } from "react-icons/go";
 import Pagination from "../../Components/Pagination";
-import api from "../../utils/axios";
+import api from "../../api/axios";
 
 const HomeFeed = () => {
   const navigate = useNavigate();

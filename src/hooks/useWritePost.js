@@ -1,4 +1,4 @@
-import api from "../utils/axios";
+import api from "../api/axios";
 import { useMe } from "../hooks/useMe";
 
 const useWritePost = (post, feed_code, onSave, username) => {

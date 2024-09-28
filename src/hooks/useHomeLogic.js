@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import api from '../utils/axios';
+import api from '../api/axios';
 import {fetchProxyImages} from '../utils/ConvertProxyImage'
 
 const useHomeLogic = (page, size) => { 

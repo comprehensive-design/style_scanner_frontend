@@ -1,5 +1,5 @@
 import { useState, useEffect} from 'react';
-import api from '../utils/axios';
+import api from '../api/axios';
 
 export const useCommunity = () => {
   const [posts, setPosts] = useState([]);
