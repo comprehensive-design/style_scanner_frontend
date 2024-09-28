@@ -844,8 +844,9 @@ hr {
 
 /* 커뮤니티 댓글 페이지 */
 .communityGrid {
+  margin: 0 auto;
   display: grid;
-  width: 100%;
+  width: 90%;
   height: 100%;
   font-size: 14px;
   grid-template-columns: 1.8fr 1fr;
