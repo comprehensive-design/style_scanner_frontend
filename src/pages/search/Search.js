@@ -43,8 +43,10 @@ export default function Search() {
     const loadProfileImage = async (imageUrl) => {
         try {
             const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+            const encodedUrl = encodeURIComponent(cleanUrl);  // URL 인코딩
+            console.log("Encoded profile image URL:", encodedUrl);
             const response = await axios.get("/api/insta/proxyImage", {
-                params: { imageUrl: cleanUrl }, // 수정된 URL 전달
+                params: { imageUrl: encodedUrl }, // 인코딩된 URL 전달
                 responseType: "blob",
             });
             return URL.createObjectURL(response.data);
@@ -53,6 +55,7 @@ export default function Search() {
             return '';
         }
     };
+
 
     useEffect(() => {
         const loadCelebImages = async () => {
@@ -64,12 +67,13 @@ export default function Search() {
                 loadImages(profileUrls)
             ]);
 
+            // searchResults.profilePictureUrl 그대로 사용
             const profileImage = await loadProfileImage(searchResults.profilePictureUrl);
 
             setProxyImageUrls({
                 thumbnails,
                 profiles,
-                profileImage
+                profileImage // searchResults.profilePictureUrl로 가져온 이미지 사용
             });
             setImagesLoaded(true);
         };
@@ -77,7 +81,8 @@ export default function Search() {
         if (celebs.length > 0) {
             loadCelebImages();
         }
-    }, [celebs]);
+    }, [celebs, searchResults.profilePictureUrl]);
+
 
     const openPopup = (user) => {
         if (user && user.profileName) {
@@ -216,7 +221,7 @@ export default function Search() {
                     <div className='ml3 SearchprofileImg'>
                         <img
                             src={proxyImageUrls.profileImage}
-                            style={{borderRadius : "50%"}}
+                            style={{ borderRadius: "50%" }}
                         // alt="Profile"
                         />
                     </div>
@@ -257,8 +262,8 @@ export default function Search() {
                                                 thumbnail_url={proxyImageUrls.thumbnails[index]}
                                                 profile_url={proxyImageUrls.profiles[index]}
                                                 username={celeb.profileName}
-                                                width="17rem"
-                                                height="22rem"
+                                                width="20rem"
+                                                height="25rem"
                                                 className="mr1"
                                             />
                                         </div>
@@ -271,7 +276,7 @@ export default function Search() {
                         </div>
                     </div>
 
-                    <div style={{height:"5rem"}}></div>
+                    <div style={{ height: "5rem" }}></div>
                 </div>
             </div>
 
