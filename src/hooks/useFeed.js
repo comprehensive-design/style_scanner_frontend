@@ -5,17 +5,15 @@ import FeedStore from '../stores/FeedStore';
 
 const useFeed = (page, size) => {
     const feedListRef = useRef();
+    const [proxyImageUrls, setProxyImageUrls] = useState([]);
+    const [proxyProfileImageUrl, setProxyProfileImageUrl] = useState([]);
 
     // Zustand 상태 가져오기
     const {
         feeds,
         totalCount,
-        proxyImageUrls,
-        proxyProfileImageUrl,
         setFeeds,
         setTotalCount,
-        setProxyImageUrls,
-        setProxyProfileImageUrl
     } = FeedStore();
 
     const [loading, setLoading] = useState(true);
