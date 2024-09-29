@@ -4,7 +4,6 @@ import axios from "axios";
 import Button from "./Button";
 import UserFeed from "./UserFeed";
 
-
 export default function FeedPopup({ user, onClose }) {
   const [feeds, setFeeds] = useState([]);
   const [followers, setFollowers] = useState(0);
@@ -41,19 +40,33 @@ export default function FeedPopup({ user, onClose }) {
         setFollows(profile.profileFollowingCount);
         setBio(profile.profileBio);
         setTotalFeeds(feedList.length);
-        setProfileImage(profile.profilePictureUrl);
         setFeeds(feedList);
 
+        // 프로필 이미지를 로드합니다.
+        loadProfileImage(profile.profilePictureUrl);
         checkFollowingStatus();
-
       })
       .catch((error) => {
         console.error("데이터를 가져오는 중에 오류가 발생했습니다:", error);
       });
   }, [user]);
 
+  const loadProfileImage = async (imageUrl) => {
+    if (!imageUrl) return;
+
+    try {
+      const proxyResponse = await axios.get("/api/insta/proxyImage", {
+        params: { imageUrl },
+        responseType: "blob",
+      });
+      const url = URL.createObjectURL(proxyResponse.data);
+      setProfileImage(url);
+    } catch (error) {
+      console.error("Error loading profile image:", error);
+    }
+  };
+
   const handleUnfollow = (userId) => {
-    // const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
       console.error("Access token is missing");
       return;
@@ -74,13 +87,11 @@ export default function FeedPopup({ user, onClose }) {
         console.log("Unfollowed successfully");
       })
       .catch((error) => {
-        // Handle error
         console.error("Error while unfollowing:", error);
       });
   };
 
   const checkFollowingStatus = () => {
-    // const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
       console.error("Access token is missing");
       return;
@@ -93,13 +104,7 @@ export default function FeedPopup({ user, onClose }) {
         },
       })
       .then((response) => {
-        // console.log(response.data);
-        // setIsFollowing(response.data.isFollowing);
-        if (response.data === false) {
-          setIsFollowing(true);
-        } else {
-          setIsFollowing(false);
-        }
+        setIsFollowing(response.data === true);
       })
       .catch((error) => {
         console.error("Error while checking follow status:", error);
@@ -107,7 +112,6 @@ export default function FeedPopup({ user, onClose }) {
   };
 
   return (
-    // closebuttondiv
     <div className='popupWrap'> 
       <div className='popupContent'>
         <div className='closeButtonDiv'>
@@ -122,6 +126,7 @@ export default function FeedPopup({ user, onClose }) {
               width={"210rem"}
               height={"210rem"}
               className={styles.userProfileImg}
+              alt={`${user.profileName}'s profile`}
             />
           </div>
 

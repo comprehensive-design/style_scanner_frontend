@@ -30,6 +30,7 @@ function SearchresultItem({ user, onClick }) { // onClick prop 추가
     const handleClick = () => {
         onClick(user); // 부모의 onClick 호출
         navigate('/search', { state: { results: user } });
+        console.log(user);
     };
 
     return (

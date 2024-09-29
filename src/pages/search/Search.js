@@ -44,11 +44,11 @@ export default function Search() {
     const loadProfileImage = async (imageUrl) => {
         try {
             const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
-            const encodedUrl = encodeURIComponent(cleanUrl);  // URL 인코딩
+            // const encodedUrl = encodeURIComponent(cleanUrl);  // URL 인코딩
             console.log("Clean URL:", cleanUrl);
-            console.log("Encoded profile image URL:", encodedUrl);
+            // console.log("Encoded profile image URL:", encodedUrl);
             const response = await axios.get("/api/insta/proxyImage", {
-                params: { imageUrl: encodedUrl }, // 인코딩된 URL 전달
+                params: { imageUrl: cleanUrl }, // 인코딩된 URL 전달
                 responseType: "blob",
             });
             return URL.createObjectURL(response.data);
@@ -184,7 +184,7 @@ export default function Search() {
                         // 기존 정보를 유지하면서 profilePictureUrl만 업데이트
                         const updatedUser = {
                             ...existingUser,
-                            profilePictureUrl: searchResults.profilePictureUrl,
+                            profilePictureUrl: searchResults.profilePictureUrl, // searchResults에서 가져온 프로필 이미지 사용
                         };
     
                         // 업데이트 요청
@@ -211,6 +211,7 @@ export default function Search() {
                 });
         }
     }, [searchResults]);
+    
     
     
 
