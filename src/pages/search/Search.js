@@ -46,7 +46,7 @@ export default function Search() {
             const encodedUrl = encodeURIComponent(cleanUrl);  // URL 인코딩
             console.log("Encoded profile image URL:", encodedUrl);
             const response = await axios.get("/api/insta/proxyImage", {
-                params: { imageUrl: encodedUrl }, // 인코딩된 URL 전달
+                params: { imageUrl }, // 인코딩된 URL 전달
                 responseType: "blob",
             });
             return URL.createObjectURL(response.data);
