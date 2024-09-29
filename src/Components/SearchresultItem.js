@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { fetchProxyImages } from '../utils/ConvertProxyImage';
+import axios from 'axios'; // axios import 추가
 import { useNavigate } from 'react-router-dom';
 
 function SearchresultItem({ user, onClick }) { // onClick prop 추가
-    const [proxyImageUrls, setProxyImageUrls] = useState([]);
+    const [proxyImageUrl, setProxyImageUrl] = useState(''); // 단일 이미지 URL로 변경
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const loadImages = async () => {
+        const loadImage = async () => {
             if (user.profilePictureUrl) {
                 try {
-                    const urls = await fetchProxyImages([user.profilePictureUrl]);
-                    setProxyImageUrls(urls);
+                    const cleanUrl = user.profilePictureUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+                    const response = await axios.get('/api/insta/proxyImage', {
+                        params: { imageUrl: cleanUrl },
+                        responseType: 'blob',
+                    });
+                    const url = URL.createObjectURL(response.data);
+                    setProxyImageUrl(url);
                     setImagesLoaded(true);
                 } catch (error) {
-                    console.error(error);
+                    console.error("Error loading image:", error);
                 }
             }
         };
-        loadImages();
+        loadImage();
     }, [user.profilePictureUrl]);
 
     const handleClick = () => {
@@ -28,9 +33,9 @@ function SearchresultItem({ user, onClick }) { // onClick prop 추가
     };
 
     return (
-        <li className='' onClick={handleClick} style={{zIndex : "99999"}}>
+        <li className='' onClick={handleClick} style={{ zIndex: "99999" }}>
             {imagesLoaded ? (
-                <img src={proxyImageUrls[0]} className='searchProfileImg' />
+                <img src={proxyImageUrl} className='searchProfileImg' />
             ) : (
                 <p>로딩 중...</p>
             )}

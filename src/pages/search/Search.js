@@ -30,6 +30,7 @@ export default function Search() {
                         params: { imageUrl: cleanUrl }, // 수정된 URL 전달
                         responseType: "blob",
                     });
+                    // console.log(cleanUrl);
                     return URL.createObjectURL(response.data);
                 })
             );
@@ -44,9 +45,10 @@ export default function Search() {
         try {
             const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
             const encodedUrl = encodeURIComponent(cleanUrl);  // URL 인코딩
+            console.log("Clean URL:", cleanUrl);
             console.log("Encoded profile image URL:", encodedUrl);
             const response = await axios.get("/api/insta/proxyImage", {
-                params: { imageUrl }, // 인코딩된 URL 전달
+                params: { imageUrl: encodedUrl }, // 인코딩된 URL 전달
                 responseType: "blob",
             });
             return URL.createObjectURL(response.data);
@@ -55,6 +57,8 @@ export default function Search() {
             return '';
         }
     };
+    
+    
 
 
     useEffect(() => {
@@ -173,7 +177,26 @@ export default function Search() {
         if (searchResults && typeof searchResults === 'object') {
             axios.get(`http://localhost:5000/searchUsers?profileName=${searchResults.profileName}`)
                 .then(response => {
-                    if (response.data.length === 0) {
+                    if (response.data.length > 0) {
+                        // 프로필이 있을 경우 기존 사용자 정보를 가져옴
+                        const existingUser = response.data[0]; // 첫 번째 사용자 데이터 가져오기
+                        
+                        // 기존 정보를 유지하면서 profilePictureUrl만 업데이트
+                        const updatedUser = {
+                            ...existingUser,
+                            profilePictureUrl: searchResults.profilePictureUrl,
+                        };
+    
+                        // 업데이트 요청
+                        axios.put(`http://localhost:5000/searchUsers/${existingUser.id}`, updatedUser)
+                            .then(() => {
+                                // Handle put response if needed
+                            })
+                            .catch(updateError => {
+                                console.error('Error updating profilePictureUrl:', updateError);
+                            });
+                    } else {
+                        // 프로필이 없을 경우 새로 생성
                         axios.post('http://localhost:5000/searchUsers', searchResults)
                             .then(() => {
                                 // Handle post response if needed
@@ -188,6 +211,8 @@ export default function Search() {
                 });
         }
     }, [searchResults]);
+    
+    
 
     useEffect(() => {
         axios.get(`/api/follow/ranking`)

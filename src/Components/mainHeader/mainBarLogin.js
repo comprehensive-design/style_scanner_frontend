@@ -22,7 +22,7 @@ function MainBarLogin({ searchText, handleSearchChange, handleKeyPress }) {
             try {
                 const response = await api.get('/api/user/me');
                 setUserData(response.data);
-                console.log(response.data);
+                // console.log(response.data);
                 setProfilePictureUrl(response.data.profilePictureUrl);
                 if (response.data.profilePictureUrl == null)
                     setProfilePictureUrl("/img/profile.png");

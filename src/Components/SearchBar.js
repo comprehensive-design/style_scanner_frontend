@@ -26,10 +26,11 @@ function SearchBar({ value, onChange, onKeyPress }) {
 
     useEffect(() => {
         if (value) {
-            const results = users.filter(user =>
+            const results = users.filter(user => 
+                user.profileName && // profileName이 정의되어 있는지 확인
                 user.profileName.toLowerCase().includes(value.toLowerCase())
             );
-            console.log("Filtered Users: ", results);
+            // console.log("Filtered Users: ", results);
             setFilteredUsers(results);
         } else {
             setFilteredUsers([]);
@@ -44,7 +45,7 @@ function SearchBar({ value, onChange, onKeyPress }) {
         // 아이템 선택 시 필터된 사용자 목록 초기화
         setFilteredUsers([]);
         onChange({ target: { value: '' } }); 
-        console.log('Selected user:', user); // 추가로 선택된 사용자 처리 가능
+        // console.log('Selected user:', user); // 추가로 선택된 사용자 처리 가능
     };
 
     return (
@@ -70,7 +71,6 @@ function SearchBar({ value, onChange, onKeyPress }) {
                             key={user.id}
                             user={user}
                             onClick={() => handleItemClick(user)}
-                            
                         />
                     ))}
                 </ul>
