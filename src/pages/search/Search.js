@@ -30,6 +30,7 @@ export default function Search() {
                         params: { imageUrl: cleanUrl }, // 수정된 URL 전달
                         responseType: "blob",
                     });
+                    // console.log(cleanUrl);
                     return URL.createObjectURL(response.data);
                 })
             );
@@ -43,8 +44,11 @@ export default function Search() {
     const loadProfileImage = async (imageUrl) => {
         try {
             const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+            // const encodedUrl = encodeURIComponent(cleanUrl);  // URL 인코딩
+            console.log("Clean URL:", cleanUrl);
+            // console.log("Encoded profile image URL:", encodedUrl);
             const response = await axios.get("/api/insta/proxyImage", {
-                params: { imageUrl: cleanUrl }, // 수정된 URL 전달
+                params: { imageUrl: cleanUrl }, // 인코딩된 URL 전달
                 responseType: "blob",
             });
             return URL.createObjectURL(response.data);
@@ -53,6 +57,9 @@ export default function Search() {
             return '';
         }
     };
+    
+    
+
 
     useEffect(() => {
         const loadCelebImages = async () => {
@@ -64,12 +71,13 @@ export default function Search() {
                 loadImages(profileUrls)
             ]);
 
+            // searchResults.profilePictureUrl 그대로 사용
             const profileImage = await loadProfileImage(searchResults.profilePictureUrl);
 
             setProxyImageUrls({
                 thumbnails,
                 profiles,
-                profileImage
+                profileImage // searchResults.profilePictureUrl로 가져온 이미지 사용
             });
             setImagesLoaded(true);
         };
@@ -77,7 +85,8 @@ export default function Search() {
         if (celebs.length > 0) {
             loadCelebImages();
         }
-    }, [celebs]);
+    }, [celebs, searchResults.profilePictureUrl]);
+
 
     const openPopup = (user) => {
         if (user && user.profileName) {
@@ -168,7 +177,26 @@ export default function Search() {
         if (searchResults && typeof searchResults === 'object') {
             axios.get(`http://localhost:5000/searchUsers?profileName=${searchResults.profileName}`)
                 .then(response => {
-                    if (response.data.length === 0) {
+                    if (response.data.length > 0) {
+                        // 프로필이 있을 경우 기존 사용자 정보를 가져옴
+                        const existingUser = response.data[0]; // 첫 번째 사용자 데이터 가져오기
+                        
+                        // 기존 정보를 유지하면서 profilePictureUrl만 업데이트
+                        const updatedUser = {
+                            ...existingUser,
+                            profilePictureUrl: searchResults.profilePictureUrl, // searchResults에서 가져온 프로필 이미지 사용
+                        };
+    
+                        // 업데이트 요청
+                        axios.put(`http://localhost:5000/searchUsers/${existingUser.id}`, updatedUser)
+                            .then(() => {
+                                // Handle put response if needed
+                            })
+                            .catch(updateError => {
+                                console.error('Error updating profilePictureUrl:', updateError);
+                            });
+                    } else {
+                        // 프로필이 없을 경우 새로 생성
                         axios.post('http://localhost:5000/searchUsers', searchResults)
                             .then(() => {
                                 // Handle post response if needed
@@ -183,6 +211,9 @@ export default function Search() {
                 });
         }
     }, [searchResults]);
+    
+    
+    
 
     useEffect(() => {
         axios.get(`/api/follow/ranking`)
@@ -216,7 +247,7 @@ export default function Search() {
                     <div className='ml3 SearchprofileImg'>
                         <img
                             src={proxyImageUrls.profileImage}
-                            style={{borderRadius : "50%"}}
+                            style={{ borderRadius: "50%" }}
                         // alt="Profile"
                         />
                     </div>
@@ -257,8 +288,8 @@ export default function Search() {
                                                 thumbnail_url={proxyImageUrls.thumbnails[index]}
                                                 profile_url={proxyImageUrls.profiles[index]}
                                                 username={celeb.profileName}
-                                                width="17rem"
-                                                height="22rem"
+                                                width="20rem"
+                                                height="25rem"
                                                 className="mr1"
                                             />
                                         </div>
@@ -271,7 +302,7 @@ export default function Search() {
                         </div>
                     </div>
 
-                    <div style={{height:"5rem"}}></div>
+                    <div style={{ height: "5rem" }}></div>
                 </div>
             </div>
 

@@ -904,44 +904,43 @@ hr {
 
 .search-results {
   width: 100%;
-  /* 검색 바와 동일한 너비 */
   border: 0.1rem solid #ccc;
-  /* 경계선 추가 */
-  border-radius: 10%;
+  border-radius: 1rem;
   position: absolute;
-  /* 검색 바 아래에 위치하도록 설정 */
   top: 100%;
-  /* 검색 바의 바로 아래에 위치하도록 설정 */
   background-color: white;
-  /* 배경색 설정 */
   z-index: 10;
-  /* 다른 요소 위에 표시되도록 설정 */
   max-height: 20rem;
-  /* 최대 높이 설정 */
   margin-left: 1rem;
   overflow-y: auto;
-  /* 스크롤 가능하도록 설정 */
+  overflow: hidden; /* 추가 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  /* 그림자 추가 */
   padding: 0;
-}
+  display: flex;
+  flex-direction: column;
 
+  min-height: 3.5rem;
+}
 
 .search-results li {
   padding: 0;
-  /* margin-left : 0.5rem; */
   padding: 0.3rem;
-  margin: 0rem;
+  margin: 0;
   cursor: pointer;
-  /* 포인터 모양으로 설정 */
   max-height: 3rem;
-  /*원하는 최대 높이로 설정*/
   overflow: hidden;
-  /*내용이 넘치면 숨김*/
   display: flex;
-  /* Flexbox 사용 */
   align-items: center;
+  border-radius: 10%;
+  width: 95%; /* 부모의 가로폭에 비례하여 너비 설정 */
+  transition: background-color 0.2s; /* 마우스 오버 시 변화 추가 */
 }
+
+.search-results li:hover {
+  background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+}
+
+
 
 .search-results li:hover {
   background-color: #f0f0f0;
