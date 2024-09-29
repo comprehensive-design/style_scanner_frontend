@@ -1,20 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useHomeLogic from "../../hooks/useHomeLogic";
+import useFeed from "../../hooks/useFeed";
 import Feed from "../../Components/feed/Feed";
 import Loading from "../../Components/loading/loading";
 import { GoHomeFill } from "react-icons/go";
 import Pagination from "../../Components/Pagination";
 import api from "../../api/axios";
+import FeedStore from "../../stores/FeedStore"; 
 
 const HomeFeed = () => {
   const navigate = useNavigate();
-
   const [page, setPage] = useState(0);
   const size = 12;
 
-  const { feeds, loading, error, feedListRef, proxyImageUrls, proxyProfileImageUrl, imagesLoaded, totalCount } = useHomeLogic(page, size);
+  const {
+    feeds,
+    loading,
+    error,
+    feedListRef,
+    proxyImageUrls,
+    proxyProfileImageUrl,
+    imagesLoaded,
+    totalCount
+  } = useFeed(page, size);
 
+  const { setFeeds} = FeedStore();
+
+  // 이미지 클릭 이벤트 처리
   const handleImageClick = async (username, profile_url, feed_code) => {
     alert("click");
     try {
@@ -38,11 +50,16 @@ const HomeFeed = () => {
     }
   };
 
-  // 페이지 변경 핸들러
   const handlePageChange = (newPage) => {
-    setPage(newPage - 1);
+    setPage(newPage - 1); 
   };
 
+  useEffect(() => {
+    if (!loading && feeds.length > 0) {
+      setFeeds(feeds);
+    }
+  }, [feeds,loading, setFeeds]);
+  
   if (loading || !imagesLoaded) {
     return <Loading />;
   }
@@ -76,12 +93,17 @@ const HomeFeed = () => {
               />
             ))
           ) : (
-            <div>No feeds available</div>
+            <div>셀럽을 팔로우해보세요!</div>
           )}
           <div style={{ height: '10px' }} />
         </div>
       </div>
-      <Pagination itemsNum={totalCount} itemsPerPage={size} currentPage={page + 1} setCurrentPage={handlePageChange} />
+      <Pagination
+        itemsNum={totalCount}
+        itemsPerPage={size}
+        currentPage={page + 1}
+        setCurrentPage={handlePageChange}
+      />
     </div>
   );
 };
