@@ -28,6 +28,7 @@ import Footer from "./Components/Footer";
 import "./style/style.css";
 
 const App = () => {
+
   return (
     <ThemeProvider theme={theme}>
       <div>

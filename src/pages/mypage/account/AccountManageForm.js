@@ -3,6 +3,7 @@ import Popup from "../../../Components/Popup";
 import Sidebar from "../../../Components/Sidebar";
 import ManageBox from "../../../Components/ManageBox";
 import axios from "axios";
+import FeedStore from "../../../stores/FeedStore";
 
 export default function AccountManageForm({
   profilePictureUrl,
@@ -53,6 +54,12 @@ export default function AccountManageForm({
       case "logout":
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+
+        FeedStore.getState().setFeeds([]);
+        FeedStore.getState().setTotalCount(0);
+        FeedStore.getState().setProxyImageUrls([]);
+        FeedStore.getState().setProxyProfileImageUrl([]);
+        localStorage.removeItem('feed-storage'); 
         break;
 
       default:
@@ -197,20 +204,20 @@ export default function AccountManageForm({
               popupType === "image"
                 ? "프로필 사진 변경"
                 : popupType === "name"
-                ? "이름 수정"
-                : popupType === "msg"
-                ? "소개 수정"
-                : popupType === "birth"
-                ? "생년월일 수정"
-                : popupType === "password"
-                ? "비밀번호 수정"
-                : popupType === "gender"
-                ? "성별 변경"
-                : popupType === "logout"
-                ? "로그아웃 하시겠습니까?"
-                : popupType === "delete"
-                ? "탈퇴 하시겠습니까?"
-                : ""
+                  ? "이름 수정"
+                  : popupType === "msg"
+                    ? "소개 수정"
+                    : popupType === "birth"
+                      ? "생년월일 수정"
+                      : popupType === "password"
+                        ? "비밀번호 수정"
+                        : popupType === "gender"
+                          ? "성별 변경"
+                          : popupType === "logout"
+                            ? "로그아웃 하시겠습니까?"
+                            : popupType === "delete"
+                              ? "탈퇴 하시겠습니까?"
+                              : ""
             }
             onClose={closePopup}
             visible={
@@ -220,19 +227,19 @@ export default function AccountManageForm({
               popupType === "image"
                 ? "file"
                 : popupType === "birth"
-                ? "birth"
-                : popupType === "password"
-                ? "password"
-                : popupType === "gender"
-                ? "radio"
-                : ""
+                  ? "birth"
+                  : popupType === "password"
+                    ? "password"
+                    : popupType === "gender"
+                      ? "radio"
+                      : ""
             }
             rightBtn={
               popupType === "logout"
                 ? "로그아웃"
                 : popupType === "delete"
-                ? "탈퇴"
-                : "저장"
+                  ? "탈퇴"
+                  : "저장"
             }
             onSave={onSave}
           />
