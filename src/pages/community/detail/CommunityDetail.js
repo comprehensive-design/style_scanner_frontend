@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { useComment } from "../../../hooks/useComment";
+import React, { useRef, useState, useEffect} from "react";
+import { useCommunityDetail } from "../../../hooks/useCommunityDetail";
 import { useMe } from "../../../hooks/useMe";
 import styled from "styled-components";
 import Comment from "./comment/Comment";
@@ -8,6 +8,7 @@ import { IoChatbox } from "react-icons/io5";
 import { FiSend } from "react-icons/fi";
 import Loading from '../../../Components/loading/loading';
 import { DetailTime } from "../../../utils/DetailTime";
+import { followUser, unfollowUser, checkFollowing } from "../../../api/follow";
 
 export default function CommunityDetail() {
   const commentRef = useRef();
@@ -15,19 +16,48 @@ export default function CommunityDetail() {
 
   const {
     feedUrl,
+    postCreatedAt,
     displayName,
     profilePictureUrl,
-    comments,
     postContent,
+    comments,
     celebProfile,
     celebProfileUrl,
-    postCreatedAt,
-    handleSubmit,
-  } = useComment();
+    loading,
+    handleSubmit
+  } = useCommunityDetail();
+
+  //팔로잉 상태 
+  const [isFollowing, setIsFollowing] = useState(true);
+  useEffect(() => {
+    const fetchFollowingStatus = async () => {
+      if (celebProfile) {
+        const followingStatus = await checkFollowing(celebProfile.profileName);
+        setIsFollowing(followingStatus);
+      }
+    };
+    console.log(isFollowing);
+    fetchFollowingStatus();
+  }, [celebProfile]);
+
+  const handleToggleFollow = async () => {
+    try {
+      if (!isFollowing) {
+        await unfollowUser(celebProfile.profileName);
+      } else {
+        await followUser(celebProfile.profileName);
+      }
+      setIsFollowing(!isFollowing); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const { myProfilePictureUrl } = useMe();
   const [warning, setWarning] = useState("");
 
+  //댓글
   const handleInputChange = (e) => {
     const value = e.target.value;
     contentRef.current = value;
@@ -39,6 +69,15 @@ export default function CommunityDetail() {
       setWarning("");
     }
   };
+  const iconClick = (e) => {
+    e.preventDefault();
+    handleSubmit(e, contentRef.current);
+    contentRef.current = "";
+    commentRef.current.value = "";
+  };
+
+  //util
+  //팔로워 숫자 포맷
   const formatFollowCount = (counter) => {
     if (counter >= 1000000) {
       return Math.floor(counter / 1000000) + "M";
@@ -48,22 +87,16 @@ export default function CommunityDetail() {
       return counter.toString();
     }
   };
+  //시간 n일전
   const dateObject = new Date(
-    postCreatedAt[0], 
+    postCreatedAt[0],
     postCreatedAt[1] - 1,
-    postCreatedAt[2], 
-    postCreatedAt[3], 
-    postCreatedAt[4], 
-    postCreatedAt[5] 
+    postCreatedAt[2],
+    postCreatedAt[3],
+    postCreatedAt[4],
+    postCreatedAt[5]
   );
   const nowDate = DetailTime(dateObject);
-
-  const iconClick = (e) => {
-    e.preventDefault();
-    handleSubmit(e, contentRef.current);
-    contentRef.current = "";
-    commentRef.current.value = "";
-  };
 
   return (
     <div className="body">
@@ -123,14 +156,16 @@ export default function CommunityDetail() {
             {celebProfile ? (
               <>
                 <div className="boldContent mb2">@{celebProfile.profileName}</div>
-                <div className="mb2">  <button className="button" style={{ width: "5rem", height: "2rem", padding: 0 }}> 팔로우</button></div>
+                <div className="mb2">
+                  <button className="button" style={{ width: "5rem", height: "2rem", padding: 0,  backgroundColor: isFollowing ? theme.colors.black : theme.colors.gray,}} onClick={handleToggleFollow}>{!isFollowing ? '언팔로우' : '팔로우'}</button>
+                </div>
                 <div className="content">팔로워</div>
                 <div className="content">팔로잉</div>
                 <div className="boldContent">{formatFollowCount(celebProfile.profileFollowerCount)}</div>
                 <div className="boldContent">{formatFollowCount(celebProfile.profileFollowingCount)}</div>
               </>
             ) : (
-              <Loading/>
+              <Loading />
             )}
           </div>
         </div>
