@@ -15,7 +15,6 @@ const HomeFeed = () => {
 
   const {
     feeds,
-    loading,
     error,
     feedListRef,
     proxyImageUrls,
@@ -24,7 +23,7 @@ const HomeFeed = () => {
     totalCount
   } = useFeed(page, size);
 
-  const { setFeeds} = FeedStore();
+  const { setFeeds } = FeedStore();
 
   // 이미지 클릭 이벤트 처리
   const handleImageClick = async (username, profile_url, feed_code) => {
@@ -55,12 +54,12 @@ const HomeFeed = () => {
   };
 
   useEffect(() => {
-    if (!loading && feeds.length > 0) {
+    if (feeds.length > 0) {
       setFeeds(feeds);
     }
-  }, [feeds,loading, setFeeds]);
+  }, [feeds, setFeeds]);
   
-  if (loading || !imagesLoaded) {
+  if (!imagesLoaded) {
     return <Loading />;
   }
 
