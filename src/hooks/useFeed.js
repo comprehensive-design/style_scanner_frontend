@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import api from '../api/axios';
 import { fetchProxyImages } from '../utils/ConvertProxyImage';
-import FeedStore from '../stores/FeedStore'; 
+import FeedStore from '../stores/FeedStore';
 
 const useFeed = (page, size) => {
     const feedListRef = useRef();
@@ -9,8 +9,8 @@ const useFeed = (page, size) => {
     const [proxyProfileImageUrl, setProxyProfileImageUrl] = useState([]);
 
     const {
-        feeds,        
-        totalCount,  
+        feeds,
+        totalCount,
         setFeeds,
         setTotalCount,
     } = FeedStore();
@@ -36,39 +36,42 @@ const useFeed = (page, size) => {
     };
 
     useEffect(() => {
+        setFeeds(feeds);
         fetchFeeds();
     }, [page]);
 
     useEffect(() => {
+        if (proxyImageUrls.length > 0 && proxyProfileImageUrl.length > 0) {
+            setImagesLoaded(true);  
+        } else {
+            setImagesLoaded(false); 
+        }
+    }, [proxyImageUrls, proxyProfileImageUrl]);
+
+    useEffect(() => {
         const loadImages = async () => {
-            if (proxyImageUrls.length > 0 && proxyProfileImageUrl.length > 0) {
+            if (feeds.length === 0) return;
+
+            try {
+                const thumbnailUrls = feeds.map(feed => feed.thumbnail_url);
+                const profileUrls = feeds.map(feed => feed.profile_url);
+
+                const urls = await fetchProxyImages(thumbnailUrls);
+                const pUrls = await fetchProxyImages(profileUrls);
+
+                setProxyImageUrls(urls);
+                setProxyProfileImageUrl(pUrls);
                 setImagesLoaded(true);
-                return;
+            } catch (error) {
+                console.error('이미지 로드 에러:', error);
             }
-            setImagesLoaded(false);
-            if (feeds.length > 0) {
-                try {
-                    const thumbnailUrls = feeds.map(feed => feed.thumbnail_url);
-                    const profileUrls = feeds.map(feed => feed.profile_url);
-
-                    const urls = await fetchProxyImages(thumbnailUrls);
-                    const pUrls = await fetchProxyImages(profileUrls);
-
-                    setProxyImageUrls(urls);
-                    setProxyProfileImageUrl(pUrls);
-                    console.log(pUrls)
-                    setImagesLoaded(true);
-                } catch (error) {
-                    console.error('Error loading images:', error);
-                }
-            }
-           
         };
         loadImages();
     }, [feeds]);
 
+
     return {
-        feeds, 
+        feeds,
         error,
         feedListRef,
         proxyImageUrls,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFeed from "../../hooks/useFeed";
 import Feed from "../../Components/feed/Feed";
@@ -23,7 +23,6 @@ const HomeFeed = () => {
     totalCount
   } = useFeed(page, size);
 
-  const { setFeeds } = FeedStore();
 
   // 이미지 클릭 이벤트 처리
   const handleImageClick = async (username, profile_url, feed_code) => {
@@ -52,12 +51,6 @@ const HomeFeed = () => {
   const handlePageChange = (newPage) => {
     setPage(newPage - 1); 
   };
-
-  useEffect(() => {
-    if (feeds.length > 0) {
-      setFeeds(feeds);
-    }
-  }, [feeds, setFeeds]);
   
   if (!imagesLoaded) {
     return <Loading />;
