@@ -105,7 +105,7 @@ export default function MyPost() {
                   key={post.id}
                   postId={post.id}
                   commentCnt={commentdata.length}
-                  feedImg={feedImages[index]}
+                  feedImg={feedImages[(currentPage-1)*5+index]}
                   title={post.content}
                   date={post.createdAt}
                   onDelete={() => handleDelete(post.id)}
