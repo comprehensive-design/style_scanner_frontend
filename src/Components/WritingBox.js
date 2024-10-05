@@ -26,7 +26,7 @@ export default function WritingBox({
         </div>
         <div className="mppCommentDiv">
           <img className="mppCommentImage" src={`img/reply.png`}></img>
-          <p className="ml1">{commentCnt}</p>
+          <p  style={{margin: '0 1rem'}}>{commentCnt}</p>
         </div>
       </div>
       <div className="mppDateDiv">
