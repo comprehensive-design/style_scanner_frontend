@@ -56,46 +56,47 @@ export default function MyComment() {
         setComments((prevComments) =>
           prevComments.filter((comment) => comment.id !== commentId)
         );
-        setCommentSaved(true); 
+        setCommentSaved(true);
       }
     } catch (error) {
       console.error(error);
     }
   };
   return (
-    <div className="mypageWrapper">
-      <Sidebar />
-      <div className="mypageMain">
-        <div>
-          <p className="title left mb05 ml03">내가 작성한 댓글</p>
-          <hr />
-        </div>
-        <p className="content left mt1 mb1 ml03">전체 </p>
-        <div className="ml03 mb3">
+    <div className="mainWrapper">
+      <div className="mypageWrapper">
+        <Sidebar />
+        <div className="mypageMain">
           <div>
-            {currentComments.map((data, index) => {
-              const commentdata = data.comment;
-              return (
-                <CommentBox
-                  key={commentdata.id}
-                  commentId={commentdata.id}
-                  feedImg={feedImages[index]}
-                  title={data.feedTitle}
-                  content={commentdata.content}
-                  onDelete={() => handleDelete(commentdata.id)}
-                />
-              );
-            })}
+            <p className="title left mb05 ml03">내가 작성한 댓글</p>
+            <hr />
+          </div>
+          <p className="content left mt1 mb1 ml03">전체 </p>
+          <div className="ml03 mb3">
+            <div>
+              {currentComments.map((data, index) => {
+                const commentdata = data.comment;
+                return (
+                  <CommentBox
+                    key={commentdata.id}
+                    commentId={commentdata.id}
+                    feedImg={feedImages[index]}
+                    title={data.feedTitle}
+                    content={commentdata.content}
+                    onDelete={() => handleDelete(commentdata.id)}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
-
       <Pagination
-        itemsNum={comments.length}
-        itemsPerPage={5}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
+          itemsNum={comments.length}
+          itemsPerPage={5}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
     </div>
   );
 }
