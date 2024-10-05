@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import CommentBox from "../../../Components/CommentBox";
+import CommentBox from "./CommentBox";
 import Sidebar from "../../../Components/Sidebar";
 import Pagination from "../../../Components/Pagination";
 import api from "../../../utils/axios.jsx";
