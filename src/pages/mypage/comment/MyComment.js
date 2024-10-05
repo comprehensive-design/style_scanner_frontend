@@ -80,7 +80,7 @@ export default function MyComment() {
                   <CommentBox
                     key={commentdata.id}
                     commentId={commentdata.id}
-                    feedImg={feedImages[index]}
+                    feedImg={feedImages[((currentPage-1)*5)+index]}
                     title={data.feedTitle}
                     content={commentdata.content}
                     onDelete={() => handleDelete(commentdata.id)}
