@@ -53,8 +53,8 @@ export default function MyPost() {
   }, [currentPage, postSaved]);
 
   const openPopup = useCallback((content, feedImage) => {
-    setCurrentPost(content); 
-    setFeedUrl(feedImage);  
+    setCurrentPost(content);
+    setFeedUrl(feedImage);
     setIsPopupOpen(true);
   }, []);
 
@@ -80,54 +80,56 @@ export default function MyPost() {
       const newPosts = prevPosts.map((post) =>
         post.id === updatedPost.id ? updatedPost : post
       );
-      setPostSaved(true); 
+      setPostSaved(true);
       return newPosts;
     });
   };
 
   return (
-    <div className="mypageWrapper">
-      <Sidebar />
-      <div className="mypageMain">
-        <div>
-          <p className="title left mb05 ml03">내가 작성한 글</p>
-          <hr />
+    <div className="mainWrapper">
+      <div className="mypageWrapper">
+        <Sidebar />
+        <div className="mypageMain">
+          <div>
+            <p className="title left mb05 ml03">내가 작성한 글</p>
+            <hr />
+          </div>
+          <p className="content left mt1 mb1 ml03">전체 </p>
+          <div className="ml03 mb3">
+            {currentPosts.map((post, index) => {
+              const commentdata = Array.isArray(post.comments)
+                ? post.comments
+                : [];
+              return (
+                <WritingBox
+                  key={post.id}
+                  postId={post.id}
+                  commentCnt={commentdata.length}
+                  feedImg={feedImages[index]}
+                  title={post.content}
+                  date={post.createdAt}
+                  onDelete={() => handleDelete(post.id)}
+                  onEdit={() => openPopup(post, feedImages[index])}
+                />
+              );
+            })}
+          </div>
         </div>
-        <p className="content left mt1 mb1 ml03">전체 </p>
-        <div className="ml03 mb3">
-          {currentPosts.map((post, index) => {
-            const commentdata = Array.isArray(post.comments)
-              ? post.comments
-              : [];
-            return (
-              <WritingBox
-                key={post.id}
-                postId={post.id}
-                commentCnt={commentdata.length}
-                feedImg={feedImages[index]}
-                title={post.content}
-                date={post.createdAt}
-                onDelete={() => handleDelete(post.id)}
-                onEdit={() => openPopup(post, feedImages[index])}
-              />
-            );
-          })}
-        </div>
-        <Pagination
-          itemsNum={posts.length}
-          itemsPerPage={postsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
+        {isPopupOpen && (
+          <WritePopup
+            post={currentPost}
+            proxy_url={feedUrl}
+            onSave={handleSave}
+            onClose={closePopup}
+          />
+        )}
       </div>
-      {isPopupOpen && (
-        <WritePopup
-          post={currentPost}
-          proxy_url={feedUrl}
-          onSave={handleSave}
-          onClose={closePopup}
-        />
-      )}
+      <Pagination
+            itemsNum={posts.length}
+            itemsPerPage={postsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
     </div>
   );
 }
