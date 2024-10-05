@@ -46,7 +46,7 @@ export default function WritePopup({
             <img
               className="feedProfile"
               src={myProfilePictureUrl}
-              style={{ width: "3rem", height: "3rem" }}
+              style={{ width: "3rem", height: "3rem"}}
             />
           </ProfileWrapper>
           <WriteBoxTextArea
@@ -91,6 +91,9 @@ const ProfileWrapper = styled.div`
   border-radius: 50%;
   align-items: center;
   justify-content: center;
+  img{
+  object-fit: cover;
+  }
 `;
 
 const WriteBoxTextArea = styled.textarea`

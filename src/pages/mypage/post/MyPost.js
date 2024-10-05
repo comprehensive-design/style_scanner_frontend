@@ -5,37 +5,10 @@ import Pagination from "../../../Components/Pagination";
 import api from "../../../utils/axios.jsx";
 import WritePopup from "../../community/popup/WritePopup";
 
-const getPosts = async (currentPage, postsPerPage) => {
-  const token = localStorage.getItem("accessToken");
-
-  if (!token) {
-    console.error("토큰이 없습니다.");
-    throw new Error("토큰이 없습니다.");
-  }
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  try {
-    const response = await api.get("/api/post/me", config);
-    return response.data;
-  } catch (error) {
-    if (api.isAxiosError(error)) {
-      console.error(
-        "Axios 에러: 글 가져오기 실패:",
-        error.response?.data || error.message
-      );
-    } else {
-      console.error("예상치 못한 에러: 게시물 가져오기 실패:", error);
-    }
-    throw error;
-  }
-};
 
 export default function MyPost() {
   const [posts, setPosts] = useState([]);
+  const [feedImages, setFeedImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -47,27 +20,41 @@ export default function MyPost() {
   const lastPostIndex = firstPostIndex + postsPerPage;
   const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
 
+  const getPosts = async () => {
+    const response = await api.get("/api/post/me");
+    return response.data;
+  };
+  const getFeedImages = async (feedCode) => {
+    const response = await api.get(`/api/insta/getImage?feedCode=${feedCode}`, { responseType: 'blob' });
+    return response.data;
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const data = await getPosts(currentPage, postsPerPage);
+        const data = await getPosts();
         setPosts(data);
+        const feedImagesUrls = await Promise.all(
+          data.map(async (post) => {
+            const feedImageBlob = await getFeedImages(post.feedCode);
+            return URL.createObjectURL(feedImageBlob);
+          })
+        );
+        setFeedImages(feedImagesUrls);
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error(error);
       }
     };
-    if (postSaved) {
-      closePopup();
-      setPostSaved(false); // 상태를 리셋
-    }
 
+    if (postSaved) {
+      setPostSaved(false);
+    }
     fetchPosts();
   }, [currentPage, postSaved]);
 
-  // 팝업 열기 함수
-  const openPopup = useCallback((post) => {
-    setCurrentPost(post);
-    setFeedUrl(post.feedUrl);
+  const openPopup = useCallback((content, feedImage) => {
+    setCurrentPost(content); 
+    setFeedUrl(feedImage);  
     setIsPopupOpen(true);
   }, []);
 
@@ -77,25 +64,14 @@ export default function MyPost() {
   }, []);
 
   const handleDelete = async (postId) => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      alert("로그인이 필요합니다.");
-      return;
-    }
-
     try {
-      const response = await api.delete(`/api/post/delete/${postId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.delete(`/api/post/delete/${postId}`);
       if (response.status === 200) {
         alert("삭제되었습니다.");
         setPosts(posts.filter((post) => post.id !== postId));
       }
     } catch (error) {
-      alert("삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
-      console.error("삭제 오류:", error);
+      console.error(error);
     }
   };
 
@@ -104,7 +80,7 @@ export default function MyPost() {
       const newPosts = prevPosts.map((post) =>
         post.id === updatedPost.id ? updatedPost : post
       );
-      setPostSaved(true); // 상태가 업데이트되었음을 표시
+      setPostSaved(true); 
       return newPosts;
     });
   };
@@ -119,7 +95,7 @@ export default function MyPost() {
         </div>
         <p className="content left mt1 mb1 ml03">전체 </p>
         <div className="ml03 mb3">
-          {currentPosts.map((post) => {
+          {currentPosts.map((post, index) => {
             const commentdata = Array.isArray(post.comments)
               ? post.comments
               : [];
@@ -128,11 +104,11 @@ export default function MyPost() {
                 key={post.id}
                 postId={post.id}
                 commentCnt={commentdata.length}
-                feedImg={post.feedUrl}
+                feedImg={feedImages[index]}
                 title={post.content}
                 date={post.createdAt}
                 onDelete={() => handleDelete(post.id)}
-                onEdit={() => openPopup(post)}
+                onEdit={() => openPopup(post, feedImages[index])}
               />
             );
           })}
@@ -147,7 +123,7 @@ export default function MyPost() {
       {isPopupOpen && (
         <WritePopup
           post={currentPost}
-          feed_url={feedUrl}
+          proxy_url={feedUrl}
           onSave={handleSave}
           onClose={closePopup}
         />
