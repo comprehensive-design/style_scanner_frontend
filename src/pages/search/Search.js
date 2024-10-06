@@ -178,17 +178,14 @@ export default function Search() {
             axios.get(`http://localhost:5000/searchUsers?profileName=${searchResults.profileName}`)
                 .then(response => {
                     if (response.data.length > 0) {
-                        // 프로필이 있을 경우 기존 사용자 정보를 가져옴
-                        const existingUser = response.data[0]; // 첫 번째 사용자 데이터 가져오기
-                        
-                        // 기존 정보를 유지하면서 profilePictureUrl만 업데이트
+                        // 프로필이 있을 경우 기존 사용자 정보는 무시하고 searchResults로 업데이트
                         const updatedUser = {
-                            ...existingUser,
+                            ...searchResults, // searchResults에서 가져온 전체 데이터 사용
                             profilePictureUrl: searchResults.profilePictureUrl, // searchResults에서 가져온 프로필 이미지 사용
                         };
-    
+        
                         // 업데이트 요청
-                        axios.put(`http://localhost:5000/searchUsers/${existingUser.id}`, updatedUser)
+                        axios.put(`http://localhost:5000/searchUsers/${response.data[0].id}`, updatedUser)
                             .then(() => {
                                 // Handle put response if needed
                             })
@@ -210,6 +207,7 @@ export default function Search() {
                     console.error('Error checking profile existence:', error);
                 });
         }
+        
     }, [searchResults]);
     
     
@@ -247,7 +245,7 @@ export default function Search() {
                     <div className='ml3 SearchprofileImg'>
                         <img
                             src={proxyImageUrls.profileImage}
-                            style={{ borderRadius: "50%" }}
+                            style={{ borderRadius: "50%" , width:"12rem", height : "12rem"}}
                         // alt="Profile"
                         />
                     </div>
