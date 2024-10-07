@@ -6,9 +6,13 @@ import { IoIosChatboxes } from "react-icons/io";
 import Pagination from "../../../Components/Pagination";
 
 export default function Community() {
-  const [page, setPage] = useState(0);
-  const size = 12;
-  const { posts, feedImages, loading, error} = useCommunity();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(12);
+  const { posts, feedImages, loading, error } = useCommunity();
+
+  const firstPostIndex = (currentPage - 1) * postsPerPage;
+  const lastPostIndex = firstPostIndex + postsPerPage;
+  const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
 
   if (loading) {
     return <Loading />;
@@ -27,17 +31,17 @@ export default function Community() {
         </div>
 
         <div className="feedList mb3">
-          {Array.isArray(posts) && posts.length > 0 && feedImages ? (
-            posts.map((post, index) => (
+          {currentPosts.length > 0 && feedImages ? (
+            currentPosts.map((post, index) => (
               <ComFeed
                 key={post.id}
                 postId={post.id}
-                feedUrl={feedImages[index]}
+                feedUrl={feedImages[(currentPage-1)*12+index]}
                 content={post.content}
                 displayName={post.displayName}
                 profilePictureUrl={post.profilePictureUrl}
                 username={post.username}
-                postCreatedAt = {post.createdAt}
+                postCreatedAt={post.createdAt}
               />
             ))
           ) : (
@@ -46,7 +50,12 @@ export default function Community() {
           <div style={{ height: "10px" }} />
         </div>
       </div>
-      <Pagination />
+      <Pagination
+        itemsNum={posts.length}
+        itemsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 }
