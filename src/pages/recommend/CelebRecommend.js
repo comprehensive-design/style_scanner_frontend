@@ -1,13 +1,14 @@
 import CelebRecommendForm from "./CelebRecommendForm";
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import Loading from "../../Components/loading/loading";
 
 export default function CelebRecommend() {
 
     const [displayName, setDisplayName] = useState('');
     const [celebs, setCelebs] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [isFollow, setIsFollow] = useState([]);
 
     useEffect(() => {
@@ -37,7 +38,7 @@ export default function CelebRecommend() {
                 setCelebs(response.data.slice(0, 6));
                 const length = response.data.length;
                 setIsFollow(Array(length).fill(false));
-                setLoading(true);
+                setLoading(false);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -96,30 +97,29 @@ export default function CelebRecommend() {
                 'Authorization': `Bearer ${accessToken}`
             }
         }).then(response => {
-                const newIsFollow = [...isFollow];
-                newIsFollow[index] = false;
-                setIsFollow(newIsFollow);
-            }).catch(error => {
-                // Handle error
-                console.error('Error while unfollowing:', error);
-            });
+            const newIsFollow = [...isFollow];
+            newIsFollow[index] = false;
+            setIsFollow(newIsFollow);
+        }).catch(error => {
+            console.error('Error while unfollowing:', error);
+        });
     };
-
     if (loading) {
-        return (
-            <CelebRecommendForm
-                name={displayName}
-                imgUrls={imgUrls}
-                displayNames={displayNames}
-                followers={followers}
-                picUrl1s={picUrl1s}
-                picUrl2s={picUrl2s}
-                picUrl3s={picUrl3s}
-                isFollow={isFollow}
-
-                follow={handleFollow}
-                unfollow={handleUnfollow}
-            />
-        );
+        return <Loading />;
     }
+    return (
+        <CelebRecommendForm
+            name={displayName}
+            imgUrls={imgUrls}
+            displayNames={displayNames}
+            followers={followers}
+            picUrl1s={picUrl1s}
+            picUrl2s={picUrl2s}
+            picUrl3s={picUrl3s}
+            isFollow={isFollow}
+
+            follow={handleFollow}
+            unfollow={handleUnfollow}
+        />
+    );
 }
