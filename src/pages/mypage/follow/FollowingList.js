@@ -14,22 +14,9 @@ export default function FollowingList() {
 
   useEffect(() => {
     const fetchFollowings = async () => {
-      const accessToken = localStorage.getItem("accessToken");
-      console.log(accessToken);
-
-      if (!accessToken) {
-        console.error("Access token is missing");
-        setLoading(false);
-        return;
-      }
 
       try {
-        const response = await api.get("/api/follow/followingList", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        console.log(response.data);
+        const response = await api.get("/api/follow/followingList");
         const { following_list } = response.data;
         const updatedFollowings = await Promise.all(
           following_list.map(async (following) => {

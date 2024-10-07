@@ -11,19 +11,9 @@ export default function LikeList() {
   const [itemsPerPage, setItemsPerPage] = useState(9);
   const [totalLikes, setTotalLikes] = useState(0);
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    console.log(accessToken);
-    if (!accessToken) {
-      console.error("Access token is missing");
-      return;
-    }
 
     api
-      .get("/api/itemLike/me", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      .get("/api/itemLike/me")
       .then((response) => {
         console.log(response.data);
         setItems(response.data);

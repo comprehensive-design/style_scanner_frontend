@@ -9,17 +9,8 @@ export default function CommunityNoti() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      console.error("Access token is missing");
-      return;
-    }
     api
-      .get("/api/notification/me", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      .get("/api/notification/me")
       .then((response) => {
         setNotis(response.data);
         setLoading(true);

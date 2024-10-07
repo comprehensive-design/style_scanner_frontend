@@ -1,4 +1,5 @@
-import axios from 'axios';
+
+import api from "../../../utils/axios.jsx";
 import { useEffect, useState } from 'react';
 import FeedPopup from "../../../Components/FeedPopup";
 
@@ -23,11 +24,7 @@ export default function UsersList({ list }) {
             return;
         }
 
-        axios.post('/api/follow/unfollowing', { followeeId }, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        })
+        api.post('/api/follow/unfollowing', { followeeId })
             .then(response => {
                 console.log('Unfollowed successfully');
                 window.location.reload(); // 페이지 새로고침
@@ -42,7 +39,7 @@ export default function UsersList({ list }) {
             <div style={{ height: '10px' }}></div>
             {list.map((user, index) => (
                 <div key={user.profileName}> {/* 고유한 key prop 추가 */}
-                    <div className="mpdprofileBox gridColumns3 mb1" style={{cursor:"pointer"}} onClick={() => openPopup(user)}>
+                    <div className="mpdprofileBox gridColumns3 mb1" style={{ cursor: "pointer" }} onClick={() => openPopup(user)}>
                         <img src={user.profilePictureUrl}></img>
                         <div>
                             <p className="content mb05">@{user.profileName}</p>

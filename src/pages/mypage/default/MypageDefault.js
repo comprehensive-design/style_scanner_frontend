@@ -14,17 +14,8 @@ export default function MypageDefault() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      console.error("Access token is missing");
-      return;
-    }
     api
-      .get("/api/user/me", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      .get("/api/user/me")
       .then((response) => {
         setDisplayName(response.data.displayName);
         setBio(response.data.bio);
@@ -37,11 +28,7 @@ export default function MypageDefault() {
       });
 
     api
-      .get("/api/follow/followingList", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      .get("/api/follow/followingList")
       .then(async (response) => {
         const { following_list } = response.data;
         setTotalFollowings(following_list.length);
@@ -70,11 +57,7 @@ export default function MypageDefault() {
       });
 
     api
-      .get("/api/itemLike/me", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      .get("/api/itemLike/me")
       .then((response) => {
         setLikes(response.data.slice(0, 2));
       })

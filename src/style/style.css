@@ -211,7 +211,7 @@ body {
   font-size: 1rem;
   text-align: center;
   background-color: var(--white);
-  border: 1px solid gray;
+  border: none;
   color: var(--darkGray);
   padding: 0.5rem 2rem;
   border-radius: 0.5rem;
@@ -698,14 +698,18 @@ hr {
 
 /* 마이페이지 계정 관리 */
 .mpmManagingBox {
-  position: relative;
-  height: 15rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 9rem;
   margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .mpmManagingBox input {
-  position: absolute;
-  right: 0;
+  width: 1rem;
+  height: 1rem;
+  margin: auto;
+  margin-right: 0;
 }
 
 .mpmBlur {
@@ -733,6 +737,8 @@ hr {
 .mpmFix {
   width: 1rem;
   height: 1rem;
+  margin: auto;
+  margin-left: 1em;
 }
 
 .mpmBtnBox {

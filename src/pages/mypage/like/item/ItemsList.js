@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Item from "../../../../Components/item/Item";
+import api from "../../../../utils/axios.jsx";
 
 export default function ItemsList({ list = [] }) {
   const [likeStatuses, setLikeStatuses] = useState(
@@ -21,8 +21,6 @@ export default function ItemsList({ list = [] }) {
     );
   }, [list]);
 
-  const token = localStorage.getItem("accessToken");
-
   const handleClick = (id) => {
     setLikeStatuses((prevStatuses) =>
       prevStatuses.map((status) => {
@@ -33,31 +31,19 @@ export default function ItemsList({ list = [] }) {
             : status.likeCount - 1;
 
           if (newIsLiked) {
-            axios
+            api
               .post(
-                `/api/itemLike/${id}`,
-                {},
-                {
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                  },
-                }
+                `/api/itemLike/${id}`
               )
               .then((response) => {
-                console.log(`Liked item ${id}`);
               })
               .catch((error) => {
                 console.error(`Error liking item ${id}:`, error);
               });
           } else {
-            axios
-              .delete(`/api/itemLike/${id}`, {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              })
+            api
+              .delete(`/api/itemLike/${id}`)
               .then((response) => {
-                console.log(`Unliked item ${id}`);
               })
               .catch((error) => {
                 console.error(`Error unliking item ${id}:`, error);

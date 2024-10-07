@@ -116,10 +116,10 @@ export default function AccountManageForm({
 
         <div
           className="mpdprofileBox gridColumns3"
-          style={{ width: "90%", margin: "2rem 0.3rem" }}
+          style={{ width: "100%", margin: "2rem 0.3rem" }}
         >
-          <div className="flex">
-            <img src={profilePictureUrl} style={{ margin: "0 0 0 3rem" }}></img>
+          <div>
+            <img src={profilePictureUrl} ></img>
             <input
               type="image"
               className="mpmFix"
@@ -132,7 +132,7 @@ export default function AccountManageForm({
             <div className="flex mb1">
               <p className="content">@{displayName}</p>
               <input
-                className="mpmFix ml03"
+                className="mpmFix"
                 type="image"
                 onClick={() => openPopup("name")}
                 src="/img/fix.png"
@@ -141,7 +141,7 @@ export default function AccountManageForm({
             <div className="flex">
               <p className="caption grayText">{bio}</p>
               <input
-                className="mpmFix ml03"
+                className="mpmFix"
                 type="image"
                 onClick={() => openPopup("msg")}
                 src="/img/fix.png"
@@ -166,14 +166,14 @@ export default function AccountManageForm({
           <ManageBox
             title="비밀번호"
             content="****"
-            $top="45%"
+            $top="65%"
             onClick={() => openPopup("password")}
           ></ManageBox>
           <ManageBox
             title="성별"
             content={gender}
             $left="55%"
-            $top="45%"
+            $top="65%"
             onClick={() => openPopup("gender")}
           ></ManageBox>
         </div>
@@ -197,20 +197,20 @@ export default function AccountManageForm({
               popupType === "image"
                 ? "프로필 사진 변경"
                 : popupType === "name"
-                ? "이름 수정"
-                : popupType === "msg"
-                ? "소개 수정"
-                : popupType === "birth"
-                ? "생년월일 수정"
-                : popupType === "password"
-                ? "비밀번호 수정"
-                : popupType === "gender"
-                ? "성별 변경"
-                : popupType === "logout"
-                ? "로그아웃 하시겠습니까?"
-                : popupType === "delete"
-                ? "탈퇴 하시겠습니까?"
-                : ""
+                  ? "이름 수정"
+                  : popupType === "msg"
+                    ? "소개 수정"
+                    : popupType === "birth"
+                      ? "생년월일 수정"
+                      : popupType === "password"
+                        ? "비밀번호 수정"
+                        : popupType === "gender"
+                          ? "성별 변경"
+                          : popupType === "logout"
+                            ? "로그아웃 하시겠습니까?"
+                            : popupType === "delete"
+                              ? "탈퇴 하시겠습니까?"
+                              : ""
             }
             onClose={closePopup}
             visible={
@@ -220,19 +220,19 @@ export default function AccountManageForm({
               popupType === "image"
                 ? "file"
                 : popupType === "birth"
-                ? "birth"
-                : popupType === "password"
-                ? "password"
-                : popupType === "gender"
-                ? "radio"
-                : ""
+                  ? "birth"
+                  : popupType === "password"
+                    ? "password"
+                    : popupType === "gender"
+                      ? "radio"
+                      : ""
             }
             rightBtn={
               popupType === "logout"
                 ? "로그아웃"
                 : popupType === "delete"
-                ? "탈퇴"
-                : "저장"
+                  ? "탈퇴"
+                  : "저장"
             }
             onSave={onSave}
           />

@@ -13,17 +13,8 @@ export default function MypageDefault() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      console.error("Access token is missing");
-      return;
-    }
     api
-      .get("/api/user/me", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      .get("/api/user/me")
       .then((response) => {
         setDisplayName(response.data.displayName);
         setBio(response.data.bio);
