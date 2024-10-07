@@ -3,6 +3,7 @@ import Popup from "../../../Components/Popup";
 import Sidebar from "../../../Components/Sidebar";
 import ManageBox from "../../../Components/ManageBox";
 import axios from "axios";
+import FeedStore from "../../../stores/FeedStore";
 
 export default function AccountManageForm({
   profilePictureUrl,
@@ -53,6 +54,12 @@ export default function AccountManageForm({
       case "logout":
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+
+        FeedStore.getState().setFeeds([]);
+        FeedStore.getState().setTotalCount(0);
+        FeedStore.getState().setProxyImageUrls([]);
+        FeedStore.getState().setProxyProfileImageUrl([]);
+        localStorage.removeItem('feed-storage'); 
         break;
 
       default:

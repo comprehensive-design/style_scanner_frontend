@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Ranking from "../Ranking";
 import styled from "styled-components";
-import Footer from "../../../Components/Footer";
 
 export default function Category() {
   const [selectedCategory, setSelectedCategory] = useState("ALL");

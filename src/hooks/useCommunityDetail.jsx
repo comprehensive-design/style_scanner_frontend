@@ -1,12 +1,12 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import api from "../api/axios";
 import { fetchProxyImages } from "../utils/ConvertProxyImage";
 
-export const useComment = () => {
+export const useCommunityDetail = () => {
   const location = useLocation();
   
-  const {postId, feedUrl, postContent, displayName, profilePictureUrl, username, postCreatedAt} = location.state || {};
+  const { postId, feedUrl, postContent, displayName, profilePictureUrl, username, postCreatedAt } = location.state || {};
   const [comments, setComments] = useState([]);
   const [celebProfile, setCelebProfile] = useState(null);
   const [celebProfileUrl, setCelebProfileUrl] = useState(null);
@@ -22,6 +22,7 @@ export const useComment = () => {
       throw error;
     }
   };
+
   const getCelebProfile = async (username) => {
     try {
       const response = await api.get(`/api/follow/search?keyword=${username}`);
@@ -42,11 +43,15 @@ export const useComment = () => {
 
         const celebData = await getCelebProfile(username);
         setCelebProfile(celebData);
-
+        
         const proxyImage = await fetchProxyImages(celebData.profilePictureUrl);
         setCelebProfileUrl(proxyImage);
 
+        setLoading(false);
+
       } catch (error) {
+        console.log(error);
+        setLoading(false);
       }
     };
 
@@ -74,5 +79,16 @@ export const useComment = () => {
     }
   };
 
-  return { feedUrl, postCreatedAt, displayName, profilePictureUrl, postContent ,comments, celebProfile, celebProfileUrl, handleSubmit };
+  return {
+    feedUrl,
+    postCreatedAt,
+    displayName,
+    profilePictureUrl,
+    postContent,
+    comments,
+    celebProfile,
+    celebProfileUrl,
+    loading,
+    handleSubmit
+  };
 };

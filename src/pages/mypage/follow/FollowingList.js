@@ -1,7 +1,7 @@
 import Sidebar from "../../../Components/Sidebar";
 import React, { useState, useEffect } from "react";
 import Pagination from "../../../Components/Pagination";
-import api from "../../../utils/axios.jsx";
+import api from "../../../api/axios.jsx";
 import UsersList from "./UsersList";
 import Loading from "../../../Components/loading/loading";
 

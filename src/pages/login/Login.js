@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../../utils/axios';
+import api from '../../api/axios';
 import LoginForm from './LoginForm';
 
 export default function Register() {
