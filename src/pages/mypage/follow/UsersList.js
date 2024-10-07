@@ -1,5 +1,5 @@
 
-import api from "../../../utils/axios.jsx";
+import api from "../../../api/axios.jsx";
 import { useEffect, useState } from 'react';
 import FeedPopup from "../../../Components/FeedPopup";
 

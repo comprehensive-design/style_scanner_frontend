@@ -1,7 +1,7 @@
 import CelebRecommendForm from "./CelebRecommendForm";
 import React, { useState, useEffect } from 'react';
 import Loading from "../../Components/loading/loading";
-import api from "../../utils/axios.jsx";
+import api from "../../api/axios.jsx";
 
 export default function CelebRecommend() {
     const [displayName, setDisplayName] = useState('');

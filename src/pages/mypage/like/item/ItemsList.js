@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Item from "../../../../Components/item/Item";
-import api from "../../../../utils/axios.jsx";
+import api from "../../../../api/axios.jsx";
 
 export default function ItemsList({ list = [] }) {
   const [likeStatuses, setLikeStatuses] = useState(
