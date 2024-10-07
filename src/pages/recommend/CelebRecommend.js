@@ -4,50 +4,72 @@ import React, { useState, useEffect } from 'react';
 import Loading from "../../Components/loading/loading";
 
 export default function CelebRecommend() {
-
     const [displayName, setDisplayName] = useState('');
     const [celebs, setCelebs] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
     const [loading, setLoading] = useState(true);
     const [isFollow, setIsFollow] = useState([]);
+    const [celebsWithProxiedImages, setCelebsWithProxiedImages] = useState([]);
 
     useEffect(() => {
-        if (!accessToken) {
-            console.error('Access token is missing');
-            return;
-        }
-        axios.get("/api/user/me", {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
+        const fetchData = async () => {
+            if (!accessToken) {
+                console.error('Access token is missing');
+                return;
             }
-        })
-            .then((response) => {
-                setDisplayName(response.data.displayName);
-            })
-            .catch((error) => {
-                alert(error.response.data.message);
-            });
 
+            try {
+                const userResponse = await axios.get("/api/user/me", {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                setDisplayName(userResponse.data.displayName);
 
-        axios.get("/api/follow/recommend", {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        })
-            .then((response) => {
-                setCelebs(response.data.slice(0, 6));
-                const length = response.data.length;
+                const celebsResponse = await axios.get("/api/follow/recommend", {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                setCelebs(celebsResponse.data.slice(0, 6));
+                const length = celebsResponse.data.length;
                 setIsFollow(Array(length).fill(false));
+
+                // celebsWithProxiedImages를 여기서 처리
+                const proxiedCelebs = await Promise.all(
+                    celebsResponse.data.slice(0, 6).map(async (celeb) => {
+                        celeb.profilePictureUrl = await proxyImage(celeb.profilePictureUrl);
+                        celeb.feed_3_list[0] = await proxyImage(celeb.feed_3_list[0]);
+                        celeb.feed_3_list[1] = await proxyImage(celeb.feed_3_list[1]);
+                        celeb.feed_3_list[2] = await proxyImage(celeb.feed_3_list[2]);
+                        return celeb;
+                    })
+                );
+                setCelebsWithProxiedImages(proxiedCelebs);
                 setLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
+            } catch (error) {
+                alert(error.response.data.message);
+            }
+        };
+
+        fetchData();
+    }, [accessToken]);
+
+    const proxyImage = async (imageUrl) => {
+        try {
+            const proxyResponse = await axios.get("/api/insta/proxyImage", {
+                params: { imageUrl },
+                responseType: "blob",
             });
-    }, []);
+            return URL.createObjectURL(proxyResponse.data);
+        } catch (error) {
+            console.error("Error proxying image:", error);
+            return imageUrl;
+        }
+    };
 
-
-    const imgUrls = celebs.map(celeb => celeb.profilePictureUrl);
-    const displayNames = celebs.map(celeb => celeb.profileName);
+    const imgUrls = celebsWithProxiedImages.map(celeb => celeb.profilePictureUrl);
+    const displayNames = celebsWithProxiedImages.map(celeb => celeb.profileName);
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
             return (count / 1000000).toFixed(1) + 'M';
@@ -57,10 +79,10 @@ export default function CelebRecommend() {
             return count;
         }
     };
-    const followers = celebs.map(celeb => formatFollowerCount(celeb.profileFollowerCount));
-    const picUrl1s = celebs.map(celeb => celeb.feed_3_list[0]);
-    const picUrl2s = celebs.map(celeb => celeb.feed_3_list[1]);
-    const picUrl3s = celebs.map(celeb => celeb.feed_3_list[2]);
+    const followers = celebsWithProxiedImages.map(celeb => formatFollowerCount(celeb.profileFollowerCount));
+    const picUrl1s = celebsWithProxiedImages.map(celeb => celeb.feed_3_list[0]);
+    const picUrl2s = celebsWithProxiedImages.map(celeb => celeb.feed_3_list[1]);
+    const picUrl3s = celebsWithProxiedImages.map(celeb => celeb.feed_3_list[2]);
 
     const handleFollow = (index) => {
         const followeeId = celebs[index].profileName;
@@ -104,6 +126,7 @@ export default function CelebRecommend() {
             console.error('Error while unfollowing:', error);
         });
     };
+
     if (loading) {
         return <Loading />;
     }
@@ -117,7 +140,6 @@ export default function CelebRecommend() {
             picUrl2s={picUrl2s}
             picUrl3s={picUrl3s}
             isFollow={isFollow}
-
             follow={handleFollow}
             unfollow={handleUnfollow}
         />
