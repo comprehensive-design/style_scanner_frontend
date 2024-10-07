@@ -32,7 +32,7 @@ function CelebBox({ isFollow, prifileImgUrl = "/img/whiteBox.png", displayName, 
                 </div>
                 {
                     isFollow
-                        ? <button className="button" onClick={() => unfollow()}>팔로잉</button>
+                        ? <button className="button" style={{ backgroundColor: "black" }} onClick={() => unfollow()}>팔로잉</button>
                         : <button className="button" onClick={() => follow()}>팔로우</button>
                 }
             </div>
