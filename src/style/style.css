@@ -168,6 +168,10 @@ body {
   color: var(--darkGray);
 }
 
+.redText {
+  color: var(--red);
+}
+
 .blackText {
   color: var(--black);
 }

@@ -1,6 +1,7 @@
 import MypageDefaultForm from "./MypageDefaultForm";
 import api from "../../../utils/axios.jsx";
 import React, { useState, useEffect } from "react";
+import Loading from "../../../Components/loading/loading";
 
 export default function MypageDefault() {
   const [displayName, setDisplayName] = useState("");
@@ -10,7 +11,7 @@ export default function MypageDefault() {
 
   const [followings, setFollowings] = useState([]);
   const [likes, setLikes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -62,7 +63,7 @@ export default function MypageDefault() {
             return following;
           })
         );
-        setLoading(true);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -95,21 +96,22 @@ export default function MypageDefault() {
   const likeCounts = likes.map((like) => like.likeCount.toLocaleString());
 
   if (loading) {
-    return (
-      <MypageDefaultForm
-        displayName={displayName}
-        bio={bio}
-        profilePictureUrl={profilePictureUrl}
-        followingNum={totalFollowings}
-        followingURLs={followingURLs}
-        followingIDs={followingIDs}
-        imgUrls={likeURLs}
-        brandNames={brand}
-        itemNames={itemNames}
-        itemOptions={itemOption}
-        itemPrices={itemPrices}
-        likeCounts={likeCounts}
-      />
-    );
+    return <Loading />;
   }
+
+  return (
+    <MypageDefaultForm
+      displayName={displayName}
+      bio={bio}
+      profilePictureUrl={profilePictureUrl}
+      followingNum={totalFollowings}
+      followingURLs={followingURLs}
+      followingIDs={followingIDs}
+      imgUrls={likeURLs}
+      brandNames={brand}
+      itemNames={itemNames}
+      itemOptions={itemOption}
+      itemPrices={itemPrices}
+      likeCounts={likeCounts}
+    />);
 }
