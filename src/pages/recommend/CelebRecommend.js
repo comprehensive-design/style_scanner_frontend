@@ -1,41 +1,27 @@
 import CelebRecommendForm from "./CelebRecommendForm";
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Loading from "../../Components/loading/loading";
+import api from "../../utils/axios.jsx";
 
 export default function CelebRecommend() {
     const [displayName, setDisplayName] = useState('');
     const [celebs, setCelebs] = useState([]);
-    const accessToken = localStorage.getItem('accessToken');
     const [loading, setLoading] = useState(true);
     const [isFollow, setIsFollow] = useState([]);
     const [celebsWithProxiedImages, setCelebsWithProxiedImages] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!accessToken) {
-                console.error('Access token is missing');
-                return;
-            }
 
             try {
-                const userResponse = await axios.get("/api/user/me", {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
+                const userResponse = await api.get("/api/user/me");
                 setDisplayName(userResponse.data.displayName);
 
-                const celebsResponse = await axios.get("/api/follow/recommend", {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
+                const celebsResponse = await api.get("/api/follow/recommend");
                 setCelebs(celebsResponse.data.slice(0, 6));
                 const length = celebsResponse.data.length;
                 setIsFollow(Array(length).fill(false));
 
-                // celebsWithProxiedImages를 여기서 처리
                 const proxiedCelebs = await Promise.all(
                     celebsResponse.data.slice(0, 6).map(async (celeb) => {
                         celeb.profilePictureUrl = await proxyImage(celeb.profilePictureUrl);
@@ -53,11 +39,11 @@ export default function CelebRecommend() {
         };
 
         fetchData();
-    }, [accessToken]);
+    }, []);
 
     const proxyImage = async (imageUrl) => {
         try {
-            const proxyResponse = await axios.get("/api/insta/proxyImage", {
+            const proxyResponse = await api.get("/api/insta/proxyImage", {
                 params: { imageUrl },
                 responseType: "blob",
             });
@@ -86,16 +72,8 @@ export default function CelebRecommend() {
 
     const handleFollow = (index) => {
         const followeeId = celebs[index].profileName;
-        if (!accessToken) {
-            console.error('Access token is missing');
-            return;
-        }
 
-        axios.post('/api/follow/following', { followeeId }, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        })
+        api.post('/api/follow/following', { followeeId })
             .then(response => {
                 const newIsFollow = [...isFollow];
                 newIsFollow[index] = true;
@@ -109,16 +87,7 @@ export default function CelebRecommend() {
     const handleUnfollow = (index) => {
         const followeeId = celebs[index].profileName;
 
-        if (!accessToken) {
-            console.error('Access token is missing');
-            return;
-        }
-
-        axios.post('/api/follow/unfollowing', { followeeId }, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        }).then(response => {
+        api.post('/api/follow/unfollowing', { followeeId }).then(response => {
             const newIsFollow = [...isFollow];
             newIsFollow[index] = false;
             setIsFollow(newIsFollow);
