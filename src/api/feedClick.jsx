@@ -32,7 +32,7 @@ const findSimilarImages = async (uploadedImageUrl) => {
 };
 
 // feedClick 함수
-export async function feedClick(event, imgRef) {
+export async function feedClick(event, imgRef, mediaUrls,setSimilarImages) {
     alert("item click");
 
     if (!imgRef || !imgRef.current) return;
@@ -40,10 +40,12 @@ export async function feedClick(event, imgRef) {
     const imageElement = imgRef.current.querySelector('#feedImage');
     if (!imageElement) return;
 
+    const imageKey = imageElement.getAttribute('data-key');
+
     const { clientX, clientY } = event;
     const rect = imageElement.getBoundingClientRect();
-    const xInImage = clientX - rect.left;
-    const yInImage = clientY - rect.top;
+    const xInImage = Math.floor( clientX - rect.left);
+    const yInImage = Math.floor( clientY - rect.top);
 
     if (xInImage < 0 || xInImage > imageElement.clientWidth || yInImage < 0 || yInImage > imageElement.clientHeight) {
         alert("다시 클릭해주세요!");
@@ -52,11 +54,10 @@ export async function feedClick(event, imgRef) {
 
     try {
         // Segmentation 요청
-        const segmentedBlob = await requestSegmentation(xInImage, yInImage, imageElement.src);
+        const segmentedBlob = await requestSegmentation(xInImage, yInImage, mediaUrls[imageKey]);
         const uploadedImageUrl = await uploadSegmentedImage(segmentedBlob);
         const similarImages = await findSimilarImages(uploadedImageUrl);
-
-        console.log(similarImages);
+        setSimilarImages(similarImages);
 
     } catch (error) {
         console.error('Error processing the image:', error);

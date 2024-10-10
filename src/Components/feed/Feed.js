@@ -28,7 +28,7 @@ function Feed({ thumbnail_url, profile_url, currentIndex, username, className, h
             </div>
 
             <FeedMain ref={imgRef} width={width} height={height}>
-                <img id='feedImage' src={thumbnail_url} onClick={handleImageClick} />
+                <img id='feedImage' src={thumbnail_url} onClick={handleImageClick} data-key={currentIndex} />
 
                 <div className='feedLayerDiv'>
                 {carousel_count > 1 && className==='homefeed' && (

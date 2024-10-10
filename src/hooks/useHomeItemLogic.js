@@ -7,18 +7,15 @@ export const useHomeItemLogic = () => {
     const location = useLocation();
     const { mediaUrls, feedCodes, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
     const [items, setItems] = useState([]);
-    const [itemsToShow, setItemsToShow] = useState(0);
-    const itemsPerPage = 4;
-    const navigate = useNavigate();
-    const [similarImages, setSimilarImages] = useState(initialSimilarImages || []);
-
     const [proxyImageUrls, setProxyImageUrls] = useState(mediaUrls || []);
     const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [itemLoading, setItemLoading] = useState(true);
+    const [similarImages, setSimilarImages] = useState(initialSimilarImages || []); 
 
     // 썸네일 이미지 변환
     useEffect(() => {
         const loadImages = async () => {
-            if (mediaUrls.length > 0) {
+            if (mediaUrls && mediaUrls.length > 0) {
                 try {
                     const urls = await fetchProxyImages(mediaUrls);
                     setProxyImageUrls(urls);
@@ -29,12 +26,12 @@ export const useHomeItemLogic = () => {
             }
         };
         loadImages();
-    }, []);
+    }, [mediaUrls]);
 
     useEffect(() => {
         const fetchItemData = async () => {
             try {
-                const itemDataPromises = initialSimilarImages.map(async (item) => {
+                const itemDataPromises = similarImages.map(async (item) => {
                     const id = item[0];
                     const response = await api.get(`/api/item/${id}`);
                     return { ...response.data, image: item[0] };
@@ -42,16 +39,17 @@ export const useHomeItemLogic = () => {
 
                 const itemData = await Promise.all(itemDataPromises);
                 setItems(itemData);
+                setItemLoading(false);
             } catch (error) {
                 console.error('Error fetching item data:', error);
+                setItemLoading(false);
             }
         };
 
-        if (initialSimilarImages) {
+        if (similarImages && similarImages.length > 0) {
             fetchItemData();
         }
-    }, [initialSimilarImages]);
-
+    }, [similarImages]);
 
     return {
         mediaUrls,
@@ -61,6 +59,7 @@ export const useHomeItemLogic = () => {
         username,
         profile_url,
         items,
-        itemsToShow
+        itemLoading,
+        setSimilarImages
     };
 };

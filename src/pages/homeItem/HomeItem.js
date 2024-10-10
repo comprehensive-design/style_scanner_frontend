@@ -19,16 +19,22 @@ export default function HomeItem() {
     username,
     profile_url,
     feedCodes,
+    items,
+    itemLoading,
+    setSimilarImages
   } = useHomeItemLogic();
   const [isClicked, setIsClicked] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const itemsPerPage = 4; 
+  const [itemsToShow, setItemsToShow] = useState(itemsPerPage);
+
   const imgRef = useRef(null);
 
   let showPrevBtn = counter > 0;
-  let showNextBtn =counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
+  let showNextBtn = counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
 
   if (!imagesLoaded) {
     return <Loading />;
@@ -48,21 +54,25 @@ export default function HomeItem() {
   const thumbnailClick = (index) => {
     setCurrentImageIndex(index);
   };
-  //더보기 api필요
+
+
   const morePage = () => {
-    // setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
-    alert("더보기");
+    setItemsToShow((prevItemsToShow) => {
+      const newCount = prevItemsToShow + itemsPerPage;
+      return newCount <= items.length ? newCount : items.length;
+    });
   };
   const handleImageClick = (event) => {
     setIsClicked(true);
-    feedClick(event, imgRef);
+    feedClick(event, imgRef, mediaUrls, setSimilarImages);
   };
+  console.log(items);
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
         {proxyImageUrls && profile_url && username && feedCodes && (
           <Feed
-            key={feedCodes[currentImageIndex]}
+            key={currentImageIndex}
             profile_url={profile_url}
             username={username}
             className={"homeitem"}
@@ -114,82 +124,41 @@ export default function HomeItem() {
           <p className="boldSubTitle ml03">아이템 정보</p>
         </div>
         <ItemList className="mb05">
-          {/* {mediaUrls && profile_url && username && media_id && (
-                        <Feed
-                            key={media_id}
-                            media_url_list={mediaUrls}
-                            profile_url={profile_url}
-                            username={username}
-                            media_id={media_id}
-                            home={false}
-                            currentIndex={currentImageIndex}
-                            width={'30rem'}
-                        />
-                    )} */}
-          {/* <Item
-                        key={0}
-                        itemId={0}
-                        brand={"wow"}
-                        name={"wow"}
-                        price={100000000}
-                        itemImage={"https://via.placeholder.com/200"}
-                        shoppingLink={""}
-                        likeCount={9999999}
-                        index={0}
-                        width={'20rem'}
-                    />
-                    <Item
-                        key={1}
-                        itemId={0}
-                        brand={"이렇게 긴 이름의 브랜드가 있을까요?? 있다면 말 줄임표"}
-                        name={"이렇게 긴 이름의 제품명은 많겠죠? 있따면 말줄임표"}
-                        price={100000000}
-                        itemImage={"https://via.placeholder.com/200"}
-                        shoppingLink={""}
-                        likeCount={999}
-                        index={0}
-                        width={'20rem'}
-                    />
-                    <Item
-                        key={2}
-                        itemId={0}
-                        brand={"wow"}
-                        name={"wow"}
-                        price={100000000}
-                        itemImage={`img/feed1.png`}
-                        shoppingLink={""}
-                        likeCount={999999}
-                        index={0}
-                        width={'20rem'}
-
-                    />
-                    <Item
-                        key={3}
-                        itemId={0}
-                        brand={"wow"}
-                        name={"wow"}
-                        price={100000000}
-                        itemImage={"img/image1.png"}
-                        shoppingLink={""}
-                        likeCount={10}
-                        index={0}
-                        width={'20rem'}
-                    /> */}
+          {itemLoading ? (
+            <div><Loading /></div>
+          ) : (
+            items.slice(0, itemsToShow).map((item, index) =>  (
+              <Item
+                key={item.id}
+                itemId={item.id}
+                brand={item.brand}
+                name={item.name}
+                price={item.price}
+                itemImage={item.itemUrl}
+                shoppingLink={item.shoppingLink}
+                likeCount={item.likeCount}
+                index={index}
+                width={'20rem'}
+              />
+            ))
+          )}
         </ItemList>
-        <ButtonList>
-          <button className="whiteButton" onClick={morePage}>
-            더보기
-          </button>
+        <ButtonList style={{ display: !itemLoading ? "block" : "none" }}>
+          {itemsToShow < items.length &&  (
+            <button className="whiteButton" onClick={morePage}>
+              더보기
+            </button>
+          )}
           <CommunityBtn onClick={openPopup}>
             찾는 제품이 없으신가요?
           </CommunityBtn>
         </ButtonList>
         {isPopupOpen && (
-        
+
           <WritePopup
             proxy_url={proxyImageUrls[currentImageIndex]}
             feed_code={feedCodes[currentImageIndex]}
-            username ={username}
+            username={username}
             onClose={closePopup}
           />
         )}
@@ -235,11 +204,14 @@ const ItemWrapper = styled.div`
   margin: 0 auto;
 `;
 const ItemList = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 20rem);
+  gap: 2rem;
   align-items: center;
   justify-content: center;
   min-height: 30rem;
   min-width: 88rem;
+
 `;
 const ButtonList = styled.div`
   position: relative;
