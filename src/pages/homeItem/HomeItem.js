@@ -27,8 +27,9 @@ export default function HomeItem() {
   const [counter, setCounter] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [currentPage, setCurrentPage]= useState(0);
 
+  const itemsPerPage = 4; 
+  const [itemsToShow, setItemsToShow] = useState(itemsPerPage);
 
   const imgRef = useRef(null);
 
@@ -54,16 +55,18 @@ export default function HomeItem() {
     setCurrentImageIndex(index);
   };
 
+
   const morePage = () => {
-    // setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
+    setItemsToShow((prevItemsToShow) => {
+      const newCount = prevItemsToShow + itemsPerPage;
+      return newCount <= items.length ? newCount : items.length;
+    });
   };
   const handleImageClick = (event) => {
     setIsClicked(true);
-    feedClick(event, imgRef, mediaUrls,setSimilarImages);
+    feedClick(event, imgRef, mediaUrls, setSimilarImages);
   };
-
-  const currentItems = items.slice(currentPage * 4, (currentPage + 1) * 4);
-  console.log(currentItems);
+  console.log(items);
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
@@ -122,9 +125,9 @@ export default function HomeItem() {
         </div>
         <ItemList className="mb05">
           {itemLoading ? (
-            <div><Loading/></div> 
+            <div><Loading /></div>
           ) : (
-            currentItems && currentItems.map((item, index) => (
+            items.slice(0, itemsToShow).map((item, index) =>  (
               <Item
                 key={item.id}
                 itemId={item.id}
@@ -141,9 +144,11 @@ export default function HomeItem() {
           )}
         </ItemList>
         <ButtonList style={{ display: !itemLoading ? "block" : "none" }}>
-          <button className="whiteButton" onClick={morePage}>
-            더보기
-          </button>
+          {itemsToShow < items.length &&  (
+            <button className="whiteButton" onClick={morePage}>
+              더보기
+            </button>
+          )}
           <CommunityBtn onClick={openPopup}>
             찾는 제품이 없으신가요?
           </CommunityBtn>
@@ -199,11 +204,14 @@ const ItemWrapper = styled.div`
   margin: 0 auto;
 `;
 const ItemList = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 20rem);
+  gap: 2rem;
   align-items: center;
   justify-content: center;
   min-height: 30rem;
   min-width: 88rem;
+
 `;
 const ButtonList = styled.div`
   position: relative;
