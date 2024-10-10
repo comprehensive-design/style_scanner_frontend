@@ -19,16 +19,20 @@ export default function HomeItem() {
     username,
     profile_url,
     feedCodes,
+    items,
+    itemLoading,
   } = useHomeItemLogic();
   const [isClicked, setIsClicked] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [currentPage, setCurrentPage]= useState(0);
+
 
   const imgRef = useRef(null);
 
   let showPrevBtn = counter > 0;
-  let showNextBtn =counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
+  let showNextBtn = counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
 
   if (!imagesLoaded) {
     return <Loading />;
@@ -57,6 +61,9 @@ export default function HomeItem() {
     setIsClicked(true);
     feedClick(event, imgRef, mediaUrls);
   };
+
+  const currentItems = items.slice(currentPage * 4, (currentPage + 1) * 4);
+  
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
@@ -114,67 +121,24 @@ export default function HomeItem() {
           <p className="boldSubTitle ml03">아이템 정보</p>
         </div>
         <ItemList className="mb05">
-          {/* {mediaUrls && profile_url && username && media_id && (
-                        <Feed
-                            key={media_id}
-                            media_url_list={mediaUrls}
-                            profile_url={profile_url}
-                            username={username}
-                            media_id={media_id}
-                            home={false}
-                            currentIndex={currentImageIndex}
-                            width={'30rem'}
-                        />
-                    )} */}
-          {/* <Item
-                        key={0}
-                        itemId={0}
-                        brand={"wow"}
-                        name={"wow"}
-                        price={100000000}
-                        itemImage={"https://via.placeholder.com/200"}
-                        shoppingLink={""}
-                        likeCount={9999999}
-                        index={0}
-                        width={'20rem'}
-                    />
-                    <Item
-                        key={1}
-                        itemId={0}
-                        brand={"이렇게 긴 이름의 브랜드가 있을까요?? 있다면 말 줄임표"}
-                        name={"이렇게 긴 이름의 제품명은 많겠죠? 있따면 말줄임표"}
-                        price={100000000}
-                        itemImage={"https://via.placeholder.com/200"}
-                        shoppingLink={""}
-                        likeCount={999}
-                        index={0}
-                        width={'20rem'}
-                    />
-                    <Item
-                        key={2}
-                        itemId={0}
-                        brand={"wow"}
-                        name={"wow"}
-                        price={100000000}
-                        itemImage={`img/feed1.png`}
-                        shoppingLink={""}
-                        likeCount={999999}
-                        index={0}
-                        width={'20rem'}
-
-                    />
-                    <Item
-                        key={3}
-                        itemId={0}
-                        brand={"wow"}
-                        name={"wow"}
-                        price={100000000}
-                        itemImage={"img/image1.png"}
-                        shoppingLink={""}
-                        likeCount={10}
-                        index={0}
-                        width={'20rem'}
-                    /> */}
+          {itemLoading ? (
+            <div><Loading/></div> 
+          ) : (
+            items && items.map((item, index) => (
+              <Item
+                key={item.itemId}
+                itemId={item.itemId}
+                brand={item.brand}
+                name={item.name}
+                price={item.price}
+                itemImage={item.itemImage}
+                shoppingLink={item.shoppingLink}
+                likeCount={item.likeCount}
+                index={index}
+                width={'20rem'}
+              />
+            ))
+          )}
         </ItemList>
         <ButtonList>
           <button className="whiteButton" onClick={morePage}>
@@ -185,11 +149,11 @@ export default function HomeItem() {
           </CommunityBtn>
         </ButtonList>
         {isPopupOpen && (
-        
+
           <WritePopup
             proxy_url={proxyImageUrls[currentImageIndex]}
             feed_code={feedCodes[currentImageIndex]}
-            username ={username}
+            username={username}
             onClose={closePopup}
           />
         )}
