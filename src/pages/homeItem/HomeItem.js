@@ -55,14 +55,14 @@ export default function HomeItem() {
   };
   const handleImageClick = (event) => {
     setIsClicked(true);
-    feedClick(event, imgRef);
+    feedClick(event, imgRef, mediaUrls);
   };
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
         {proxyImageUrls && profile_url && username && feedCodes && (
           <Feed
-            key={feedCodes[currentImageIndex]}
+            key={currentImageIndex}
             profile_url={profile_url}
             username={username}
             className={"homeitem"}
