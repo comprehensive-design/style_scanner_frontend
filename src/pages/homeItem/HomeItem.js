@@ -3,7 +3,7 @@ import Feed from "../../Components/feed/Feed.js";
 import Item from "../../Components/item/Item.js";
 import WritePopup from "../community/popup/WritePopup.js";
 import { useHomeItemLogic } from "../../hooks/useHomeItemLogic";
-import { useFeedClickLogic } from "../../hooks/useFeedClickLogic";
+import { feedClick } from "../../api/feedClick.jsx";
 import { useState, useRef } from "react";
 import { FaBoxArchive } from "react-icons/fa6";
 import Loading from "../../Components/loading/loading";
@@ -26,8 +26,6 @@ export default function HomeItem() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const imgRef = useRef(null);
-  // imgRef를 useFeedClickLogic에 전달
-  const { handleClick } = useFeedClickLogic(imgRef);
 
   let showPrevBtn = counter > 0;
   let showNextBtn =counter !== proxyImageUrls.length - 4 && proxyImageUrls.length > 4;
@@ -57,7 +55,7 @@ export default function HomeItem() {
   };
   const handleImageClick = (event) => {
     setIsClicked(true);
-    handleClick(event);
+    feedClick(event, imgRef);
   };
   return (
     <div className="mainWrapper">

@@ -14,17 +14,17 @@ export const useItemLogic = ({ itemId, likeCount}) => {
     e.preventDefault();
     try {
       if (!isClicked) {
-        // const response = await api.post(`/api/itemLike/${itemId}`, {});
-        // if (response.status === 200) {
-        //   setIsClicked(true);
-        // }
+        const response = await api.post(`/api/itemLike/${itemId}`, {});
+        if (response.status === 200) {
+          setIsClicked(true);
+        }
         setIsClicked(true);
         setCounter(counter+1);
       } else {
-        // const response = await api.delete(`/api/itemLike/${itemId}`);
-        // if (response.status === 200) {
-        //   setIsClicked(false);
-        // }
+        const response = await api.delete(`/api/itemLike/${itemId}`);
+        if (response.status === 200) {
+          setIsClicked(false);
+        }
         setIsClicked(false);
         setCounter(counter-1);
       }
