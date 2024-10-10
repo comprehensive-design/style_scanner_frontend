@@ -21,6 +21,7 @@ export default function HomeItem() {
     feedCodes,
     items,
     itemLoading,
+    setSimilarImages
   } = useHomeItemLogic();
   const [isClicked, setIsClicked] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -52,18 +53,17 @@ export default function HomeItem() {
   const thumbnailClick = (index) => {
     setCurrentImageIndex(index);
   };
-  //더보기 api필요
+
   const morePage = () => {
     // setItemsToShow((prevItemsToShow) => prevItemsToShow + itemsPerPage);
-    alert("더보기");
   };
   const handleImageClick = (event) => {
     setIsClicked(true);
-    feedClick(event, imgRef, mediaUrls);
+    feedClick(event, imgRef, mediaUrls,setSimilarImages);
   };
 
   const currentItems = items.slice(currentPage * 4, (currentPage + 1) * 4);
-  
+  console.log(currentItems);
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
@@ -124,14 +124,14 @@ export default function HomeItem() {
           {itemLoading ? (
             <div><Loading/></div> 
           ) : (
-            items && items.map((item, index) => (
+            currentItems && currentItems.map((item, index) => (
               <Item
-                key={item.itemId}
-                itemId={item.itemId}
+                key={item.id}
+                itemId={item.id}
                 brand={item.brand}
                 name={item.name}
                 price={item.price}
-                itemImage={item.itemImage}
+                itemImage={item.itemUrl}
                 shoppingLink={item.shoppingLink}
                 likeCount={item.likeCount}
                 index={index}
@@ -140,7 +140,7 @@ export default function HomeItem() {
             ))
           )}
         </ItemList>
-        <ButtonList>
+        <ButtonList style={{ display: !itemLoading ? "block" : "none" }}>
           <button className="whiteButton" onClick={morePage}>
             더보기
           </button>

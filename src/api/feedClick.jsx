@@ -32,7 +32,7 @@ const findSimilarImages = async (uploadedImageUrl) => {
 };
 
 // feedClick 함수
-export async function feedClick(event, imgRef, mediaUrls) {
+export async function feedClick(event, imgRef, mediaUrls,setSimilarImages) {
     alert("item click");
 
     if (!imgRef || !imgRef.current) return;
@@ -41,7 +41,6 @@ export async function feedClick(event, imgRef, mediaUrls) {
     if (!imageElement) return;
 
     const imageKey = imageElement.getAttribute('data-key');
-    console.log(mediaUrls[imageKey]);
 
     const { clientX, clientY } = event;
     const rect = imageElement.getBoundingClientRect();
@@ -58,8 +57,7 @@ export async function feedClick(event, imgRef, mediaUrls) {
         const segmentedBlob = await requestSegmentation(xInImage, yInImage, mediaUrls[imageKey]);
         const uploadedImageUrl = await uploadSegmentedImage(segmentedBlob);
         const similarImages = await findSimilarImages(uploadedImageUrl);
-
-        console.log(similarImages);
+        setSimilarImages(similarImages);
 
     } catch (error) {
         console.error('Error processing the image:', error);

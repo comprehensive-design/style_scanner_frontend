@@ -10,12 +10,12 @@ export const useHomeItemLogic = () => {
     const [proxyImageUrls, setProxyImageUrls] = useState(mediaUrls || []);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [itemLoading, setItemLoading] = useState(true);
-
+    const [similarImages, setSimilarImages] = useState(initialSimilarImages || []); 
 
     // 썸네일 이미지 변환
     useEffect(() => {
         const loadImages = async () => {
-            if (mediaUrls.length > 0) {
+            if (mediaUrls && mediaUrls.length > 0) {
                 try {
                     const urls = await fetchProxyImages(mediaUrls);
                     setProxyImageUrls(urls);
@@ -26,12 +26,12 @@ export const useHomeItemLogic = () => {
             }
         };
         loadImages();
-    }, []);
+    }, [mediaUrls]);
 
     useEffect(() => {
         const fetchItemData = async () => {
             try {
-                const itemDataPromises = initialSimilarImages.map(async (item) => {
+                const itemDataPromises = similarImages.map(async (item) => {
                     const id = item[0];
                     const response = await api.get(`/api/item/${id}`);
                     return { ...response.data, image: item[0] };
@@ -46,11 +46,10 @@ export const useHomeItemLogic = () => {
             }
         };
 
-        if (initialSimilarImages) {
+        if (similarImages && similarImages.length > 0) {
             fetchItemData();
         }
-    }, [initialSimilarImages]);
-
+    }, [similarImages]);
 
     return {
         mediaUrls,
@@ -60,6 +59,7 @@ export const useHomeItemLogic = () => {
         username,
         profile_url,
         items,
-        itemLoading
+        itemLoading,
+        setSimilarImages
     };
 };
