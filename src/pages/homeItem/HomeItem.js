@@ -28,7 +28,7 @@ export default function HomeItem() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const itemsPerPage = 4; 
+  const itemsPerPage = 4;
   const [itemsToShow, setItemsToShow] = useState(itemsPerPage);
 
   const imgRef = useRef(null);
@@ -70,6 +70,22 @@ export default function HomeItem() {
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
+        <CategoryWrapper className="borderRad mr3">
+          <div className="flex">
+            <CategoryBtn className="boldContent">M</CategoryBtn>
+            <CategoryBtn className="boldContent">W</CategoryBtn>
+          </div>
+          
+          <CategoryBtn>아우터</CategoryBtn>
+          <CategoryBtn>상의</CategoryBtn>
+          <CategoryBtn>팬츠</CategoryBtn>
+          <CategoryBtn>스커트</CategoryBtn>
+          <CategoryBtn>원피스</CategoryBtn>
+          <CategoryBtn>신발</CategoryBtn>
+          <CategoryBtn>가방</CategoryBtn>
+          <CategoryBtn>악세사리</CategoryBtn>
+
+        </CategoryWrapper>
         {proxyImageUrls && profile_url && username && feedCodes && (
           <Feed
             key={currentImageIndex}
@@ -127,7 +143,7 @@ export default function HomeItem() {
           {itemLoading ? (
             <div><Loading /></div>
           ) : (
-            items.slice(0, itemsToShow).map((item, index) =>  (
+            items.slice(0, itemsToShow).map((item, index) => (
               <Item
                 key={item.id}
                 itemId={item.id}
@@ -144,7 +160,7 @@ export default function HomeItem() {
           )}
         </ItemList>
         <ButtonList style={{ display: !itemLoading ? "block" : "none" }}>
-          {itemsToShow < items.length &&  (
+          {itemsToShow < items.length && (
             <button className="whiteButton" onClick={morePage}>
               더보기
             </button>
@@ -173,6 +189,22 @@ const FeedWrapper = styled.div`
   height: 42rem;
   float: left;
   margin-bottom: 5rem;
+`;
+const CategoryWrapper = styled.div`
+  width: 7rem;
+  height: 50%;
+  background-color: ${({ theme }) => theme.colors.gray};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const CategoryBtn = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  cursor: pointer;
+  margin: 0.5rem;
+  &:hover{
+  color: ${({ theme }) => theme.colors.black};
+  }
 `;
 const ThumbnailScrollable = styled.div`
   width: 5rem;
