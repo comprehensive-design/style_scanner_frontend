@@ -169,6 +169,7 @@ export default function HomeItem() {
             <div style={{ width: '88rem' }}><Loading /></div>
           ) : (
             <Item
+            itemId={item.id}
             key={item.id}
             brand={item.platform}
             name={item.name}
@@ -176,7 +177,6 @@ export default function HomeItem() {
             itemImage={item.itemUrl}
             shoppingLink={item.shoppingLink}
             likeCount={item.likeCount}
-            index={item.id}
             width={'20rem'}
           />
           )}
