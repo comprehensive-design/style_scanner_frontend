@@ -170,7 +170,7 @@ export default function HomeItem() {
           ) : (
             <Item
             key={item.id}
-            brand={item.brand}
+            brand={item.platform}
             name={item.name}
             price={item.price}
             itemImage={item.itemUrl}

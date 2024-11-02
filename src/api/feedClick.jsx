@@ -90,7 +90,7 @@ export async function feedClick(event, imgRef, mediaUrls, setItem, combinedCateg
         const requestBody = {
             title: googleLensImage.title,
             imageUrl: googleLensImage.image_url,
-            cost: parseInt(googleLensImage.cost.replace(/₩/g, "").replace(/,/g, "").replace(/\*/g, ""), 10),
+            cost: parseInt(googleLensImage.cost.replace(/[^0-9]/g, ""), 10),
             shoppingLink: googleLensImage.shopping_link,
             sellerIcon: googleLensImage.seller_icon,
             sellerName: googleLensImage.seller_name,
