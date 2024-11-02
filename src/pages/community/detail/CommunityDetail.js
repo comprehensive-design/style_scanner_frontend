@@ -125,7 +125,7 @@ export default function CommunityDetail() {
           <img
             src={feedUrl}
             className="borderRad mb1 mt1"
-            style={{ width: "20rem", height: "24rem" }}
+            style={{ width: "20rem", height: "24rem" , objectFit:'cover'}}
           />
           <hr style={{ width: "100%", backgroundColor: theme.colors.gray }} />
           <ContentDiv className="content mt1">{postContent}</ContentDiv>

@@ -181,7 +181,7 @@ export default function HomeItem() {
           />
           )}
         </ItemList>
-        <ButtonList style={{ display: !itemLoading ? "block" : "none" }}>
+        <ButtonList>
           <CommunityBtn onClick={openPopup}>
             찾는 제품이 없으신가요?
           </CommunityBtn>
