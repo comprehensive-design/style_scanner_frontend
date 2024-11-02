@@ -1,5 +1,5 @@
 import styles from "../css/Pagination.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Pagination({
     itemsNum,
@@ -7,60 +7,65 @@ export default function Pagination({
     setCurrentPage,
     currentPage
 }) {
-    const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
-    
-    const handleButtonClick = (index) => {
-        setCurrentPage(index); // 페이지 변경
-        setSelectedButtonIndex(index); // 선택된 버튼 인덱스 업데이트
-    };
-
-    const pageList = [];
-    const totalpages = Math.ceil(itemsNum / itemsPerPage);
+    const totalpages = Math.ceil(itemsNum / itemsPerPage); // 총 페이지 수
     const maxPage = 10;
 
+    // 현재 페이지 그룹 계산
     const currentPageGroup = Math.ceil(currentPage / maxPage);
     const startPage = (currentPageGroup - 1) * maxPage + 1;
     const endPage = Math.min(startPage + maxPage - 1, totalpages);
 
+    // 페이지 리스트 생성
+    const pageList = [];
     for (let i = startPage; i <= endPage; i++) {
         pageList.push(i);
     }
 
-    const goToNextPage = () => {
-        setCurrentPage(Math.min(currentPage + 1, totalpages)); // 다음 페이지로 이동
-        setSelectedButtonIndex(currentPage + 1); // 다음 페이지로 이동한 버튼을 선택된 상태로 표시
-    };
-
+    // 이전 페이지로 이동
     const goToPrevPage = () => {
-        setCurrentPage(Math.max(currentPage - 1, 1)); // 이전 페이지로 이동
-        setSelectedButtonIndex(currentPage - 1); // 이전 페이지로 이동한 버튼을 선택된 상태로 표시
+        setCurrentPage(Math.max(currentPage - 1, 1)); // 1페이지 이하로는 못 내려감
     };
 
-    if (totalpages <= 1) {
+    // 다음 페이지로 이동
+    const goToNextPage = () => {
+        setCurrentPage(Math.min(currentPage + 1, totalpages)); // 총 페이지 이상으로는 못 올라감
+    };
+
+    // 페이지가 없을 때
+    if (totalpages < 1) {
         return null;
     }
 
     return (
         <div className={styles.pageButton}>
+            {/* 이전 페이지 버튼 */}
             <button
                 onClick={goToPrevPage}
-                disabled={currentPage === 1}
+                disabled={currentPage === 1} // 첫 페이지면 비활성화
                 className={styles.buttonshape}
-            >&lt;</button>
+            >
+                &lt;
+            </button>
 
+            {/* 페이지 번호 버튼 */}
             {pageList.map((page) => (
                 <button
                     key={page}
-                    onClick={() => handleButtonClick(page)} // 페이지 번호를 전달하여 페이지 변경
-                    className={`${selectedButtonIndex === page ? styles.active : ""} ${styles.buttonshape}`}
-                >{page}</button>
+                    onClick={() => setCurrentPage(page)} // 페이지 변경
+                    className={`${currentPage === page ? styles.active : ""} ${styles.buttonshape}`}
+                >
+                    {page}
+                </button>
             ))}
 
+            {/* 다음 페이지 버튼 */}
             <button
                 onClick={goToNextPage}
-                disabled={currentPage === totalpages}
+                disabled={currentPage === totalpages} // 마지막 페이지면 비활성화
                 className={styles.buttonshape}
-            >&gt;</button>
+            >
+                &gt;
+            </button>
         </div>
     );
 }

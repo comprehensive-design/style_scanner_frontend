@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Search.module.css';
-import Channel from './channel/channel';
 import Button from '../../Components/Button';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Footer from '../../Components/Footer';
 import FeedPopup from '../../Components/FeedPopup';
+import Feed from '../../Components/feed/Feed';
 
 export default function Search() {
     const location = useLocation();
@@ -15,7 +13,80 @@ export default function Search() {
     const followeeId = searchResults?.profileName;
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
     const [celebs, setCelebs] = useState([]);
+    const [proxyImageUrls, setProxyImageUrls] = useState({
+        thumbnails: [],
+        profiles: [],
+        profileImage: ''
+    });
+
+    const loadImages = async (imageUrls) => {
+        try {
+            const urls = await Promise.all(
+                imageUrls.map(async (imageUrl) => {
+                    const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+                    const response = await axios.get("/api/insta/proxyImage", {
+                        params: { imageUrl: cleanUrl }, // 수정된 URL 전달
+                        responseType: "blob",
+                    });
+                    // console.log(cleanUrl);
+                    return URL.createObjectURL(response.data);
+                })
+            );
+            return urls;
+        } catch (error) {
+            console.error("Error loading images:", error);
+            return [];
+        }
+    };
+
+    const loadProfileImage = async (imageUrl) => {
+        try {
+            const cleanUrl = imageUrl.replace(/^\[|\]$/g, ''); // 대괄호 제거
+            // const encodedUrl = encodeURIComponent(cleanUrl);  // URL 인코딩
+            console.log("Clean URL:", cleanUrl);
+            // console.log("Encoded profile image URL:", encodedUrl);
+            const response = await axios.get("/api/insta/proxyImage", {
+                params: { imageUrl: cleanUrl }, // 인코딩된 URL 전달
+                responseType: "blob",
+            });
+            return URL.createObjectURL(response.data);
+        } catch (error) {
+            console.error("Error loading profile image:", error);
+            return '';
+        }
+    };
+    
+    
+
+
+    useEffect(() => {
+        const loadCelebImages = async () => {
+            const thumbnailUrls = celebs.map(celeb => celeb.feed_url);
+            const profileUrls = celebs.map(celeb => celeb.profilePictureUrl);
+
+            const [thumbnails, profiles] = await Promise.all([
+                loadImages(thumbnailUrls),
+                loadImages(profileUrls)
+            ]);
+
+            // searchResults.profilePictureUrl 그대로 사용
+            const profileImage = await loadProfileImage(searchResults.profilePictureUrl);
+
+            setProxyImageUrls({
+                thumbnails,
+                profiles,
+                profileImage // searchResults.profilePictureUrl로 가져온 이미지 사용
+            });
+            setImagesLoaded(true);
+        };
+
+        if (celebs.length > 0) {
+            loadCelebImages();
+        }
+    }, [celebs, searchResults.profilePictureUrl]);
+
 
     const openPopup = (user) => {
         if (user && user.profileName) {
@@ -24,12 +95,12 @@ export default function Search() {
         } else {
             console.error('유효하지 않은 사용자 데이터:', user);
         }
-    }
+    };
 
     const closePopup = () => {
         setSelectedUser(null);
         setPopupVisible(false);
-    }
+    };
 
     const formatFollowerCount = (count) => {
         if (count >= 1000000) {
@@ -52,7 +123,7 @@ export default function Search() {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-            .then(response => {
+            .then(() => {
                 console.log('Followed successfully');
                 setIsFollowing(true);
             })
@@ -72,7 +143,7 @@ export default function Search() {
                 'Authorization': `Bearer ${accessToken}`
             }
         })
-            .then(response => {
+            .then(() => {
                 console.log('Unfollowed successfully');
                 setIsFollowing(false);
             })
@@ -94,7 +165,6 @@ export default function Search() {
                 }
             })
                 .then(response => {
-                    console.log(response.data);
                     setIsFollowing(response.data.isFollowing);
                 })
                 .catch(error => {
@@ -104,11 +174,50 @@ export default function Search() {
     };
 
     useEffect(() => {
+        if (searchResults && typeof searchResults === 'object') {
+            axios.get(`http://localhost:5000/searchUsers?profileName=${searchResults.profileName}`)
+                .then(response => {
+                    if (response.data.length > 0) {
+                        // 프로필이 있을 경우 기존 사용자 정보는 무시하고 searchResults로 업데이트
+                        const updatedUser = {
+                            ...searchResults, // searchResults에서 가져온 전체 데이터 사용
+                            profilePictureUrl: searchResults.profilePictureUrl, // searchResults에서 가져온 프로필 이미지 사용
+                        };
+        
+                        // 업데이트 요청
+                        axios.put(`http://localhost:5000/searchUsers/${response.data[0].id}`, updatedUser)
+                            .then(() => {
+                                // Handle put response if needed
+                            })
+                            .catch(updateError => {
+                                console.error('Error updating profilePictureUrl:', updateError);
+                            });
+                    } else {
+                        // 프로필이 없을 경우 새로 생성
+                        axios.post('http://localhost:5000/searchUsers', searchResults)
+                            .then(() => {
+                                // Handle post response if needed
+                            })
+                            .catch(postError => {
+                                console.error('Error posting search results:', postError);
+                            });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking profile existence:', error);
+                });
+        }
+        
+    }, [searchResults]);
+    
+    
+    
+
+    useEffect(() => {
         axios.get(`/api/follow/ranking`)
             .then(response => {
-                console.log('Ranking data:', response.data); // 추가된 콘솔 로그
                 if (response.data) {
-                    setCelebs(response.data); // 프로필 데이터 설정
+                    setCelebs(response.data.slice(0, 4)); // 결과를 4개로 잘라서 저장
                 }
             })
             .catch(error => {
@@ -120,70 +229,84 @@ export default function Search() {
         }
     }, [searchResults]);
 
-    useEffect(() => {
-        console.log('Celebs updated:', celebs); // 추가된 콘솔 로그
-    }, [celebs]);
 
     if (!searchResults || typeof searchResults !== 'object') {
         return <p>No results found</p>;
     }
 
-    console.log('Celebs:', celebs); // 추가된 콘솔 로그
-
     return (
         <div>
-            <div className={styles.profileBox}>
+            <div className='profileBox'>
                 <div style={{ display: 'flex' }}>
-                    <p id={styles.Searchtotal}>검색 결과</p>
+                    <p className='boldSubTitle'>검색 결과</p>
                 </div>
 
-                <div className={styles.SearchUserRes} style={{ display: 'flex' }} onClick={() => openPopup(searchResults)}>
-                    <div className={styles.SearchprofileImg} >
+                <div className='SearchUserRes' onClick={() => openPopup(searchResults)}>
+                    <div className='ml3 SearchprofileImg'>
                         <img
-                            id={styles.SearchUserImg}
-                            src={searchResults.profilePictureUrl}
-                            alt="Profile"
+                            src={proxyImageUrls.profileImage}
+                            style={{ borderRadius: "50%" , width:"12rem", height : "12rem"}}
+                        // alt="Profile"
                         />
                     </div>
 
-                    <div className={styles.userInfoWord}>
-                        <p id={styles.SearchUserid}>{searchResults.profileName}</p>
-                        <p id={styles.profileBio}>{searchResults.profileBio}</p>
-                        <div style={{ display: 'flex' }} className={styles.userFollowerInfo}>
-                            <p id={styles.FollowerWord}>팔로워</p>
-                            <p id={styles.FollowerCountWord}>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
+                    <div className='ml3'>
+                        <p className='left boldContent'>{searchResults.profileName}</p>
+                        <p className='left content'>{searchResults.profileBio}</p>
+                        <div className='zero flex'>
+                            <p className='zero'>팔로워</p>
+                            <p className='zero'>&nbsp;{formatFollowerCount(searchResults.profileFollowerCount)}</p>
                         </div>
                     </div>
-                    <div className={styles.SearchFollow}>
+                    <div className='SearchFollow'>
                         {!isFollowing ? (
-                            <div className={styles.FollowButton}>
+                            <div>
                                 <Button onClick={handleFollow}>팔로우</Button>
                             </div>
                         ) : (
-                            <div className={styles.FollowButton}>
-                                <Button id={styles.buttonDelete} $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
+                            <div>
+                                <Button $BackColor="#d9d9d9" $txtColor="black" $hovColor="black" $hovTxtColor="white" onClick={handleUnfollow}>언팔로우</Button>
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div className={styles.SearchRelRes}>
-                    <p className={styles.RelResWord}>Top Followee</p>
-                    <p className={styles.grayP}>인기 셀럽</p>
+                <div className='SearchRelRes'>
+                    <p className='left boldSubTitle zero'>Top Followee</p>
+                    <p className='left grayText content mt05'>인기 셀럽</p>
 
-                    <div className={styles.SearchRelChannel}>
-                        <div className={styles.channelCover}>
-                            <Channel list={celebs} />
-                            <div className={styles.paddingWidth}></div>
+
+                    <div className='SearchRelChannel'>
+                        <div className='flex'>
+                            {imagesLoaded ? (
+                                <div className='flex'>
+                                    {celebs.map((celeb, index) => (
+                                        <div key={index} style={{ margin: '0 1rem' }}> {/* 좌우 margin 설정 */}
+                                            <Feed
+                                                thumbnail_url={proxyImageUrls.thumbnails[index]}
+                                                profile_url={proxyImageUrls.profiles[index]}
+                                                username={celeb.profileName}
+                                                width="20rem"
+                                                height="25rem"
+                                                className="mr1"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p>로딩 중...</p>
+                            )}
+
                         </div>
                     </div>
-                    <div className={styles.paddingHeight}></div>
+
+                    <div style={{ height: "5rem" }}></div>
                 </div>
             </div>
+
             {popupVisible && selectedUser && (
                 <FeedPopup user={selectedUser} onClose={closePopup} />
             )}
-            <Footer />
         </div>
     );
 }

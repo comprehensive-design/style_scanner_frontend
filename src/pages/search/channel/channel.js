@@ -29,7 +29,7 @@ export default function Channel({ list = [] }) {
                         return null; // user 또는 profileName이 없으면 무시
                     }
 
-                    console.log('Rendering user:', user); // 추가된 로그
+                    // console.log('Rendering user:', user); // 추가된 로그
 
                     // feed_url에서 괄호 제거
                     const feedUrl = user.feed_url.replace(/^\[|\]$/g, '');

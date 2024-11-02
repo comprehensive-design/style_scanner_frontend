@@ -11,11 +11,14 @@
     "express": "^4.19.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.3.0",
     "react-router": "^6.22.3",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.14.1",
     "styled-components": "^6.1.11",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zustand": "^5.0.0-rc.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,5 +44,13 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://54.180.208.255:9000"
+  "proxy": "http://54.180.208.255:9000",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {
+    "json-server": "^1.0.0-beta.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

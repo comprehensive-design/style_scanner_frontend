@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     align-content: center;
+    cursor: pointer;
 }
 
 .buttonshape{
@@ -20,6 +21,7 @@
     color : black;
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 .active {

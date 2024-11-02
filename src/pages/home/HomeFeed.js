@@ -1,114 +1,103 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Feed from './feed/Feed'; 
-import styles from "./HomeFeed.module.css";
-import axios from 'axios';
-import SlideBtn from '../../Components/SlideButton'; 
-import { useNavigate } from 'react-router';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useFeed from "../../hooks/useFeed";
+import Feed from "../../Components/feed/Feed";
+import Loading from "../../Components/loading/loading";
+import { GoHomeFill } from "react-icons/go";
+import Pagination from "../../Components/Pagination";
+import api from "../../api/axios";
+import FeedStore from "../../stores/FeedStore"; 
 
-const getFeeds = async (navigate) => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-        navigate("/Login");
-        throw new Error("토큰이 없습니다.");
-    }
+const HomeFeed = () => {
+  const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+  const size = 12;
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
+  const {
+    feeds,
+    error,
+    feedListRef,
+    proxyImageUrls,
+    proxyProfileImageUrl,
+    imagesLoaded,
+    totalCount
+  } = useFeed(page, size);
 
-    console.log("Access Token:", token); // 토큰 값 확인
 
+  // 이미지 클릭 이벤트 처리
+  const handleImageClick = async (username, profile_url, feed_code) => {
+    alert("click");
     try {
-        const response = await axios.get('/api/insta/home', config);
-        return response.data.feeds; 
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            navigate("/Login");
-        } else {
-            console.error('예상치 못한 에러: 게시물 가져오기 실패:', error);
+      const response = await api.get('/api/insta/getCarouselMedia', {
+        params: {
+          feed_code: feed_code
         }
-        throw error;
+      });
+      const mediaUrls = response.data.map(selectFeed => selectFeed.feed_url);
+      const feedCodes = response.data.map(selectFeed => selectFeed.feedCode);
+      navigate("/HomeItem", {
+        state: {
+          mediaUrls: mediaUrls,
+          username: username,
+          profile_url: profile_url,
+          feedCodes: feedCodes
+        }
+      });
+    } catch (error) {
+      console.error(error);
     }
+  };
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage - 1); 
+  };
+  
+  if (!imagesLoaded) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  return (
+    <div className='body'>
+      <div className='feedScroll'>
+        <div className='pageTitleDiv ml3 mb3'>
+          <GoHomeFill size="2em" />
+          <h1 className='title ml03'>홈</h1>
+        </div>
+
+        <div className='feedList mb3' ref={feedListRef}>
+          {feeds && feeds.length > 0 ? (
+            feeds.map((feed, index) => (
+              <Feed
+                key={feed.feed_code}
+                thumbnail_url={proxyImageUrls[index]}
+                profile_url={proxyProfileImageUrl[index]}
+                username={feed.username}
+                className={"homefeed"}
+                handleImageClick={() => handleImageClick(feed.username, proxyProfileImageUrl[index], feed.feed_code)}
+                carousel_count={feed.carousel_count}
+                currentIndex={0}
+                width="25em"
+                height="30em"
+              />
+            ))
+          ) : (
+            <div>셀럽을 팔로우해보세요!</div>
+          )}
+          <div style={{ height: '10px' }} />
+        </div>
+      </div>
+      <Pagination
+        itemsNum={totalCount}
+        itemsPerPage={size}
+        currentPage={page + 1}
+        setCurrentPage={handlePageChange}
+      />
+    </div>
+  );
 };
 
-function FeedList() {
-    const navigate = useNavigate();
-
-    const [feeds, setFeeds] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const feedListRef = useRef(); 
-
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const data = await getFeeds(navigate);
-                setFeeds(data);
-                setLoading(false); 
-            } catch (error) {
-                setError('포스트를 가져오는 중 에러 발생');
-                setLoading(false);
-            }
-        };
-      
-        fetchPosts();
-    }, []);
-
-    if (loading) {
-        return <div>로딩 중...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
-
-    // 고정된 첫 번째 피드
-    const fixedFeed = {
-        media_url_list: ["https://scontent-nrt1-2.cdninstagram.com/v/t51.29350-15/439848769_395624573344851_2731015584234275434_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=18de74&_nc_ohc=NI1rmZtDy2EQ7kNvgFSjxts&_nc_ht=scontent-nrt1-2.cdninstagram.com&edm=AL-3X8kEAAAA&oh=00_AYCh6OhaOb57p5fQfpJl4ya2A__NwKcAFUL5wHmlMIGUaA&oe=6680402C"],
-        media_id: "18000852455601872",
-        profile_url: "https://scontent-nrt1-2.xx.fbcdn.net/v/t51.2885-15/449154288_437185985893633_5661753391460383776_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=7d201b&_nc_ohc=9PQmmf-wspsQ7kNvgFrW5qG&_nc_ht=scontent-nrt1-2.xx&edm=AL-3X8kEAAAA&oh=00_AYCMbP0fEGo-LK_pixpWojzvOMoUPu14_HeDyxpOel1MxQ&oe=668018ED",
-        username: "hi_sseulgi"
-    };
-
-    return (
-        <div className={styles.feedScroll}>
-            <div className={styles.feedList} ref={feedListRef}>
-                {feeds.length > 0 && (
-                    <Feed 
-                        key={fixedFeed.media_id} 
-                        media_url_list={fixedFeed.media_url_list} 
-                        profile_url={fixedFeed.profile_url} 
-                        username={fixedFeed.username} 
-                        media_id={fixedFeed.media_id} 
-                        close={true}
-                    />
-                )}
-
-                {/* 동적으로 받아온 피드들 */}
-                {feeds
-                    .filter(feed => feed.username !== 'hi_sseulgi')
-                    .map(feed => {
-                        const mediaUrls = Array.isArray(feed.media_url_list) ? feed.media_url_list : [];
-                        
-                        return (
-                            <Feed 
-                                key={feed.media_id} 
-                                media_url_list={mediaUrls} 
-                                profile_url={feed.profile_url} 
-                                username={feed.username} 
-                                media_id={feed.media_id} 
-                                close={true}
-                            />
-                        );
-                    })
-                }
-                <div style={{height: '10px'}} />
-            </div>
-            <SlideBtn/> {/* SlideButton 렌더링 */}
-        </div>
-    );
-}
-
-export default FeedList;
+export default HomeFeed;

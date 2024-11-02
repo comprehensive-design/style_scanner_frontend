@@ -1,151 +1,102 @@
-import { useState, useEffect, useCallback } from 'react';
-import styles from "./MyComment.module.css";
-import CommentBox from '../../../Components/CommentBox';
-import Sidebar from '../../../Components/Sidebar';
-import Pagination from '../../../Components/Pagination';
-import axios from 'axios';
-import Footer from '../../../Components/Footer';
-
-const getComments = async (currentPage, itemsPerPage) => {
-    const token = localStorage.getItem("accessToken");
-
-    if (!token) {
-        console.error("토큰이 없습니다.");
-        throw new Error("토큰이 없습니다.");
-    }
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
-    try {
-        const response = await axios.get('/api/comment/me', config);
-        return response.data;
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.error('Axios 에러: 게시물 가져오기 실패:', error.response?.data || error.message);
-            console.error('응답 상태:', error.response?.status); // 상태 코드 로그
-            console.error('응답 헤더:', error.response?.headers); // 헤더 로그
-        } else {
-            console.error('예상치 못한 에러: 게시물 가져오기 실패:', error);
-        }
-        throw error;
-    }
-};
+import { useState, useEffect, useCallback } from "react";
+import CommentBox from "./CommentBox";
+import Sidebar from "../../../Components/Sidebar";
+import Pagination from "../../../Components/Pagination";
+import api from "../../../api/axios.jsx";
 
 export default function MyComment() {
-    const [comments, setComments] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(5);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [currentComment, setCurrentComment] = useState(null);
-    const [commentSaved, setCommentSaved] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [feedImages, setFeedImages] = useState([]);
 
-    const firstItemIndex = (currentPage - 1) * itemsPerPage;
-    const lastItemIndex = firstItemIndex + itemsPerPage;
-    const currentComments = comments.slice(firstItemIndex, lastItemIndex);
+  const [currentPage, setCurrentPage] = useState(1);
+  const commentsPerPage = 5;
+  const [commentSaved, setCommentSaved] = useState(false);
 
-    const fetchComments = useCallback(async () => {
-        try {
-            const data = await getComments(currentPage, itemsPerPage);
-            setComments(data);
-        } catch (error) {
-            console.error('Error fetching comments:', error);
-        }
-    }, [currentPage, itemsPerPage]);
+  const firstItemIndex = (currentPage - 1) * commentsPerPage;
+  const lastItemIndex = firstItemIndex + commentsPerPage;
+  const currentComments = comments.slice(firstItemIndex, lastItemIndex);
 
-    useEffect(() => {
-        fetchComments();
-    }, [fetchComments, commentSaved]);
+  const getComments = async () => {
+    const response = await api.get("/api/comment/me");
+    return response.data;
+  };
+  const getFeedImages = async (feedCode) => {
+    const response = await api.get(`/api/insta/getImage?feedCode=${feedCode}`, { responseType: 'blob' });
+    return response.data;
+  };
 
-    const openPopup = useCallback((comment = null) => {
-        setCurrentComment(comment);
-        setIsPopupOpen(true);
-    }, []);
-
-    const closePopup = useCallback(() => {
-        setIsPopupOpen(false);
-        setCurrentComment(null);
-    }, []);
-
-    const handleDelete = async (commentId) => {
-        const token = localStorage.getItem('accessToken');
-        if (!token) {
-            alert('로그인이 필요합니다.');
-            return;
-        }
-
-        try {
-            const response = await axios.delete(
-                `/api/comment/delete/${commentId}`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    }
-                }
-            );
-            if (response.status === 200) {
-                alert('삭제되었습니다.');
-                setComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
-                setCommentSaved(true); // 삭제 후 commentSaved 상태를 업데이트
-            }
-        } catch (error) {
-            alert('삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
-            console.error('삭제 오류:', error);
-        }
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const data = await getComments();
+        setComments(data);
+        const feedImagesUrls = await Promise.all(
+          data.map(async (comment) => {
+            const feedImageBlob = await getFeedImages(comment.feedCode);
+            return URL.createObjectURL(feedImageBlob);
+          })
+        );
+        setFeedImages(feedImagesUrls);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    const handleSave = (updatedComment) => {
-        setComments((prevComments) => {
-            const newComments = prevComments.map(comment => (comment.id === updatedComment.id ? updatedComment : comment));
-            setCommentSaved(true); // 상태가 업데이트되었음을 표시
-            return newComments;
-        });
-    };
+    if (commentSaved) {
+      setCommentSaved(false);
+    }
+    fetchComments();
+  }, [currentPage, commentSaved]);
 
-    return (
-        <body>
+  const handleDelete = async (commentId) => {
+    try {
+      const response = await api.delete(`/api/comment/delete/${commentId}`);
+      if (response.status === 200) {
+        alert("삭제되었습니다.");
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.id !== commentId)
+        );
+        setCommentSaved(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  return (
+    <div className="mainWrapper">
+      <div className="mypageWrapper">
+        <Sidebar />
+        <div className="mypageMain">
+          <div>
+            <p className="title left mb05 ml03">내가 작성한 댓글</p>
+            <hr />
+          </div>
+          <p className="content left mt1 mb1 ml03">전체 </p>
+          <div className="ml03 mb3">
             <div>
-                <div className={styles.total}>
-                    <Sidebar />
-                    <div className={styles.content}>
-                        <div className={styles.title}>
-                            <h2>내가 작성한 댓글</h2>
-                            <hr />
-                        </div>
-                        <div className={styles.commentList}>
-                            {currentComments.map(data => {
-                                const commentdata = data.comment;
-                                return (
-                                    <CommentBox
-                                        key={commentdata.id}
-                                        commentId={commentdata.id}
-                                        feedImg={data.feedUrl}
-                                        title={data.feedTitle}
-                                        content={commentdata.content}
-                                        onDelete={() => handleDelete(commentdata.id)}
-                                    />
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.heightPadding}></div>
-                <div className={styles.footerBox}>
-                    <div className={styles.leftBtween} />
-                    <div className={styles.footer}>
-                        <Pagination
-                            itemsNum={comments.length}
-                            itemsPerPage={itemsPerPage}
-                            setCurrentPage={setCurrentPage}
-                            currentPage={currentPage}
-                        />
-                    </div>
-                </div>
+              {currentComments.map((data, index) => {
+                const commentdata = data.comment;
+                return (
+                  <CommentBox
+                    key={commentdata.id}
+                    commentId={commentdata.id}
+                    feedImg={feedImages[((currentPage-1)*5)+index]}
+                    title={data.feedTitle}
+                    content={commentdata.content}
+                    onDelete={() => handleDelete(commentdata.id)}
+                  />
+                );
+              })}
             </div>
-            <Footer />
-        </body>
-    );
+          </div>
+        </div>
+      </div>
+      <Pagination
+          itemsNum={comments.length}
+          itemsPerPage={5}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+    </div>
+  );
 }

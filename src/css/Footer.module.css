@@ -1,58 +1,60 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
-*{
-    font-family: 'Pretendard';
-    /* margin : 30px; */
+* {
+  font-family: "Pretendard";
+  /* margin : 30px; */
 }
 
-.totalWrap{
-    margin-top : 30px;
-    background-color: #DEDEDE;
-    height: 150px;
-    /* 원래 300px; */
-    /* z-index: 999; */
+.totalWrap {
+  margin-top: 30px;
+  background-color: #dedede;
+  height: 150px;
+  position: relative;
+  transform: translateY(0%);
+  /* 원래 300px; */
+  /* z-index: 999; */
 }
 
-.mainInfo{
-    margin : 30px;
-    color : black;
-    /* height: 80px; */
-    /* padding-top : 50px; */
-    font-size: 18px;
-    text-align: left;
-    font-weight: 600;
-    width: 1000px;
-    display: inline-block;
+.mainInfo {
+  margin: 30px;
+  color: black;
+  /* height: 80px; */
+  /* padding-top : 50px; */
+  font-size: 18px;
+  text-align: left;
+  font-weight: 600;
+  width: 1000px;
+  display: inline-block;
 }
 
-.etcInfo{
-    width: 400px;
-    margin : 30px;
-    /* float:left; */
-    text-align: right;
-    color:gray;
-    margin-bottom: 50px;
-    font-size : 14px;
-    /* background-color: white; */
-    float:right;
+.etcInfo {
+  width: 400px;
+  /* margin: 30px; */
+  margin: 0 30px;
+  /* float:left; */
+  text-align: right;
+  color: gray;
+  /* margin-bottom: 50px; */
+  font-size: 14px;
+  /* background-color: white; */
+  float: right;
 }
 
-.mainSerName{
-    float:left;
+.mainSerName {
+  float: left;
 }
 
-.mainReadme{
-    margin-left : 150px;
-    color: black;
+.mainReadme {
+  margin-left: 150px;
+  color: black;
 }
 
-.mainEmail{
-    margin-left : 30px;
-    color : black;
+.mainEmail {
+  margin-left: 30px;
+  color: black;
 }
 
-.mainGitAddr{
-    margin-left : 30px;
-    color : black;
+.mainGitAddr {
+  margin-left: 30px;
+  color: black;
 }
-
