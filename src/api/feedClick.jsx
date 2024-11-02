@@ -21,14 +21,24 @@ const uploadSegmentedImage = async (segmentedBlob) => {
     return response.data.image_url;
 };
 
+// // 유사 이미지 검색
+// const findSimilarImages = async (uploadedImageUrl) => {
+//     const token = localStorage.getItem("accessToken");
+//     const response = await axios.get('http://127.0.0.1:8000/clip', {
+//         params: { seg_img_url: uploadedImageUrl, folder_name: 'items/' },
+//         headers: { Authorization: `Bearer ${token}` }
+//     });
+//     return response.data.similar_images;
+// };
 // 유사 이미지 검색
 const findSimilarImages = async (uploadedImageUrl) => {
     const token = localStorage.getItem("accessToken");
-    const response = await axios.get('http://127.0.0.1:8000/clip', {
-        params: { seg_img_url: uploadedImageUrl, folder_name: 'items/' },
+    const response = await axios.get('http://127.0.0.1:8000/googleLens', {
+        params: { seg_img_url: uploadedImageUrl },
         headers: { Authorization: `Bearer ${token}` }
     });
-    return response.data.similar_images;
+    console.log(response.data);
+    return response.data;
 };
 
 // feedClick 함수
