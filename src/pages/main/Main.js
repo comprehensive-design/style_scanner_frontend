@@ -52,7 +52,6 @@ function Main() {
 
         <div className={`${styles.inner} ${styles.bg2}`} style={{ backgroundImage: "url('/img/Main5.png')" }}>
           <div className={styles.link}><Link to="/Login">지금 바로 시작하기</Link></div>
-          <div className={styles.link}><Link to="/Login">cicdtest</Link></div>
           <div className={styles.footer}><Footer></Footer></div>
         </div>
       </div>
