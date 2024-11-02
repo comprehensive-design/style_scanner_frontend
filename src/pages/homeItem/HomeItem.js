@@ -19,14 +19,42 @@ export default function HomeItem() {
     username,
     profile_url,
     feedCodes,
-    items,
+    item,
     itemLoading,
-    setSimilarImages
+    setItem,
+    setItemLoading,
   } = useHomeItemLogic();
+  const categories = [
+    "아우터",
+    "상의",
+    "팬츠",
+    "스커트",
+    "원피스",
+    "신발",
+    "가방",
+    "악세사리"
+  ];
+  const genderMap = {
+    W: "WOMEN",
+    M: "MEN",
+  };
+
+  const categoryMap = {
+    아우터: "OUTER",
+    상의: "TOP",
+    팬츠: "PANTS",
+    스커트: "SKIRT",
+    원피스: "ONE_PIECE",
+    신발: "SHOES",
+    가방: "BAG",
+    악세사리: "ACC",
+  };
   const [isClicked, setIsClicked] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const itemsPerPage = 4;
   const [itemsToShow, setItemsToShow] = useState(itemsPerPage);
@@ -54,37 +82,34 @@ export default function HomeItem() {
   const thumbnailClick = (index) => {
     setCurrentImageIndex(index);
   };
-
-
-  const morePage = () => {
-    setItemsToShow((prevItemsToShow) => {
-      const newCount = prevItemsToShow + itemsPerPage;
-      return newCount <= items.length ? newCount : items.length;
-    });
+  const handleGenderClick = (gender) => {
+    setSelectedGender(gender);
   };
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
+  // const morePage = () => {
+  //   setItemsToShow((prevItemsToShow) => {
+  //     const newCount = prevItemsToShow + itemsPerPage;
+  //     return newCount <= items.length ? newCount : items.length;
+  //   });
+  // };
   const handleImageClick = (event) => {
     setIsClicked(true);
-    feedClick(event, imgRef, mediaUrls, setSimilarImages);
+    const combinedCategory = `${genderMap[selectedGender]}_${categoryMap[selectedCategory]}`;
+    feedClick(event, imgRef, mediaUrls, setItem, combinedCategory,setItemLoading);
   };
-  console.log(items);
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
         <CategoryWrapper className="borderRad mr3">
           <div className="flex">
-            <CategoryBtn className="boldContent">M</CategoryBtn>
-            <CategoryBtn className="boldContent">W</CategoryBtn>
+            <CategoryBtn  className={selectedGender === 'M' ? 'active boldContent' : 'boldContent'} onClick={() => handleGenderClick('M')}>M</CategoryBtn>
+            <CategoryBtn className={selectedGender === 'W' ? 'active boldContent' : 'boldContent'} onClick={() => handleGenderClick('W')}>W</CategoryBtn>
           </div>
-          
-          <CategoryBtn>아우터</CategoryBtn>
-          <CategoryBtn>상의</CategoryBtn>
-          <CategoryBtn>팬츠</CategoryBtn>
-          <CategoryBtn>스커트</CategoryBtn>
-          <CategoryBtn>원피스</CategoryBtn>
-          <CategoryBtn>신발</CategoryBtn>
-          <CategoryBtn>가방</CategoryBtn>
-          <CategoryBtn>악세사리</CategoryBtn>
-
+          {categories.map((category, index) => (
+            <CategoryBtn key={index} className={selectedCategory === category ? 'active' : ''} onClick={() => handleCategoryClick(category)}>{category}</CategoryBtn>
+          ))}
         </CategoryWrapper>
         {proxyImageUrls && profile_url && username && feedCodes && (
           <Feed
@@ -141,30 +166,22 @@ export default function HomeItem() {
         </div>
         <ItemList className="mb05">
           {itemLoading ? (
-            <div style={{width: '88rem'}}><Loading /></div>
+            <div style={{ width: '88rem' }}><Loading /></div>
           ) : (
-            items.slice(0, itemsToShow).map((item, index) => (
-              <Item
-                key={item.id}
-                itemId={item.id}
-                brand={item.brand}
-                name={item.name}
-                price={item.price}
-                itemImage={item.itemUrl}
-                shoppingLink={item.shoppingLink}
-                likeCount={item.likeCount}
-                index={index}
-                width={'20rem'}
-              />
-            ))
+            <Item
+            itemId={item.id}
+            key={item.id}
+            brand={item.platform}
+            name={item.name}
+            price={item.price}
+            itemImage={item.itemUrl}
+            shoppingLink={item.shoppingLink}
+            likeCount={item.likeCount}
+            width={'20rem'}
+          />
           )}
         </ItemList>
         <ButtonList style={{ display: !itemLoading ? "block" : "none" }}>
-          {itemsToShow < items.length && (
-            <button className="whiteButton" onClick={morePage}>
-              더보기
-            </button>
-          )}
           <CommunityBtn onClick={openPopup}>
             찾는 제품이 없으신가요?
           </CommunityBtn>
@@ -200,11 +217,12 @@ const CategoryWrapper = styled.div`
 `;
 const CategoryBtn = styled.p`
   color: ${({ theme }) => theme.colors.white};
-  cursor: pointer;
-  margin: 0.5rem;
-  &:hover{
-  color: ${({ theme }) => theme.colors.black};
-  }
+    cursor: pointer;
+    margin: 0.5rem;
+    &:hover,
+    &.active{
+    color: ${({ theme }) => theme.colors.black};
+    }
 `;
 const ThumbnailScrollable = styled.div`
   width: 5rem;
