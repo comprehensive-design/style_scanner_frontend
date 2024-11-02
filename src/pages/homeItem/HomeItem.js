@@ -24,7 +24,6 @@ export default function HomeItem() {
     setItem,
     setItemLoading,
   } = useHomeItemLogic();
-
   const categories = [
     "아우터",
     "상의",
@@ -98,8 +97,7 @@ export default function HomeItem() {
   const handleImageClick = (event) => {
     setIsClicked(true);
     const combinedCategory = `${genderMap[selectedGender]}_${categoryMap[selectedCategory]}`;
-    console.log("combinedCategory:", combinedCategory);
-    feedClick(event, imgRef, mediaUrls, setItem, combinedCategory);
+    feedClick(event, imgRef, mediaUrls, setItem, combinedCategory,setItemLoading);
   };
   return (
     <div className="mainWrapper">

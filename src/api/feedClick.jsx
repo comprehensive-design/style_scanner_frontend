@@ -45,11 +45,8 @@ const findGoogleLensImages = async (uploadedImageUrl) => {
 
 const uploadGoogleLensImage = async (requestBody) => {
     const response = await api.post('/api/item/create', requestBody);
-    
     const message = response.data.message;
-    
     const idMatch = message.match(/ID: (\d+)/);
-    
     if (idMatch && idMatch[1]) {
       const itemId = idMatch[1];
       console.log("추가된 아이템 ID:", itemId);
@@ -65,9 +62,8 @@ const fetchItemData = async (similarImageId) => {
 };
 
 // feedClick 함수
-export async function feedClick(event, imgRef, mediaUrls, setItem, combinedCategory) {
+export async function feedClick(event, imgRef, mediaUrls, setItem, combinedCategory,setItemLoading) {
     alert("item click");
-    console.log("combinedCategory in feedClick:", combinedCategory);
     if (!imgRef || !imgRef.current) return;
 
     const imageElement = imgRef.current.querySelector('#feedImage');
@@ -92,14 +88,19 @@ export async function feedClick(event, imgRef, mediaUrls, setItem, combinedCateg
         const googleLensImage = await findGoogleLensImages(uploadedImageUrl);
         
         const requestBody = {
-            ...googleLensImage, // googleLensImage의 모든 필드 복사
-            category: combinedCategory // category 필드 추가
+            title: googleLensImage.title,
+            imageUrl: googleLensImage.image_url,
+            cost: parseInt(googleLensImage.cost.replace(/₩/g, "").replace(/,/g, "").replace(/\*/g, ""), 10),
+            shoppingLink: googleLensImage.shopping_link,
+            sellerIcon: googleLensImage.seller_icon,
+            sellerName: googleLensImage.seller_name,
+            category: combinedCategory 
         };
         console.log(requestBody);
         const similarImageId = await uploadGoogleLensImage(requestBody);
-        console.log(similarImageId);
         const item = await fetchItemData(similarImageId);
-        setItem(item) ;
+        setItem(item);
+        setItemLoading(false);
        
     } catch (error) {
         console.error('Error processing the image:', error);
