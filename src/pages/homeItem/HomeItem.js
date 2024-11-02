@@ -141,7 +141,7 @@ export default function HomeItem() {
         </div>
         <ItemList className="mb05">
           {itemLoading ? (
-            <div><Loading /></div>
+            <div style={{width: '88rem'}}><Loading /></div>
           ) : (
             items.slice(0, itemsToShow).map((item, index) => (
               <Item
