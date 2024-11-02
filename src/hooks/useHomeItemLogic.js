@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
-import api from '../api/axios';
+import { useLocation } from "react-router-dom";
 import { fetchProxyImages } from '../utils/ConvertProxyImage'
 
 export const useHomeItemLogic = () => {
     const location = useLocation();
-    const { mediaUrls, feedCodes, username, profile_url, similarImages: initialSimilarImages } = location.state || {};
-    const [items, setItems] = useState([]);
+    const { mediaUrls, feedCodes, username, profile_url } = location.state || {};
+    
+    // 필요한 상태 정의
     const [proxyImageUrls, setProxyImageUrls] = useState(mediaUrls || []);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [itemLoading, setItemLoading] = useState(true);
-    const [similarImages, setSimilarImages] = useState(initialSimilarImages || []); 
+    const [item, setItem] = useState(null); 
 
     // 썸네일 이미지 변환
     useEffect(() => {
@@ -28,29 +28,6 @@ export const useHomeItemLogic = () => {
         loadImages();
     }, [mediaUrls]);
 
-    useEffect(() => {
-        const fetchItemData = async () => {
-            try {
-                const itemDataPromises = similarImages.map(async (item) => {
-                    const id = item[0];
-                    const response = await api.get(`/api/item/${id}`);
-                    return { ...response.data, image: item[0] };
-                });
-
-                const itemData = await Promise.all(itemDataPromises);
-                setItems(itemData);
-                setItemLoading(false);
-            } catch (error) {
-                console.error('Error fetching item data:', error);
-                setItemLoading(false);
-            }
-        };
-
-        if (similarImages && similarImages.length > 0) {
-            fetchItemData();
-        }
-    }, [similarImages]);
-
     return {
         mediaUrls,
         proxyImageUrls,
@@ -58,8 +35,9 @@ export const useHomeItemLogic = () => {
         feedCodes,
         username,
         profile_url,
-        items,
         itemLoading,
-        setSimilarImages
+        setItemLoading,
+        item,        
+        setItem 
     };
 };

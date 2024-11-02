@@ -19,10 +19,12 @@ export default function HomeItem() {
     username,
     profile_url,
     feedCodes,
-    items,
+    item,
     itemLoading,
-    setSimilarImages
+    setItem,
+    setItemLoading,
   } = useHomeItemLogic();
+
   const categories = [
     "아우터",
     "상의",
@@ -33,6 +35,21 @@ export default function HomeItem() {
     "가방",
     "악세사리"
   ];
+  const genderMap = {
+    W: "WOMEN",
+    M: "MEN",
+  };
+
+  const categoryMap = {
+    아우터: "OUTER",
+    상의: "TOP",
+    팬츠: "PANTS",
+    스커트: "SKIRT",
+    원피스: "ONE_PIECE",
+    신발: "SHOES",
+    가방: "BAG",
+    악세사리: "ACC",
+  };
   const [isClicked, setIsClicked] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -68,23 +85,22 @@ export default function HomeItem() {
   };
   const handleGenderClick = (gender) => {
     setSelectedGender(gender);
-    console.log(gender);
   };
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    console.log(category);
   };
-  const morePage = () => {
-    setItemsToShow((prevItemsToShow) => {
-      const newCount = prevItemsToShow + itemsPerPage;
-      return newCount <= items.length ? newCount : items.length;
-    });
-  };
+  // const morePage = () => {
+  //   setItemsToShow((prevItemsToShow) => {
+  //     const newCount = prevItemsToShow + itemsPerPage;
+  //     return newCount <= items.length ? newCount : items.length;
+  //   });
+  // };
   const handleImageClick = (event) => {
     setIsClicked(true);
-    feedClick(event, imgRef, mediaUrls, setSimilarImages);
+    const combinedCategory = `${genderMap[selectedGender]}_${categoryMap[selectedCategory]}`;
+    console.log("combinedCategory:", combinedCategory);
+    feedClick(event, imgRef, mediaUrls, setItem, combinedCategory);
   };
-  console.log(items);
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
@@ -154,27 +170,20 @@ export default function HomeItem() {
           {itemLoading ? (
             <div style={{ width: '88rem' }}><Loading /></div>
           ) : (
-            items.slice(0, itemsToShow).map((item, index) => (
-              <Item
-                key={index}
-                brand={item.brand}
-                name={item.name}
-                price={item.price}
-                itemImage={item.itemUrl}
-                shoppingLink={item.shoppingLink}
-                likeCount={item.likeCount}
-                index={index}
-                width={'20rem'}
-              />
-            ))
+            <Item
+            key={item.id}
+            brand={item.brand}
+            name={item.name}
+            price={item.price}
+            itemImage={item.itemUrl}
+            shoppingLink={item.shoppingLink}
+            likeCount={item.likeCount}
+            index={item.id}
+            width={'20rem'}
+          />
           )}
         </ItemList>
         <ButtonList style={{ display: !itemLoading ? "block" : "none" }}>
-          {itemsToShow < items.length && (
-            <button className="whiteButton" onClick={morePage}>
-              더보기
-            </button>
-          )}
           <CommunityBtn onClick={openPopup}>
             찾는 제품이 없으신가요?
           </CommunityBtn>
