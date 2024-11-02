@@ -57,8 +57,6 @@ export default function AccountManageForm({
 
         FeedStore.getState().setFeeds([]);
         FeedStore.getState().setTotalCount(0);
-        FeedStore.getState().setProxyImageUrls([]);
-        FeedStore.getState().setProxyProfileImageUrl([]);
         localStorage.removeItem('feed-storage'); 
         break;
 
