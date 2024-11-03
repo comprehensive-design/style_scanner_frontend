@@ -7,14 +7,14 @@ on:
 jobs:
   # 1. Build 명령어를 활용한 테스트 진행
   build-test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       DISABLE_ESLINT_PLUGIN: true
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.5.1
         with:
-          node-version: "21.2.0"
+          node-version: "20.18.0"
       - name: Install dependencies
         run: npm install
       - name: Try build

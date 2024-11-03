@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       # 1. Compare branch 코드 내려 받기
@@ -28,4 +28,3 @@ jobs:
             git pull origin main
             npm install
             nohup npm start &
-            sudo systemctl restart nginx
