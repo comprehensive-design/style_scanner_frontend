@@ -120,6 +120,7 @@ export async function feedClick(event, imgRef, mediaUrls, setItems, combinedCate
         setItemLoading(false);
 
     } catch (error) {
-        console.error('Error processing the image:', error);
+        alert("죄송합니다. 다시 클릭해주세요!");
+        // console.error('Error processing the image:', error);
     }
 }
