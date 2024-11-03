@@ -29,7 +29,7 @@ const findClipImages = async (uploadedImageUrl) => {
         params: { seg_img_url: uploadedImageUrl, folder_name: 'items/' },
         headers: { Authorization: `Bearer ${token}` }
     });
-    return response.data.similar_images.slice(0, 2);
+    return response.data.similar_images;
 };
 
 // 구글렌즈 검색
@@ -60,6 +60,10 @@ const fetchItemData = async (similarImageIds) => {
         return response.data;
     });
     return await Promise.all(fetchPromises);
+};
+const fetchClipItemData = async (id) => {
+    const response = await api.get(`/api/item/${id}`);
+    return response.data;
 };
 
 // feedClick 함수
@@ -104,16 +108,13 @@ export async function feedClick(event, imgRef, mediaUrls, setItems, combinedCate
         });
 
         const similarImageIds = await Promise.all(uploadPromises);
-        console.log("추가된 아이템 IDs:", similarImageIds);
-
+        console.log(similarImageIds);
         const itemDataArray = await fetchItemData(similarImageIds);
-        console.log("아이템 데이터 배열:", itemDataArray);
 
-
-        //뒤에 2개
-        const clipImages = await findClipImages(segmentedBlob);
-
-        const combinedItems = [...itemDataArray, ...clipImages];
+        //뒤에 1개
+        const clipImages = await findClipImages(uploadedImageUrl);
+        const clipItemData = await fetchClipItemData(clipImages[0][0]);
+        const combinedItems = [...itemDataArray, ...[clipItemData]];
         setItems(combinedItems);
         console.log("최종 아이템 배열:", combinedItems);
         setItemLoading(false);

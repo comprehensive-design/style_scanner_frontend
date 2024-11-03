@@ -8,6 +8,7 @@ import { theme } from "../../style/theme";
 export default function Item({
   itemId,
   brand,
+  platform,
   name,
   price,
   itemImage,
@@ -51,7 +52,7 @@ export default function Item({
       />
       <ItemInfoTopWrapper className="p1">
         <p className="boldContent mb05 ellipsis" style={{ minHeight: "1rem" }}>
-          {brand}
+          {brand?brand:platform}
         </p>
         <p className="content ellipsis" style={{ minHeight: "1rem" }}>
           {name}
