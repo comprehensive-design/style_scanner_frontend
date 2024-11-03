@@ -22,15 +22,15 @@ const uploadSegmentedImage = async (segmentedBlob) => {
     return response.data.image_url;
 };
 
-// // 유사 이미지 검색
-// const findSimilarImages = async (uploadedImageUrl) => {
-//     const token = localStorage.getItem("accessToken");
-//     const response = await axios.get('http://127.0.0.1:8000/clip', {
-//         params: { seg_img_url: uploadedImageUrl, folder_name: 'items/' },
-//         headers: { Authorization: `Bearer ${token}` }
-//     });
-//     return response.data.similar_images;
-// };
+// 유사 이미지 검색
+const findClipImages = async (uploadedImageUrl) => {
+    const token = localStorage.getItem("accessToken");
+    const response = await axios.get('http://127.0.0.1:8000/clip', {
+        params: { seg_img_url: uploadedImageUrl, folder_name: 'items/' },
+        headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data.similar_images;
+};
 
 // 구글렌즈 검색
 const findGoogleLensImages = async (uploadedImageUrl) => {
@@ -39,31 +39,37 @@ const findGoogleLensImages = async (uploadedImageUrl) => {
         params: { seg_img_url: uploadedImageUrl },
         headers: { Authorization: `Bearer ${token}` }
     });
-    console.log(response.data);
-    return response.data;
+    console.log(response.data.results);
+    return response.data.results;
 };
 
-const uploadGoogleLensImage = async (requestBody) => {
+const uploadGoogleLensImages = async (requestBody) => {
     const response = await api.post('/api/item/create', requestBody);
     const message = response.data.message;
     const idMatch = message.match(/ID: (\d+)/);
     if (idMatch && idMatch[1]) {
-      const itemId = idMatch[1];
-      console.log("추가된 아이템 ID:", itemId);
-      return itemId;
+        const itemId = idMatch[1];
+        return itemId;
     } else {
-      console.error("ID를 메시지에서 찾을 수 없습니다.");
-      return null;
+        return null;
     }
 };
-const fetchItemData = async (similarImageId) => {
-    const response = await api.get(`/api/item/${similarImageId}`);
+const fetchItemData = async (similarImageIds) => {
+    const fetchPromises = similarImageIds.map(async (similarImageId) => {
+        const response = await api.get(`/api/item/${similarImageId}`);
+        return response.data;
+    });
+    return await Promise.all(fetchPromises);
+};
+const fetchClipItemData = async (id) => {
+    const response = await api.get(`/api/item/${id}`);
     return response.data;
 };
 
 // feedClick 함수
-export async function feedClick(event, imgRef, mediaUrls, setItem, combinedCategory,setItemLoading) {
+export async function feedClick(event, imgRef, mediaUrls, setItems, combinedCategory, setItemLoading) {
     alert("item click");
+    setItemLoading(true);
     if (!imgRef || !imgRef.current) return;
 
     const imageElement = imgRef.current.querySelector('#feedImage');
@@ -85,24 +91,35 @@ export async function feedClick(event, imgRef, mediaUrls, setItem, combinedCateg
         // Segmentation 요청
         const segmentedBlob = await requestSegmentation(xInImage, yInImage, mediaUrls[imageKey]);
         const uploadedImageUrl = await uploadSegmentedImage(segmentedBlob);
-        const googleLensImage = await findGoogleLensImages(uploadedImageUrl);
-        
-        const requestBody = {
-            title: googleLensImage.title,
-            imageUrl: googleLensImage.image_url,
-            cost: parseInt(googleLensImage.cost.replace(/[^0-9]/g, ""), 10),
-            shoppingLink: googleLensImage.shopping_link,
-            sellerIcon: googleLensImage.seller_icon,
-            sellerName: googleLensImage.seller_name,
-            category: combinedCategory 
-        };
-        console.log(requestBody);
-        const similarImageId = await uploadGoogleLensImage(requestBody);
-        const item = await fetchItemData(similarImageId);
-        setItem(item);
+
+        //앞에 3개 
+        const googleLensImages = await findGoogleLensImages(uploadedImageUrl);
+
+        const uploadPromises = googleLensImages.map(async (googleLensImage) => {
+            const requestBody = {
+                title: googleLensImage.title,
+                imageUrl: googleLensImage.image_url,
+                cost: parseInt(googleLensImage.cost.replace(/[^0-9]/g, ""), 10),
+                shoppingLink: googleLensImage.shopping_link,
+                sellerIcon: googleLensImage.seller_icon,
+                sellerName: googleLensImage.seller_name,
+                category: combinedCategory
+            };
+            return await uploadGoogleLensImages(requestBody);
+        });
+
+        const similarImageIds = await Promise.all(uploadPromises);
+        const itemDataArray = await fetchItemData(similarImageIds);
+
+        //뒤에 1개
+        const clipImages = await findClipImages(uploadedImageUrl);
+        const clipItemData = await fetchClipItemData(clipImages[0][0]);
+        const combinedItems = [...itemDataArray, ...[clipItemData]];
+        setItems(combinedItems);
         setItemLoading(false);
-       
+
     } catch (error) {
-        console.error('Error processing the image:', error);
+        alert("죄송합니다. 다시 클릭해주세요!");
+        // console.error('Error processing the image:', error);
     }
 }

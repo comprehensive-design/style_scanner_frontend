@@ -10,7 +10,7 @@ export const useHomeItemLogic = () => {
     const [proxyImageUrls, setProxyImageUrls] = useState(mediaUrls || []);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [itemLoading, setItemLoading] = useState(true);
-    const [item, setItem] = useState(null); 
+    const [items, setItems] = useState(null); 
 
     // 썸네일 이미지 변환
     useEffect(() => {
@@ -37,7 +37,7 @@ export const useHomeItemLogic = () => {
         profile_url,
         itemLoading,
         setItemLoading,
-        item,        
-        setItem 
+        items,        
+        setItems 
     };
 };

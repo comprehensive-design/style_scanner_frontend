@@ -19,9 +19,9 @@ export default function HomeItem() {
     username,
     profile_url,
     feedCodes,
-    item,
+    items,
     itemLoading,
-    setItem,
+    setItems,
     setItemLoading,
   } = useHomeItemLogic();
   const categories = [
@@ -88,23 +88,23 @@ export default function HomeItem() {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
-  // const morePage = () => {
-  //   setItemsToShow((prevItemsToShow) => {
-  //     const newCount = prevItemsToShow + itemsPerPage;
-  //     return newCount <= items.length ? newCount : items.length;
-  //   });
-  // };
+  const morePage = () => {
+    setItemsToShow((prevItemsToShow) => {
+      const newCount = prevItemsToShow + itemsPerPage;
+      return newCount <= items.length ? newCount : items.length;
+    });
+  };
   const handleImageClick = (event) => {
     setIsClicked(true);
     const combinedCategory = `${genderMap[selectedGender]}_${categoryMap[selectedCategory]}`;
-    feedClick(event, imgRef, mediaUrls, setItem, combinedCategory,setItemLoading);
+    feedClick(event, imgRef, mediaUrls, setItems, combinedCategory, setItemLoading);
   };
   return (
     <div className="mainWrapper">
       <FeedWrapper className="p1">
         <CategoryWrapper className="borderRad mr3">
           <div className="flex">
-            <CategoryBtn  className={selectedGender === 'M' ? 'active boldContent' : 'boldContent'} onClick={() => handleGenderClick('M')}>M</CategoryBtn>
+            <CategoryBtn className={selectedGender === 'M' ? 'active boldContent' : 'boldContent'} onClick={() => handleGenderClick('M')}>M</CategoryBtn>
             <CategoryBtn className={selectedGender === 'W' ? 'active boldContent' : 'boldContent'} onClick={() => handleGenderClick('W')}>W</CategoryBtn>
           </div>
           {categories.map((category, index) => (
@@ -168,20 +168,23 @@ export default function HomeItem() {
           {itemLoading ? (
             <div style={{ width: '88rem' }}><Loading /></div>
           ) : (
-            <Item
-            itemId={item.id}
-            key={item.id}
-            brand={item.platform}
-            name={item.name}
-            price={item.price}
-            itemImage={item.itemUrl}
-            shoppingLink={item.shoppingLink}
-            likeCount={item.likeCount}
-            width={'20rem'}
-          />
+            items.slice(0, itemsToShow).map((item, index) => (
+              <Item
+                itemId={item.id}
+                key={item.id}
+                platform={item.platform}
+                brand={item.brand}
+                name={item.name}
+                price={item.price}
+                itemImage={item.itemUrl}
+                shoppingLink={item.shoppingLink}
+                likeCount={item.likeCount}
+                width={'20rem'}
+              />
+            ))
           )}
         </ItemList>
-        <ButtonList>
+        <ButtonList >
           <CommunityBtn onClick={openPopup}>
             찾는 제품이 없으신가요?
           </CommunityBtn>
