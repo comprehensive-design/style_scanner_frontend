@@ -69,6 +69,7 @@ const fetchClipItemData = async (id) => {
 // feedClick 함수
 export async function feedClick(event, imgRef, mediaUrls, setItems, combinedCategory, setItemLoading) {
     alert("item click");
+    setItemLoading(true);
     if (!imgRef || !imgRef.current) return;
 
     const imageElement = imgRef.current.querySelector('#feedImage');
@@ -108,7 +109,6 @@ export async function feedClick(event, imgRef, mediaUrls, setItems, combinedCate
         });
 
         const similarImageIds = await Promise.all(uploadPromises);
-        console.log(similarImageIds);
         const itemDataArray = await fetchItemData(similarImageIds);
 
         //뒤에 1개
@@ -116,7 +116,6 @@ export async function feedClick(event, imgRef, mediaUrls, setItems, combinedCate
         const clipItemData = await fetchClipItemData(clipImages[0][0]);
         const combinedItems = [...itemDataArray, ...[clipItemData]];
         setItems(combinedItems);
-        console.log("최종 아이템 배열:", combinedItems);
         setItemLoading(false);
 
     } catch (error) {
