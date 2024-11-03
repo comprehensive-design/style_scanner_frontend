@@ -184,11 +184,6 @@ export default function HomeItem() {
           )}
         </ItemList>
         <ButtonList >
-          {itemsToShow < items.length && (
-            <button className="whiteButton" onClick={morePage}  style={{ display: !itemLoading ? "block" : "none" }}>
-              더보기
-            </button>
-          )}
           <CommunityBtn onClick={openPopup}>
             찾는 제품이 없으신가요?
           </CommunityBtn>
