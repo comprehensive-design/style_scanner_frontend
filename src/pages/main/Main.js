@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from './Main.module.css';
 import { Link } from "react-router-dom";
 import Footer from '../../Components/Footer';
+import styled from 'styled-components';
 
 
 function Main() {
@@ -37,7 +38,14 @@ function Main() {
       outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
     };
   }, []);
+  const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 
+  &:hover {
+    color: gray;
+  }
+`;
   return (
     <>
       <div ref={outerDivRef} className={styles.outer}>
@@ -51,7 +59,7 @@ function Main() {
         <div className={styles.divider}></div>
 
         <div className={`${styles.inner} ${styles.bg2}`} style={{ backgroundImage: "url('/img/Main5.png')" }}>
-          <div className={styles.link}><Link to="/Login">지금 바로 시작하기</Link></div>
+          <div className={styles.link}><StyledLink to="/Login">지금 바로 시작하기</StyledLink></div>
           <div className={styles.footer}><Footer></Footer></div>
         </div>
       </div>
